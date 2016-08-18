@@ -2,9 +2,8 @@ import React from 'react';
 import Demo from '../../demo/Demo.jsx';
 import Button from '../Button/Button.jsx';
 import Popover, {PLACEMENT, ALIGN} from './Popover.jsx';
-// import Selectbox from '../Selectbox/Selectbox.jsx';
+import Selectbox from '../Selectbox/Selectbox.jsx';
 import MenuItem from '../Menu/MenuItem.jsx';
-import Pure from '../Pure/Pure.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 import {storiesOf} from '@kadira/storybook';
 
@@ -64,37 +63,37 @@ class PopoverPage extends React.Component {
 		return (
 			<Demo>
 				<div className={css.container}>
-					{/*<div>*/}
-						{/*<label className={css.label}>Placement</label>*/}
-						{/*<Selectbox defaultValue={PLACEMENT.BOTTOM} onChange={this.onPlacementSelect}>*/}
-							{/*<MenuItem value={PLACEMENT.TOP}>Top</MenuItem>*/}
-							{/*<MenuItem value={PLACEMENT.BOTTOM}>Bottom</MenuItem>*/}
-							{/*<MenuItem value={PLACEMENT.LEFT}>Left</MenuItem>*/}
-							{/*<MenuItem value={PLACEMENT.RIGHT}>Right</MenuItem>*/}
-						{/*</Selectbox>*/}
-						{/*<label className={css.label}>Align</label>*/}
-						{/*{(placement === PLACEMENT.TOP || placement === PLACEMENT.BOTTOM) && (*/}
-							{/*<Selectbox defaultValue={DEFAULT_HORIZONTAL_ALIGN}*/}
-							           {/*onChange={this.onAlignSelect}>*/}
-								{/*<MenuItem value={ALIGN.LEFT}>Left</MenuItem>*/}
-								{/*<MenuItem value={ALIGN.CENTER}>Center</MenuItem>*/}
-								{/*<MenuItem value={ALIGN.RIGHT}>Right</MenuItem>*/}
-							{/*</Selectbox>*/}
-						{/*)}*/}
-						{/*{(placement === PLACEMENT.LEFT || placement === PLACEMENT.RIGHT) && (*/}
-							{/*<Selectbox defaultValue={DEFAULT_VERTICAL_ALIGN}*/}
-							           {/*onChange={this.onAlignSelect}>*/}
-								{/*<MenuItem value={ALIGN.TOP}>Top</MenuItem>*/}
-								{/*<MenuItem value={ALIGN.MIDDLE}>Middle</MenuItem>*/}
-								{/*<MenuItem value={ALIGN.BOTTOM}>Bottom</MenuItem>*/}
-							{/*</Selectbox>*/}
-						{/*)}*/}
-						{/*<label className={css.label}>*/}
-							{/*Close on clickaway <input type="checkbox"*/}
-							                          {/*value={closeOnClickAway}*/}
-							                          {/*onChange={this.onCloseOnClickAwayChange}/>*/}
-						{/*</label>*/}
-					{/*</div>*/}
+					<div>
+						<label className={css.label}>Placement</label>
+						<Selectbox defaultValue={PLACEMENT.BOTTOM} onChange={this.onPlacementSelect}>
+							<MenuItem value={PLACEMENT.TOP}>Top</MenuItem>
+							<MenuItem value={PLACEMENT.BOTTOM}>Bottom</MenuItem>
+							<MenuItem value={PLACEMENT.LEFT}>Left</MenuItem>
+							<MenuItem value={PLACEMENT.RIGHT}>Right</MenuItem>
+						</Selectbox>
+						<label className={css.label}>Align</label>
+						{(placement === PLACEMENT.TOP || placement === PLACEMENT.BOTTOM) && (
+							<Selectbox defaultValue={DEFAULT_HORIZONTAL_ALIGN}
+							           onChange={this.onAlignSelect}>
+								<MenuItem value={ALIGN.LEFT}>Left</MenuItem>
+								<MenuItem value={ALIGN.CENTER}>Center</MenuItem>
+								<MenuItem value={ALIGN.RIGHT}>Right</MenuItem>
+							</Selectbox>
+						)}
+						{(placement === PLACEMENT.LEFT || placement === PLACEMENT.RIGHT) && (
+							<Selectbox defaultValue={DEFAULT_VERTICAL_ALIGN}
+							           onChange={this.onAlignSelect}>
+								<MenuItem value={ALIGN.TOP}>Top</MenuItem>
+								<MenuItem value={ALIGN.MIDDLE}>Middle</MenuItem>
+								<MenuItem value={ALIGN.BOTTOM}>Bottom</MenuItem>
+							</Selectbox>
+						)}
+						<label className={css.label}>
+							Close on clickaway <input type="checkbox"
+							                          value={closeOnClickAway}
+							                          onChange={this.onCloseOnClickAwayChange}/>
+						</label>
+					</div>
 					<Button isPrimary={true}
 					        onClick={this.onToggleClick}
 					        ref={el => this._anchor = el}
