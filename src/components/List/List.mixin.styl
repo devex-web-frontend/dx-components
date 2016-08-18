@@ -1,0 +1,10 @@
+list-nesting($nestingPadding = 24, $nestingLimit = 10) {
+	for $level in (0..$nestingLimit) {
+		$padding = ($level * $nestingPadding) px;
+		
+		.item_level_{$level},
+		.itemGroup_level_{$level} .itemGroup__header {
+			padding-left: $padding;
+		}
+	}
+}
