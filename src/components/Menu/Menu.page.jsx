@@ -4,14 +4,11 @@ import Demo from '../../demo/Demo.jsx';
 import Menu from './Menu.jsx';
 import MenuItem from './MenuItem.jsx';
 import MenuItemGroup from './MenuItemGroup.jsx';
-import classnames from 'classnames';
 
-import pageTheme from './Menu.page.styl';
-import menuTheme from './Menu.demo.styl';
+import css from './Menu.page.styl';
 
 const theme = {
-	...menuTheme,
-	container: classnames(menuTheme.container, pageTheme.list)
+	container: css.list
 };
 
 const Item = props => <MenuItem {...props} theme={theme}/>;

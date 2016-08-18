@@ -4,8 +4,12 @@ import config from '../config/theme';
 import {LIST} from '../components/List/List';
 import list from '../components/List/List.demo.styl';
 
+import {MENU} from '../components/Menu/Menu';
+import menu from '../components/Menu/Menu.demo.styl';
+
 export default {
 	...config,
 	//additional styles
-	[LIST]: list
+	[LIST]: list,
+	[MENU]: menu
 };
