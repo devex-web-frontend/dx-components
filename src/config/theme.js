@@ -16,11 +16,15 @@ import list from '../components/List/List.styl';
 import {MENU} from '../components/Menu/Menu';
 import menu from '../components/Menu/Menu.styl';
 
+import {POPOVER} from '../components/Popover/Popover';
+import popover from '../components/Popover/Popover.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
 	[BUTTON_ICON]: buttonIcon,
 	[LINK]: link,
 	[LIST]: list,
-	[MENU]: menu
+	[MENU]: menu,
+	[POPOVER]: popover
 };
