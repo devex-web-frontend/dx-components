@@ -14,7 +14,7 @@ const buttonTheme = {
 	container: css.toggleButton
 };
 
-@PURE
+@PURE()
 class HeavyContent extends React.Component {
 	static propTypes = {
 		isLong: React.PropTypes.bool
@@ -46,7 +46,7 @@ const DEFAULT_PLACEMENT = PLACEMENT.BOTTOM;
 const DEFAULT_HORIZONTAL_ALIGN = ALIGN.LEFT;
 const DEFAULT_VERTICAL_ALIGN = ALIGN.TOP;
 
-@PURE
+@PURE()
 class PopoverPage extends React.Component {
 
 	state = {

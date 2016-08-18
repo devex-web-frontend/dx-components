@@ -40,18 +40,20 @@ const PLACEMENT_MODIFIER_MAP = {
 	[PLACEMENT.RIGHT]: 'placementRight'
 };
 
-const ALIGN_MODIFIER_MAP = {
-	[ALIGN.LEFT]: 'alignLeft',
-	[ALIGN.CENTER]: 'alignCenter',
-	[ALIGN.RIGHT]: 'alignRight',
-	[ALIGN.TOP]: 'alignTop',
-	[ALIGN.MIDDLE]: 'alignMiddle',
-	[ALIGN.BOTTOM]: 'alignBottom'
+export const POPOVER_THEME_SHAPE_OBJECT = {
+	container: React.PropTypes.string,
+	container_hasArrow: React.PropTypes.string,
+	container_placementTop: React.PropTypes.string,
+	container_placementBottom: React.PropTypes.string,
+	container_placementLeft: React.PropTypes.string,
+	container_placementRight: React.PropTypes.string,
+	content: React.PropTypes.string,
+	arrow: React.PropTypes.string
 };
 
 export const POPOVER = Symbol('Popover');
 
-@PURE
+@PURE()
 @themr(POPOVER)
 export default class Popover extends React.Component {
 	static propTypes = {
@@ -94,9 +96,7 @@ export default class Popover extends React.Component {
 
 		hasArrow: React.PropTypes.bool,
 
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string
-		})
+		theme: React.PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT)
 	};
 
 	static defaultProps = {
@@ -128,7 +128,7 @@ export default class Popover extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		//@PURE check is passed here - update anyway
+		//@PURE() check is passed here - update anyway
 		if (this._needsUpdate) {
 			/** set in {@link componentWillReceiveProps} */
 			this._needsUpdate = false;
@@ -168,8 +168,7 @@ export default class Popover extends React.Component {
 					[theme.container_hasArrow]: hasArrow
 				},
 				[
-					PLACEMENT_MODIFIER_MAP[finalPlacement],
-					ALIGN_MODIFIER_MAP[finalAlign]
+					PLACEMENT_MODIFIER_MAP[finalPlacement]
 				].map(mod => theme[`container_${mod}`])
 			);
 		}

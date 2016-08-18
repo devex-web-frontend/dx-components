@@ -17,7 +17,7 @@ export const DEFAULT_PROPS = {
 	level: 0
 };
 
-@PURE
+@PURE()
 @themr(LIST)
 export default class ListItem extends React.Component {
 	static propTypes = PROP_TYPES;

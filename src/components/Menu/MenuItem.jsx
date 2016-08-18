@@ -6,7 +6,7 @@ import classnames from 'classnames';
 
 import {MENU} from './Menu.jsx';
 
-@PURE
+@PURE()
 @themr(MENU)
 export default class MenuItem extends React.Component {
 	static propTypes = {

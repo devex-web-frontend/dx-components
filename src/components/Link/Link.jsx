@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 export const LINK = Symbol('Link');
 
-@PURE
+@PURE()
 @themr(LINK)
 export default class Link extends React.Component {
 	static propTypes = {
