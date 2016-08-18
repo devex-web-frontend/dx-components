@@ -3,7 +3,7 @@ import {themr, ThemeProvider} from 'react-css-themr';
 
 import css from './Demo.styl';
 
-import theme from '../config/theme.js';
+import theme from './theme.js';
 
 const PROP_TYPES = {
 	children: React.PropTypes.node.isRequired,

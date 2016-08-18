@@ -1,10 +1,10 @@
-list-nesting($nestingPadding = 24, $nestingLimit = 10) {
-	for $level in (0..$nestingLimit) {
-		$padding = ($level * $nestingPadding) px;
-		
-		.item_level_{$level},
-		.itemGroup_level_{$level} .itemGroup__header {
-			padding-left: $padding;
+@require '../../util/mixins.styl';
+
+list-nesting($selector, $padding = 0, $limit = 0) {
+	if $padding and $limit {
+		.{$selector} {
+			nesting(item, $padding, $limit);
+			nesting(itemGroup, $padding, $limit, itemGroup__header);
 		}
 	}
 }
