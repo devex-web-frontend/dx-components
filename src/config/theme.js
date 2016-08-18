@@ -19,6 +19,9 @@ import menu from '../components/Menu/Menu.styl';
 import {POPOVER} from '../components/Popover/Popover';
 import popover from '../components/Popover/Popover.styl';
 
+import {SELECTBOX} from '../components/Selectbox/Selectbox';
+import selectbox from '../components/Selectbox/Selectbox.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -26,5 +29,6 @@ export default {
 	[LINK]: link,
 	[LIST]: list,
 	[MENU]: menu,
-	[POPOVER]: popover
+	[POPOVER]: popover,
+	[SELECTBOX]: selectbox
 };

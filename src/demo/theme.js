@@ -10,10 +10,14 @@ import menu from '../components/Menu/Menu.demo.styl';
 import {POPOVER} from '../components/Popover/Popover';
 import popover from '../components/Popover/Popover.demo.styl';
 
+import {SELECTBOX} from '../components/Selectbox/Selectbox';
+import selectbox from '../components/Selectbox/Selectbox.demo.styl';
+
 export default {
 	...config,
-	//additional styles
+	//additional demo styles
 	[LIST]: list,
 	[MENU]: menu,
-	[POPOVER]: popover
+	[POPOVER]: popover,
+	[SELECTBOX]: selectbox
 };
