@@ -3,11 +3,12 @@ nesting($selector, $padding = 0, $limit = 0, $nestedSelector = null) {
 		for $level in (0..$limit) {
 			$currentPadding = ($level * $padding) px;
 			
-			.{$selector}_level_{$level} {
-				padding-left: $currentPadding;
-			}
 			if $nestedSelector {
 				.{$selector}_level_{$level} .{$nestedSelector} {
+					padding-left: $currentPadding;
+				}
+			} else {
+				.{$selector}_level_{$level} {
 					padding-left: $currentPadding;
 				}
 			}
