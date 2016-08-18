@@ -1,6 +1,6 @@
 Popover($selector, $arrowSize = 0, $arrowColor = transparent) {
-	.{$selector} {
-		if $arrowSize {
+	if $arrowSize {
+		.{$selector} {
 			&_hasArrow {
 				&.{$selector}_placementTop {
 					padding-bottom: $arrowSize;

@@ -8,7 +8,6 @@ import Pure from '../Pure/Pure.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 import {storiesOf} from '@kadira/storybook';
 
-import popoverTheme from './Popover.demo.styl';
 import css from './Popover.page.styl';
 const buttonTheme = {
 	container: css.toggleButton
@@ -102,7 +101,6 @@ class PopoverPage extends React.Component {
 					        theme={buttonTheme}>
 						{isOpened ? 'Hide' : 'Open'}
 						<Popover placement={placement}
-						         theme={popoverTheme}
 						         isOpened={isOpened}
 						         onRequestClose={this.onPopoverRequestClose}
 						         closeOnClickAway={closeOnClickAway}
