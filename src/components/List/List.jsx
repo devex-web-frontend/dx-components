@@ -3,12 +3,17 @@ import {themr} from 'react-css-themr';
 import classnames from 'classnames';
 
 export const LIST = Symbol('List');
+export const LIST_THEME_SHAPE_OBJECT = {
+	container: React.PropTypes.string,
+	itemGroup: React.PropTypes.string,
+	itemGroup_header: React.PropTypes.string,
+	itemGroup_collapsed: React.PropTypes.string
+	//we don't define levels here
+};
 
 export const PROP_TYPES = {
 	children: React.PropTypes.node,
-	theme: React.PropTypes.shape({
-		container: React.PropTypes.string
-	}),
+	theme: React.PropTypes.shape(LIST_THEME_SHAPE_OBJECT),
 	level: React.PropTypes.number
 };
 
