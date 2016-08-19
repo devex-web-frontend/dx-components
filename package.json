@@ -7,7 +7,8 @@
     "bower": "bower",
     "eslint": "eslint --config ./node_modules/dx-lint/.react.eslintrc --ext .js,.jsx .",
     "start": "node ./scripts/run.js ./scripts/start.js",
-    "test": "npm run eslint"
+    "test": "npm run eslint",
+    "dx-flow": "dx-flow"
   },
   "repository": {
     "type": "git",
@@ -57,7 +58,7 @@
     "clone": "^1.0.2",
     "core-js": "^2.4.0",
     "css-loader": "^0.23.1",
-    "dx-flow": "devex-web-frontend/dx-flow",
+    "dx-flow": "github:devex-web-frontend/dx-flow",
     "dx-lint": "github:devex-web-frontend/dx-lint#0.2.6",
     "eslint": "^2.13.1",
     "eslint-plugin-babel": "^3.3.0",
