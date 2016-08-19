@@ -1,6 +1,6 @@
 {
   "name": "dx-components",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Theme-unaware components",
   "main": "index.js",
   "authors": ["DX"],
@@ -8,6 +8,6 @@
   "homepage": "https://github.com/devex-web-frontend/dx-components",
   "private": true,
   "dependencies": {
-    "dx-util": "devex-web-frontend/dx-util#develop"
+    "dx-util": "devex-web-frontend/dx-util#~0.10.20"
   }
 }
