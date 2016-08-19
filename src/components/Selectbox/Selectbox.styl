@@ -1,7 +1,9 @@
 .container {
 	&__anchor {
 		&__text {
-			composes: ellipsis from '../../util/helpers.styl';
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 		&__content {
 			text-align: left;
@@ -23,7 +25,9 @@
 	
 	&__item {
 		&__text {
-			composes: ellipsis from '../../util/helpers.styl';
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 	}
 	
