@@ -1,0 +1,13 @@
+{
+  "name": "dx-components",
+  "version": "0.2.0",
+  "description": "Theme-unaware components",
+  "main": "index.js",
+  "authors": ["DX"],
+  "license": "ISC",
+  "homepage": "https://github.com/devex-web-frontend/dx-components",
+  "private": true,
+  "dependencies": {
+    "dx-util": "devex-web-frontend/dx-util#develop"
+  }
+}

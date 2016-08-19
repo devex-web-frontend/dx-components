@@ -1,0 +1,24 @@
+.container {
+	user-select: none;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	box-sizing: border-box;
+	font-size: inherit; //override default user-agent stylesheet
+	outline: none;
+	
+	&:not(:disabled) {
+		cursor: pointer;
+	}
+		
+	//types
+	&_primary {
+		composes: container;
+	}
+	&_flat {
+		composes: container;
+		background-color: transparent;
+		border: none;
+		box-shadow: none;
+	}
+}
