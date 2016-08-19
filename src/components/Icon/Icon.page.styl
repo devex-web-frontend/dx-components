@@ -1,0 +1,23 @@
+.container {
+	display: block;
+	width: 3em;
+	
+	:global {
+		.icon {
+			margin: 0 1em;
+			&-add svg {
+				fill: green;
+			}
+			&-bars-chart svg {
+				fill: yellow;
+				stroke-width: 10px;
+				width: 2em;
+				height: 2em;
+			}
+			&-show-password svg {
+				fill: white;
+				background: mediumpurple;
+			}
+		}
+	}
+}
