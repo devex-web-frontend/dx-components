@@ -15,6 +15,7 @@ export default class Link extends React.Component {
 		rel: React.PropTypes.string,
 		isDisabled: React.PropTypes.bool,
 		processEmptyHash: React.PropTypes.bool,
+		onClick: React.PropTypes.func,
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string,
 			container_isDisabled: React.PropTypes.string
@@ -46,5 +47,6 @@ export default class Link extends React.Component {
 		if (this.props.isDisabled || !this.props.processEmptyHash && this.props.href === '#') {
 			e.preventDefault();
 		}
+		this.props.onClick && this.props.onClick(e);
 	}
 }
