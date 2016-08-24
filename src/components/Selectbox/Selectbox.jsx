@@ -9,7 +9,7 @@ import classnames from 'classnames';
 
 export const SELECTBOX = Symbol('Selectbox');
 
-@PURE()
+@PURE
 @themr(SELECTBOX)
 export default class Selectbox extends React.Component {
 	static propTypes = {

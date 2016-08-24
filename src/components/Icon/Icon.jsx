@@ -4,7 +4,7 @@ import {PURE} from 'dx-util/src/react/pure';
 
 export const ICON = Symbol('Icon');
 
-@PURE()
+@PURE
 @themr(ICON)
 export default class Icon extends React.Component {
 	static propTypes = {

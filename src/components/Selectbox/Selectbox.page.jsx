@@ -9,7 +9,7 @@ import {PURE} from 'dx-util/src/react/pure';
 import iconListItemTick from './img/icon-list-item-tick.svg';
 import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
 
-@PURE()
+@PURE
 class SelectboxPage extends React.Component {
 	state = {}
 

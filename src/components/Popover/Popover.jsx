@@ -53,7 +53,7 @@ export const POPOVER_THEME_SHAPE_OBJECT = {
 
 export const POPOVER = Symbol('Popover');
 
-@PURE()
+@PURE
 @themr(POPOVER)
 export default class Popover extends React.Component {
 	static propTypes = {
