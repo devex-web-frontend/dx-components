@@ -17,11 +17,13 @@ export default class Button extends React.Component {
 		isDisabled: React.PropTypes.bool,
 		isPrimary: React.PropTypes.bool,
 		isFlat: React.PropTypes.bool,
-		onClick: React.PropTypes.func,
+		onMouseDown: React.PropTypes.func,
+		onMouseUp: React.PropTypes.func,
+		onClick: React.PropTypes.func
 	}
 
 	render() {
-		const {theme, type, children, onClick, isFlat, isPrimary, isDisabled} = this.props;
+		const {theme, type, children, onClick, onMouseDown, onMouseUp, isFlat, isPrimary, isDisabled} = this.props;
 		const className = classnames(theme.container, {
 			[theme.container_primary]: isPrimary,
 			[theme.container_flat]: isFlat
@@ -30,6 +32,8 @@ export default class Button extends React.Component {
 		return (
 			<button className={className}
 			        onClick={onClick}
+					onMouseDown={onMouseDown}
+					onMouseUp={onMouseUp}
 			        type={type}
 			        disabled={isDisabled}>
 				{children}
