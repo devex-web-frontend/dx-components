@@ -1,0 +1,29 @@
+.container {
+	height: 33px;
+	font-size: 14px;
+	width: 300px;
+	border: none;
+	font-weight: 300;
+	padding: 0 10px;
+	box-shadow: inset 0 0 1px 0 #b9b9b9;
+	transition: background 200ms;
+
+	color: #494949;
+	text-shadow: 1px 0 0 #fff;
+	&:hover:not(:disabled) {
+		background: #fff;
+	}
+
+	&:active:not(:disabled),
+	&:focus:not(:disabled) {
+		background: #f2f2f2;
+		box-shadow: inset 0 0 1px 0 #2196f3
+	}
+
+	&:disabled {
+		background: #f2f2f2;
+		color: rgba(#494949, .6);
+		cursor: not-allowed;
+		box-shadow: inset 0 0 1px 0 #b9b9b9;
+	}
+}

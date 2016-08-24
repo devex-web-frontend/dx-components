@@ -13,11 +13,15 @@ import popover from '../components/Popover/Popover.demo.styl';
 import {SELECTBOX} from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 
+import {INPUT} from '../components/Input/Input.jsx';
+import input from '../components/Input/Input.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
 	[LIST]: list,
 	[MENU]: menu,
 	[POPOVER]: popover,
+	[INPUT]: input,
 	[SELECTBOX]: selectbox
 };
