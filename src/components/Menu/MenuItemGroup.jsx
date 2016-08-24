@@ -4,7 +4,7 @@ import ListItemGroup, {PROP_TYPES, DEFAULT_PROPS} from '../List/ListItemGroup.js
 import Menu, {MENU} from './Menu.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 
-@PURE()
+@PURE
 @themr(MENU)
 export default class MenuItemGroup extends React.Component {
 	static propTypes = {

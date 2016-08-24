@@ -1,6 +1,6 @@
 {
   "name": "dx-components",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Theme-unaware components",
   "main": "index.js",
   "scripts": {
@@ -74,7 +74,6 @@
     "minimist": "^1.2.0",
     "postcss-loader": "^0.9.1",
     "react-addons-perf": "^15.3.0",
-    "react-component-loader": "github:devex-web-frontend/react-component-loader#0.1.5",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",

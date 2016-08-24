@@ -5,7 +5,7 @@ import {themr} from 'react-css-themr';
 
 export const BUTTON = Symbol('Button');
 
-@PURE()
+@PURE
 @themr(BUTTON)
 export default class Button extends React.Component {
 	static propTypes = {
