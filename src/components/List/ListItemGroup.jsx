@@ -2,8 +2,10 @@ import React from 'react';
 import {themr} from 'react-css-themr';
 import classnames from 'classnames';
 
-import {LIST} from './List.jsx';
-import {DEFAULT_PROPS as LIST_ITEM_DEFAULT_PROPS, PROP_TYPES as LIST_ITEM_PROP_TYPES} from './ListItem.jsx';
+import {LIST, CONTEXT_TYPES, CONTEXT_LEVEL_KEY} from './List.jsx';
+import {
+	DEFAULT_PROPS as LIST_ITEM_DEFAULT_PROPS, PROP_TYPES as LIST_ITEM_PROP_TYPES
+} from './ListItem.jsx';
 
 export const PROP_TYPES = {
 	...LIST_ITEM_PROP_TYPES,
@@ -30,8 +32,19 @@ export default class ListItemGroup extends React.Component {
 
 	static defaultProps = DEFAULT_PROPS;
 
+	static contextTypes = CONTEXT_TYPES;
+
+	static childContextTypes = CONTEXT_TYPES;
+
+	getChildContext() {
+		return {
+			[CONTEXT_LEVEL_KEY]: (this.context[CONTEXT_LEVEL_KEY] || 0) + 1
+		};
+	}
+
 	render() {
-		const {theme, isCollapsed, level, children, header, onClick} = this.props;
+		const {theme, isCollapsed, children, header, onClick} = this.props;
+		const level = this.context[CONTEXT_LEVEL_KEY] || 0;
 		const className = classnames(
 			theme.itemGroup,
 			theme[`itemGroup_level_${level}`],
@@ -45,9 +58,7 @@ export default class ListItemGroup extends React.Component {
 				<span className={theme.itemGroup__header} onClick={onClick}>
 					{header}
 				</span>
-				{React.cloneElement(React.Children.only(children), {
-					level: level + 1
-				})}
+				{children}
 			</li>
 		);
 	}
