@@ -16,14 +16,7 @@ export const PROP_TYPES = {
 		React.PropTypes.string,
 		React.PropTypes.number
 	]),
-	pattern(props, propName, componentName) {
-		const {pattern} = props;
-		const className = pattern.constructor && pattern.constructor.name;
-		if (pattern && !(pattern instanceof RegExp)) {
-			throw new Error(`Failed prop type: Invalid prop \`${propName}\` of type \`${className}\`
-			 supplied to \`${componentName}\`, expected instance of \`RegExp\`.`);
-		}
-	},
+	pattern: React.PropTypes.instanceOf(RegExp),
 	theme: React.PropTypes.shape(INPUT_THEME_SHAPE_OBJECT),
 	isReadonly: React.PropTypes.bool,
 	isDisabled: React.PropTypes.bool,
