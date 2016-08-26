@@ -65,7 +65,7 @@ export default class NumericStepper extends Component {
 		max: Infinity,
 		min: 0,
 		value: 1,
-		pattern: /^[0-9\.]*$/,
+		pattern: /^-?[0-9]\d*(\.\d+)?$/,
 		isDisabled: false,
 		InputComponent: Input,
 		ButtonComponent: ButtonIcon
@@ -76,13 +76,22 @@ export default class NumericStepper extends Component {
 		const {onChange} = this.props;
 
 		const correctedValue = this.getCorrectedValue(newValue);
-		if (correctedValue !== value) {
+
+		const isChanged = correctedValue !== value;
+		const isCorrected = correctedValue !== newValue;
+
+		if (isChanged) {
 			this.setState({
 				value: correctedValue,
-				isCorrected: correctedValue !== newValue
+				isCorrected
 			});
-
 			onChange && onChange(correctedValue);
+		}
+
+		if (!isChanged && isCorrected) {
+			this.setState({
+				isCorrected
+			});
 		}
 	}
 
@@ -237,9 +246,14 @@ export default class NumericStepper extends Component {
 	@DEBOUNCE(200)
 	onChange = (value) => {
 		const newValue = parseFloat(value);
-		this.setState({
-			value: newValue
-		});
+		const {isFocused} = this.state;
+		if (!isFocused) {
+			this.setValue(newValue);
+		} else {
+			this.setState({
+				value: newValue
+			});
+		}
 	}
 
 	onButtonDownClick = () => {
