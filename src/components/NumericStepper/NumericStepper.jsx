@@ -73,31 +73,29 @@ export default class NumericStepper extends Component {
 
 	setValue(newValue) {
 		const {value} = this.state;
-		const {onChange, min, max} = this.props;
+		const {onChange} = this.props;
 
-		if (!isNaN(newValue) &&
-			newValue <= parseFloat(max) &&
-			newValue >= parseFloat(min) &&
-			value !== newValue
-		) {
+		const correctedValue = this.getCorrectedValue(newValue);
+		if (correctedValue !== value) {
 			this.setState({
-				value: newValue
+				value: correctedValue,
+				isCorrected: correctedValue !== newValue
 			});
 
-			onChange && onChange(newValue);
+			onChange && onChange(correctedValue);
 		}
 	}
 
-	setIsCorrected() {
-		this.setState({
-			isCorrected: true
-		});
-		const timout = setTimeout(() => {
-			this.setState({
-				isCorrected: false
-			});
-			clearTimeout(timout);
-		}, 750);
+	getCorrectedValue(value) {
+		const {min, max} = this.props;
+		let newValue = parseFloat(value);
+		if (newValue < min) {
+			newValue = min;
+		}
+		if (newValue > max) {
+			newValue = max;
+		}
+		return newValue;
 	}
 
 	step(n) {
@@ -117,6 +115,17 @@ export default class NumericStepper extends Component {
 
 	componentWillReceiveProps(newProps) {
 		this.setValue(newProps.value);
+	}
+
+	componentWillUpdate(newProps, newState) {
+		if (newState.isCorrected) {
+			const timout = setTimeout(() => {
+				this.setState({
+					isCorrected: !newState.isCorrected
+				});
+				clearTimeout(timout);
+			}, 750);
+		}
 	}
 
 	render() {
@@ -206,19 +215,9 @@ export default class NumericStepper extends Component {
 		});
 	}
 
-	onBlur = e => {
-		let {value} = this.state;
-		const {min, max, onBlur} = this.props;
-
-		if (value < min) {
-			value = min;
-			this.setIsCorrected();
-		}
-		if (value > max) {
-			value = max;
-			this.setIsCorrected();
-		}
-
+	onBlur = () => {
+		const {value} = this.state;
+		const {onBlur} = this.props;
 		this.setValue(value);
 		this.setState({
 			isFocused: false
