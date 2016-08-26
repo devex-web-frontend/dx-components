@@ -128,7 +128,7 @@ export default class Popover extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		//@PURE() check is passed here - update anyway
+		//@PURE check is passed here - update anyway
 		if (this._needsUpdate) {
 			/** set in {@link componentWillReceiveProps} */
 			this._needsUpdate = false;
