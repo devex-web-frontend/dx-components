@@ -16,6 +16,9 @@ import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.demo.styl';
 
+import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
+import numericStepper from '../components/NumericStepper/NumericStepper.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -23,5 +26,6 @@ export default {
 	[MENU]: menu,
 	[POPOVER]: popover,
 	[INPUT]: input,
-	[SELECTBOX]: selectbox
+	[SELECTBOX]: selectbox,
+	[NUMERIC_STEPPER]: numericStepper
 };

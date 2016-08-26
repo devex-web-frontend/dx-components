@@ -25,6 +25,9 @@ import selectbox from '../components/Selectbox/Selectbox.styl';
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.styl';
 
+import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
+import numericStepper from '../components/NumericStepper/NumericStepper.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -34,5 +37,6 @@ export default {
 	[MENU]: menu,
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
-	[INPUT]: input
+	[INPUT]: input,
+	[NUMERIC_STEPPER]: numericStepper
 };
