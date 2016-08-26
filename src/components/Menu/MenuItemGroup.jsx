@@ -3,6 +3,7 @@ import {themr} from 'react-css-themr';
 import ListItemGroup, {PROP_TYPES, DEFAULT_PROPS} from '../List/ListItemGroup.jsx';
 import Menu, {MENU} from './Menu.jsx';
 import {PURE} from 'dx-util/src/react/pure';
+import Pure from '../Pure/Pure';
 
 @PURE
 @themr(MENU)
@@ -52,9 +53,11 @@ export default class MenuItemGroup extends React.Component {
 			                        {...this.props}
 			                        header={header}
 			                        isCollapsed={this.state.isCollapsed}>
-				{React.cloneElement(React.Children.only(children), {
-					onItemSelect: this.props.onSelect
-				})}
+				<Pure check={children}>
+					{() => React.cloneElement(React.Children.only(children), {
+						onItemSelect: this.props.onSelect
+					})}
+				</Pure>
 			</ListItemGroupComponent>
 		);
 	}

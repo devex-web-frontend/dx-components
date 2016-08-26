@@ -2,7 +2,7 @@ import React from 'react';
 import {themr} from 'react-css-themr';
 import classnames from 'classnames';
 
-import List, {LIST} from './List.jsx';
+import {LIST} from './List.jsx';
 import {DEFAULT_PROPS as LIST_ITEM_DEFAULT_PROPS, PROP_TYPES as LIST_ITEM_PROP_TYPES} from './ListItem.jsx';
 
 export const PROP_TYPES = {
