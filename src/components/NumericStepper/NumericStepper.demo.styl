@@ -1,4 +1,19 @@
 :global {
+	@keyframes correction {
+		0% {
+			background-color: #7f0d0d;
+		}
+		25% {
+			background-color: #202020;
+		}
+		50% {
+			background-color: #7f0d0d;
+		}
+		100% {
+			background-color: #202020;
+		}
+	}
+
 	@keyframes corrected {
 		0% {
 			background-color: #8B000F;
@@ -7,23 +22,6 @@
 			background-color: #202020;
 		}
 	}
-}
-
-.enter {
-	opacity: 0.01;
-}
-
-.enterActive {
-	opacity: 1;
-	transition: opacity 500ms ease-in;
-}
-.leave  {
-	opacity: 1;
-}
-
-.leaveActive {
-	opacity: 0.01;
-	transition: opacity 300ms ease-in;
 }
 
 .container {
@@ -36,7 +34,7 @@
 		vertical-align: top;
 
 		&_isCorrected {
-			animation: corrected 500ms 2;
+			animation: correction 750ms linear;
 		}
 	}
 

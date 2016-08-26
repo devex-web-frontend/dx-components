@@ -97,7 +97,7 @@ export default class NumericStepper extends Component {
 				isCorrected: false
 			});
 			clearTimeout(timout);
-		}, 1000);
+		}, 750);
 	}
 
 	step(n) {
