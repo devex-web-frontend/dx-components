@@ -10,12 +10,14 @@ export default class MenuItemGroup extends React.Component {
 	static propTypes = {
 		...PROP_TYPES,
 		ListItemGroupComponent: React.PropTypes.func,
+		ListComponent: React.PropTypes.func,
 		onSelect: React.PropTypes.func //this is injected by Menu/MenuItemGroup
 	}
 
 	static defaultProps = {
 		...DEFAULT_PROPS,
 		ListItemGroupComponent: ListItemGroup,
+		ListComponent: Menu,
 		isCollapsed: true //menu is always collapsed
 	}
 
@@ -33,7 +35,7 @@ export default class MenuItemGroup extends React.Component {
 	}
 
 	render() {
-		const {children, theme, ListItemGroupComponent} = this.props;
+		const {children, theme, ListItemGroupComponent, ListComponent} = this.props;
 
 		let header;
 		if (this.props.header) {
@@ -46,7 +48,7 @@ export default class MenuItemGroup extends React.Component {
 
 		return (
 			<ListItemGroupComponent onClick={this.onClick}
-			                        ListComponent={Menu}
+			                        ListComponent={ListComponent}
 			                        {...this.props}
 			                        header={header}
 			                        isCollapsed={this.state.isCollapsed}>
