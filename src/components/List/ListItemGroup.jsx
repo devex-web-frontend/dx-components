@@ -12,6 +12,7 @@ export const PROP_TYPES = {
 	header: React.PropTypes.node,
 	theme: React.PropTypes.shape({
 		itemGroup: React.PropTypes.string,
+		itemGroup_isCollapsed: React.PropTypes.string,
 		itemGroup__header: React.PropTypes.string
 	}),
 	isCollapsed: React.PropTypes.bool
@@ -33,7 +34,10 @@ export default class ListItemGroup extends React.Component {
 		const {theme, isCollapsed, level, children, header, onClick} = this.props;
 		const className = classnames(
 			theme.itemGroup,
-			theme[`itemGroup_level_${level}`]
+			theme[`itemGroup_level_${level}`],
+			{
+				[theme.itemGroup_isCollapsed]: isCollapsed
+			}
 		);
 
 		return (
@@ -41,7 +45,7 @@ export default class ListItemGroup extends React.Component {
 				<span className={theme.itemGroup__header} onClick={onClick}>
 					{header}
 				</span>
-				{!isCollapsed && React.cloneElement(React.Children.only(children), {
+				{React.cloneElement(React.Children.only(children), {
 					level: level + 1
 				})}
 			</li>
