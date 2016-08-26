@@ -5,7 +5,7 @@ import classnames from 'classnames';
 export const INPUT = Symbol('Input');
 export const INPUT_THEME_SHAPE_OBJECT = ({
 	container: React.PropTypes.string,
-	container_isFocued: React.PropTypes.string,
+	container_isFocused: React.PropTypes.string,
 	container_isDisabled: React.PropTypes.string,
 	container_isReadonly: React.PropTypes.string
 });
@@ -81,7 +81,7 @@ export default class Input extends React.Component {
 			{
 				[theme.container_isReadonly]: isReadonly,
 				[theme.container_isDisabled]: isDisabled,
-				[theme.container_isFocued]: isFocused
+				[theme.container_isFocused]: isFocused
 			}
 		);
 
