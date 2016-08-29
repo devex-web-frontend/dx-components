@@ -195,16 +195,16 @@ export default class NumericStepper extends Component {
 				<Input {...inputProps} />
 				<div className={theme.container__buttons}>
 					<Holdable onHold={this.onButtonDownClick} delay={repeatDelay} interval={repeatInterval}
-							  isDisabled={isDisabled || value <= min}>
+					          isDisabled={isDisabled || value <= min}>
 						<Button onClick={this.onButtonDownClick}
-								name={downIconName}
-								theme={buttonTheme.UP} />
+						        name={downIconName}
+						        theme={buttonTheme.UP}/>
 					</Holdable>
 					<Holdable onHold={this.onButtonUpClick} delay={repeatDelay} interval={repeatInterval}
-							  isDisabled={isDisabled || value >= max}>
+					          isDisabled={isDisabled || value >= max}>
 						<Button onClick={this.onButtonUpClick}
-								theme={buttonTheme.DOWN}
-								name={upIconName} />
+						        theme={buttonTheme.DOWN}
+						        name={upIconName}/>
 					</Holdable>
 				</div>
 			</div>
