@@ -19,7 +19,7 @@ storiesOf('NumericStepper', module)
 		<Demo theme={darkDemoTheme}>
 			<div>
 				<NumericStepper formatter={formatter}
-								min={-20}
+								min={-100}
 								max={20}
 								value={15}
 								upIconName={iconAdd}

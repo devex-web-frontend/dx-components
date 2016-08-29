@@ -41,16 +41,22 @@ export default class Holdable extends React.Component {
 		this.stop();
 	}
 
+	onMouseLeave = () => {
+		this.stop();
+	}
+
 	render() {
 		const {children: element, isDisabled} = this.props;
 		const {onMouseDown, onMouseUp, ...props} = element.props;
 		const newProps = {
 			props,
+			ref: (el) => this._element = el,
 			isDisabled,
 			onMouseDown: () => {
 				this.onMouseDown();
 				onMouseDown && onMouseDown();
 			},
+			onMouseLeave: this.onMouseLeave,
 			onMouseUp: () => {
 				this.onMouseUp();
 				onMouseUp && onMouseUp();
