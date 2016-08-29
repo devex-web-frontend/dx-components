@@ -5,7 +5,6 @@ import classnames from 'classnames';
 export const INPUT = Symbol('Input');
 export const INPUT_THEME_SHAPE_OBJECT = ({
 	container: React.PropTypes.string,
-	container_isFocused: React.PropTypes.string,
 	container_isDisabled: React.PropTypes.string,
 	container_isReadonly: React.PropTypes.string
 });
@@ -38,8 +37,7 @@ export default class Input extends React.Component {
 		const {value} = this.props;
 
 		this.state = {
-			value,
-			isFocused: false
+			value
 		};
 	}
 
@@ -67,14 +65,13 @@ export default class Input extends React.Component {
 
 	render() {
 		const {theme, isDisabled, isReadonly, placeholder, onWheel, onKeyDown} = this.props;
-		const {value, isFocused} = this.state;
+		const {value} = this.state;
 
 		const className = classnames(
 			theme.container,
 			{
 				[theme.container_isReadonly]: isReadonly,
-				[theme.container_isDisabled]: isDisabled,
-				[theme.container_isFocused]: isFocused
+				[theme.container_isDisabled]: isDisabled
 			}
 		);
 
@@ -98,19 +95,11 @@ export default class Input extends React.Component {
 
 	onFocus = e => {
 		const {onFocus} = this.props;
-		this.setState({
-			isFocused: true
-		});
-
 		onFocus && onFocus();
 	}
 
 	onBlur = e => {
 		const {onBlur} = this.props;
-		this.setState({
-			isFocused: false
-		});
-
 		onBlur && onBlur();
 	}
 }
