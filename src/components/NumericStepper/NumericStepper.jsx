@@ -32,7 +32,7 @@ export default class NumericStepper extends Component {
 		ButtonComponent: React.PropTypes.func,
 		InputComponent: React.PropTypes.func,
 
-		repeatIntervar: React.PropTypes.number,
+		repeatInterval: React.PropTypes.number,
 		repeatDelay: React.PropTypes.number,
 
 		upIconName: React.PropTypes.string,
@@ -149,6 +149,8 @@ export default class NumericStepper extends Component {
 			downIconName,
 			isDisabled,
 			pattern,
+			repeatInterval,
+			repeatDelay,
 			InputComponent: Input,
 			ButtonComponent: Button,
 		} = this.props;
@@ -191,13 +193,14 @@ export default class NumericStepper extends Component {
 			<div className={theme.container}>
 				<Input {...inputProps} />
 				<div className={theme.container__buttons}>
-					<Holdable onHold={this.onButtonDownClick}
+					<Holdable onHold={this.onButtonDownClick} delay={repeatDelay} interval={repeatInterval}
 							  isDisabled={isDisabled || value <= min}>
 						<Button onClick={this.onButtonDownClick}
 								name={downIconName}
 								theme={buttonTheme.UP} />
 					</Holdable>
-					<Holdable onHold={this.onButtonUpClick} isDisabled={isDisabled || value >= max}>
+					<Holdable onHold={this.onButtonUpClick} delay={repeatDelay} interval={repeatInterval}
+							  isDisabled={isDisabled || value >= max}>
 						<Button onClick={this.onButtonUpClick}
 								theme={buttonTheme.DOWN}
 								name={upIconName} />
@@ -271,7 +274,7 @@ class Holdable extends React.Component {
 		children: React.PropTypes.element,
 		delay: React.PropTypes.number,
 		isDisabled: React.PropTypes.bool,
-		iterval: React.PropTypes.number,
+		interval: React.PropTypes.number,
 		onHold: React.PropTypes.func
 	}
 
@@ -279,7 +282,7 @@ class Holdable extends React.Component {
 	_interval;
 
 	static defaultProps = {
-		iterval: 50,
+		interval: 50,
 		delay: 300
 	};
 
@@ -290,11 +293,11 @@ class Holdable extends React.Component {
 	}
 
 	onMouseDown = () => {
-		const {iterval, delay, onHold} = this.props;
+		const {interval, delay, onHold} = this.props;
 		this._timeout = setTimeout(() => {
 			this._interval = setInterval(() => {
 				onHold && onHold();
-			}, iterval);
+			}, interval);
 		}, delay);
 	}
 
