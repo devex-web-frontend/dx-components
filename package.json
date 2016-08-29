@@ -8,7 +8,8 @@
     "eslint": "eslint --config ./node_modules/dx-lint/.react.eslintrc --ext .js,.jsx .",
     "start": "node ./scripts/run.js ./scripts/start.js",
     "test": "npm run eslint",
-    "dx-flow": "dx-flow"
+    "dx-flow": "dx-flow",
+    "postinstall": "bower prune && bower install"
   },
   "repository": {
     "type": "git",
