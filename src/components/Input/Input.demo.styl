@@ -15,7 +15,6 @@
 	box-shadow: 0 1px 0 rgba(#000000, .7) inset;
 	color: #ffffff;
 
-	&_isFocused,
 	&:focus {
 		color: #000;
 		background: #fff;
@@ -23,16 +22,12 @@
 		box-shadow: none;
 	}
 
-	&_isReadonly,
-	[readonly],
-	&:read-only{
+	[readonly] {
 		background-color: transparent;
 		box-shadow: none;
 		border-color: transparent;
 	}
 
-	&_isDisabled,
-	[disabled],
 	&:disabled {
 		background: #3b3b3b;
 		border-color: #3b3b3b;
