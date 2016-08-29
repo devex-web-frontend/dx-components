@@ -98,7 +98,7 @@ export default class NumericStepper extends Component {
 
 	getCorrectedValue(value) {
 		const {min, max} = this.props;
-		let newValue = parseFloat(value);
+		let newValue = value;
 		if (newValue < min) {
 			newValue = min;
 		}
