@@ -39,7 +39,8 @@ class GridPage extends React.Component {
 							<Cell theme={theme2}>2</Cell>
 							<Cell theme={theme3}>3</Cell>
 						</Row>
-					</Head><Body theme={gridTheme}>
+					</Head>
+					<Body theme={gridTheme}>
 						<Row>
 							<Cell theme={theme1}>1</Cell>
 							<Cell theme={theme2}>2</Cell>
