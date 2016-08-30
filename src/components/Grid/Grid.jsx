@@ -11,7 +11,7 @@ export const GRID = Symbol('Grid');
 
 const EVENT_GRID_BODY_SCROLL = '__EVENT_GRID_BODY_SCROLL__';
 const EVENT_GRID_BODY_SCROLLBAR_APPEAR = '__EVENT_GRID_BODY_SCROLLBAR_APPEAR__';
-class GridScrollEmitter extends Emitter {
+class GridInternalEmitter extends Emitter {
 	notifyScrollUpdate(...args) {
 		this._emit(EVENT_GRID_BODY_SCROLL, ...args);
 	}
@@ -23,7 +23,7 @@ class GridScrollEmitter extends Emitter {
 
 const GRID_CONTEXT_EMITTER = '__GRID_CONTEXT_EMITTER__';
 const CONTEXT_TYPES = {
-	[GRID_CONTEXT_EMITTER]: React.PropTypes.instanceOf(GridScrollEmitter)
+	[GRID_CONTEXT_EMITTER]: React.PropTypes.instanceOf(GridInternalEmitter)
 };
 
 @PURE
@@ -35,7 +35,7 @@ export default class Grid extends React.Component {
 
 	static childContextTypes = CONTEXT_TYPES;
 
-	_emitter = new GridScrollEmitter();
+	_emitter = new GridInternalEmitter();
 
 	getChildContext() {
 		return {
@@ -171,7 +171,7 @@ export class GridBody extends React.Component {
 		if (this._scrollLeft !== scrollLeft) {
 			this._scrollLeft = scrollLeft;
 			/**
-			 * @type {GridScrollEmitter}
+			 * @type {GridInternalEmitter}
 			 */
 			const emitter = this.context[GRID_CONTEXT_EMITTER];
 			if (emitter) {
@@ -186,7 +186,7 @@ export class GridBody extends React.Component {
 			this._withVerticalScrollbar = withVerticalScrollbar;
 			this._withHorizontalScrollbar = withHorizontalScrollbar;
 			/**
-			 * @type {GridScrollEmitter}
+			 * @type {GridInternalEmitter}
 			 */
 			const emitter = this.context[GRID_CONTEXT_EMITTER];
 			if (emitter) {
