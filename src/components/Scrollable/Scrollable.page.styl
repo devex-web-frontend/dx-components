@@ -1,0 +1,18 @@
+.origin {
+	width: 200px;
+	height: 200px;
+	border: 1px solid black;
+	:global {
+		p {
+			white-space: nowrap;
+		}
+		.scrollbar {
+			&--track {
+				background: lightgrey;
+			}
+			&--bar {
+				background: grey;
+			}
+		}
+	}
+}
