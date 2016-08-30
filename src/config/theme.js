@@ -25,6 +25,9 @@ import selectbox from '../components/Selectbox/Selectbox.styl';
 import {TABLE} from '../components/Table/Table';
 import table from '../components/Table/Table.styl';
 
+import {GRID} from '../components/Grid/Grid';
+import grid from '../components/Grid/Grid.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -34,5 +37,6 @@ export default {
 	[MENU]: menu,
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
-	[TABLE]: table
+	[TABLE]: table,
+	[GRID]: grid
 };

@@ -16,6 +16,9 @@ import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 import {TABLE} from '../components/Table/Table';
 import table from '../components/Table/Table.demo.styl';
 
+import {SCROLLABLE} from '../components/Scrollable/Scrollable';
+import scrollable from '../components/Scrollable/Scrollable.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -23,5 +26,6 @@ export default {
 	[MENU]: menu,
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
-	[TABLE]: table
+	[TABLE]: table,
+	[SCROLLABLE]: scrollable
 };

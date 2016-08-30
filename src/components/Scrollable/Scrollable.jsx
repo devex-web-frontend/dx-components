@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Scrollable as ScrollableControl} from 'scrollable/src/Scrollable';
 
+export const SCROLLABLE = Symbol('Scrollable');
+
 export default class Scrollable extends React.Component {
 	static propTypes = {
 		children: React.PropTypes.element,
