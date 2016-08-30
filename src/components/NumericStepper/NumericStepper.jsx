@@ -41,13 +41,13 @@ export default class NumericStepper extends Component {
 
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string,
-			container__input: React.PropTypes.string,
-			container__input_isCorrected: React.PropTypes.string,
-			container__buttons: React.PropTypes.string,
-			container__button: React.PropTypes.string,
-			container__button__icon: React.PropTypes.string,
-			container__button_up: React.PropTypes.string,
-			container__button_down: React.PropTypes.string
+			input: React.PropTypes.string,
+			input_isCorrected: React.PropTypes.string,
+			buttons: React.PropTypes.string,
+			button: React.PropTypes.string,
+			button__icon: React.PropTypes.string,
+			button_up: React.PropTypes.string,
+			button_down: React.PropTypes.string
 		})
 	};
 
@@ -159,8 +159,8 @@ export default class NumericStepper extends Component {
 		const formatValue = formatter ? formatter(value) : value;
 
 		const inputTheme = {
-			container: classnames(theme.container__input, {
-				[theme.container__input_isCorrected]: isCorrected
+			container: classnames(theme.input, {
+				[theme.input_isCorrected]: isCorrected
 			})
 		};
 
@@ -184,8 +184,8 @@ export default class NumericStepper extends Component {
 			return {
 				...acc,
 				[current]: {
-					container: classnames(theme.container__button, theme[`container__button_${BUTTON_TYPE[current]}`]),
-					icon: classnames(theme.container__button__icon)
+					container: classnames(theme.button, theme[`button_${BUTTON_TYPE[current]}`]),
+					icon: classnames(theme.button__icon)
 				}
 			};
 		}, {});
@@ -193,7 +193,7 @@ export default class NumericStepper extends Component {
 		return (
 			<div className={theme.container}>
 				<Input {...inputProps} />
-				<div className={theme.container__buttons}>
+				<div className={theme.buttons}>
 					<Holdable onHold={this.onButtonDownClick} delay={repeatDelay} interval={repeatInterval}
 					          isDisabled={isDisabled || value <= min}>
 						<Button onClick={this.onButtonDownClick}
