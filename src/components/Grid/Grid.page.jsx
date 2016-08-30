@@ -21,11 +21,10 @@ const theme2 = {
 const theme3 = {
 	cell: css.cell_third
 };
-const theme23 = {
-	cell: css.cell_second_third
-};
-const theme12 = {
-	cell: css.cell_first_second
+const gridTheme = {
+	gridBody: css.gridBody,
+	gridHead: css.gridHead,
+	gridHead_paddedForScrollbar: css.gridHead_paddedForScrollbar
 };
 
 @PURE
@@ -34,14 +33,13 @@ class GridPage extends React.Component {
 		return (
 			<Demo>
 				<Grid>
-					<Head>
+					<Head theme={gridTheme}>
 						<Row>
 							<Cell theme={theme1}>1</Cell>
 							<Cell theme={theme2}>2</Cell>
 							<Cell theme={theme3}>3</Cell>
 						</Row>
-					</Head>
-					<Body>
+					</Head><Body theme={gridTheme}>
 						<Row>
 							<Cell theme={theme1}>1</Cell>
 							<Cell theme={theme2}>2</Cell>

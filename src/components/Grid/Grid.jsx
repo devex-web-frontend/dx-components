@@ -5,13 +5,19 @@ import {themr} from 'react-css-themr';
 import {Table, TableBody, TableHead, TableCell, TableRow} from '../Table/Table';
 import Emitter from 'dx-util/src/emitter/Emitter';
 import Scrollable from '../Scrollable/Scrollable';
+import classnames from 'classnames';
 
 export const GRID = Symbol('Grid');
 
 const EVENT_GRID_BODY_SCROLL = '__EVENT_GRID_BODY_SCROLL__';
+const EVENT_GRID_BODY_SCROLLBAR_APPEAR = '__EVENT_GRID_BODY_SCROLLBAR_APPEAR__';
 class GridScrollEmitter extends Emitter {
-	notifyScrollUpdate(scrollLeft, scrollTop) {
-		this._emit(EVENT_GRID_BODY_SCROLL, scrollLeft, scrollTop);
+	notifyScrollUpdate(...args) {
+		this._emit(EVENT_GRID_BODY_SCROLL, ...args);
+	}
+
+	notifyScrollbarAppear(...args) {
+		this._emit(EVENT_GRID_BODY_SCROLLBAR_APPEAR, ...args);
 	}
 }
 
@@ -69,16 +75,24 @@ export class GridHead extends React.Component {
 	state = {};
 
 	componentDidMount() {
-		this.context[GRID_CONTEXT_EMITTER].on(EVENT_GRID_BODY_SCROLL, this.onGridBodyScroll);
+		const emitter = this.context[GRID_CONTEXT_EMITTER];
+		if (emitter) {
+			emitter.on(EVENT_GRID_BODY_SCROLL, this.onGridBodyScroll);
+			emitter.on(EVENT_GRID_BODY_SCROLLBAR_APPEAR, this.onGridBodyScrollbarAppear);
+		}
 	}
 
 	componentWillUnmount() {
-		this.context[GRID_CONTEXT_EMITTER].off(EVENT_GRID_BODY_SCROLL, this.onGridBodyScroll);
+		const emitter = this.context[GRID_CONTEXT_EMITTER];
+		if (emitter) {
+			emitter.off(EVENT_GRID_BODY_SCROLL, this.onGridBodyScroll);
+			emitter.off(EVENT_GRID_BODY_SCROLLBAR_APPEAR, this.onGridBodyScrollbarAppear);
+		}
 	}
 
 	render() {
 		const {Table, theme, TableHead, ...props} = this.props;
-		const {scrollLeft} = this.state;
+		const {scrollLeft, withHorizontalScrollbar, withVerticalScrollbar} = this.state;
 		let style;
 		if (typeof scrollLeft !== 'undefined') {
 			style = prefix({
@@ -86,8 +100,18 @@ export class GridHead extends React.Component {
 			});
 		}
 
+		const className = classnames(
+			theme.gridHead,
+			{
+				[theme.gridHead_paddedForScrollbar]: (
+					withHorizontalScrollbar && !withVerticalScrollbar ||
+					!withHorizontalScrollbar && withVerticalScrollbar
+				)
+			}
+		);
+
 		return (
-			<div style={style}>
+			<div style={style} className={className}>
 				<Table theme={theme}>
 					<TableHead theme={theme} {...props}/>
 				</Table>
@@ -98,6 +122,13 @@ export class GridHead extends React.Component {
 	onGridBodyScroll = (scrollLeft, scrollTop) => {
 		this.setState({
 			scrollLeft
+		});
+	}
+
+	onGridBodyScrollbarAppear = (withHorizontalScrollbar, withVerticalScrollbar) => {
+		this.setState({
+			withHorizontalScrollbar,
+			withVerticalScrollbar
 		});
 	}
 }
@@ -119,13 +150,15 @@ export class GridBody extends React.Component {
 	static contextTypes = CONTEXT_TYPES;
 
 	_scrollLeft;
+	_withVerticalScrollbar;
+	_withHorizontalScrollbar;
 
 	render() {
 		const {Table, TableBody, theme, ...props} = this.props;
 
 		return (
-			<Scrollable onScroll={this.onScroll}>
-				<div className={theme.tableBody}>
+			<Scrollable onScroll={this.onScroll} onUpdate={this.onUpdate}>
+				<div className={theme.gridBody}>
 					<Table theme={theme}>
 						<TableBody theme={theme} {...props}/>
 					</Table>
@@ -136,12 +169,28 @@ export class GridBody extends React.Component {
 
 	onScroll = (scrollLeft, scrollTop) => {
 		if (this._scrollLeft !== scrollLeft) {
+			this._scrollLeft = scrollLeft;
 			/**
 			 * @type {GridScrollEmitter}
 			 */
 			const emitter = this.context[GRID_CONTEXT_EMITTER];
 			if (emitter) {
 				emitter.notifyScrollUpdate(scrollLeft, scrollTop);
+			}
+		}
+	}
+
+	onUpdate = (withHorizontalScrollbar, withVerticalScrollbar) => {
+		if (this._withHorizontalScrollbar !== withHorizontalScrollbar ||
+			this._withVerticalScrollbar !== withVerticalScrollbar) {
+			this._withVerticalScrollbar = withVerticalScrollbar;
+			this._withHorizontalScrollbar = withHorizontalScrollbar;
+			/**
+			 * @type {GridScrollEmitter}
+			 */
+			const emitter = this.context[GRID_CONTEXT_EMITTER];
+			if (emitter) {
+				emitter.notifyScrollbarAppear(withHorizontalScrollbar, withVerticalScrollbar);
 			}
 		}
 	}
