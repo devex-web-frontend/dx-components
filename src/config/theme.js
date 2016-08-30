@@ -22,6 +22,12 @@ import popover from '../components/Popover/Popover.styl';
 import {SELECTBOX} from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.styl';
 
+import {RESIZE_DETECTOR} from '../components/ResizeDetector/ResizeDetector';
+import resizeDetector from '../components/ResizeDetector/ResizeDetector.styl';
+
+import {SCROLLABLE} from '../components/Scrollable/Scrollable';
+import scrollable from '../components/Scrollable/Scrollable.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -30,5 +36,7 @@ export default {
 	[LIST]: list,
 	[MENU]: menu,
 	[POPOVER]: popover,
-	[SELECTBOX]: selectbox
+	[SELECTBOX]: selectbox,
+	[RESIZE_DETECTOR]: resizeDetector,
+	[SCROLLABLE]: scrollable
 };
