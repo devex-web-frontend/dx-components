@@ -1,4 +1,6 @@
 import React from 'react';
+import EventListener from 'react-event-listener';
+
 export default class Holdable extends React.Component {
 
 	static propTypes = {
@@ -9,8 +11,8 @@ export default class Holdable extends React.Component {
 		onHold: React.PropTypes.func
 	}
 
-	_timeout
-	_interval;
+	_timeoutId;
+	_intervalId;
 
 	static defaultProps = {
 		interval: 50,
@@ -25,46 +27,64 @@ export default class Holdable extends React.Component {
 
 	onMouseDown = () => {
 		const {interval, delay, onHold} = this.props;
-		this._timeout = setTimeout(() => {
-			this._interval = setInterval(() => {
+		this._timeoutId = setTimeout(() => {
+			this._intervalId = setInterval(() => {
 				onHold && onHold();
 			}, interval);
+
+			this.forceUpdate();
 		}, delay);
 	}
 
 	stop() {
-		clearTimeout(this._timeout);
-		clearInterval(this._interval);
+		if (this._timeoutId) {
+			clearTimeout(this._timeoutId);
+			delete this['_timeoutId'];
+		}
+
+		if (this._intervalId) {
+			clearInterval(this._intervalId);
+			delete this['_intervalId'];
+		}
 	}
 
 	onMouseUp = () => {
 		this.stop();
 	}
 
-	onMouseLeave = () => {
-		this.stop();
+	renderUpdatedChild(element, props) {
+		const newElement = React.cloneElement(element, props);
+		if (this._intervalId) {
+			return (
+				<EventListener capture={true}
+				               onMouseUp={this.onMouseUp}
+				               target="window">
+					{newElement}
+				</EventListener>
+			);
+		} else {
+			return newElement;
+		}
 	}
 
 	render() {
 		const {children: element, isDisabled} = this.props;
+
 		const {onMouseDown, onMouseUp, ...props} = element.props;
 		const newProps = {
 			props,
 			ref: (el) => this._element = el,
 			isDisabled,
-			onMouseDown: () => {
-				this.onMouseDown();
-				onMouseDown && onMouseDown();
-			},
-			onMouseLeave: this.onMouseLeave,
 			onMouseUp: () => {
 				this.onMouseUp();
 				onMouseUp && onMouseUp();
+			},
+			onMouseDown: () => {
+				this.onMouseDown();
+				onMouseDown && onMouseDown();
 			}
 		};
 
-		return (
-			React.cloneElement(element, newProps)
-		);
+		return this.renderUpdatedChild(element, newProps);
 	}
 }
