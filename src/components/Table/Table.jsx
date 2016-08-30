@@ -114,13 +114,14 @@ export class TableCell extends React.Component {
 			cell_isInHead: React.PropTypes.string
 		}),
 		colSpan: React.PropTypes.number,
-		rowSpan: React.PropTypes.number
+		rowSpan: React.PropTypes.number,
+		style: React.PropTypes.object
 	}
 
 	static contextTypes = CONTEXT_TYPES;
 
 	render() {
-		const {children, theme, colSpan, rowSpan} = this.props;
+		const {children, theme, colSpan, rowSpan, style} = this.props;
 		const isInHead = this.context[CONTEXT_IS_IN_HEAD_KEY];
 
 		const className = classnames(
@@ -134,7 +135,7 @@ export class TableCell extends React.Component {
 		const Tag = isInHead ? 'th' : 'td';
 
 		return (
-			<Tag className={className} colSpan={colSpan} rowSpan={rowSpan}>
+			<Tag className={className} colSpan={colSpan} rowSpan={rowSpan} style={style}>
 				{children}
 			</Tag>
 		);

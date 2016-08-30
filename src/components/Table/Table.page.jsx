@@ -13,19 +13,23 @@ const firstTheme = {
 	cell: css.cell_first
 };
 
+const secondStyle = {
+	width: 200
+};
+
 storiesOf('Table', module).add('default', () => (
 	<Demo>
 		<Table>
 			<THead>
 				<Tr>
 					<Cell theme={firstTheme}>1</Cell>
-					<Cell>2</Cell>
+					<Cell style={secondStyle}>2</Cell>
 					<Cell>3</Cell>
 				</Tr>
 			</THead>
 			<TBody>
 				<Tr>
-					<Cell theme={firstTheme} rowSpan={2}>_4_</Cell>
+					<Cell rowSpan={2}>_4_</Cell>
 					<Cell colSpan={2}>_5_</Cell>
 				</Tr>
 				<Tr>
