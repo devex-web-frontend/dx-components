@@ -5,7 +5,6 @@ import Demo from '../../demo/Demo';
 import css from './Scrollable.page.styl';
 import {PURE} from 'dx-util/src/react/pure';
 import Pure from '../Pure/Pure';
-import Perf from 'react-addons-perf';
 
 const Heavy = () => (
 	<div className={css.origin}>
