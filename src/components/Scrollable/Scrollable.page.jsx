@@ -90,4 +90,4 @@ class ScrollablePage extends React.Component {
 	}
 }
 
-storiesOf('Scrollable', module).add('default', () => <ScrollablePage/>)
+storiesOf('Scrollable', module).add('default', () => <ScrollablePage/>);
