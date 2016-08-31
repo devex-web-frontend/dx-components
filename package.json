@@ -9,7 +9,8 @@
     "start": "node ./scripts/run.js ./scripts/start.js",
     "postinstall": "bower prune && bower install",
     "test": "npm run eslint",
-    "dx-flow": "dx-flow"
+    "dx-flow": "dx-flow",
+    "postinstall": "bower prune && bower install"
   },
   "repository": {
     "type": "git",

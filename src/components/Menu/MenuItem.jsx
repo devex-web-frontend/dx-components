@@ -11,6 +11,7 @@ import {MENU} from './Menu.jsx';
 export default class MenuItem extends React.Component {
 	static propTypes = {
 		...PROP_TYPES,
+		ListItemComponent: React.PropTypes.func,
 		value: React.PropTypes.oneOfType([
 			React.PropTypes.string,
 			React.PropTypes.number
@@ -25,11 +26,12 @@ export default class MenuItem extends React.Component {
 	}
 
 	static defaultProps = {
-		...DEFAULT_PROPS
+		...DEFAULT_PROPS,
+		ListItemComponent: ListItem
 	}
 
 	render() {
-		let {theme, isActive} = this.props;
+		let {theme, isActive, ListItemComponent} = this.props;
 		if (isActive) {
 			theme = {
 				...theme,
@@ -37,11 +39,11 @@ export default class MenuItem extends React.Component {
 			};
 		}
 		return (
-			<ListItem onClick={this.onClick} {...this.props} theme={theme}>
+			<ListItemComponent onClick={this.onClick} {...this.props} theme={theme}>
 				<div className={theme.item__content}>
 					{this.props.children}
 				</div>
-			</ListItem>
+			</ListItemComponent>
 		);
 	}
 
