@@ -4,7 +4,7 @@ import {PURE} from 'dx-util/src/react/pure';
 import classnames from 'classnames';
 
 export const TABLE = Symbol('Table');
-const TABLE_IS_IN_HEAD_KEY = '__TABLE_IS_IN_HEAD_KEY__';
+export const TABLE_IS_IN_HEAD_KEY = '__TABLE_IS_IN_HEAD_KEY__';
 
 @PURE
 @themr(TABLE)
