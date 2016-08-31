@@ -12,25 +12,16 @@ import css from './NumericStepper.page.styl';
 const darkDemoTheme = {
 	container: css.container
 };
-const formatter = (value) => value.toFixed('2');
+const formatter = (value) => value && value.toFixed('2');
 
 storiesOf('NumericStepper', module)
 	.add('Default', () => (
 		<Demo theme={darkDemoTheme}>
 			<div>
 				<NumericStepper formatter={formatter}
-								min={-100}
-								max={20}
-								value={15}
-								upIconName={iconAdd}
-								downIconName={iconDecrease} />
-			</div>
-
-			<p>&nbsp;</p>
-
-			<div>
-				<NumericStepper formatter={formatter}
-								isDisabled={true}
+								min={-10}
+								max={1000}
+								defaultValue={20}
 								upIconName={iconAdd}
 								downIconName={iconDecrease} />
 			</div>

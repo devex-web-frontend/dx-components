@@ -14,6 +14,47 @@
 		}
 	}
 }
+
+.transition {
+	&__enter {
+		.input {
+			background-color: red;
+		}
+
+		&_active {
+			.input {
+				transition: background-color 100s ease-in;
+			}
+		}
+	}
+
+	&__appear {
+		.input {
+			opacity: 0.01;
+		}
+
+		&_active {
+			.input {
+				opacity: 1;
+				transition: opacity 10s ease-in;
+			}
+		}
+	}
+
+	&__leave {
+		.input {
+			opacity: 1;
+		}
+
+		&_active {
+			.input {
+				opacity: 0.01;
+				transition: opacity 100s ease-in;
+			}
+		}
+	}
+}
+
 .container {
 	position: relative;
 	display: inline-block;
