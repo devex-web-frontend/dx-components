@@ -1,7 +1,5 @@
 import React from 'react';
-import TransitionGroup from 'react-addons-css-transition-group';
 import {themr} from 'react-css-themr';
-import {DEBOUNCE} from 'dx-util/src/function/function.js';
 import {PURE} from 'dx-util/src/react/pure';
 import Input from '../Input/Input.jsx';
 import Holdable from '../Holdable/Holdable.jsx';
