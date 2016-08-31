@@ -22,6 +22,7 @@ const theme3 = {
 	cell: css.cell_third
 };
 const gridTheme = {
+	container: css.container,
 	gridBody: css.gridBody,
 	gridHead: css.gridHead,
 	gridHead_paddedForScrollbar: css.gridHead_paddedForScrollbar
@@ -32,7 +33,7 @@ class GridPage extends React.Component {
 	render() {
 		return (
 			<Demo>
-				<Grid>
+				<Grid theme={gridTheme}>
 					<Head theme={gridTheme}>
 						<Row>
 							<Cell theme={theme1}>1</Cell>

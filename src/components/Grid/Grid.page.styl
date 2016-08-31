@@ -1,27 +1,28 @@
 @require '../Scrollable/Scrollable.config.styl';
 
+.container {
+	background-color: #161412;
+}
+
 .gridBody {
 	max-height: 300px;
 }
 	
 .gridHead {
+	background-color: #242424;
 	&_paddedForScrollbar {
 		padding-right: $scrollableScrollBarSize;
 	}
 }
 
 .cell {
-	box-shadow: inset 0 0 1px grey;
 	&_first {
-		composes: cell;
 		width: 500px;
 	}
 	&_second {
-		composes: cell;
 		width: 400px;
 	}
 	&_third {
-		composes: cell;
 		width: 600px;
 	}
 }

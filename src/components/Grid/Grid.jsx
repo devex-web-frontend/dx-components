@@ -111,10 +111,12 @@ export class GridHead extends React.Component {
 		);
 
 		return (
-			<div style={style} className={className}>
-				<Table theme={theme}>
-					<TableHead theme={theme} {...props}/>
-				</Table>
+			<div className={className}>
+				<div className={theme.gridHead__content} style={style}>
+					<Table theme={theme}>
+						<TableHead theme={theme} {...props}/>
+					</Table>
+				</div>
 			</div>
 		);
 	}
