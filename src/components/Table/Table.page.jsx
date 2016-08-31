@@ -29,8 +29,10 @@ storiesOf('Table', module).add('default', () => (
 			</THead>
 			<TBody>
 				<Tr>
-					<Cell rowSpan={2}>_4_</Cell>
-					<Cell colSpan={2}>_5_</Cell>
+					<Cell rowSpan={2}>
+						________4_________
+					</Cell>
+					<Cell colSpan={2}>________5_________</Cell>
 				</Tr>
 				<Tr>
 					<Cell>_8_</Cell>
