@@ -4,10 +4,7 @@ import {PURE} from 'dx-util/src/react/pure';
 import classnames from 'classnames';
 
 export const TABLE = Symbol('Table');
-const CONTEXT_IS_IN_HEAD_KEY = '__TABLE_CONTEXT_IS_IN_HEAD_KEY__';
-const CONTEXT_TYPES = {
-	[CONTEXT_IS_IN_HEAD_KEY]: React.PropTypes.bool
-};
+const TABLE_IS_IN_HEAD_KEY = '__TABLE_IS_IN_HEAD_KEY__';
 
 @PURE
 @themr(TABLE)
@@ -43,20 +40,14 @@ export class TableHead extends React.Component {
 		})
 	}
 
-	static childContextTypes = CONTEXT_TYPES;
-
-	getChildContext() {
-		return {
-			[CONTEXT_IS_IN_HEAD_KEY]: true
-		};
-	}
-
 	render() {
 		const {children, theme} = this.props;
 
 		return (
 			<thead className={theme.head}>
-				{children}
+				{React.cloneElement(React.Children.only(children), {
+					[TABLE_IS_IN_HEAD_KEY]: true
+				})}
 			</thead>
 		);
 	}
@@ -90,15 +81,22 @@ export class TableRow extends React.Component {
 		children: React.PropTypes.node,
 		theme: React.PropTypes.shape({
 			row: React.PropTypes.string
-		})
+		}),
+		[TABLE_IS_IN_HEAD_KEY]: React.PropTypes.bool
 	}
 
 	render() {
 		const {children, theme} = this.props;
+		const isInHead = this.props[TABLE_IS_IN_HEAD_KEY];
 
 		return (
 			<tr className={theme.row}>
-				{children}
+				{!isInHead && children}
+				{isInHead && React.Children.map(children, child => (
+					React.cloneElement(child, {
+						[TABLE_IS_IN_HEAD_KEY]: isInHead
+					})
+				))}
 			</tr>
 		);
 	}
@@ -115,14 +113,13 @@ export class TableCell extends React.Component {
 		}),
 		colSpan: React.PropTypes.number,
 		rowSpan: React.PropTypes.number,
-		style: React.PropTypes.object
+		style: React.PropTypes.object,
+		[TABLE_IS_IN_HEAD_KEY]: React.PropTypes.bool
 	}
-
-	static contextTypes = CONTEXT_TYPES;
 
 	render() {
 		const {children, theme, colSpan, rowSpan, style} = this.props;
-		const isInHead = this.context[CONTEXT_IS_IN_HEAD_KEY];
+		const isInHead = this.props[TABLE_IS_IN_HEAD_KEY];
 
 		const className = classnames(
 			theme.cell,
