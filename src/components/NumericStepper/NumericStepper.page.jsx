@@ -20,10 +20,11 @@ storiesOf('NumericStepper', module)
 			<div>
 				<NumericStepper formatter={formatter}
 								min={-10}
-								max={1000}
-								defaultValue={20}
+								max={10}
+								defaultValue={5}
 								upIconName={iconAdd}
 								downIconName={iconDecrease} />
 			</div>
+
 		</Demo>
 	));

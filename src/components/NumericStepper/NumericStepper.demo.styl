@@ -1,73 +1,20 @@
-:global {
-	@keyframes correction {
-		0% {
-			background-color: #7f0d0d;
-		}
-		25% {
-			background-color: #202020;
-		}
-		50% {
-			background-color: #7f0d0d;
-		}
-		100% {
-			background-color: #202020;
-		}
-	}
-}
-
-.transition {
-	&__enter {
-		.input {
-			background-color: red;
-		}
-
-		&_active {
-			.input {
-				transition: background-color 100s ease-in;
-			}
-		}
-	}
-
-	&__appear {
-		.input {
-			opacity: 0.01;
-		}
-
-		&_active {
-			.input {
-				opacity: 1;
-				transition: opacity 10s ease-in;
-			}
-		}
-	}
-
-	&__leave {
-		.input {
-			opacity: 1;
-		}
-
-		&_active {
-			.input {
-				opacity: 0.01;
-				transition: opacity 100s ease-in;
-			}
-		}
-	}
-}
-
 .container {
 	position: relative;
 	display: inline-block;
+
+	&_isInvalid {
+		.input {
+			box-shadow: none;
+			background-color: #7f0d0d;
+			color: #fff;
+		}
+	}
 }
 
 .input {
 	width: 120px;
 	display: inline-block;
 	vertical-align: top;
-
-	&_isCorrected {
-		animation: correction 750ms linear;
-	}
 }
 
 

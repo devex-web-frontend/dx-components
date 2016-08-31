@@ -93,13 +93,13 @@ export default class Input extends React.Component {
 		);
 	}
 
-	onFocus = e => {
+	onFocus = event => {
 		const {onFocus} = this.props;
-		onFocus && onFocus();
+		onFocus && onFocus(event);
 	}
 
-	onBlur = e => {
+	onBlur = event => {
 		const {onBlur} = this.props;
-		onBlur && onBlur();
+		onBlur && onBlur(event);
 	}
 }
