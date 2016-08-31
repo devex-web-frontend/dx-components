@@ -29,11 +29,16 @@ export default class NumericStepper extends React.Component {
 		onChange: React.PropTypes.func,
 		formatter: React.PropTypes.func,
 		defaultValue(props) {
-			const {defaultValue, value} = props;
+			const {defaultValue, value, min, max} = props;
 			const type = typeof defaultValue;
 			if (type !== 'undefined') {
 				if (type !== 'number') {
 					throw new Error('DefaultValue should be a number');
+				} else {
+					if (defaultValue < min || defaultValue > max) {
+						throw new Error(`DefaultValue: ${defaultValue} should be greater than min: ${min} 
+						and lower than max: ${max}`);
+					}
 				}
 			} else {
 				if (typeof value === 'undefined') {
@@ -42,11 +47,16 @@ export default class NumericStepper extends React.Component {
 			}
 		},
 		value(props) {
-			const {defaultValue, value} = props;
+			const {defaultValue, value, min, max} = props;
 			const type = typeof value;
 			if (type !== 'undefined') {
 				if (type !== 'number') {
 					throw new Error('Value should be a number');
+				} else {
+					if (value < min || value > max) {
+						throw new Error(`Value: ${value} should be greater than min: ${min} 
+						and lower than max: ${max}`);
+					}
 				}
 			} else {
 				if (typeof defaultValue === 'undefined') {
@@ -62,7 +72,7 @@ export default class NumericStepper extends React.Component {
 					throw new Error('Min should be a number');
 				} else {
 					if (min >= max) {
-						throw new Error('Invalid min value. Min value should be less max');
+						throw new Error('Invalid min value. Min value should be lower than max');
 					}
 				}
 			}
@@ -75,7 +85,7 @@ export default class NumericStepper extends React.Component {
 					throw new Error('Max should be a string or a number');
 				} else {
 					if (max <= min) {
-						throw new Error('Invalid Max value. Max value should be more min');
+						throw new Error('Invalid Max value. Max value should be greater than min');
 					}
 				}
 			}
@@ -92,6 +102,7 @@ export default class NumericStepper extends React.Component {
 
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string,
+			container_isInvalid: React.PropTypes.string,
 			input: React.PropTypes.string,
 			buttons: React.PropTypes.string,
 			button: React.PropTypes.string,
@@ -122,9 +133,38 @@ export default class NumericStepper extends React.Component {
 		}
 	}
 
+	componentWillReceiveProps(newProps) {
+		const {defaultValue} = newProps;
+		const newPropsContainNewValue = typeof newProps.value !== 'undefined';
+		if (newPropsContainNewValue) {
+			this.setState({
+				value: newProps.value
+			});
+		} else {
+			const previousValueIsReset = typeof this.props.value !== 'undefined' && !newPropsContainNewValue;
+			if (previousValueIsReset) {
+				this.setState({
+					value: (void 0), //eslint-disable-line no-void
+				});
+			}
+			const hasCurrentValue = typeof this.state.value !== 'undefined';
+			const newPropsContainNewDefaultValue = typeof newProps.defaultValue !== 'undefined';
+			const shouldSetNewDefaultValue =
+				(previousValueIsReset || !hasCurrentValue) && newPropsContainNewDefaultValue;
+
+			if (shouldSetNewDefaultValue) {
+				this.setState({
+					value: defaultValue,
+				});
+			}
+		}
+	}
+
 	static defaultProps = {
 		step: 1,
 		pattern: /^-?[0-9]\d*(\.\d+)?$/,
+		max: Infinity,
+		min: -Infinity,
 		isDisabled: false,
 		InputComponent: Input,
 		ButtonComponent: ButtonIcon
@@ -144,9 +184,11 @@ export default class NumericStepper extends React.Component {
 
 	step(n) {
 		const {value} = this.state;
-		const {step} = this.props;
+		const {step, min, max} = this.props;
 		const newValue = (value || 0) + (step * n);
-		this.setValue(newValue);
+		if (newValue >= min || newValue <= max) {
+			this.setValue(newValue);
+		}
 	}
 
 	increase = () => {
@@ -155,10 +197,6 @@ export default class NumericStepper extends React.Component {
 
 	decrease = () => {
 		this.step(-1);
-	}
-
-	componentWillReceiveProps(newProps) {
-		this.setValue(newProps.value);
 	}
 
 	render() {
@@ -218,13 +256,13 @@ export default class NumericStepper extends React.Component {
 				<Input key="input" {...inputProps} />
 				<div className={theme.buttons}>
 					<Holdable onHold={this.onButtonDownClick} delay={repeatDelay} interval={repeatInterval}
-					          isDisabled={isDisabled || value < min}>
+					          isDisabled={isDisabled || value <= min}>
 						<Button onClick={this.onButtonDownClick}
 						        name={downIconName}
 						        theme={buttonTheme.UP}/>
 					</Holdable>
 					<Holdable onHold={this.onButtonUpClick} delay={repeatDelay} interval={repeatInterval}
-					          isDisabled={isDisabled || value > max}>
+					          isDisabled={isDisabled || value >= max}>
 						<Button onClick={this.onButtonUpClick}
 						        theme={buttonTheme.DOWN}
 						        name={upIconName}/>

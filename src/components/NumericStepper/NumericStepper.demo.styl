@@ -3,7 +3,7 @@
 	display: inline-block;
 
 	&_isInvalid {
-		.input {
+		.input:not([disabled]) {
 			box-shadow: none;
 			background-color: #7f0d0d;
 			color: #fff;
@@ -13,6 +13,7 @@
 
 .input {
 	width: 120px;
+	padding-right: 42px;
 	display: inline-block;
 	vertical-align: top;
 }
