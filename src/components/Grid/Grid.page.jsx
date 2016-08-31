@@ -2,7 +2,7 @@ import React from 'react';
 import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo';
 import {PURE} from 'dx-util/src/react/pure';
-import {themeable} from 'react-css-themr';
+
 import {
 	Grid,
 	GridHead as Head,
@@ -12,15 +12,7 @@ import {
 } from './Grid';
 
 import css from './Grid.page.styl';
-const theme1 = {
-	cell: css.cell_first
-};
-const theme2 = {
-	cell: css.cell_second
-};
-const theme3 = {
-	cell: css.cell_third
-};
+
 const gridTheme = {
 	container: css.container,
 	gridBody: css.gridBody,
@@ -36,61 +28,61 @@ class GridPage extends React.Component {
 				<Grid theme={gridTheme}>
 					<Head theme={gridTheme}>
 						<Row>
-							<Cell theme={theme1}>1</Cell>
-							<Cell theme={theme2}>2</Cell>
-							<Cell theme={theme3}>3</Cell>
+							<Cell>1</Cell>
+							<Cell>2</Cell>
+							<Cell>3</Cell>
 						</Row>
 					</Head>
 					<Body theme={gridTheme}>
 						<Row>
-							<Cell theme={theme1}>1</Cell>
-							<Cell theme={theme2}>2</Cell>
-							<Cell theme={theme3}>3</Cell>
+							<Cell>1_______________________________________</Cell>
+							<Cell>2_______________________________________</Cell>
+							<Cell>3_______________________________________</Cell>
 						</Row>
 						<Row>
-							<Cell theme={theme1}>1</Cell>
-							<Cell theme={theme2}>2</Cell>
-							<Cell theme={theme3}>3</Cell>
+							<Cell>1_______________________________________</Cell>
+							<Cell>2_______________________________________</Cell>
+							<Cell>3_______________________________________</Cell>
 						</Row>
 						<Row>
-							<Cell theme={theme1}>1</Cell>
-							<Cell theme={theme2}>2</Cell>
-							<Cell theme={theme3}>3</Cell>
+							<Cell>1_______________________________________</Cell>
+							<Cell>2_______________________________________</Cell>
+							<Cell>3_______________________________________</Cell>
 						</Row>
 						<Row>
-							<Cell theme={theme1}>1</Cell>
-							<Cell theme={theme2}>2</Cell>
-							<Cell theme={theme3}>3</Cell>
+							<Cell>1_______________________________________</Cell>
+							<Cell>2_______________________________________</Cell>
+							<Cell>3_______________________________________</Cell>
 						</Row>
 						<Row>
-							<Cell theme={theme1}>1</Cell>
-							<Cell theme={theme2}>2</Cell>
-							<Cell theme={theme3}>3</Cell>
+							<Cell>1_______________________________________</Cell>
+							<Cell>2_______________________________________</Cell>
+							<Cell>3_______________________________________</Cell>
 						</Row>
 						<Row>
-							<Cell theme={theme1}>1</Cell>
-							<Cell theme={theme2}>2</Cell>
-							<Cell theme={theme3}>3</Cell>
+							<Cell>1_______________________________________</Cell>
+							<Cell>2_______________________________________</Cell>
+							<Cell>3_______________________________________</Cell>
 						</Row>
 						<Row>
-							<Cell theme={theme1}>1</Cell>
-							<Cell theme={theme2}>2</Cell>
-							<Cell theme={theme3}>3</Cell>
+							<Cell>1_______________________________________</Cell>
+							<Cell>2_______________________________________</Cell>
+							<Cell>3_______________________________________</Cell>
 						</Row>
 						<Row>
-							<Cell theme={theme1}>1</Cell>
-							<Cell theme={theme2}>2</Cell>
-							<Cell theme={theme3}>3</Cell>
+							<Cell>1_______________________________________</Cell>
+							<Cell>2_______________________________________</Cell>
+							<Cell>3_______________________________________</Cell>
 						</Row>
 						<Row>
-							<Cell theme={theme1}>1</Cell>
-							<Cell theme={theme2}>2</Cell>
-							<Cell theme={theme3}>3</Cell>
+							<Cell>1_______________________________________</Cell>
+							<Cell>2_______________________________________</Cell>
+							<Cell>3_______________________________________</Cell>
 						</Row>
 						<Row>
-							<Cell theme={theme1}>1</Cell>
-							<Cell theme={theme2}>2</Cell>
-							<Cell theme={theme3}>3</Cell>
+							<Cell>1_______________________________________</Cell>
+							<Cell>2_______________________________________</Cell>
+							<Cell>3_______________________________________</Cell>
 						</Row>
 					</Body>
 				</Grid>
