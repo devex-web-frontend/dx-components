@@ -6,6 +6,14 @@
 
 .gridBody {
 	max-height: 300px;
+	.gridCell {
+		&__placeholder {
+			height: 16px; //this should be fixed integer to avoid repainting whole table on content change
+		}
+		&__content {
+			min-width: 30px; //to avoid repainting
+		}
+	}
 }
 	
 .gridHead {

@@ -17,27 +17,38 @@ const gridTheme = {
 	container: css.container,
 	gridBody: css.gridBody,
 	gridHead: css.gridHead,
-	gridHead_paddedForScrollbar: css.gridHead_paddedForScrollbar
+	gridHead_paddedForScrollbar: css.gridHead_paddedForScrollbar,
+	gridCell__placeholder: css.gridCell__placeholder,
+	gridCell__content: css.gridCell__content
 };
 
 @PURE
 class GridPage extends React.Component {
 	state = {
-		isLong: false
+		isLong: true,
+		counter: 0
 	}
 
-	_interval;
+	_interval1;
+	_interval2;
 
 	componentDidMount() {
-		this._interval = setTimeout(() => {
+		this._interval1 = setInterval(() => {
 			this.setState({
 				isLong: !this.state.isLong
 			});
 		}, 3000);
+
+		this._interval2 = setInterval(() => {
+			this.setState({
+				counter: this.state.counter + 1
+			});
+		}, 1000);
 	}
 
 	componentWillUnmount() {
-		clearInterval(this._interval);
+		clearTimeout(this._interval1);
+		clearInterval(this._interval2);
 	}
 
 	render() {
@@ -46,19 +57,19 @@ class GridPage extends React.Component {
 				<Grid theme={gridTheme}>
 					<Head theme={gridTheme}>
 						<Row>
-							<Cell>1</Cell>
-							<Cell>2</Cell>
-							<Cell>3</Cell>
+							<Cell theme={gridTheme}>1</Cell>
+							<Cell theme={gridTheme}>
+								{this.state.isLong ? '2_______________________________________' : '2'}
+							</Cell>
+							<Cell theme={gridTheme}>3</Cell>
 						</Row>
 					</Head>
 					<Body theme={gridTheme}>
 						{Array.from(new Array(20), () => 0).map((_, i) => (
 							<Row key={i}>
-								<Cell>
-									{this.state.isLong ? '1_______________________________________' : '1'}
-								</Cell>
-								<Cell>2_______________________________________</Cell>
-								<Cell>3_______________________________________</Cell>
+								<Cell theme={gridTheme}>{this.state.counter}</Cell>
+								<Cell theme={gridTheme}>2</Cell>
+								<Cell theme={gridTheme}>3_______________________________________</Cell>
 							</Row>
 						))}
 					</Body>

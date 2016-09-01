@@ -3,7 +3,17 @@
 }
 	
 .gridCell {
-	&__content {
+	&__placeholder {
 		display: inline-block;
+		position: relative;
+		height: 100%; //this should be fixed integer to avoid repainting whole table on content change (ex. 16px)
+	}
+		
+	&__content {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 }

@@ -47,7 +47,10 @@ export default class Grid extends React.Component {
 
 	_emitter;
 
-	_rows = {};
+	_rows = {
+		head: {},
+		body: {}
+	};
 	_maxColumnWidths = {};
 
 	getChildContext() {
@@ -75,6 +78,12 @@ export default class Grid extends React.Component {
 		this._emitter.off(EVENT_GRID.CELL_MOUNT);
 	}
 
+	componentDidUpdate() {
+		//this is called after all cells updated
+		//notify head
+		this._emitter.emit(EVENT_GRID.GRID_UPDATE, this._maxColumnWidths);
+	}
+
 	render() {
 		const {theme, children} = this.props;
 		return (
@@ -91,19 +100,18 @@ export default class Grid extends React.Component {
 	 * @param {Boolean} isInHead
 	 */
 	onCellMount = (rowIndex, columnIndex, width, isInHead) => {
-		if (!isInHead) {
-			//set or update row storage
-			if (!this._rows[rowIndex]) {
-				this._rows[rowIndex] = {
-					columns: {}
-				};
-			}
-			this._rows[rowIndex].columns[columnIndex] = width;
-			//detect max width
-			const maxColumnWidthByIndex = this._maxColumnWidths[columnIndex];
-			if (!maxColumnWidthByIndex || maxColumnWidthByIndex && maxColumnWidthByIndex < width) {
-				this._maxColumnWidths[columnIndex] = width;
-			}
+		const rowStorage = isInHead ? this._rows.head : this._rows.body;
+		//set or update row storage
+		if (!rowStorage[rowIndex]) {
+			rowStorage[rowIndex] = {
+				columns: {}
+			};
+		}
+		rowStorage[rowIndex].columns[columnIndex] = width;
+		//detect max width
+		const maxColumnWidthByIndex = this._maxColumnWidths[columnIndex];
+		if (!maxColumnWidthByIndex || maxColumnWidthByIndex && maxColumnWidthByIndex < width) {
+			this._maxColumnWidths[columnIndex] = width;
 		}
 	}
 
@@ -114,17 +122,14 @@ export default class Grid extends React.Component {
 	 * @param {Boolean} isInHead
 	 */
 	onCellUpdate = (rowIndex, columnIndex, newWidth, isInHead) => {
-		if (!isInHead) {
-			//update row storage
-			const row = this._rows[rowIndex];
-			row.columns[columnIndex] = newWidth;
-			//update max width
-			this._maxColumnWidths[columnIndex] = Math.max(
-				...Object.keys(this._rows).map(key => this._rows[key].columns[columnIndex])
-			);
-			//notify head
-			this._emitter.emit(EVENT_GRID.GRID_UPDATE, this._maxColumnWidths, this._rows);
-		}
+		//update row storage
+		const rowStorage = isInHead ? this._rows.head : this._rows.body;
+		rowStorage[rowIndex].columns[columnIndex] = newWidth;
+		//update max width
+		this._maxColumnWidths[columnIndex] = Math.max(
+			...Object.keys(this._rows.head).map(key => this._rows.head[key].columns[columnIndex]),
+			...Object.keys(this._rows.body).map(key => this._rows.body[key].columns[columnIndex])
+		);
 	}
 }
 export {
@@ -304,10 +309,8 @@ export class GridRow extends React.Component {
 
 	componentWillMount() {
 		const emitter = this.context[GRID_CONTEXT_EMITTER];
-		if (this.props[TABLE_IS_IN_HEAD_KEY]) {
-			emitter.on(EVENT_GRID.GRID_MOUNT, this.onGridMount);
-			emitter.on(EVENT_GRID.GRID_UPDATE, this.onGridUpdate);
-		}
+		emitter.on(EVENT_GRID.GRID_MOUNT, this.onGridMount);
+		emitter.on(EVENT_GRID.GRID_UPDATE, this.onGridUpdate);
 	}
 
 	render() {
@@ -330,7 +333,6 @@ export class GridRow extends React.Component {
 	}
 
 	onGridMount = columns => {
-		//this is only called with TABLE_IS_IN_HEAD_KEY set
 		//unsubscribe
 		this.context[GRID_CONTEXT_EMITTER].off(EVENT_GRID.GRID_MOUNT, this.onGridMount);
 		this.setState({
@@ -375,16 +377,13 @@ export class GridCell extends React.Component {
 	componentDidMount() {
 		this._width = ReactDOM.findDOMNode(this._content).clientWidth;
 		const emitter = this.context[GRID_CONTEXT_EMITTER];
-		if (!this.props[TABLE_IS_IN_HEAD_KEY]) {
-			//body
-			emitter.emit(
-				EVENT_GRID.CELL_MOUNT,
-				this.props[GRID_ROW_INDEX_KEY],
-				this.props[GRID_COLUMN_INDEX_KEY],
-				this._width,
-				this.props[TABLE_IS_IN_HEAD_KEY]
-			);
-		}
+		emitter.emit(
+			EVENT_GRID.CELL_MOUNT,
+			this.props[GRID_ROW_INDEX_KEY],
+			this.props[GRID_COLUMN_INDEX_KEY],
+			this._width,
+			this.props[TABLE_IS_IN_HEAD_KEY]
+		);
 	}
 
 	componentDidUpdate() {
@@ -408,18 +407,22 @@ export class GridCell extends React.Component {
 		delete props[GRID_COLUMN_INDEX_KEY];
 		delete props[GRID_COLUMN_WIDTH_KEY];
 		delete props[GRID_ROW_INDEX_KEY];
+
 		let style;
 		if (typeof columnWidth !== 'undefined') {
 			style = {
 				width: `${columnWidth}px`
 			};
 		}
+
 		return (
 			<TableCell {...props}>
-				<span className={props.theme.gridCell__content}
-				      style={style}
-				      ref={el => this._content = el}>
-					{props.children}
+				<span style={style}
+				      className={props.theme.gridCell__placeholder}>
+					<span className={props.theme.gridCell__content}
+					      ref={el => this._content = el}>
+						{props.children}
+					</span>
 				</span>
 			</TableCell>
 		);
