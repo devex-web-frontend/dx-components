@@ -61,6 +61,10 @@ export default class Grid extends React.Component {
 		this._emitter.on(EVENT_GRID.CELL_MOUNT, this.onCellMount);
 	}
 
+	componentWillUnmount() {
+		this._emitter.off(EVENT_GRID.CELL_MOUNT);
+	}
+
 	render() {
 		const {theme, children} = this.props;
 		return (
@@ -101,18 +105,14 @@ export class GridHead extends React.Component {
 
 	componentDidMount() {
 		const emitter = this.context[GRID_CONTEXT_EMITTER];
-		if (emitter) {
-			emitter.on(EVENT_GRID.BODY_SCROLL, this.onGridBodyScroll);
-			emitter.on(EVENT_GRID.BODY_SCROLLBAR_APPEAR, this.onGridBodyScrollbarAppear);
-		}
+		emitter.on(EVENT_GRID.BODY_SCROLL, this.onGridBodyScroll);
+		emitter.on(EVENT_GRID.BODY_SCROLLBAR_APPEAR, this.onGridBodyScrollbarAppear);
 	}
 
 	componentWillUnmount() {
 		const emitter = this.context[GRID_CONTEXT_EMITTER];
-		if (emitter) {
-			emitter.off(EVENT_GRID.BODY_SCROLL, this.onGridBodyScroll);
-			emitter.off(EVENT_GRID.BODY_SCROLLBAR_APPEAR, this.onGridBodyScrollbarAppear);
-		}
+		emitter.off(EVENT_GRID.BODY_SCROLL, this.onGridBodyScroll);
+		emitter.off(EVENT_GRID.BODY_SCROLLBAR_APPEAR, this.onGridBodyScrollbarAppear);
 	}
 
 	render() {
@@ -270,6 +270,8 @@ export class GridRow extends React.Component {
 	}
 
 	onGridMount = columns => {
+		//this is only called with TABLE_IS_IN_HEAD_KEY set
+		this.context[GRID_CONTEXT_EMITTER].off(EVENT_GRID.GRID_MOUNT, this.onGridMount);
 		this.setState({
 			columns: {
 				...columns
