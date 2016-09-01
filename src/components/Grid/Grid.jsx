@@ -14,7 +14,7 @@ export const GRID = Symbol('Grid');
 const EVENT_GRID = {
 	BODY_SCROLL: 'EVENT_GRID:BODY_SCROLL',
 	BODY_SCROLLBAR_APPEAR: 'EVENT_GRID:BODU_SCROLLBAR_APPER',
-	CELL_MOUNT: 'EVENT_GRID:CELL_MOUNT',
+	BODY_CELL_MOUNT: 'EVENT_GRID:BODY_CELL_MOUNT',
 	BODY_MOUNT: 'EVENT_GRID:BODY_MOUNT',
 	GRID_MOUNT: 'EVENT_GRID:GRID_MOUNT'
 };
@@ -26,6 +26,7 @@ class GridInternalEmitter extends Emitter {
 }
 
 const GRID_COLUMN_INDEX_KEY = '__GRID_COLUMN_INDEX_KEY__';
+const GRID_ROW_INDEX_KEY = '__GRID_ROW_INDEX_KEY__';
 const GRID_COLUMN_WIDTH_KEY = '__GRID_COLUMN_WIDTH_KEY__';
 
 const GRID_CONTEXT_EMITTER = '__GRID_CONTEXT_EMITTER__';
@@ -44,7 +45,8 @@ export default class Grid extends React.Component {
 
 	_emitter;
 
-	_columns = {};
+	_rows = {};
+	_maxColumnWidths = {};
 
 	getChildContext() {
 		return {
@@ -53,16 +55,21 @@ export default class Grid extends React.Component {
 	}
 
 	componentDidMount() {
-		this._emitter.emit(EVENT_GRID.GRID_MOUNT, this._columns);
+		//now we have widths of all rendered columns - send them to GridHead to adjust width
+		this._emitter.emit(EVENT_GRID.GRID_MOUNT, this._maxColumnWidths, this._rows);
+		this._emitter.off(EVENT_GRID.BODY_CELL_MOUNT, this.onBodyCellMount);
+		this._emitter.on(EVENT_GRID.BODY_CELL_MOUNT, () => {
+			throw new Error('Grid does not support dynamic row/cell mounts');
+		});
 	}
 
 	componentWillMount() {
 		this._emitter = new GridInternalEmitter();
-		this._emitter.on(EVENT_GRID.CELL_MOUNT, this.onCellMount);
+		this._emitter.on(EVENT_GRID.BODY_CELL_MOUNT, this.onBodyCellMount);
 	}
 
 	componentWillUnmount() {
-		this._emitter.off(EVENT_GRID.CELL_MOUNT);
+		this._emitter.off(EVENT_GRID.BODY_CELL_MOUNT);
 	}
 
 	render() {
@@ -74,12 +81,23 @@ export default class Grid extends React.Component {
 		);
 	}
 
-	onCellMount = (index, width) => {
-		const max = this._columns[index];
-		if (!max || max && max < width) {
-			this._columns[index] = width;
+	/**
+	 * @param {Number} rowIndex
+	 * @param {Number} columnIndex
+	 * @param {Number} width
+	 */
+	onBodyCellMount = (rowIndex, columnIndex, width) => {
+		if (!this._rows[rowIndex]) {
+			this._rows[rowIndex] = {
+				columns: {}
+			};
 		}
-	}
+		this._rows[rowIndex].columns[columnIndex] = width;
+		const maxColumnWidthByIndex = this._maxColumnWidths[columnIndex];
+		if (!maxColumnWidthByIndex || maxColumnWidthByIndex && maxColumnWidthByIndex < width) {
+			this._maxColumnWidths[columnIndex] = width;
+		}
+	};
 }
 export {
 	Grid
@@ -133,6 +151,8 @@ export class GridHead extends React.Component {
 				)
 			}
 		);
+
+		//todo support multiple rows in head
 
 		return (
 			<div className={className}>
@@ -202,7 +222,13 @@ export class GridBody extends React.Component {
 			<Scrollable onScroll={this.onScroll} onUpdate={this.onUpdate}>
 				<div className={theme.gridBody}>
 					<Table theme={theme}>
-						<TableBody theme={theme} {...props}/>
+						<TableBody theme={theme} {...props}>
+							{React.Children.map(props.children, (child, i) => (
+								React.cloneElement(child, {
+									[GRID_ROW_INDEX_KEY]: i
+								})
+							))}
+						</TableBody>
 					</Table>
 				</div>
 			</Scrollable>
@@ -235,7 +261,9 @@ export class GridBody extends React.Component {
 export class GridRow extends React.Component {
 	static propTypes = {
 		...TableRow.propTypes,
-		TableRow: React.PropTypes.func
+		TableRow: React.PropTypes.func,
+		//injected by GridBody (will be also by GridHead with implementation on multiple rows in head)
+		[GRID_ROW_INDEX_KEY]: React.PropTypes.number
 	}
 
 	static defaultProps = {
@@ -247,17 +275,20 @@ export class GridRow extends React.Component {
 	state = {};
 
 	componentWillMount() {
+		const emitter = this.context[GRID_CONTEXT_EMITTER];
 		if (this.props[TABLE_IS_IN_HEAD_KEY]) {
-			this.context[GRID_CONTEXT_EMITTER].on(EVENT_GRID.GRID_MOUNT, this.onGridMount);
+			emitter.on(EVENT_GRID.GRID_MOUNT, this.onGridMount);
 		}
 	}
 
 	render() {
 		const {TableRow, ...props} = this.props;
+		const rowIndex = this.props[GRID_ROW_INDEX_KEY];
 		return (
 			<TableRow {...props}>
 				{React.Children.map(this.props.children, (child, i) => {
 					const newProps = {
+						[GRID_ROW_INDEX_KEY]: rowIndex,
 						[GRID_COLUMN_INDEX_KEY]: i
 					};
 					if (this.state.columns) {
@@ -271,6 +302,7 @@ export class GridRow extends React.Component {
 
 	onGridMount = columns => {
 		//this is only called with TABLE_IS_IN_HEAD_KEY set
+		//unsubscribe
 		this.context[GRID_CONTEXT_EMITTER].off(EVENT_GRID.GRID_MOUNT, this.onGridMount);
 		this.setState({
 			columns: {
@@ -287,6 +319,8 @@ export class GridCell extends React.Component {
 		...TableCell.propTypes,
 		//injected by GridRow
 		[GRID_COLUMN_INDEX_KEY]: React.PropTypes.number,
+		//injected by GridRow
+		[GRID_ROW_INDEX_KEY]: React.PropTypes.number,
 		//injected by GridHead
 		[GRID_COLUMN_WIDTH_KEY]: React.PropTypes.number,
 		TableCell: React.PropTypes.func
@@ -302,9 +336,15 @@ export class GridCell extends React.Component {
 
 	componentDidMount() {
 		if (!this.props[TABLE_IS_IN_HEAD_KEY]) {
+			//todo support head content
 			const width = ReactDOM.findDOMNode(this._content).clientWidth;
 			const emitter = this.context[GRID_CONTEXT_EMITTER];
-			emitter.emit(EVENT_GRID.CELL_MOUNT, this.props[GRID_COLUMN_INDEX_KEY], width);
+			emitter.emit(
+				EVENT_GRID.BODY_CELL_MOUNT,
+				this.props[GRID_ROW_INDEX_KEY],
+				this.props[GRID_COLUMN_INDEX_KEY],
+				width
+			);
 		}
 	}
 
@@ -313,6 +353,7 @@ export class GridCell extends React.Component {
 		const columnWidth = props[GRID_COLUMN_WIDTH_KEY];
 		delete props[GRID_COLUMN_INDEX_KEY];
 		delete props[GRID_COLUMN_WIDTH_KEY];
+		delete props[GRID_ROW_INDEX_KEY];
 		let style;
 		if (typeof columnWidth !== 'undefined') {
 			style = {
