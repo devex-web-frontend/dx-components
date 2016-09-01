@@ -15,7 +15,7 @@ const EVENT_GRID = {
 	BODY_SCROLL: 'EVENT_GRID:BODY_SCROLL',
 	BODY_SCROLLBAR_APPEAR: 'EVENT_GRID:BODU_SCROLLBAR_APPER',
 	CELL_MOUNT: 'EVENT_GRID:CELL_MOUNT',
-	BODY_CELL_UPDATE: 'EVENT_GRID:BODY_CELL_UPDATE',
+	CELL_UPDATE: 'EVENT_GRID:CELL_UPDATE',
 	BODY_MOUNT: 'EVENT_GRID:BODY_MOUNT',
 	GRID_MOUNT: 'EVENT_GRID:GRID_MOUNT',
 	GRID_UPDATE: 'EVENT_GRID:GRID_UPDATE'
@@ -66,7 +66,7 @@ export default class Grid extends React.Component {
 			throw new Error('Grid does not support dynamic row/cell mounts');
 		});
 		//start listening to cell updates
-		this._emitter.on(EVENT_GRID.BODY_CELL_UPDATE, this.onCellUpdate);
+		this._emitter.on(EVENT_GRID.CELL_UPDATE, this.onCellUpdate);
 	}
 
 	componentWillMount() {
@@ -392,7 +392,7 @@ export class GridCell extends React.Component {
 			this._width = newWidth;
 			const emitter = this.context[GRID_CONTEXT_EMITTER];
 			emitter.emit(
-				EVENT_GRID.BODY_CELL_UPDATE,
+				EVENT_GRID.CELL_UPDATE,
 				this.props[GRID_ROW_INDEX_KEY],
 				this.props[GRID_COLUMN_INDEX_KEY],
 				newWidth,
