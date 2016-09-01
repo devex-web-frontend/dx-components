@@ -8,7 +8,6 @@ import {TABLE_IS_IN_HEAD_KEY, Table, TableBody, TableHead, TableCell, TableRow} 
 import Emitter from 'dx-util/src/emitter/Emitter';
 import Scrollable from '../Scrollable/Scrollable';
 import classnames from 'classnames';
-import {shallowEqual} from 'dx-util/src/object/fb';
 
 export const GRID = Symbol('Grid');
 
@@ -292,11 +291,6 @@ export class GridRow extends React.Component {
 	static contextTypes = CONTEXT_TYPES;
 
 	state = {};
-
-	shouldComponentUpdate(newProps, newState) {
-		const isInHead = newProps[TABLE_IS_IN_HEAD_KEY];
-		return !isInHead || isInHead && !shallowEqual(this.state.columns, newState.columns);
-	}
 
 	componentWillMount() {
 		const emitter = this.context[GRID_CONTEXT_EMITTER];
