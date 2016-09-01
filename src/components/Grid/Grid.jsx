@@ -314,6 +314,12 @@ export class GridRow extends React.Component {
 		emitter.on(EVENT_GRID.GRID_UPDATE, this.onGridUpdate);
 	}
 
+	componentWillUnmount() {
+		const emitter = this.context[GRID_CONTEXT_EMITTER];
+		emitter.on(EVENT_GRID.GRID_MOUNT, this.onGridMount);
+		emitter.on(EVENT_GRID.GRID_UPDATE, this.onGridUpdate);
+	}
+
 	render() {
 		const {TableRow, ...props} = this.props;
 		const rowIndex = this.props[GRID_ROW_INDEX_KEY];
