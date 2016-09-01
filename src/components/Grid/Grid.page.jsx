@@ -26,6 +26,20 @@ class GridPage extends React.Component {
 		isLong: false
 	}
 
+	_interval;
+
+	componentDidMount() {
+		this._interval = setTimeout(() => {
+			this.setState({
+				isLong: !this.state.isLong
+			});
+		}, 3000);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this._interval);
+	}
+
 	render() {
 		return (
 			<Demo>

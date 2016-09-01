@@ -8,6 +8,7 @@ import {TABLE_IS_IN_HEAD_KEY, Table, TableBody, TableHead, TableCell, TableRow} 
 import Emitter from 'dx-util/src/emitter/Emitter';
 import Scrollable from '../Scrollable/Scrollable';
 import classnames from 'classnames';
+import {shallowEqual} from 'dx-util/src/object/fb';
 
 export const GRID = Symbol('Grid');
 
@@ -15,8 +16,10 @@ const EVENT_GRID = {
 	BODY_SCROLL: 'EVENT_GRID:BODY_SCROLL',
 	BODY_SCROLLBAR_APPEAR: 'EVENT_GRID:BODU_SCROLLBAR_APPER',
 	BODY_CELL_MOUNT: 'EVENT_GRID:BODY_CELL_MOUNT',
+	BODY_CELL_UPDATE: 'EVENT_GRID:BODY_CELL_UPDATE',
 	BODY_MOUNT: 'EVENT_GRID:BODY_MOUNT',
-	GRID_MOUNT: 'EVENT_GRID:GRID_MOUNT'
+	GRID_MOUNT: 'EVENT_GRID:GRID_MOUNT',
+	GRID_UPDATE: 'EVENT_GRID:GRID_UPDATE'
 };
 
 class GridInternalEmitter extends Emitter {
@@ -61,6 +64,8 @@ export default class Grid extends React.Component {
 		this._emitter.on(EVENT_GRID.BODY_CELL_MOUNT, () => {
 			throw new Error('Grid does not support dynamic row/cell mounts');
 		});
+		//start listening to cell updates
+		this._emitter.on(EVENT_GRID.BODY_CELL_UPDATE, this.onBodyCellUpdate);
 	}
 
 	componentWillMount() {
@@ -87,17 +92,31 @@ export default class Grid extends React.Component {
 	 * @param {Number} width
 	 */
 	onBodyCellMount = (rowIndex, columnIndex, width) => {
+		//set or update row storage
 		if (!this._rows[rowIndex]) {
 			this._rows[rowIndex] = {
 				columns: {}
 			};
 		}
 		this._rows[rowIndex].columns[columnIndex] = width;
+		//detect max width
 		const maxColumnWidthByIndex = this._maxColumnWidths[columnIndex];
 		if (!maxColumnWidthByIndex || maxColumnWidthByIndex && maxColumnWidthByIndex < width) {
 			this._maxColumnWidths[columnIndex] = width;
 		}
-	};
+	}
+
+	onBodyCellUpdate = (rowIndex, columnIndex, newWidth) => {
+		//update row storage
+		const row = this._rows[rowIndex];
+		row.columns[columnIndex] = newWidth;
+		//update max width
+		this._maxColumnWidths[columnIndex] = Math.max(
+			...Object.keys(this._rows).map(key => this._rows[key].columns[columnIndex])
+		);
+		//notify head
+		this._emitter.emit(EVENT_GRID.GRID_UPDATE, this._maxColumnWidths, this._rows);
+	}
 }
 export {
 	Grid
@@ -182,7 +201,7 @@ export class GridHead extends React.Component {
 		});
 	}
 
-	onGridMount = (columns) => {
+	onGridMount = (columns, rows) => {
 		this.setState({
 			columns: {
 				...columns
@@ -274,10 +293,16 @@ export class GridRow extends React.Component {
 
 	state = {};
 
+	shouldComponentUpdate(newProps, newState) {
+		const isInHead = newProps[TABLE_IS_IN_HEAD_KEY];
+		return !isInHead || isInHead && !shallowEqual(this.state.columns, newState.columns);
+	}
+
 	componentWillMount() {
 		const emitter = this.context[GRID_CONTEXT_EMITTER];
 		if (this.props[TABLE_IS_IN_HEAD_KEY]) {
 			emitter.on(EVENT_GRID.GRID_MOUNT, this.onGridMount);
+			emitter.on(EVENT_GRID.GRID_UPDATE, this.onGridUpdate);
 		}
 	}
 
@@ -310,6 +335,14 @@ export class GridRow extends React.Component {
 			}
 		});
 	}
+
+	onGridUpdate = (columns, rows) => {
+		this.setState({
+			columns: {
+				...columns
+			}
+		});
+	}
 }
 
 @PURE
@@ -333,18 +366,36 @@ export class GridCell extends React.Component {
 	static contextTypes = CONTEXT_TYPES;
 
 	_content;
+	_width;
 
 	componentDidMount() {
 		if (!this.props[TABLE_IS_IN_HEAD_KEY]) {
 			//todo support head content
-			const width = ReactDOM.findDOMNode(this._content).clientWidth;
+			this._width = ReactDOM.findDOMNode(this._content).clientWidth;
 			const emitter = this.context[GRID_CONTEXT_EMITTER];
 			emitter.emit(
 				EVENT_GRID.BODY_CELL_MOUNT,
 				this.props[GRID_ROW_INDEX_KEY],
 				this.props[GRID_COLUMN_INDEX_KEY],
-				width
+				this._width
 			);
+		}
+	}
+
+	componentDidUpdate() {
+		//todo support head
+		if (!this.props[TABLE_IS_IN_HEAD_KEY]) {
+			const newWidth = ReactDOM.findDOMNode(this._content).clientWidth;
+			if (newWidth !== this._width) {
+				this._width = newWidth;
+				const emitter = this.context[GRID_CONTEXT_EMITTER];
+				emitter.emit(
+					EVENT_GRID.BODY_CELL_UPDATE,
+					this.props[GRID_ROW_INDEX_KEY],
+					this.props[GRID_COLUMN_INDEX_KEY],
+					newWidth
+				);
+			}
 		}
 	}
 
