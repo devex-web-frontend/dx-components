@@ -82,6 +82,8 @@ export class TableRow extends React.Component {
 		theme: React.PropTypes.shape({
 			row: React.PropTypes.string
 		}),
+		//not for direct usage
+		//injected by TableHead
 		[TABLE_IS_IN_HEAD_KEY]: React.PropTypes.bool
 	}
 
@@ -114,6 +116,8 @@ export class TableCell extends React.Component {
 		colSpan: React.PropTypes.number,
 		rowSpan: React.PropTypes.number,
 		style: React.PropTypes.object,
+		//not for direct usage
+		//injected by TableHead
 		[TABLE_IS_IN_HEAD_KEY]: React.PropTypes.bool
 	}
 
