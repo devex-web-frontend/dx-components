@@ -14,7 +14,7 @@ export const GRID = Symbol('Grid');
 const EVENT_GRID = {
 	BODY_SCROLL: 'EVENT_GRID:BODY_SCROLL',
 	BODY_SCROLLBAR_APPEAR: 'EVENT_GRID:BODU_SCROLLBAR_APPER',
-	BODY_CELL_MOUNT: 'EVENT_GRID:BODY_CELL_MOUNT',
+	CELL_MOUNT: 'EVENT_GRID:CELL_MOUNT',
 	BODY_CELL_UPDATE: 'EVENT_GRID:BODY_CELL_UPDATE',
 	BODY_MOUNT: 'EVENT_GRID:BODY_MOUNT',
 	GRID_MOUNT: 'EVENT_GRID:GRID_MOUNT',
@@ -57,23 +57,22 @@ export default class Grid extends React.Component {
 	}
 
 	componentDidMount() {
-		//now we have widths of all rendered columns - send them to GridHead to adjust width
-		this._emitter.emit(EVENT_GRID.GRID_MOUNT, this._maxColumnWidths, this._rows);
-		this._emitter.off(EVENT_GRID.BODY_CELL_MOUNT, this.onBodyCellMount);
-		this._emitter.on(EVENT_GRID.BODY_CELL_MOUNT, () => {
+		this._emitter.emit(EVENT_GRID.GRID_MOUNT, this._maxColumnWidths);
+		this._emitter.off(EVENT_GRID.CELL_MOUNT, this.onCellMount);
+		this._emitter.on(EVENT_GRID.CELL_MOUNT, () => {
 			throw new Error('Grid does not support dynamic row/cell mounts');
 		});
 		//start listening to cell updates
-		this._emitter.on(EVENT_GRID.BODY_CELL_UPDATE, this.onBodyCellUpdate);
+		this._emitter.on(EVENT_GRID.BODY_CELL_UPDATE, this.onCellUpdate);
 	}
 
 	componentWillMount() {
 		this._emitter = new GridInternalEmitter();
-		this._emitter.on(EVENT_GRID.BODY_CELL_MOUNT, this.onBodyCellMount);
+		this._emitter.on(EVENT_GRID.CELL_MOUNT, this.onCellMount);
 	}
 
 	componentWillUnmount() {
-		this._emitter.off(EVENT_GRID.BODY_CELL_MOUNT);
+		this._emitter.off(EVENT_GRID.CELL_MOUNT);
 	}
 
 	render() {
@@ -89,32 +88,43 @@ export default class Grid extends React.Component {
 	 * @param {Number} rowIndex
 	 * @param {Number} columnIndex
 	 * @param {Number} width
+	 * @param {Boolean} isInHead
 	 */
-	onBodyCellMount = (rowIndex, columnIndex, width) => {
-		//set or update row storage
-		if (!this._rows[rowIndex]) {
-			this._rows[rowIndex] = {
-				columns: {}
-			};
-		}
-		this._rows[rowIndex].columns[columnIndex] = width;
-		//detect max width
-		const maxColumnWidthByIndex = this._maxColumnWidths[columnIndex];
-		if (!maxColumnWidthByIndex || maxColumnWidthByIndex && maxColumnWidthByIndex < width) {
-			this._maxColumnWidths[columnIndex] = width;
+	onCellMount = (rowIndex, columnIndex, width, isInHead) => {
+		if (!isInHead) {
+			//set or update row storage
+			if (!this._rows[rowIndex]) {
+				this._rows[rowIndex] = {
+					columns: {}
+				};
+			}
+			this._rows[rowIndex].columns[columnIndex] = width;
+			//detect max width
+			const maxColumnWidthByIndex = this._maxColumnWidths[columnIndex];
+			if (!maxColumnWidthByIndex || maxColumnWidthByIndex && maxColumnWidthByIndex < width) {
+				this._maxColumnWidths[columnIndex] = width;
+			}
 		}
 	}
 
-	onBodyCellUpdate = (rowIndex, columnIndex, newWidth) => {
-		//update row storage
-		const row = this._rows[rowIndex];
-		row.columns[columnIndex] = newWidth;
-		//update max width
-		this._maxColumnWidths[columnIndex] = Math.max(
-			...Object.keys(this._rows).map(key => this._rows[key].columns[columnIndex])
-		);
-		//notify head
-		this._emitter.emit(EVENT_GRID.GRID_UPDATE, this._maxColumnWidths, this._rows);
+	/**
+	 * @param {Number} rowIndex
+	 * @param {Number} columnIndex
+	 * @param {Number} newWidth
+	 * @param {Boolean} isInHead
+	 */
+	onCellUpdate = (rowIndex, columnIndex, newWidth, isInHead) => {
+		if (!isInHead) {
+			//update row storage
+			const row = this._rows[rowIndex];
+			row.columns[columnIndex] = newWidth;
+			//update max width
+			this._maxColumnWidths[columnIndex] = Math.max(
+				...Object.keys(this._rows).map(key => this._rows[key].columns[columnIndex])
+			);
+			//notify head
+			this._emitter.emit(EVENT_GRID.GRID_UPDATE, this._maxColumnWidths, this._rows);
+		}
 	}
 }
 export {
@@ -200,7 +210,7 @@ export class GridHead extends React.Component {
 		});
 	}
 
-	onGridMount = (columns, rows) => {
+	onGridMount = (columns) => {
 		this.setState({
 			columns: {
 				...columns
@@ -330,7 +340,7 @@ export class GridRow extends React.Component {
 		});
 	}
 
-	onGridUpdate = (columns, rows) => {
+	onGridUpdate = (columns) => {
 		this.setState({
 			columns: {
 				...columns
@@ -363,33 +373,32 @@ export class GridCell extends React.Component {
 	_width;
 
 	componentDidMount() {
+		this._width = ReactDOM.findDOMNode(this._content).clientWidth;
+		const emitter = this.context[GRID_CONTEXT_EMITTER];
 		if (!this.props[TABLE_IS_IN_HEAD_KEY]) {
-			//todo support head content
-			this._width = ReactDOM.findDOMNode(this._content).clientWidth;
-			const emitter = this.context[GRID_CONTEXT_EMITTER];
+			//body
 			emitter.emit(
-				EVENT_GRID.BODY_CELL_MOUNT,
+				EVENT_GRID.CELL_MOUNT,
 				this.props[GRID_ROW_INDEX_KEY],
 				this.props[GRID_COLUMN_INDEX_KEY],
-				this._width
+				this._width,
+				this.props[TABLE_IS_IN_HEAD_KEY]
 			);
 		}
 	}
 
 	componentDidUpdate() {
-		//todo support head
-		if (!this.props[TABLE_IS_IN_HEAD_KEY]) {
-			const newWidth = ReactDOM.findDOMNode(this._content).clientWidth;
-			if (newWidth !== this._width) {
-				this._width = newWidth;
-				const emitter = this.context[GRID_CONTEXT_EMITTER];
-				emitter.emit(
-					EVENT_GRID.BODY_CELL_UPDATE,
-					this.props[GRID_ROW_INDEX_KEY],
-					this.props[GRID_COLUMN_INDEX_KEY],
-					newWidth
-				);
-			}
+		const newWidth = ReactDOM.findDOMNode(this._content).clientWidth;
+		if (newWidth !== this._width) {
+			this._width = newWidth;
+			const emitter = this.context[GRID_CONTEXT_EMITTER];
+			emitter.emit(
+				EVENT_GRID.BODY_CELL_UPDATE,
+				this.props[GRID_ROW_INDEX_KEY],
+				this.props[GRID_COLUMN_INDEX_KEY],
+				newWidth,
+				this.props[TABLE_IS_IN_HEAD_KEY]
+			);
 		}
 	}
 
