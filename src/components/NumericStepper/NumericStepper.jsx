@@ -91,6 +91,7 @@ export default class NumericStepper extends React.Component {
 			}
 		},
 		step: React.PropTypes.number,
+		HoldableComponent: React.PropTypes.func,
 		ButtonComponent: React.PropTypes.func,
 		InputComponent: React.PropTypes.func,
 
@@ -162,10 +163,11 @@ export default class NumericStepper extends React.Component {
 
 	static defaultProps = {
 		step: 1,
-		pattern: /^-?[0-9]\d*(\.\d+)?$/,
+		pattern: /^-?$|^-?\d*([.]\d*)?$/,
 		max: Infinity,
 		min: -Infinity,
 		isDisabled: false,
+		HoldableComponent: Holdable,
 		InputComponent: Input,
 		ButtonComponent: ButtonIcon
 	};
@@ -211,8 +213,7 @@ export default class NumericStepper extends React.Component {
 			downIconName,
 			isDisabled,
 			pattern,
-			repeatInterval,
-			repeatDelay,
+			HoldableComponent: Holdable,
 			InputComponent: Input,
 			ButtonComponent: Button,
 		} = this.props;
@@ -255,14 +256,12 @@ export default class NumericStepper extends React.Component {
 			<div className={className}>
 				<Input key="input" {...inputProps} />
 				<div className={theme.buttons}>
-					<Holdable onHold={this.onButtonDownClick} delay={repeatDelay} interval={repeatInterval}
-					          isDisabled={isDisabled || value <= min}>
+					<Holdable onHold={this.onButtonDownClick} isDisabled={isDisabled || value <= min}>
 						<Button onClick={this.onButtonDownClick}
 						        name={downIconName}
 						        theme={buttonTheme.UP}/>
 					</Holdable>
-					<Holdable onHold={this.onButtonUpClick} delay={repeatDelay} interval={repeatInterval}
-					          isDisabled={isDisabled || value >= max}>
+					<Holdable onHold={this.onButtonUpClick} isDisabled={isDisabled || value >= max}>
 						<Button onClick={this.onButtonUpClick}
 						        theme={buttonTheme.DOWN}
 						        name={upIconName}/>
@@ -290,11 +289,13 @@ export default class NumericStepper extends React.Component {
 	}
 
 	onBlur = (event) => {
+		//const {}
 		const {value} = event.target;
 		this.setState({
 			isFocused: false
 		});
-		this.setValue(parseFloat(value));
+
+		this.setValue(Number(value));
 	}
 
 	onWheel = e => {
