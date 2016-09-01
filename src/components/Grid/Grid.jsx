@@ -76,6 +76,7 @@ export default class Grid extends React.Component {
 
 	componentWillUnmount() {
 		this._emitter.off(EVENT_GRID.CELL_MOUNT);
+		this._emitter.off(EVENT_GRID.CELL_UPDATE);
 	}
 
 	componentDidUpdate() {
