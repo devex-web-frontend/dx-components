@@ -16,7 +16,6 @@ const EVENT_GRID = {
 	BODY_SCROLLBAR_APPEAR: 'EVENT_GRID:BODU_SCROLLBAR_APPER',
 	CELL_MOUNT: 'EVENT_GRID:CELL_MOUNT',
 	CELL_UPDATE: 'EVENT_GRID:CELL_UPDATE',
-	BODY_MOUNT: 'EVENT_GRID:BODY_MOUNT',
 	GRID_MOUNT: 'EVENT_GRID:GRID_MOUNT',
 	GRID_UPDATE: 'EVENT_GRID:GRID_UPDATE'
 };
@@ -245,10 +244,6 @@ export class GridBody extends React.Component {
 	_withVerticalScrollbar;
 	_withHorizontalScrollbar;
 
-	componentDidMount() {
-		this.context[GRID_CONTEXT_EMITTER].emit(EVENT_GRID.BODY_MOUNT);
-	}
-
 	render() {
 		const {Table, TableBody, theme, ...props} = this.props;
 
@@ -340,8 +335,6 @@ export class GridRow extends React.Component {
 	}
 
 	onGridMount = columns => {
-		//unsubscribe
-		this.context[GRID_CONTEXT_EMITTER].off(EVENT_GRID.GRID_MOUNT, this.onGridMount);
 		this.setState({
 			columns: {
 				...columns
