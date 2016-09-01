@@ -59,7 +59,6 @@ export default class Grid extends React.Component {
 	componentWillMount() {
 		this._emitter = new GridInternalEmitter();
 		this._emitter.on(EVENT_GRID.CELL_MOUNT, this.onCellMount);
-		// this._emitter.on(EVENT_GRID.CELL_UNMOUNT, this.onCellUnmount);
 	}
 
 	render() {
@@ -77,10 +76,6 @@ export default class Grid extends React.Component {
 			this._columns[index] = width;
 		}
 	}
-
-	// onCellUnmount = (index) => {
-	// 	delete this.c_col
-	// }
 }
 export {
 	Grid
@@ -122,7 +117,7 @@ export class GridHead extends React.Component {
 
 	render() {
 		const {Table, theme, TableHead, ...props} = this.props;
-		const {scrollLeft, withHorizontalScrollbar, withVerticalScrollbar} = this.state;
+		const {scrollLeft, withVerticalScrollbar} = this.state;
 		let style;
 		if (typeof scrollLeft !== 'undefined') {
 			style = prefix({
