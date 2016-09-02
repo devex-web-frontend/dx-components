@@ -115,23 +115,25 @@ export default class NumericStepper extends React.Component {
 
 	constructor(...args) {
 		super(...args);
-		const {defaultValue, value} = this.props;
+		const {defaultValue, value, formatter} = this.props;
 
 		this.state = {
 			isFocused: false
 		};
 
+		let newValue;
+
 		if (typeof value !== 'undefined') {
-			this.state = {
-				...this.state,
-				value
-			};
+			newValue = value;
 		} else if (typeof defaultValue !== 'undefined') {
-			this.state = {
-				...this.state,
-				value: defaultValue
-			};
+			newValue = defaultValue;
 		}
+
+		this.state = {
+			...this.state,
+			value: newValue,
+			formattedValue: formatter ? formatter(newValue) : newValue
+		};
 	}
 
 	componentWillReceiveProps(newProps) {
@@ -202,12 +204,11 @@ export default class NumericStepper extends React.Component {
 	}
 
 	render() {
-		const {value, isFocused} = this.state;
+		const {value, isFocused, formattedValue} = this.state;
 
 		const {
 			theme,
 			min,
-			formatter,
 			max,
 			upIconName,
 			downIconName,
@@ -218,13 +219,12 @@ export default class NumericStepper extends React.Component {
 			ButtonComponent: Button,
 		} = this.props;
 
-		const formattedValue = formatter ? formatter(value) : value;
-
 		const {onWheel, onChange, onBlur, onFocus, onKeyDown} = this;
 
 		const inputProps = {
-			value: formattedValue,
-			isDisabled,
+			value: formattedValue || value,
+			type: 'text',
+			disabled: isDisabled,
 			onBlur,
 			onChange,
 			onFocus,
@@ -249,7 +249,8 @@ export default class NumericStepper extends React.Component {
 		}, {});
 
 		const className = classnames(theme.container, {
-			[theme.container_isInvalid]: value < min || value > max
+			[theme.container_isInvalid]: (typeof formattedValue !== 'undefined' && isNaN(formattedValue)) ||
+			value < min || value > max
 		});
 
 		return (
@@ -282,6 +283,14 @@ export default class NumericStepper extends React.Component {
 		}
 	}
 
+	onChange = (event) => {
+		const {value: newValue} = event.target;
+		this.setState({
+			formattedValue: (void 0), //eslint-disable-line no-void,
+			value: newValue
+		});
+	}
+
 	onFocus = () => {
 		this.setState({
 			isFocused: true
@@ -289,13 +298,13 @@ export default class NumericStepper extends React.Component {
 	}
 
 	onBlur = (event) => {
-		//const {}
 		const {value} = event.target;
+		const {formatter} = this.props;
 		this.setState({
-			isFocused: false
+			isFocused: false,
+			value,
+			formattedValue: formatter ? formatter(Number(value)) : value
 		});
-
-		this.setValue(Number(value));
 	}
 
 	onWheel = e => {

@@ -33,14 +33,5 @@ storiesOf('NumericStepper', module)
 				                upIconName={iconAdd}
 				                downIconName={iconDecrease} />
 			</div>
-			<br/>
-			<div>
-				<NumericStepper formatter={formatter}
-				                isDisabled={true}
-				                value={10}
-				                max={9}
-				                upIconName={iconAdd}
-				                downIconName={iconDecrease} />
-			</div>
 		</Demo>
 	));
