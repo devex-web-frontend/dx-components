@@ -37,11 +37,11 @@ class GridPage extends React.Component {
 	_interval2;
 
 	componentDidMount() {
-		this._interval1 = setInterval(() => {
-			this.setState({
-				isLong: !this.state.isLong
-			});
-		}, 3000);
+		// this._interval1 = setInterval(() => {
+		// 	this.setState({
+		// 		isLong: !this.state.isLong
+		// 	});
+		// }, 3000);
 
 		this._interval2 = setInterval(() => {
 			this.setState({
