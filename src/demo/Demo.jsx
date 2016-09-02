@@ -17,10 +17,10 @@ class DemoComponent extends React.Component {
 	static propTypes = PROP_TYPES;
 
 	render() {
-		const {children} = this.props;
+		const {children, theme} = this.props;
 
 		return (
-			<section className={css.container}>
+			<section className={theme.container}>
 				{children}
 			</section>
 		);
