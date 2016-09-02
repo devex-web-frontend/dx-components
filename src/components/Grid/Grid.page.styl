@@ -11,9 +11,26 @@
 
 .gridBody {
 	max-height: 300px;
-	.gridCell {
-		&__placeholder {
-			height: 16px; //this should be fixed integer to avoid repainting whole table on content change
+}
+	
+.gridCell {
+	&__placeholder {
+		height: 16px; //this should be fixed integer to avoid repainting whole table on content change
+		position: relative;
+	}
+	&__content {
+		position: absolute;
+		top: 0;
+		&_left {
+			composes: gridCell__content;
+			text-align: left;
+		}
+		&_center {
+			left: 50%;
+			transform: translateX(-50%);
+		}
+		&_right {
+			right: 0;
 		}
 	}
 }

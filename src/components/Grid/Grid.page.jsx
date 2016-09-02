@@ -8,7 +8,8 @@ import {
 	GridHead as Head,
 	GridBody as Body,
 	GridRow as Row,
-	GridCell as Cell
+	GridCell as Cell,
+	GRID_CELL_ALIGN as ALIGN
 } from './Grid';
 
 import css from './Grid.page.styl';
@@ -19,7 +20,10 @@ const gridTheme = {
 	gridHead: css.gridHead,
 	gridHead_paddedForScrollbar: css.gridHead_paddedForScrollbar,
 	gridCell__placeholder: css.gridCell__placeholder,
-	gridCell__content: css.gridCell__content
+	gridCell__content: css.gridCell__content,
+	gridCell__content_left: css.gridCell__content_left,
+	gridCell__content_center: css.gridCell__content_center,
+	gridCell__content_right: css.gridCell__content_right,
 };
 
 @PURE
@@ -57,7 +61,7 @@ class GridPage extends React.Component {
 				<Grid theme={gridTheme}>
 					<Head theme={gridTheme}>
 						<Row>
-							<Cell theme={gridTheme}>1</Cell>
+							<Cell align={ALIGN.LEFT} theme={gridTheme}>1</Cell>
 							<Cell theme={gridTheme}>
 								{this.state.isLong ? '2_______________________________________' : '2'}
 							</Cell>
@@ -67,7 +71,7 @@ class GridPage extends React.Component {
 					<Body theme={gridTheme}>
 						{Array.from(new Array(20), () => 0).map((_, i) => (
 							<Row key={i}>
-								<Cell theme={gridTheme}>{this.state.counter}</Cell>
+								<Cell align={ALIGN.LEFT} theme={gridTheme}>{this.state.counter}</Cell>
 								<Cell theme={gridTheme}>2</Cell>
 								<Cell theme={gridTheme}>3_______________________________________</Cell>
 							</Row>

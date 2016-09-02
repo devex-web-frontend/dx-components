@@ -17,27 +17,19 @@
 .gridCell {
 	&__placeholder {
 		display: inline-block;
-		position: relative;
-		height: 100%; //this should be fixed integer to avoid repainting whole table on content change (ex. 16px)
 	}
 		
 	&__content {
-		display: block;
-		position: absolute;
-		top: 0;
+		display: inline-block;
 		&_left {
 			composes: gridCell__content;
-			left: 0;
 			text-align: left;
 		}
 		&_center {
 			composes: gridCell__content;
-			left: 50%;
-			transform: translateX(-50%);
 			text-align: center;
 		}
 		&_right {
-			right: 0;
 			text-align: right;
 		}
 	}
