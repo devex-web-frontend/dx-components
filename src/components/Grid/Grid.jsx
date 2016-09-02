@@ -351,6 +351,15 @@ export class GridRow extends React.Component {
 	}
 }
 
+/**
+ * @enum
+ */
+export const GRID_CELL_ALIGN = {
+	LEFT: 'GRID_CELL_ALIGN:LEFT',
+	CENTER: 'GRID_CELL_ALIGN:CENTER',
+	RIGHT: 'GRID_CELL_ALIGN:RIGHT',
+};
+
 @PURE
 @themr(GRID)
 export class GridCell extends React.Component {
@@ -362,11 +371,13 @@ export class GridCell extends React.Component {
 		[GRID_ROW_INDEX_KEY]: React.PropTypes.number,
 		//injected by GridHead
 		[GRID_COLUMN_WIDTH_KEY]: React.PropTypes.number,
-		TableCell: React.PropTypes.func
+		TableCell: React.PropTypes.func,
+		align: React.PropTypes.oneOf(Object.values(GRID_CELL_ALIGN))
 	}
 
 	static defaultProps = {
-		TableCell
+		TableCell,
+		align: GRID_CELL_ALIGN.CENTER
 	}
 
 	static contextTypes = CONTEXT_TYPES;
@@ -402,7 +413,7 @@ export class GridCell extends React.Component {
 	}
 
 	render() {
-		let {TableCell, ...props} = this.props;
+		let {TableCell, align, ...props} = this.props;
 		const columnWidth = props[GRID_COLUMN_WIDTH_KEY];
 		delete props[GRID_COLUMN_INDEX_KEY];
 		delete props[GRID_COLUMN_WIDTH_KEY];
@@ -415,11 +426,32 @@ export class GridCell extends React.Component {
 			};
 		}
 
+		const contentClassName = classnames(
+			props.theme.gridCell__content,
+			{
+				[props.theme.gridCell__content_left]: align === GRID_CELL_ALIGN.LEFT,
+				[props.theme.gridCell__content_center]: align === GRID_CELL_ALIGN.CENTER,
+				[props.theme.gridCell__content_right]: align === GRID_CELL_ALIGN.RIGHT
+			}
+		);
+
+		const tableCellTheme = {
+			...props.theme,
+			cell: classnames(
+				props.theme.cell,
+				{
+					[props.theme.cell_left]: align === GRID_CELL_ALIGN.LEFT,
+					[props.theme.cell_center]: align === GRID_CELL_ALIGN.CENTER,
+					[props.theme.cell_right]: align === GRID_CELL_ALIGN.RIGHT
+				}
+			)
+		};
+
 		return (
-			<TableCell {...props}>
+			<TableCell {...props} theme={tableCellTheme}>
 				<span style={style}
 				      className={props.theme.gridCell__placeholder}>
-					<span className={props.theme.gridCell__content}
+					<span className={contentClassName}
 					      ref={el => this._content = el}>
 						{props.children}
 					</span>

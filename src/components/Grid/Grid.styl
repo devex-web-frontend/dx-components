@@ -2,6 +2,18 @@
 	overflow: hidden;
 }
 	
+.cell {
+	&_left {
+		text-align: left;
+	}
+	&_center {
+		text-align: center;
+	}
+	&_right {
+		text-align: right;
+	}
+}
+	
 .gridCell {
 	&__placeholder {
 		display: inline-block;
@@ -13,7 +25,20 @@
 		display: block;
 		position: absolute;
 		top: 0;
-		left: 50%;
-		transform: translateX(-50%);
+		&_left {
+			composes: gridCell__content;
+			left: 0;
+			text-align: left;
+		}
+		&_center {
+			composes: gridCell__content;
+			left: 50%;
+			transform: translateX(-50%);
+			text-align: center;
+		}
+		&_right {
+			right: 0;
+			text-align: right;
+		}
 	}
 }

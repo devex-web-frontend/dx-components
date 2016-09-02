@@ -2,6 +2,11 @@
 
 .container {
 	background-color: #161412;
+	.gridCell {
+		&__content {
+			min-width: 30px; //to avoid repainting
+		}
+	}
 }
 
 .gridBody {
@@ -9,9 +14,6 @@
 	.gridCell {
 		&__placeholder {
 			height: 16px; //this should be fixed integer to avoid repainting whole table on content change
-		}
-		&__content {
-			min-width: 30px; //to avoid repainting
 		}
 	}
 }
