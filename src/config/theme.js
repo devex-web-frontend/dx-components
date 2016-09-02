@@ -44,7 +44,7 @@ export default {
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
 	[INPUT]: input,
-	[NUMERIC_STEPPER]: numericStepper
+	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
 	[GRID]: grid

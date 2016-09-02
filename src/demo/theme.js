@@ -33,7 +33,7 @@ export default {
 	[POPOVER]: popover,
 	[INPUT]: input,
 	[SELECTBOX]: selectbox,
-	[NUMERIC_STEPPER]: numericStepper
+	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
 	[SCROLLABLE]: scrollable
