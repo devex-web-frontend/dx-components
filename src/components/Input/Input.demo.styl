@@ -15,14 +15,14 @@
 	box-shadow: 0 1px 0 rgba(#000000, .7) inset;
 	color: #ffffff;
 
-	&:focus {
+	&:focus:not([readonly]) {
 		color: #000;
 		background: #fff;
 		border-color: #a9a9a9;
 		box-shadow: none;
 	}
 
-	[readonly] {
+	&[readonly] {
 		background-color: transparent;
 		box-shadow: none;
 		border-color: transparent;
