@@ -28,6 +28,12 @@ import input from '../components/Input/Input.styl';
 import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.styl';
 
+import {TABLE} from '../components/Table/Table';
+import table from '../components/Table/Table.styl';
+
+import {GRID} from '../components/Grid/Grid';
+import grid from '../components/Grid/Grid.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -38,5 +44,8 @@ export default {
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
 	[INPUT]: input,
-	[NUMERIC_STEPPER]: numericStepper
+	[NUMERIC_STEPPER]: numericStepper,
+	[SELECTBOX]: selectbox,
+	[TABLE]: table,
+	[GRID]: grid
 };
