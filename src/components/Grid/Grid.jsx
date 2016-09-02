@@ -190,7 +190,7 @@ export class GridHead extends React.Component {
 		return (
 			<div className={className}>
 				<div className={theme.gridHead__content} style={style}>
-					<Pure {...this.props} check={this.state.columns}>
+					<Pure {...this.props} check={this.state.columns} check2={props.children}>
 						{() => (
 							<Table theme={theme}>
 								<TableHead theme={theme} {...props}/>
