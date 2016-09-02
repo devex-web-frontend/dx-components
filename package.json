@@ -7,7 +7,6 @@
     "bower": "bower",
     "eslint": "eslint --config ./node_modules/dx-lint/.react.eslintrc --ext .js,.jsx .",
     "start": "node ./scripts/run.js ./scripts/start.js",
-    "postinstall": "bower prune && bower install",
     "test": "npm run eslint",
     "dx-flow": "dx-flow",
     "postinstall": "bower prune && bower install"
