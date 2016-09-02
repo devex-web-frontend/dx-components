@@ -132,7 +132,7 @@ export default class NumericStepper extends React.Component {
 		this.state = {
 			...this.state,
 			value: newValue,
-			formattedValue: formatter ? formatter(newValue) : newValue
+			formattedValue: this._getFormattedValue(newValue)
 		};
 	}
 
@@ -174,13 +174,19 @@ export default class NumericStepper extends React.Component {
 		ButtonComponent: ButtonIcon
 	};
 
+	_getFormattedValue(value) {
+		const {formatter} = this.props;
+		return formatter ? formatter(Number(value)) : value;
+	}
+
 	setValue(newValue) {
 		const {value} = this.state;
 		const {onChange} = this.props;
 
 		if (newValue !== value) {
 			this.setState({
-				value: newValue
+				value: newValue,
+				formattedValue: this._getFormattedValue(newValue)
 			});
 			onChange && onChange(newValue);
 		}
@@ -299,11 +305,10 @@ export default class NumericStepper extends React.Component {
 
 	onBlur = (event) => {
 		const {value} = event.target;
-		const {formatter} = this.props;
 		this.setState({
 			isFocused: false,
 			value,
-			formattedValue: formatter ? formatter(Number(value)) : value
+			formattedValue: this._getFormattedValue(value)
 		});
 	}
 
