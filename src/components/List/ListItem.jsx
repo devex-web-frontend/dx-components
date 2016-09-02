@@ -3,7 +3,7 @@ import {themr} from 'react-css-themr';
 import classnames from 'classnames';
 import {PURE} from 'dx-util/src/react/pure';
 
-import {LIST} from './List.jsx';
+import {LIST, CONTEXT_TYPES, CONTEXT_LEVEL_KEY} from './List.jsx';
 export const PROP_TYPES = {
 	children: React.PropTypes.node,
 	level: React.PropTypes.number,
@@ -13,9 +13,7 @@ export const PROP_TYPES = {
 	onClick: React.PropTypes.func
 };
 
-export const DEFAULT_PROPS = {
-	level: 0
-};
+export const DEFAULT_PROPS = {};
 
 @PURE
 @themr(LIST)
@@ -24,8 +22,11 @@ export default class ListItem extends React.Component {
 
 	static defaultProps = DEFAULT_PROPS;
 
+	static contextTypes = CONTEXT_TYPES;
+
 	render() {
-		const {theme, level, onClick, children} = this.props;
+		const {theme, onClick, children} = this.props;
+		const level = this.context[CONTEXT_LEVEL_KEY] || 0;
 		const className = classnames(theme.item, theme[`item_level_${level}`]);
 
 		return (

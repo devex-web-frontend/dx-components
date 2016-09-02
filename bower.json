@@ -1,13 +1,16 @@
 {
   "name": "dx-components",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Theme-unaware components",
   "main": "index.js",
-  "authors": ["DX"],
+  "authors": [
+    "DX"
+  ],
   "license": "ISC",
   "homepage": "https://github.com/devex-web-frontend/dx-components",
   "private": true,
   "dependencies": {
-    "dx-util": "devex-web-frontend/dx-util#~0.10.21"
+    "dx-util": "devex-web-frontend/dx-util#~0.10.21",
+    "scrollable": "devex-web-frontend/scrollable#^6.2.8"
   }
 }
