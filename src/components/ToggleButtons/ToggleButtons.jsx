@@ -44,7 +44,6 @@ export default class ToggleButtons extends Component {
 
 	constructor(...args) {
 		super(...args);
-		const {children} = this.props;
 
 		this.state = {};
 
