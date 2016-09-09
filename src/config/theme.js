@@ -22,6 +22,9 @@ import popover from '../components/Popover/Popover.styl';
 import {SELECTBOX} from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.styl';
 
+import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
+import toggleButtons from '../components/ToggleButtons/ToggleButtons.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -30,5 +33,6 @@ export default {
 	[LIST]: list,
 	[MENU]: menu,
 	[POPOVER]: popover,
-	[SELECTBOX]: selectbox
+	[SELECTBOX]: selectbox,
+	[TOGGLE_BUTTONS]: toggleButtons
 };
