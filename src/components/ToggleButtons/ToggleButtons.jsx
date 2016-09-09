@@ -70,7 +70,7 @@ export default class ToggleButtons extends Component {
 	}
 
 	render() {
-		const {children, theme, isDisabled} = this.props;
+		const {children, theme} = this.props;
 		return (
 			<div>
 				{this.props.label && <span className={theme.container__label}>{this.props.label}</span>}
