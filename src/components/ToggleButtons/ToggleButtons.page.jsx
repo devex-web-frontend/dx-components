@@ -1,71 +1,68 @@
+import React, {Component} from 'react';
 import Demo from '../../demo/Demo.jsx';
 import ToggleButtons from './ToggleButtons.jsx';
-import React from 'react';
+import Button from '../Button/Button.jsx';
+import css from './ToggleButtons.styl';
 
-import theme from './ToggleButtons.styl';
+import {PURE} from 'dx-util/src/react/pure';
+import {themr} from 'react-css-themr';
 
 import {storiesOf} from '@kadira/storybook';
-const buttons = [
-	{
-		text: 'Button 1'
-	},
-	{
-		text: 'Button 2'
-	},
-	{
-		text: 'Button 3'
+const TOGGLE_BUTTONS_PAGE = 'ToggleButtonsPage';
+
+@PURE
+@themr(TOGGLE_BUTTONS_PAGE)
+class ToggleButtonsPage extends Component {
+	state = {
+		toggleIndex: 0
 	}
-];
-const buttons_flat = [
-	{
-		text: 'Button 1',
-		isFlat: true
-	},
-	{
-		text: 'Button 2',
-		isFlat: true
-	},
-	{
-		text: 'Button 3',
-		isFlat: true
+
+	render() {
+		return (
+			<Demo>
+				<ToggleButtons label="Labeled Toggle Buttons"
+						theme={css}
+						defaultIndex={1}
+						onChange={this.onToggleChange}>
+					<Button>Toggle 1</Button>
+					<Button>Toggle 2</Button>
+					<Button>Toggle 3</Button>
+				</ToggleButtons>
+				<ToggleButtons label="Vertical Toggle Buttons"
+						theme={css}
+						toggleIndex={this.state.toggleIndex}
+						isVertical={true}
+						onChange={this.onToggleChange}>
+					<Button>Toggle 4</Button>
+					<Button>Toggle 5</Button>
+					<Button>Toggle 6</Button>
+				</ToggleButtons>
+				<ToggleButtons label="Disabled Toggle Buttons"
+						theme={css}
+						toggleIndex={this.state.toggleIndex}
+						isDisabled={true}
+						onChange={this.onToggleChange}>
+					<Button>Toggle 7</Button>
+					<Button>Toggle 8</Button>
+					<Button>Toggle 9</Button>
+				</ToggleButtons>
+				<ToggleButtons label=" Buttons"
+						theme={css}
+						toggleIndex={this.state.toggleIndex}
+						onChange={this.onToggleChange}>
+					<Button>Toggle 10</Button>
+					<Button>Toggle 11</Button>
+					<Button>Toggle 12</Button>
+				</ToggleButtons>
+			</Demo>
+		);
 	}
-];
-storiesOf('ToggleButtons', module)
-	.add('Default', () => (
-		<Demo>
-			<ToggleButtons buttons={buttons}
-					activeIndex={1}
-					theme={theme}/>
-		</Demo>
-	))
-	.add('Vertical', () => (
-		<Demo>
-			<ToggleButtons buttons={buttons}
-					activeIndex={1}
-					isVertical={true}
-					theme={theme}/>
-		</Demo>
-	))
-	.add('Flat', () => (
-		<Demo>
-			<ToggleButtons buttons={buttons_flat}
-					activeIndex={1}
-					theme={theme}/>
-		</Demo>
-	))
-	.add('Flat Vertical', () => (
-		<Demo>
-			<ToggleButtons buttons={buttons_flat}
-					isVertical={true}
-					activeIndex={1}
-					theme={theme}/>
-		</Demo>
-	))
-	.add('Labeled', () => (
-		<Demo>
-			<ToggleButtons label="Labeled Toggler"
-					buttons={buttons}
-					activeIndex={1}
-					theme={theme}/>
-		</Demo>
-	));
+
+	onToggleChange = (i) => {
+		this.setState({
+			toggleIndex: i
+		});
+	}
+}
+
+storiesOf('Toggle Buttons', module).add('default', () => <ToggleButtonsPage/>);
