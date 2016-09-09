@@ -52,7 +52,7 @@ class ToggleButtonsPage extends Component {
 						onChange={this.onToggleChange}>
 					<Button>Toggle 10</Button>
 					<Button>Toggle 11</Button>
-					<Button>Toggle 12</Button>
+					<Button onClick={this.onButtonClick}>Toggle 12</Button>
 				</ToggleButtons>
 			</Demo>
 		);
@@ -62,6 +62,10 @@ class ToggleButtonsPage extends Component {
 		this.setState({
 			toggleIndex: i
 		});
+	}
+
+	onButtonClick = e => {
+		console.log('clicked');
 	}
 }
 

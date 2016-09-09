@@ -97,20 +97,22 @@ export default class ToggleButtons extends Component {
 					[theme.container__buttons__vertical]: isVertical
 				})
 		};
+
 		return React.cloneElement(child, {
 			isActive,
 			isDisabled,
-			onClick: this.onToggleSelect(i),
+			onClick: this.onToggleSelect(i, child.props.onClick),
 			theme: ToggleButtonTheme
 		});
 	}
 
-	onToggleSelect = (toggleIndex) => e => {
+	onToggleSelect = (toggleIndex, childClickHandler) => e => {
 		if (typeof this.props.toggleIndex === 'undefined') {
 			this.setState({
 				toggleIndex
 			});
 		}
+		childClickHandler && childClickHandler();
 		this.props.onChange && this.props.onChange(toggleIndex);
 	}
 }
