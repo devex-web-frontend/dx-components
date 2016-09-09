@@ -8,7 +8,7 @@ import css from './ToggleButtons.styl';
 import {PURE} from 'dx-util/src/react/pure';
 import {themr} from 'react-css-themr';
 
-import {storiesOf} from '@kadira/storybook';
+import {storiesOf, action} from '@kadira/storybook';
 const TOGGLE_BUTTONS_PAGE = 'ToggleButtonsPage';
 
 @PURE
@@ -47,9 +47,9 @@ class ToggleButtonsPage extends Component {
 				<ToggleButtons theme={css}
 						toggleIndex={this.state.toggleIndex}
 						onChange={this.onToggleChange}>
-					<Button>Toggle 10</Button>
-					<Button>Toggle 11</Button>
-					<Button onClick={this.onButtonClick}>Toggle 12</Button>
+					<Button onClick={action('clicked on Toggle 10')}>Toggle 10</Button>
+					<Button onClick={action('clicked on Toggle 11')}>Toggle 11</Button>
+					<Button onClick={action('clicked on Toggle 12')}>Toggle 12</Button>
 				</ToggleButtons>
 			</Demo>
 		);
@@ -59,10 +59,6 @@ class ToggleButtonsPage extends Component {
 		this.setState({
 			toggleIndex: i
 		});
-	}
-
-	onButtonClick = e => {
-		console.log('clicked');
 	}
 }
 
