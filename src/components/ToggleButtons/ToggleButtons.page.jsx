@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Demo from '../../demo/Demo.jsx';
 import ToggleButtons from './ToggleButtons.jsx';
 import Button from '../Button/Button.jsx';
+import Link from '../Link/Link.jsx';
 import css from './ToggleButtons.styl';
 
 import {PURE} from 'dx-util/src/react/pure';
@@ -20,16 +21,14 @@ class ToggleButtonsPage extends Component {
 	render() {
 		return (
 			<Demo>
-				<ToggleButtons label="Labeled Toggle Buttons"
-						theme={css}
+				<ToggleButtons theme={css}
 						defaultIndex={1}
 						onChange={this.onToggleChange}>
-					<Button>Toggle 1</Button>
-					<Button>Toggle 2</Button>
-					<Button>Toggle 3</Button>
+					<Link>Toggle Link 1</Link>
+					<Link>Toggle Link 2</Link>
+					<Link>Toggle Link 3</Link>
 				</ToggleButtons>
-				<ToggleButtons label="Vertical Toggle Buttons"
-						theme={css}
+				<ToggleButtons theme={css}
 						toggleIndex={this.state.toggleIndex}
 						isVertical={true}
 						onChange={this.onToggleChange}>
@@ -37,8 +36,7 @@ class ToggleButtonsPage extends Component {
 					<Button>Toggle 5</Button>
 					<Button>Toggle 6</Button>
 				</ToggleButtons>
-				<ToggleButtons label="Disabled Toggle Buttons"
-						theme={css}
+				<ToggleButtons theme={css}
 						toggleIndex={this.state.toggleIndex}
 						isDisabled={true}
 						onChange={this.onToggleChange}>
@@ -46,8 +44,7 @@ class ToggleButtonsPage extends Component {
 					<Button>Toggle 8</Button>
 					<Button>Toggle 9</Button>
 				</ToggleButtons>
-				<ToggleButtons label=" Buttons"
-						theme={css}
+				<ToggleButtons theme={css}
 						toggleIndex={this.state.toggleIndex}
 						onChange={this.onToggleChange}>
 					<Button>Toggle 10</Button>

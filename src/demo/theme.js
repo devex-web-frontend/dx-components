@@ -13,11 +13,15 @@ import popover from '../components/Popover/Popover.demo.styl';
 import {SELECTBOX} from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 
+import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
+import toggleButtons from '../components/ToggleButtons/ToggleButtons.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
 	[LIST]: list,
 	[MENU]: menu,
 	[POPOVER]: popover,
-	[SELECTBOX]: selectbox
+	[SELECTBOX]: selectbox,
+	[TOGGLE_BUTTONS]: toggleButtons
 };

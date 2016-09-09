@@ -3,14 +3,6 @@ import {PURE} from 'dx-util/src/react/pure';
 import classnames from 'classnames';
 import {themr} from 'react-css-themr';
 
-import Button from '../Button/Button.jsx';
-
-export const TOGGLE_BUTTON_SHAPE_OBJECT = {
-	container: PropTypes.string,
-	container_active: PropTypes.string,
-	container_vertical: PropTypes.string
-};
-
 export const TOGGLE_BUTTONS = Symbol('ToggleButtons');
 
 @PURE
@@ -19,27 +11,18 @@ export const TOGGLE_BUTTONS = Symbol('ToggleButtons');
 export default class ToggleButtons extends Component {
 	static propTypes = {
 		children: PropTypes.node,
-		label: PropTypes.string,
 		isDisabled: PropTypes.bool,
 		isVertical: PropTypes.bool,
 		toggleIndex: PropTypes.number,
 		defaultIndex: PropTypes.number,
 		onChange: PropTypes.func,
-		toggleComponent: PropTypes.func,
-		toggleButtonTheme: PropTypes.shape(TOGGLE_BUTTON_SHAPE_OBJECT),
 		theme: PropTypes.shape({
 			container: PropTypes.string,
-			container__label: PropTypes.string,
+			container__wrapper: PropTypes.string,
 			container__vertical: PropTypes.string,
-			container__buttons: PropTypes.string,
-			container__buttons__active: PropTypes.string,
-			container__buttons__vertical: PropTypes.string
+			container__item: PropTypes.string,
+			container__item__active: PropTypes.string
 		})
-	}
-
-	static defaultProps = {
-		toggleButtonTheme: {},
-		toggleComponent: Button
 	}
 
 	constructor(...args) {
@@ -72,28 +55,29 @@ export default class ToggleButtons extends Component {
 	render() {
 		const {children, theme} = this.props;
 		return (
-			<div>
-				{this.props.label && <span className={theme.container__label}>{this.props.label}</span>}
-				<span>
-					{React.Children.map(children, ::this.renderToggleButton)}
-				</span>
+			<div className={theme.container__wrapper}>
+				{React.Children.map(children, ::this.renderToggleItem)}
 			</div>
 		);
 	}
 
-	renderToggleButton(child, i) {
+	renderToggleItem(child, i) {
+		if (!child.props) {
+			return child;
+		}
+
 		const {
-			theme,
-			isVertical,
-			isDisabled
+				theme,
+				isVertical,
+				isDisabled
 		} = this.props;
 		const isActive = i === this.state.toggleIndex;
 
-		const ToggleButtonTheme = {
-			container: classnames(theme.container__buttons,
+		const toggleButtonTheme = {
+			container: classnames(theme.container__item,
 				{
-					[theme.container__buttons__active]: isActive,
-					[theme.container__buttons__vertical]: isVertical
+					[theme.container__item__active]: isActive,
+					[theme.container__vertical]: isVertical
 				})
 		};
 
@@ -101,7 +85,7 @@ export default class ToggleButtons extends Component {
 			isActive,
 			isDisabled,
 			onClick: this.onToggleSelect(i, child.props.onClick),
-			theme: ToggleButtonTheme
+			theme: toggleButtonTheme
 		});
 	}
 
