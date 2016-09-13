@@ -3,7 +3,7 @@ import Demo from '../../demo/Demo.jsx';
 import ToggleButtons from './ToggleButtons.jsx';
 import Button from '../Button/Button.jsx';
 import Link from '../Link/Link.jsx';
-import css from './ToggleButtons.styl';
+//import css from './ToggleButtons.styl';
 
 import {PURE} from 'dx-util/src/react/pure';
 import {themr} from 'react-css-themr';
@@ -21,31 +21,27 @@ class ToggleButtonsPage extends Component {
 	render() {
 		return (
 			<Demo>
-				<ToggleButtons theme={css}
-						defaultIndex={1}
+				<ToggleButtons defaultIndex={1}
 						onChange={this.onToggleChange}>
 					<Link>Toggle Link 1</Link>
 					<Link>Toggle Link 2</Link>
 					<Link>Toggle Link 3</Link>
 				</ToggleButtons>
-				<ToggleButtons theme={css}
-						toggleIndex={this.state.toggleIndex}
+				<ToggleButtons toggleIndex={this.state.toggleIndex}
 						isVertical={true}
 						onChange={this.onToggleChange}>
 					<Button>Toggle 4</Button>
 					<Button>Toggle 5</Button>
 					<Button>Toggle 6</Button>
 				</ToggleButtons>
-				<ToggleButtons theme={css}
-						toggleIndex={this.state.toggleIndex}
+				<ToggleButtons toggleIndex={this.state.toggleIndex}
 						isDisabled={true}
 						onChange={this.onToggleChange}>
 					<Button>Toggle 7</Button>
 					<Button>Toggle 8</Button>
 					<Button>Toggle 9</Button>
 				</ToggleButtons>
-				<ToggleButtons theme={css}
-						toggleIndex={this.state.toggleIndex}
+				<ToggleButtons toggleIndex={this.state.toggleIndex}
 						onChange={this.onToggleChange}>
 					<Button onClick={action('clicked on Toggle 10')}>Toggle 10</Button>
 					<Button onClick={action('clicked on Toggle 11')}>Toggle 11</Button>

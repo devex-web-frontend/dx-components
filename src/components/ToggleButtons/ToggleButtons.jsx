@@ -2,11 +2,12 @@ import React, {Component, PropTypes, Children} from 'react';
 import {PURE} from 'dx-util/src/react/pure';
 import classnames from 'classnames';
 import {themr} from 'react-css-themr';
+import css from './ToggleButtons.styl';
 
 export const TOGGLE_BUTTONS = Symbol('ToggleButtons');
 
 @PURE
-@themr(TOGGLE_BUTTONS)
+@themr(TOGGLE_BUTTONS, css)
 
 export default class ToggleButtons extends Component {
 	static propTypes = {
@@ -80,6 +81,7 @@ export default class ToggleButtons extends Component {
 					[theme.container__vertical]: isVertical
 				})
 		};
+		console.log(toggleButtonTheme);
 
 		return React.cloneElement(child, {
 			isActive,
