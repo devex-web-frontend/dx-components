@@ -18,7 +18,7 @@
 	box-sizing: border-box;
 	padding: 20px;
 }
-	
+
 
 @keyframes sk-rotateplane {
 	0% {
@@ -32,21 +32,15 @@
 	}
 }
 
-
-:global {
-
-	.demoLoader {
-		width: 40px;
-		height: 40px;
-		margin: 100px auto;
-		background-color: #fff;
-		:local {
-			animation: sk-rotateplane 1.2s infinite ease-in-out;
-		}
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-left: -20px;
-		margin-top: -20px;
-	}
+.loadingIndicator {
+	width: 40px;
+	height: 40px;
+	margin: 100px auto;
+	background-color: #fff;
+	animation: sk-rotateplane 1.2s infinite ease-in-out;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -20px;
+	margin-top: -20px;
 }
