@@ -1,0 +1,37 @@
+.container {
+	width: 100px;
+	position: relative;
+	display: block;
+	outline: none;
+	box-sizing: border-box;
+	border: 1px solid;
+	border-radius: 1px;
+	padding: 0 6px;
+	height: 21px;
+	font-size: 13px;
+	line-height: @height;
+	border-color: #3b3b3b;
+	background-color: #202020;
+	box-shadow: 0 1px 0 rgba(#000000, .7) inset;
+	color: #ffffff;
+
+	&:focus:not([readonly]) {
+		color: #000;
+		background: #fff;
+		border-color: #a9a9a9;
+		box-shadow: none;
+	}
+
+	&[readonly] {
+		background-color: transparent;
+		box-shadow: none;
+		border-color: transparent;
+	}
+
+	&:disabled {
+		background: #3b3b3b;
+		border-color: #3b3b3b;
+		box-shadow: none;
+		color: #cccccc;
+	}
+}
