@@ -11,7 +11,7 @@ const LoadingIndicator = () => (
 );
 
 @PURE
-class LodablePage extends React.Component {
+class LoadingIndicatonPage extends React.Component {
 
 	state = {
 		isLoading: true
@@ -53,4 +53,4 @@ class LodablePage extends React.Component {
 	}
 }
 
-storiesOf('LoadingIndicaton', module).add('default', () => <LodablePage/>);
+storiesOf('LoadingIndicaton', module).add('default', () => <LoadingIndicatonPage/>);
