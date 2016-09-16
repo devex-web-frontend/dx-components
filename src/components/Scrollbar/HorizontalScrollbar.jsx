@@ -54,7 +54,6 @@ export default class HorizontalScrollbar extends Srollbar {
 	}
 
 	componentWillReceiveProps(newProps) {
-		console.log(newProps.scrollLeft);
 		if (this.props.scrollLeft !== newProps.scrollLeft) {
 			this._scrollTo(newProps.scrollLeft);
 		}
@@ -111,8 +110,17 @@ export default class HorizontalScrollbar extends Srollbar {
 	}
 
 	_scrollTo = (position) => {
-		console.log(position);
 		this._container.scrollLeft = position;
+	}
+
+	_checkScrollbarAtStart() {
+		const {scrollLeft} = this._container;
+		return scrollLeft <= 0;
+	}
+
+	_checkScrollbarAtEnd() {
+		const {scrollLeft, scrollWidth, offsetWidth} = this._container;
+		return (offsetWidth + scrollLeft) > scrollWidth;
 	}
 
 	////////////////////////

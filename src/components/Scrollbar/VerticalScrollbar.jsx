@@ -62,6 +62,10 @@ export default class VerticalScrollbar extends Srollbar {
 		this._updateBar();
 	}
 
+	_updateState() {
+
+	}
+
 	_toggle() {
 		const bounds = this._container.getBoundingClientRect();
 		const hegiht = Math.round(bounds.height);
@@ -107,6 +111,16 @@ export default class VerticalScrollbar extends Srollbar {
 
 	_scrollTo = (position) => {
 		this._container.scrollTop = position;
+	}
+
+	_checkScrollbarAtStart() {
+		const {scrollTop} = this._container;
+		return scrollTop <= 0;
+	}
+
+	_checkScrollbarAtEnd() {
+		const {scrollTop, scrollHeight, offsetHeight} = this._container;
+		return (offsetHeight + scrollTop) > scrollHeight;
 	}
 
 	////////////////////////

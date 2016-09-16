@@ -61,19 +61,20 @@ export default class Scrollbar extends React.Component {
 		ButtonToEnd: Button
 	}
 
+	state = {
+		isVisible: false
+	}
+
 	constructor(...args) {
 		super(...args);
 		const {container} = this.props;
 		this._container = container;
-
-		this.state = {
-			isVisible: false
-		};
 	}
 
 	componentDidMount() {
 		const emitter = this.context[SCROLLABLE_CONTEXT_EMITTER];
 		emitter.on(EVENT_SCROLABLE.RESIZE, this.onResize);
+		this._updateState();
 		this._container.addEventListener('scroll', this._onContainerScroll);
 	}
 
@@ -92,7 +93,11 @@ export default class Scrollbar extends React.Component {
 			ButtonToEnd
 		} = this.props;
 
-		const {isVisible} = this.state;
+		const {
+			isVisible,
+			isScrollbarAtStart,
+			isScrollbarAtEnd
+		} = this.state;
 
 		const buttonTheme = (mixinContainer) => ({
 			container: classnames(theme.button, mixinContainer)
@@ -109,8 +114,9 @@ export default class Scrollbar extends React.Component {
 		return (
 			<div className={className} ref={el => this._scrollbar = el}>
 				<ButtonToStart theme={buttonTheme(theme.buttonToStart)}
-				               onClick={this.onButtonToStartClick} />
-				<Holdable onHold={this.onButtonBackwardClick} >
+				               onClick={this.onButtonToStartClick}
+				               isDisabled={isScrollbarAtStart} />
+				<Holdable onHold={this.onButtonBackwardClick} isDisabled={isScrollbarAtStart}>
 					<ButtonStepBackward theme={buttonTheme(theme.buttonBackward)} onClick={this.onButtonBackwardClick}/>
 				</Holdable>
 				<div className={theme.track} onWheel={this.onTrackMouseWheel} onClick={this.onTrackClick}
@@ -119,11 +125,12 @@ export default class Scrollbar extends React.Component {
 					     onBarDragStart={this.onBarDragStart}
 					     onBarDrag={this.onBarDrag}/>
 				</div>
-				<Holdable onHold={this.onButtonForwardClick} >
+				<Holdable onHold={this.onButtonForwardClick} isDisabled={isScrollbarAtEnd} >
 					<ButtonStepForward theme={buttonTheme(theme.buttonForward)} onClick={this.onButtonForwardClick}/>
 				</Holdable>
 				<ButtonToEnd theme={buttonTheme(theme.buttonToEnd)}
-				             onClick={this.onButtonToEndClick} />
+				             onClick={this.onButtonToEndClick}
+				             isDisabled={isScrollbarAtEnd} />
 			</div>
 		);
 	}
@@ -134,9 +141,19 @@ export default class Scrollbar extends React.Component {
 	 */
 	_onContainerScroll = (event) => {
 		this._updateBar();
-
+		this._updateState();
 		const emitter = this.context[SCROLLABLE_CONTEXT_EMITTER];
 		emitter.emit(EVENT_SCROLABLE.SCROLL, event);
+	}
+
+	_updateState = () => {
+		const isScrollbarAtStart = this._checkScrollbarAtStart();
+		const isScrollbarAtEnd = this._checkScrollbarAtEnd();
+
+		this.setState({
+			isScrollbarAtStart,
+			isScrollbarAtEnd
+		});
 	}
 
 	onResize = () => {
