@@ -26,12 +26,6 @@ export default class Scrollbar extends React.Component {
 	_track;
 	_bar;
 
-	state = {
-		isVisible: false,
-		isScrollInStart: false,
-		isScrollInEnd: false
-	}
-
 	static propTypes = {
 		//container: React.PropTypes.any,
 		container(props) {
@@ -52,19 +46,30 @@ export default class Scrollbar extends React.Component {
 			buttonForward: React.PropTypes.string,
 			buttonToEnd: React.PropTypes.string,
 		}),
-		ButtonComponent: React.PropTypes.func
+		ButtonToStart: React.PropTypes.func,
+		ButtonStepBackward: React.PropTypes.func,
+		ButtonStepForward: React.PropTypes.func,
+		ButtonToEnd: React.PropTypes.func,
 	};
 
 	static contextTypes = CONTEXT_TYPES;
 
 	static defaultProps = {
-		ButtonComponent: Button
+		ButtonToStart: Button,
+		ButtonStepBackward: Button,
+		ButtonStepForward: Button,
+		ButtonToEnd: Button
 	}
 
 	constructor(...args) {
 		super(...args);
 		const {container} = this.props;
 		this._container = container;
+
+
+		this.state = {
+			isVisible: false
+		};
 	}
 
 	componentDidMount() {
@@ -79,15 +84,18 @@ export default class Scrollbar extends React.Component {
 		this._container.removeEventListener('scroll', this._onContainerScroll);
 	}
 
-
-
 	render() {
 		const {
 			theme,
-			ButtonComponent: Button
+			ButtonToStart,
+			ButtonStepBackward,
+			ButtonStepForward,
+			ButtonToEnd
 		} = this.props;
 
-		const {isVisible} = this.state;
+		const {
+			isVisible
+		} = this.state;
 
 		const buttonTheme = (mixinContainer) => ({
 			container: classnames(theme.button, mixinContainer)
@@ -103,9 +111,10 @@ export default class Scrollbar extends React.Component {
 
 		return (
 			<div className={className} ref={el => this._scrollbar = el}>
-				<Button theme={buttonTheme(theme.buttonToStart)} onClick={this.onButtonToStartClick}/>
-				<Holdable onHold={this.onButtonBackwardClick}>
-					<Button theme={buttonTheme(theme.buttonBackward)} onClick={this.onButtonBackwardClick}/>
+				<ButtonToStart theme={buttonTheme(theme.buttonToStart)}
+				               onClick={this.onButtonToStartClick} />
+				<Holdable onHold={this.onButtonBackwardClick} >
+					<ButtonStepBackward theme={buttonTheme(theme.buttonBackward)} onClick={this.onButtonBackwardClick}/>
 				</Holdable>
 				<div className={theme.track} onWheel={this.onTrackMouseWheel} onClick={this.onTrackClick}
 				     ref={el => this._track = el}>
@@ -113,10 +122,11 @@ export default class Scrollbar extends React.Component {
 					     onBarDragStart={this.onBarDragStart}
 					     onBarDrag={this.onBarDrag}/>
 				</div>
-				<Holdable onHold={this.onButtonForwardClick}>
-					<Button theme={buttonTheme(theme.buttonForward)} onClick={this.onButtonForwardClick}/>
+				<Holdable onHold={this.onButtonForwardClick} >
+					<ButtonStepForward theme={buttonTheme(theme.buttonForward)} onClick={this.onButtonForwardClick}/>
 				</Holdable>
-				<Button theme={buttonTheme(theme.buttonToEnd)} onClick={this.onButtonToEndClick}/>
+				<ButtonToEnd theme={buttonTheme(theme.buttonToEnd)}
+				             onClick={this.onButtonToEndClick} />
 			</div>
 		);
 	}
@@ -170,14 +180,15 @@ export default class Scrollbar extends React.Component {
 	 * @protected
 	 */
 	onButtonToStartClick(event) {
+
 	}
 
 	/**
-	 * @abstract
 	 * @param {Event} event
 	 * @protected
 	 */
 	onButtonToEndClick(event) {
+
 	}
 
 	/**
@@ -185,7 +196,7 @@ export default class Scrollbar extends React.Component {
 	 * @param {MouseEvent} event
 	 * @protected
 	 */
-	onTrackClick(event){
+	onTrackClick(event) {
 	}
 
 	/**

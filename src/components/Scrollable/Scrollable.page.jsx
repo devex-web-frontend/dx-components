@@ -1,5 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@kadira/storybook';
+import Lorem from 'react-lorem-component';
 import Scrollable from './Scrollable.jsx';
 import Demo from '../../demo/Demo';
 import css from './Scrollable.page.styl';
@@ -10,40 +11,8 @@ const darkDemoTheme = {
 	container: css.container
 };
 
-const CONTENT = (
-	<div className={css.scrollable}>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-		<p>abc abc abc abc abc abc abc abc abc abc abc abc</p>
-	</div>
+const Heavy = () => (
+	<Lorem paragraphUpperBound={20} />
 );
 
 @PURE
@@ -59,7 +28,7 @@ class ScrollablePage extends React.Component {
 						<section className={css.section}>
 							<h1>Origin</h1>
 							<Scrollable onScroll={this.onScroll}>
-								{CONTENT}
+								<div className={css.scrollable}><Heavy/></div>
 							</Scrollable>
 						</section>
 					)}
@@ -70,7 +39,7 @@ class ScrollablePage extends React.Component {
 						<section className={css.section}>
 							<h1>VSync</h1>
 							<Scrollable scrollTop={this.state.scrollTop}>
-								{CONTENT}
+								<div className={css.scrollable}><Heavy/></div>
 							</Scrollable>
 						</section>
 					)}
@@ -80,7 +49,7 @@ class ScrollablePage extends React.Component {
 						<section className={css.section}>
 							<h1>HSync</h1>
 							<Scrollable scrollLeft={this.state.scrollLeft}>
-								{CONTENT}
+								<div className={css.scrollable}><Heavy/></div>
 							</Scrollable>
 						</section>
 					)}
@@ -89,7 +58,7 @@ class ScrollablePage extends React.Component {
 				<section className={css.section}>
 					<h1>VHSync</h1>
 					<Scrollable scrollTop={this.state.scrollTop} scrollLeft={this.state.scrollLeft}>
-						{CONTENT}
+						<div className={css.scrollable}><Heavy/></div>
 					</Scrollable>
 				</section>
 
