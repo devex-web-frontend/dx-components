@@ -1,67 +1,176 @@
 import React from 'react';
-import ResizeDetector from '../ResizeDetector/ResizeDetector';
-import {themr} from 'react-css-themr';
-import {PURE} from 'dx-util/src/react/pure';
 import classnames from 'classnames';
+import {themr} from 'react-css-themr';
+
+import {
+	CONTEXT_TYPES,
+	EVENT_SCROLABLE,
+	SCROLLABLE_CONTEXT_EMITTER,
+	ScrollableInternalEmitter
+} from './Scrollable.const';
+
+import {SCROLLBAR_TYPE} from '../Scrollbar/Scrollbar';
+import ResizeDetector from '../ResizeDetector/ResizeDetector.jsx';
+import HorizontalScrollbar from '../Scrollbar/HorizontalScrollbar.jsx';
+import VerticalScrollbar from '../Scrollbar/VerticalScrollbar.jsx';
+
+import getScrollbarSize from '../Scrollbar/Scrollbar.util.js';
 
 export const SCROLLABLE = Symbol('Scrollable');
 
-@PURE
 @themr(SCROLLABLE)
 export default class Scrollable extends React.Component {
+
 	static propTypes = {
-		ResizeDetector: React.PropTypes.func,
 		children: React.PropTypes.element,
+		ResizeDetector: React.PropTypes.func,
+		HorizontalScrollbar: React.PropTypes.func,
+		VerticalScrollbar: React.PropTypes.func,
 		theme: React.PropTypes.shape({
+			scrollable: React.PropTypes.string,
+			withHorizontalScrollbar: React.PropTypes.string,
+			withVerticalScrollbar: React.PropTypes.string,
+			scrollbar: React.PropTypes.string,
 			container: React.PropTypes.string,
 			wrapper: React.PropTypes.string,
 			content: React.PropTypes.string,
-			scrollbar: React.PropTypes.string,
-			scrollbar_vertical: React.PropTypes.string,
-			scrollbar_horizontal: React.PropTypes.string
-		})
+			resizeDetector: React.PropTypes.string
+		}),
+		onUpdate: React.PropTypes.func,
+		onScroll: React.PropTypes.func,
+		scrollTop: React.PropTypes.number,
+		scrollLeft: React.PropTypes.number
 	}
 
 	static defaultProps = {
-		ResizeDetector
+		ResizeDetector,
+		VerticalScrollbar,
+		HorizontalScrollbar
+	}
+
+	static childContextTypes = CONTEXT_TYPES
+
+	_withHorizontalScrollbar = false;
+	_withVerticalScrollbar = false;
+	_container;
+	_scrollable;
+	_emitter;
+
+	state = {
+		container: (void 0), //eslint-disable-line no-void
+		scrollable: (void 0), //eslint-disable-line no-void
+	}
+
+	getChildContext() {
+		const {theme} = this.props;
+		return {
+			size: getScrollbarSize(theme.container),
+			[SCROLLABLE_CONTEXT_EMITTER]: this._emitter
+		};
+	}
+
+	componentDidMount() {
+		this.setState({
+			container: this._container
+		});
+
+		this._emitter.on(EVENT_SCROLABLE.SCROLLBAR_UPDATE, this.onScrollbarUpdate);
+		this._emitter.on(EVENT_SCROLABLE.SCROLL, this.onScroll);
+	}
+
+	componentWillUnmount() {
+		this._emitter.off(EVENT_SCROLABLE.SCROLLBAR_UPDATE, this.onScrollbarUpdate);
+		this._emitter.off(EVENT_SCROLABLE.SCROLL, this.onScroll);
+	}
+
+	componentWillMount() {
+		this._emitter = new ScrollableInternalEmitter();
+	}
+
+	onScroll = (event) => {
+		console.log(event.target);
+		const {scrollLeft, scrollTop} = event.target;
+		const {onScroll} = this.props;
+		onScroll && onScroll(scrollLeft, scrollTop);
+	}
+
+	onScrollbarUpdate = (type, isVisible) => {
+		const {onUpdate} = this.props;
+		switch (type) {
+			case SCROLLBAR_TYPE.VERTICAL: {
+				this._withVerticalScrollbar = isVisible;
+				break;
+			}
+			case SCROLLBAR_TYPE.HORIZONTAL: {
+				this._withHorizontalScrollbar = isVisible;
+				break;
+			}
+		}
+		this.forceUpdate();
+		onUpdate && onUpdate(this._withHorizontalScrollbar, this._withVerticalScrollbar);
 	}
 
 	render() {
-		const {ResizeDetector, theme} = this.props;
+		const {
+			theme,
+			ResizeDetector,
+			VerticalScrollbar,
+			HorizontalScrollbar
+		} = this.props;
+
 		const children = React.Children.only(this.props.children);
 
-		const className = classnames(
-			theme.container,
-			children.props.className || ''
-		);
+		const {container} = this.state;
 
-		const verticalScrollbarClassName = classnames(
-			theme.scrollbar,
-			theme.scrollbar_vertical
-		);
+		const className = classnames(theme.scrollable, {
+			[theme.withHorizontalScrollbar]: this._withHorizontalScrollbar,
+			[theme.withVerticalScrollbar]: this._withVerticalScrollbar
+		}, children.props.className || '');
 
-		const horizontalScrollbarClassName = classnames(
-			theme.scrollbar,
-			theme.scrollbar_horizontal
-		);
+		const scrollbarProps = {
+			container,
+			theme: {
+				container: classnames(theme.scrollbar, {
+					withBothScrollabars: this._withHorizontalScrollbar && this._withVerticalScrollbar
+				})
+			}
+		};
+
+		const resizeDetectorProps = {
+			theme: {
+				container: theme.resizeDetector
+			},
+			onResize: this.onResize
+		};
+
+		console.log(this.props.scrollLeft, this.props.scrollTop);
 
 		return (
-			<div className={className}>
+			<div className={className} ref={el => this._scrollable = el}>
 				<div className={theme.wrapper}>
-					<div className={theme.content}>
-						{React.cloneElement(children, {
-							className: null
-						})}
+					<div className={theme.container} ref={el => this._container = el}>
+						<div className={theme.content}>
+							{React.cloneElement(children, {
+								className: null
+							})}
+							<ResizeDetector {...resizeDetectorProps} />
+						</div>
 					</div>
-					<div className={verticalScrollbarClassName}/>
-					<div className={horizontalScrollbarClassName}/>
+					{container && [
+						<HorizontalScrollbar ref={el => this._horizontalScrollbar = el}
+						                     key="horizontalScrollbar" {...scrollbarProps}
+						                     scrollLeft={this.props.scrollLeft} />,
+						<VerticalScrollbar ref={el => this._verticalScrollbar = el}
+						                   key="verticalScrollbar" {...scrollbarProps}
+						                   scrollTop={this.props.scrollTop} />
+					]}
 				</div>
-				<ResizeDetector onResize={this.onResize}/>
+				<ResizeDetector {...resizeDetectorProps} />
 			</div>
 		);
 	}
 
-	onResize = e => {
-		console.log(e);
+	onResize = (event) => {
+		this._emitter.emit(EVENT_SCROLABLE.RESIZE);
 	}
 }
