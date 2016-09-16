@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {PURE} from 'dx-util/src/react/pure';
 import {themr} from 'react-css-themr';
 
@@ -8,6 +7,9 @@ export const RESIZE_DETECTOR = Symbol('ResizeDetector');
 @PURE
 @themr(RESIZE_DETECTOR)
 export default class ResizeDetector extends React.Component {
+
+	_resizeDetector;
+
 	static propTypes = {
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string
@@ -16,20 +18,23 @@ export default class ResizeDetector extends React.Component {
 	}
 
 	componentDidMount() {
-		ReactDOM.findDOMNode(this).contentWindow.addEventListener('resize', this.onResize);
+		this._resizeDetector.contentWindow.addEventListener('resize', this.onResize);
 	}
 
 	componentWillUnmount() {
-		ReactDOM.findDOMNode(this).contentWindow.removeEventListener('resize', this.onResize);
+		this._resizeDetector.contentWindow.removeEventListener('resize', this.onResize);
+		delete this['_resizeDetector'];
 	}
 
 	render() {
+		const {theme} = this.props;
 		return (
-			<iframe src="about:blank" className={this.props.theme.container}/>
+			<iframe src="about:blank" ref={el => this._resizeDetector = el} className={theme.container} />
 		);
 	}
 
-	onResize = e => {
-		this.props.onResize && this.props.onResize(e);
+	onResize = (event) => {
+		const {onResize} = this.props;
+		onResize && onResize(event);
 	}
 }

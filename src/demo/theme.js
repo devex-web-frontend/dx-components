@@ -22,8 +22,11 @@ import numericStepper from '../components/NumericStepper/NumericStepper.demo.sty
 import {TABLE} from '../components/Table/Table';
 import table from '../components/Table/Table.demo.styl';
 
-import {SCROLLABLE} from '../components/Scrollable/Scrollable';
-import scrollable from '../components/Scrollable/Scrollable.demo.styl';
+import {HORIZONTAL_SCROLLBAR} from '../components/Scrollbar/HorizontalScrollbar.jsx';
+import horizontalScrollbar from '../components/Scrollbar/HorizontalScrollbar.demo.styl';
+
+import {VERTICAL_SCROLLBAR} from '../components/Scrollbar/VerticalScrollbar.jsx';
+import verticalScrollbar from '../components/Scrollbar/VerricalScrollbar.demo.styl';
 
 export default {
 	...config,
@@ -36,5 +39,6 @@ export default {
 	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
-	[SCROLLABLE]: scrollable
+	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
+	[VERTICAL_SCROLLBAR]: verticalScrollbar,
 };
