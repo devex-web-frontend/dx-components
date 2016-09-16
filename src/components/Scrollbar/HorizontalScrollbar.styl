@@ -1,0 +1,55 @@
+@require '~config';
+
+@require './Scrollbar.config.styl';
+@require './Scrollbar.styl';
+
+.container {
+	bottom: 0;
+	left: 0;
+	right: 0;
+	visibility: hidden;
+	z-index: -1;
+	padding: 0 ($scrollableScrollBarButtonSize + $scrollableScrollBarExtremeButtonSize);
+	height: $scrollableScrollBarSize;
+}
+
+.button {
+	position: absolute;
+	bottom: 0;
+	width: $scrollableScrollBarButtonSize;
+	height: 100%;
+}
+
+.buttonToStart {
+	left: 0;
+}
+
+.buttonBackward {
+	left: $scrollableScrollBarExtremeButtonSize;
+}
+
+.buttonForward {
+	right: $scrollableScrollBarExtremeButtonSize;
+}
+
+.buttonToEnd {
+	right: 0;
+}
+
+.track {
+	height: 100%;
+}
+
+.bar {
+	min-width: $scrollableMinBarSize;
+}
+
+
+.containerIsVisible {
+	visibility: inherit;
+	z-index: auto;
+
+	&:global(.withBothScrollabars) {
+		right: $scrollableScrollBarSize;
+	}
+}
