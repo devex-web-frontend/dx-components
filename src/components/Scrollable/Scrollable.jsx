@@ -88,7 +88,6 @@ export default class Scrollable extends React.Component {
 	}
 
 	onScroll = (event) => {
-		console.log(event.target);
 		const {scrollLeft, scrollTop} = event.target;
 		const {onScroll} = this.props;
 		onScroll && onScroll(scrollLeft, scrollTop);
@@ -142,8 +141,6 @@ export default class Scrollable extends React.Component {
 			},
 			onResize: this.onResize
 		};
-
-		console.log(this.props.scrollLeft, this.props.scrollTop);
 
 		return (
 			<div className={className} ref={el => this._scrollable = el}>
