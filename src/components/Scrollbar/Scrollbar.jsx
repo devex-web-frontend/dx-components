@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import Bar from './Bar.jsx';
+import Holdable from '../Holdable/Holdable.jsx';
 import Button from '../Button/Button.jsx';
 
 import {
@@ -103,14 +104,18 @@ export default class Scrollbar extends React.Component {
 		return (
 			<div className={className} ref={el => this._scrollbar = el}>
 				<Button theme={buttonTheme(theme.buttonToStart)} onClick={this.onButtonToStartClick}/>
-				<Button theme={buttonTheme(theme.buttonBackward)} onClick={this.onButtonBackwardClick}/>
+				<Holdable onHold={this.onButtonBackwardClick}>
+					<Button theme={buttonTheme(theme.buttonBackward)} onClick={this.onButtonBackwardClick}/>
+				</Holdable>
 				<div className={theme.track} onWheel={this.onTrackMouseWheel} onClick={this.onTrackClick}
 				     ref={el => this._track = el}>
 					<Bar theme={barTheme} ref={el => this._bar = ReactDOM.findDOMNode(el)}
 					     onBarDragStart={this.onBarDragStart}
 					     onBarDrag={this.onBarDrag}/>
 				</div>
-				<Button theme={buttonTheme(theme.buttonForward)} onClick={this.onButtonForwardClick}/>
+				<Holdable onHold={this.onButtonForwardClick}>
+					<Button theme={buttonTheme(theme.buttonForward)} onClick={this.onButtonForwardClick}/>
+				</Holdable>
 				<Button theme={buttonTheme(theme.buttonToEnd)} onClick={this.onButtonToEndClick}/>
 			</div>
 		);
