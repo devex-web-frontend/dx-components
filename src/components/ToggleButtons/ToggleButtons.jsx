@@ -9,7 +9,7 @@ export const TOGGLE_BUTTONS = Symbol('ToggleButtons');
 @themr(TOGGLE_BUTTONS)
 export default class ToggleButtons extends Component {
 	static propTypes = {
-		children: PropTypes.node,
+		children: PropTypes.arrayOf(PropTypes.element),
 		isDisabled: PropTypes.bool,
 		isVertical: PropTypes.bool,
 		toggleIndex: PropTypes.number,
@@ -62,10 +62,6 @@ export default class ToggleButtons extends Component {
 	}
 
 	renderToggleItem(child, i) {
-		if (!child.props) {
-			return child;
-		}
-
 		const {
 				theme,
 				isVertical,
