@@ -1,13 +1,12 @@
 import React, {Component, PropTypes, Children} from 'react';
 import {PURE} from 'dx-util/src/react/pure';
 import classnames from 'classnames';
-import {themr} from 'react-css-themr';
+import {themr, themeable} from 'react-css-themr';
 
 export const TOGGLE_BUTTONS = Symbol('ToggleButtons');
 
 @PURE
 @themr(TOGGLE_BUTTONS)
-
 export default class ToggleButtons extends Component {
 	static propTypes = {
 		children: PropTypes.node,
@@ -18,9 +17,11 @@ export default class ToggleButtons extends Component {
 		onChange: PropTypes.func,
 		theme: PropTypes.shape({
 			container: PropTypes.string,
-			//container__wrapper: PropTypes.string,
-			//container__vertical: PropTypes.string,
-			//container__item: PropTypes.string
+			container__wrapper: PropTypes.string,
+			container__vertical: PropTypes.string,
+			container__item: PropTypes.string,
+			container__item__active: PropTypes.string,
+			container__item__labelUpCase: PropTypes.string
 		})
 	}
 
@@ -70,15 +71,19 @@ export default class ToggleButtons extends Component {
 				isVertical,
 				isDisabled
 		} = this.props;
+
+		const {
+				theme: childTheme
+		} = child.props;
+
 		const isActive = i === this.state.toggleIndex;
 
-		const toggleButtonTheme = {
-			container: classnames(theme.container__item,
-				{
-					[theme.container__item__active]: isActive,
-					[theme.container__vertical]: isVertical
-				})
-		};
+		const toggleButtonTheme = themeable({
+			container: classnames(theme.container__item, {
+				[theme.container__item__active]: isActive,
+				[theme.container__vertical]: isVertical
+			})
+		}, childTheme);
 
 		return React.cloneElement(child, {
 			isActive,
