@@ -72,9 +72,7 @@ export default class ToggleButtons extends Component {
 				isDisabled
 		} = this.props;
 
-		const {
-				theme: childTheme
-		} = child.props;
+		const {theme: childTheme} = child.props;
 
 		const isActive = i === this.state.toggleIndex;
 
