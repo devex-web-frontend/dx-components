@@ -18,9 +18,9 @@ export default class ToggleButtons extends Component {
 		onChange: PropTypes.func,
 		theme: PropTypes.shape({
 			container: PropTypes.string,
-			container__wrapper: PropTypes.string,
-			container__vertical: PropTypes.string,
-			container__item: PropTypes.string
+			//container__wrapper: PropTypes.string,
+			//container__vertical: PropTypes.string,
+			//container__item: PropTypes.string
 		})
 	}
 
