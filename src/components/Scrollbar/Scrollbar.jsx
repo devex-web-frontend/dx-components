@@ -27,7 +27,6 @@ export default class Scrollbar extends React.Component {
 	_bar;
 
 	static propTypes = {
-		//container: React.PropTypes.any,
 		container(props) {
 			const {container} = props;
 			const type = typeof container;
@@ -115,7 +114,7 @@ export default class Scrollbar extends React.Component {
 			<div className={className} ref={el => this._scrollbar = el}>
 				<ButtonToStart theme={buttonTheme(theme.buttonToStart)}
 				               onClick={this.onButtonToStartClick}
-				               isDisabled={isScrollbarAtStart} />
+				               isDisabled={isScrollbarAtStart}/>
 				<Holdable onHold={this.onButtonBackwardClick} isDisabled={isScrollbarAtStart}>
 					<ButtonStepBackward theme={buttonTheme(theme.buttonBackward)} onClick={this.onButtonBackwardClick}/>
 				</Holdable>
@@ -125,12 +124,12 @@ export default class Scrollbar extends React.Component {
 					     onBarDragStart={this.onBarDragStart}
 					     onBarDrag={this.onBarDrag}/>
 				</div>
-				<Holdable onHold={this.onButtonForwardClick} isDisabled={isScrollbarAtEnd} >
+				<Holdable onHold={this.onButtonForwardClick} isDisabled={isScrollbarAtEnd}>
 					<ButtonStepForward theme={buttonTheme(theme.buttonForward)} onClick={this.onButtonForwardClick}/>
 				</Holdable>
 				<ButtonToEnd theme={buttonTheme(theme.buttonToEnd)}
 				             onClick={this.onButtonToEndClick}
-				             isDisabled={isScrollbarAtEnd} />
+				             isDisabled={isScrollbarAtEnd}/>
 			</div>
 		);
 	}
