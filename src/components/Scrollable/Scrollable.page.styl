@@ -1,27 +1,36 @@
+.container {
+	background: #8e8e8e;
+	padding: 20px;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+}
+
 .scrollable {
-	width: 300px;
+	width: 250px;
 	height: 300px;
-	margin: 20px;
 	border: 1px solid grey;
+	background-color: black;
+	color: #fff;
 
 	:global {
 		p {
 			white-space: nowrap;
 		}
 	}
-
-	&_maxHeight {
-		composes: scrollable;
-		max-height: 200px;
-		height: auto;
-	}
 }
 
-.scrollbar {
-	&__track {
-		background: lightgrey;
+.section {
+	display: inline-block;
+	vertical-align: top;
+	+ .section {
+		margin-left: 20px;
 	}
-	&__bar {
-		background: greyl
+
+	h1 {
+		margin-bottom: 10px;
 	}
 }

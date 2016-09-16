@@ -1,0 +1,27 @@
+.scrollable {
+	width: 300px;
+	height: 300px;
+	margin: 20px;
+	border: 1px solid grey;
+
+	:global {
+		p {
+			white-space: nowrap;
+		}
+	}
+
+	&_maxHeight {
+		composes: scrollable;
+		max-height: 200px;
+		height: auto;
+	}
+}
+
+.scrollbar {
+	&__track {
+		background: lightgrey;
+	}
+	&__bar {
+		background: greyl
+	}
+}
