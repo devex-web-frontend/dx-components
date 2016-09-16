@@ -20,9 +20,7 @@ export default class ToggleButtons extends Component {
 			container: PropTypes.string,
 			container__wrapper: PropTypes.string,
 			container__vertical: PropTypes.string,
-			container__item: PropTypes.string,
-			container__item__active: PropTypes.string,
-			container__item__labelUpCase: PropTypes.string
+			container__item: PropTypes.string
 		})
 	}
 
