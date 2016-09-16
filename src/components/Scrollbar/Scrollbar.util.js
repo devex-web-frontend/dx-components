@@ -7,6 +7,7 @@
 /**
  * Apply necessary styles for proper computation of scrollbar sizes.
  * It returns clearer function which removes all added styles from DOM.
+ * @param {String} scrollbarContainerClassName
  * @returns {Function} clearer function, removing inlined styles from DOM
  */
 function fixScrollStyles(scrollbarContainerClassName) {
@@ -23,7 +24,7 @@ function fixScrollStyles(scrollbarContainerClassName) {
 
 	document.head.appendChild(styleFixEl);
 
-	return function () {
+	return function() {
 		document.head.removeChild(styleFixEl);
 	};
 }

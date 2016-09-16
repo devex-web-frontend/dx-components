@@ -67,8 +67,8 @@ export default class VerticalScrollbar extends Srollbar {
 		const hegiht = Math.round(bounds.height);
 		const scrollHeight = this._container.scrollHeight;
 		const isVisible = scrollHeight > hegiht;
-		if (isVisible !== this.state.isVisible) {
 
+		if (isVisible !== this.state.isVisible) {
 			this.setState({
 				isVisible
 			});

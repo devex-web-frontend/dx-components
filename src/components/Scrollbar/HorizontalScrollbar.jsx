@@ -11,7 +11,6 @@ import {themr} from 'react-css-themr';
 
 export const HORIZONTAL_SCROLLBAR = Symbol('HorizontalScrollbar');
 
-
 @PURE
 @themr(HORIZONTAL_SCROLLBAR)
 export default class HorizontalScrollbar extends Srollbar {

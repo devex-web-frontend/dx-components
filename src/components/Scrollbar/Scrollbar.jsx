@@ -66,7 +66,6 @@ export default class Scrollbar extends React.Component {
 		const {container} = this.props;
 		this._container = container;
 
-
 		this.state = {
 			isVisible: false
 		};
@@ -93,9 +92,7 @@ export default class Scrollbar extends React.Component {
 			ButtonToEnd
 		} = this.props;
 
-		const {
-			isVisible
-		} = this.state;
+		const {isVisible} = this.state;
 
 		const buttonTheme = (mixinContainer) => ({
 			container: classnames(theme.button, mixinContainer)

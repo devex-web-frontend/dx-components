@@ -32,7 +32,6 @@ export default class Bar extends React.Component {
 	}
 
 	_onDocumentMouseUp = (event) => {
-
 		const {onBarDrag} = this.props;
 
 		document.removeEventListener('selectstart', this._onDocumentSelectStart);
