@@ -31,6 +31,9 @@ import input from '../components/Input/Input.styl';
 import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.styl';
 
+import {SCROLLABLE} from '../components/Scrollable/Scrollable.jsx';
+import scrollable from '../components/Scrollable/Scrollable.config.styl';
+
 import {TABLE} from '../components/Table/Table';
 import table from '../components/Table/Table.styl';
 
@@ -47,7 +50,7 @@ export default {
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
 	[TOGGLE_BUTTONS]: toggleButtons,
-	[SELECTBOX]: selectbox,
+	[SCROLLABLE]: scrollable,
 	[INPUT]: input,
 	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,

@@ -20,8 +20,7 @@ export default class ToggleButtons extends Component {
 			container__wrapper: PropTypes.string,
 			container__vertical: PropTypes.string,
 			container__item: PropTypes.string,
-			container__item__active: PropTypes.string,
-			container__item__labelUpCase: PropTypes.string
+			container__item_active: PropTypes.string
 		})
 	}
 
@@ -74,7 +73,7 @@ export default class ToggleButtons extends Component {
 
 		const toggleButtonTheme = themeable({
 			container: classnames(theme.container__item, {
-				[theme.container__item__active]: isActive,
+				[theme.container__item_active]: isActive,
 				[theme.container__vertical]: isVertical
 			})
 		}, childTheme);
