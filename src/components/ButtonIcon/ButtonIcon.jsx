@@ -6,7 +6,7 @@ import Icon from '../Icon/Icon.jsx';
 
 export const BUTTON_ICON = Symbol('ButtonIcon');
 
-@PURE()
+@PURE
 @themr(BUTTON_ICON)
 export default class ButtonIcon extends React.Component {
 	static propTypes = {

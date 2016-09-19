@@ -3,17 +3,22 @@ import {themr} from 'react-css-themr';
 import ListItemGroup, {PROP_TYPES, DEFAULT_PROPS} from '../List/ListItemGroup.jsx';
 import Menu, {MENU} from './Menu.jsx';
 import {PURE} from 'dx-util/src/react/pure';
+import Pure from '../Pure/Pure';
 
-@PURE()
+@PURE
 @themr(MENU)
 export default class MenuItemGroup extends React.Component {
 	static propTypes = {
 		...PROP_TYPES,
+		ListItemGroupComponent: React.PropTypes.func,
+		ListComponent: React.PropTypes.func,
 		onSelect: React.PropTypes.func //this is injected by Menu/MenuItemGroup
 	}
 
 	static defaultProps = {
 		...DEFAULT_PROPS,
+		ListItemGroupComponent: ListItemGroup,
+		ListComponent: Menu,
 		isCollapsed: true //menu is always collapsed
 	}
 
@@ -31,7 +36,7 @@ export default class MenuItemGroup extends React.Component {
 	}
 
 	render() {
-		const {children, theme} = this.props;
+		const {children, theme, ListItemGroupComponent, ListComponent} = this.props;
 
 		let header;
 		if (this.props.header) {
@@ -43,15 +48,17 @@ export default class MenuItemGroup extends React.Component {
 		}
 
 		return (
-			<ListItemGroup onClick={this.onClick}
-			               ListComponent={Menu}
-			               {...this.props}
-			               header={header}
-			               isCollapsed={this.state.isCollapsed}>
-				{React.cloneElement(React.Children.only(children), {
-					onItemSelect: this.props.onSelect
-				})}
-			</ListItemGroup>
+			<ListItemGroupComponent onClick={this.onClick}
+			                        ListComponent={ListComponent}
+			                        {...this.props}
+			                        header={header}
+			                        isCollapsed={this.state.isCollapsed}>
+				<Pure check={children}>
+					{() => React.cloneElement(React.Children.only(children), {
+						onItemSelect: this.props.onSelect
+					})}
+				</Pure>
+			</ListItemGroupComponent>
 		);
 	}
 

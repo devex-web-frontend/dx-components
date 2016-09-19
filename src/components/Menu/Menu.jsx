@@ -9,24 +9,26 @@ export const MENU = Symbol('Menu');
 export default class Menu extends React.Component {
 	static propTypes = {
 		...PROP_TYPES,
+		ListComponent: React.PropTypes.func,
 		onItemSelect: React.PropTypes.func
 	}
 
 	static defaultProps = {
-		...DEFAULT_PROPS
+		...DEFAULT_PROPS,
+		ListComponent: List
 	}
 
 	render() {
-		const {children} = this.props;
+		const {children, ListComponent} = this.props;
 
 		return (
-			<List {...this.props}>
+			<ListComponent {...this.props}>
 				{React.Children.map(children, child => {
 					return React.cloneElement(child, {
 						onSelect: this.props.onItemSelect
 					});
 				})}
-			</List>
+			</ListComponent>
 		);
 	}
 }

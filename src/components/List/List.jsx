@@ -17,8 +17,11 @@ export const PROP_TYPES = {
 	level: React.PropTypes.number
 };
 
-export const DEFAULT_PROPS = {
-	level: 0
+export const DEFAULT_PROPS = {};
+
+export const CONTEXT_LEVEL_KEY = '__LIST_CONTEXT_LEVEL_KEY__';
+export const CONTEXT_TYPES = {
+	[CONTEXT_LEVEL_KEY]: React.PropTypes.number
 };
 
 @themr(LIST)
@@ -27,17 +30,16 @@ export default class List extends React.Component {
 
 	static defaultProps = DEFAULT_PROPS;
 
+	static contextTypes = CONTEXT_TYPES;
+
 	render() {
-		const {theme, level, children} = this.props;
+		const level = this.context[CONTEXT_LEVEL_KEY] || 0;
+		const {theme, children} = this.props;
 		const className = classnames(theme.container, theme[`container_level_${level}`]);
 
 		return (
 			<ul className={className}>
-				{React.Children.map(children, child => {
-					return React.cloneElement(child, {
-						level
-					});
-				})}
+				{children}
 			</ul>
 		);
 	}
