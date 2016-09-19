@@ -16,6 +16,18 @@ import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
 import toggleButtons from '../components/ToggleButtons/ToggleButtons.demo.styl';
 
+import {INPUT} from '../components/Input/Input.jsx';
+import input from '../components/Input/Input.demo.styl';
+
+import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
+import numericStepper from '../components/NumericStepper/NumericStepper.demo.styl';
+
+import {TABLE} from '../components/Table/Table';
+import table from '../components/Table/Table.demo.styl';
+
+import {SCROLLABLE} from '../components/Scrollable/Scrollable';
+import scrollable from '../components/Scrollable/Scrollable.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -24,4 +36,10 @@ export default {
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
 	[TOGGLE_BUTTONS]: toggleButtons
+	[INPUT]: input,
+	[SELECTBOX]: selectbox,
+	[NUMERIC_STEPPER]: numericStepper,
+	[SELECTBOX]: selectbox,
+	[TABLE]: table,
+	[SCROLLABLE]: scrollable
 };

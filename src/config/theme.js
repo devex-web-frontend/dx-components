@@ -25,6 +25,18 @@ import selectbox from '../components/Selectbox/Selectbox.styl';
 import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
 import toggleButtons from '../components/ToggleButtons/ToggleButtons.styl';
 
+import {INPUT} from '../components/Input/Input.jsx';
+import input from '../components/Input/Input.styl';
+
+import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
+import numericStepper from '../components/NumericStepper/NumericStepper.styl';
+
+import {TABLE} from '../components/Table/Table';
+import table from '../components/Table/Table.styl';
+
+import {GRID} from '../components/Grid/Grid';
+import grid from '../components/Grid/Grid.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -35,4 +47,10 @@ export default {
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
 	[TOGGLE_BUTTONS]: toggleButtons
+	[SELECTBOX]: selectbox,
+	[INPUT]: input,
+	[NUMERIC_STEPPER]: numericStepper,
+	[SELECTBOX]: selectbox,
+	[TABLE]: table,
+	[GRID]: grid
 };

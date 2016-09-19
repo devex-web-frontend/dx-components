@@ -59,7 +59,9 @@ const noParse = glob.sync(path.join(ENV.LIB_PATH, '/*'), {
 	ignore: ENV.ES6
 }).map(file => path.resolve(file));
 
-const alias = {};
+const alias = {
+	config: path.resolve(ENV.SRC_PATH, 'config/config.interop.styl')
+};
 
 const externals = [];
 
