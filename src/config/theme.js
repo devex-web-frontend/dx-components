@@ -34,6 +34,9 @@ import table from '../components/Table/Table.styl';
 import {GRID} from '../components/Grid/Grid';
 import grid from '../components/Grid/Grid.styl';
 
+import {POPUP} from '../components/Popup/Popup';
+import popup from '../components/Popup/Popup.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -47,5 +50,6 @@ export default {
 	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
-	[GRID]: grid
+	[GRID]: grid,
+	[POPUP]: popup
 };
