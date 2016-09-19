@@ -54,6 +54,6 @@ export default {
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
 	[GRID]: grid,
-	[LOADINGINDICATON]: loadingiIndicaton
+	[LOADINGINDICATON]: loadingiIndicaton,
 	[POPUP]: popup
 };
