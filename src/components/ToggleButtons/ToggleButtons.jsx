@@ -68,7 +68,7 @@ export default class ToggleButtons extends Component {
 				isDisabled
 		} = this.props;
 
-		const {theme: childTheme} = child.props;
+		const {theme: childTheme, ...rest} = child.props;
 
 		const isActive = i === this.state.toggleIndex;
 
@@ -80,6 +80,7 @@ export default class ToggleButtons extends Component {
 		}, childTheme);
 
 		return React.cloneElement(child, {
+			...rest,
 			isActive,
 			isDisabled,
 			onClick: this.onToggleSelect(i, child.props.onClick),
