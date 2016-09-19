@@ -34,6 +34,9 @@ import table from '../components/Table/Table.styl';
 import {GRID} from '../components/Grid/Grid';
 import grid from '../components/Grid/Grid.styl';
 
+import {LOADINGINDICATON} from '../components/LoadingIndicaton/LoadingIndicaton';
+import loadingiIndicaton from '../components/LoadingIndicaton/LoadingIndicaton.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -47,5 +50,6 @@ export default {
 	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
-	[GRID]: grid
+	[GRID]: grid,
+	[LOADINGINDICATON]: loadingiIndicaton
 };
