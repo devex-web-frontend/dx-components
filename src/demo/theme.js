@@ -35,7 +35,7 @@ export default {
 	[MENU]: menu,
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
-	[TOGGLE_BUTTONS]: toggleButtons
+	[TOGGLE_BUTTONS]: toggleButtons,
 	[INPUT]: input,
 	[SELECTBOX]: selectbox,
 	[NUMERIC_STEPPER]: numericStepper,
