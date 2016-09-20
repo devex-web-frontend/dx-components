@@ -1,0 +1,31 @@
+@require '../Selectbox/Selectbox.mixin.styl';
+@require '../Selectbox/Selectbox.styl';
+@require '../Popover/Popover.mixin.styl';
+
+Selectbox(container, 7px, 5px, 10px, 5px);
+
+.anchor__content {
+	&_hasCaret {
+		.input {
+			width: calc(100% + 12px);
+			padding-right: 20px;
+		}
+
+		.anchor__caret {
+			right: 10px;
+		}
+	}
+}
+
+
+.anchor,
+.container__popover {
+	width: 200px;
+}
+
+.input {
+	background: #eee;
+	color: #000;
+	font-size: 14px;
+	box-shadow: none;
+}

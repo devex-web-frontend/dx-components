@@ -16,6 +16,9 @@ import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.demo.styl';
 
+import {COMBOBOX} from '../components/Combobox/Combobox';
+import combobox from '../components/Combobox/Combobox.demo.styl';
+
 import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.demo.styl';
 
@@ -35,6 +38,7 @@ export default {
 	[SELECTBOX]: selectbox,
 	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
+	[COMBOBOX]: combobox,
 	[TABLE]: table,
 	[SCROLLABLE]: scrollable
 };

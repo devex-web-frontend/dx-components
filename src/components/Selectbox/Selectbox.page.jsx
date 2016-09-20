@@ -19,9 +19,9 @@ class ThemeSelectboxAnchor extends React.Component {
 			...this.props,
 			isPrimary: true,
 			theme: {
-				container: css.container__anchor,
-				content_hasCaret: css.container__anchor__content_hasCaret,
-				caret: css.container__anchor__caret
+				container: css.anchor,
+				content_hasCaret: css.anchor__content_hasCaret,
+				caret: css.anchor__caret
 			},
 			caretIconName: iconSmallDropdownArrow
 		};
@@ -68,7 +68,6 @@ class SelectboxPage extends React.Component {
 					</Selectbox>
 					<Button onClick={this.onResetClick}>Reset</Button>
 				</section>
-
 
 				<section>
 					<Selectbox defaultValue="superman">
