@@ -22,6 +22,9 @@ import popover from '../components/Popover/Popover.styl';
 import {SELECTBOX} from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.styl';
 
+import {SELECTBOX_ANCHOR} from '../components/Selectbox/SelectboxAnchor';
+import selectboxAnchor from '../components/Selectbox/SelectboxAnchor.styl';
+
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.styl';
 
@@ -46,6 +49,7 @@ export default {
 	[INPUT]: input,
 	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
+	[SELECTBOX_ANCHOR]: selectboxAnchor,
 	[TABLE]: table,
 	[GRID]: grid
 };
