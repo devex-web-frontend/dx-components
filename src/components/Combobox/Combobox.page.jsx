@@ -6,7 +6,7 @@ import Combobox from './Combobox.jsx';
 import css from './Combobox.demo.styl';
 import MenuItem from '../Menu/MenuItem.jsx';
 import {PURE} from 'dx-util/src/react/pure';
-
+import iconListItemTick from '../Selectbox/img/icon-list-item-tick.svg';
 import iconSmallDropdownArrow from '../Selectbox/img/icon-small-dropdown-arrow.svg';
 
 class ThemeComboboxAnchor extends React.Component {
@@ -22,9 +22,6 @@ class ThemeComboboxAnchor extends React.Component {
 			},
 			caretIconName: iconSmallDropdownArrow
 		};
-
-		console.log(newProps);
-
 		return <ComboboxAnchor {...newProps}/>;
 	}
 }
@@ -37,7 +34,9 @@ class ComboboxPage extends React.Component {
 		return (
 			<Demo>
 				<div>
-					<Combobox AnchorComponent={ThemeComboboxAnchor}>
+					<Combobox defaultValue={1.00}
+					          selectedItemIconName={iconListItemTick}
+					          AnchorComponent={ThemeComboboxAnchor}>
 						<MenuItem value={1.00}>1.00</MenuItem>
 						<MenuItem value={2.00}>2.00</MenuItem>
 						<MenuItem value={5.00}>5.00</MenuItem>

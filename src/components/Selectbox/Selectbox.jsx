@@ -51,12 +51,9 @@ export default class Selectbox extends React.Component {
 		placeholder: React.PropTypes.string,
 		//C'MON LET'S DO IT VIA DI!
 		AnchorComponent: React.PropTypes.func,
-		IconComponent: React.PropTypes.func,
 		MenuComponent: React.PropTypes.func,
 		PopoverComponent: React.PropTypes.func,
 
-		menuTheme: React.PropTypes.shape(MENU_THEME_SHAPE_OBJECT),
-		popoverTheme: React.PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
 		theme: React.PropTypes.shape({
 			container__popover: React.PropTypes.string,
 			container__menu: React.PropTypes.string,
@@ -66,17 +63,13 @@ export default class Selectbox extends React.Component {
 			container__item__text: React.PropTypes.string,
 			container__item__activeIcon: React.PropTypes.string
 		}),
-		caretIconName: React.PropTypes.string,
 		selectedItemIconName: React.PropTypes.string
 	}
 
 	static defaultProps = {
 		AnchorComponent: SelectboxAnchor,
-		IconComponent: Icon,
 		MenuComponent: Menu,
-		PopoverComponent: Popover,
-		popoverTheme: {},
-		menuTheme: {}
+		PopoverComponent: Popover
 	}
 
 	_anchor;
@@ -176,7 +169,6 @@ export default class Selectbox extends React.Component {
 	render() {
 		const {
 			AnchorComponent: Anchor,
-			IconComponent: Icon,
 			PopoverComponent: Popover,
 			MenuComponent: Menu,
 			placeholder,
@@ -206,9 +198,10 @@ export default class Selectbox extends React.Component {
 			<Anchor ref={el => this._anchor = el}
 			        isDisabled={isDisabled}
 			        isOpened={this.state.isOpened}
-			        value={this.state.selectedValueText || placeholder}
-			        IconComponent={Icon}
-			        onClick={this.onAnchorClick}>
+			        placeholder={placeholder}
+			        value={this.state.selectedValueText}
+			        onClick={this.onAnchorClick}
+			        onChange={this.onChange}>
 
 				<Popover isOpened={this.state.isOpened}
 				         theme={popoverTheme}
@@ -226,7 +219,11 @@ export default class Selectbox extends React.Component {
 
 	wrapItem(child) {
 		const {theme, selectedItemIconName} = this.props;
-		const isActive = child.props.value && child.props.value === this.state.selectedValue;
+		const {value} = child.props;
+		const {selectedValue} = this.state;
+
+		const isActive = value && value === selectedValue;
+
 		const iconTheme = {
 			container: theme.container__item__activeIcon
 		};
@@ -250,6 +247,10 @@ export default class Selectbox extends React.Component {
 		this.setState({
 			isOpened: !this.state.isOpened
 		});
+	}
+
+	onChange = (value) => {
+		this.onItemSelect(value, value);
 	}
 
 	onItemSelect = (value, text) => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../Input/Input.jsx';
 import Icon from '../Icon/Icon.jsx';
+import {ANCHOR_PROP_TYPES} from '../Selectbox/SelectboxAnchor';
 import {themr} from 'react-css-themr';
 import classnames from 'classnames';
 import {PURE} from 'dx-util/src/react/pure';
@@ -12,6 +13,8 @@ export const COMBOBOX_ANCHOR = Symbol('ComboboxAnchor');
 export default class ComboboxAnchor extends React.Component {
 
 	static propTypes = {
+		...ANCHOR_PROP_TYPES,
+		onChange: React.PropTypes.func,
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string,
 			input: React.PropTypes.string,
@@ -19,16 +22,7 @@ export default class ComboboxAnchor extends React.Component {
 			content_hasCaret: React.PropTypes.string,
 			caret: React.PropTypes.string,
 			caret_isReversed: React.PropTypes.string
-		}),
-		caretIconName: React.PropTypes.string,
-		children: React.PropTypes.node,
-		isDisabled: React.PropTypes.bool,
-		isOpened: React.PropTypes.bool,
-		onChange: React.PropTypes.func,
-		value: React.PropTypes.string,
-		InputComponent: React.PropTypes.func,
-		IconComponent: React.PropTypes.func,
-		onClick: React.PropTypes.func
+		})
 	};
 
 	static defaultProps = {
@@ -43,6 +37,7 @@ export default class ComboboxAnchor extends React.Component {
 	render() {
 		const {
 			value,
+			placeholder,
 			theme,
 			children,
 			isOpened,
@@ -81,6 +76,10 @@ export default class ComboboxAnchor extends React.Component {
 			onChange
 		};
 
+		if (!value && placeholder) {
+			inputProps.placeholder = placeholder;
+		}
+
 		return (
 			<div className={theme.container}>
 				<div className={contentClassName}>
@@ -109,6 +108,8 @@ export default class ComboboxAnchor extends React.Component {
 			value: (void 0), //eslint-disable-line no-void,
 		});
 
-		onChange && onChange(value);
+		if (this.props.value !== value) {
+			onChange && onChange(value);
+		}
 	}
 }

@@ -2,13 +2,17 @@
 @require '../Selectbox/Selectbox.styl';
 @require '../Popover/Popover.mixin.styl';
 
-Selectbox(container, 7px, 5px, 10px, 5px);
+$caretSize = 7px;
+$caretMarginLeft = 5px;
+
+Selectbox(container, $caretSize, $caretMarginLeft, 10px, 5px);
 
 .anchor__content {
 	&_hasCaret {
+		padding-right: 0;
 		.input {
-			width: calc(100% + 12px);
-			padding-right: 20px;
+			width: 100%;
+			padding-right: ($caretSize + $caretMarginLeft);
 		}
 
 		.anchor__caret {
