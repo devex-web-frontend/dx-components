@@ -37,6 +37,9 @@ import grid from '../components/Grid/Grid.styl';
 import {LOADINGINDICATON} from '../components/LoadingIndicaton/LoadingIndicaton';
 import loadingiIndicaton from '../components/LoadingIndicaton/LoadingIndicaton.styl';
 
+import {CHECKBOX} from '../components/Checkbox/Checkbox.jsx';
+import checkbox from '../components/Checkbox/Checkbox.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -51,5 +54,6 @@ export default {
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
 	[GRID]: grid,
-	[LOADINGINDICATON]: loadingiIndicaton
+	[LOADINGINDICATON]: loadingiIndicaton,
+	[CHECKBOX]: checkbox
 };

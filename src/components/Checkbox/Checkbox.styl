@@ -1,0 +1,19 @@
+.container {
+	input[type="checkbox"] {
+		position: absolute;
+		clip: rect(0,0,0,0);
+	}
+	input[type="checkbox"] + label {
+		display: inline-block;
+		.container__checkboxIcon {
+			visibility: hidden;
+		}
+
+	}
+	input[type="checkbox"]:checked + label {
+		display: inline-block;
+		.container__checkboxIcon {
+			visibility: visible;
+		}
+	}
+}
