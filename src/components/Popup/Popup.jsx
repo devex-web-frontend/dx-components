@@ -61,15 +61,13 @@ export default class Popup extends React.Component {
 		);
 
 		let child = (
-			<Portal container={container}>
-				<div className={backdropClassName}>
-					<div className={theme.container}>
-						{header && <div className={theme.header}>{header}</div>}
-						{children && <div className={theme.body}>{children}</div>}
-						{footer && <div className={theme.footer}>{footer}</div>}
-					</div>
+			<div className={backdropClassName}>
+				<div className={theme.container}>
+					{header && <div className={theme.header}>{header}</div>}
+					{children && <div className={theme.body}>{children}</div>}
+					{footer && <div className={theme.footer}>{footer}</div>}
 				</div>
-			</Portal>
+			</div>
 		);
 
 		if (closeOnClickAway) {
@@ -79,6 +77,12 @@ export default class Popup extends React.Component {
 				</RootClose>
 			);
 		}
+
+		child = (
+			<Portal container={container}>
+				{child}
+			</Portal>
+		);
 
 		return child;
 	}
