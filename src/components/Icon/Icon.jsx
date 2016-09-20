@@ -9,16 +9,17 @@ export const ICON = Symbol('Icon');
 export default class Icon extends React.Component {
 	static propTypes = {
 		name: React.PropTypes.string.isRequired,
+		onClick: React.PropTypes.func,
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string
 		})
 	}
 
 	render() {
-		const {name, theme} = this.props;
+		const {name, theme, onClick} = this.props;
 
 		return (
-			<svg className={`${theme.container}`}>
+			<svg className={`${theme.container}`} onClick={onClick}>
 				<use xlinkHref={`#${name}`}/>
 			</svg>
 		);
