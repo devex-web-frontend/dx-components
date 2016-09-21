@@ -25,6 +25,9 @@ import table from '../components/Table/Table.demo.styl';
 import {SCROLLABLE} from '../components/Scrollable/Scrollable';
 import scrollable from '../components/Scrollable/Scrollable.demo.styl';
 
+import {DATE_PICKER} from '../components/DatePicker/DatePicker';
+import datePicker from '../components/DatePicker/DatePicker.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -36,5 +39,6 @@ export default {
 	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
-	[SCROLLABLE]: scrollable
+	[SCROLLABLE]: scrollable,
+	[DATE_PICKER]: datePicker
 };
