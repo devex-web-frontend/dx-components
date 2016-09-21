@@ -5,6 +5,7 @@ import {ANCHOR_PROP_TYPES} from '../Selectbox/SelectboxAnchor';
 import {themr} from 'react-css-themr';
 import classnames from 'classnames';
 import {PURE} from 'dx-util/src/react/pure';
+import iconSmallDropdownArrow from '../Selectbox/img/icon-small-dropdown-arrow.svg';
 
 export const COMBOBOX_ANCHOR = Symbol('ComboboxAnchor');
 
@@ -27,7 +28,8 @@ export default class ComboboxAnchor extends React.Component {
 
 	static defaultProps = {
 		InputComponent: Input,
-		IconComponent: Icon
+		IconComponent: Icon,
+		caretIconName: iconSmallDropdownArrow
 	};
 
 	state = {

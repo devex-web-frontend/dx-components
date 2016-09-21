@@ -7,7 +7,6 @@ import css from './Combobox.demo.styl';
 import MenuItem from '../Menu/MenuItem.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 import iconListItemTick from '../Selectbox/img/icon-list-item-tick.svg';
-import iconSmallDropdownArrow from '../Selectbox/img/icon-small-dropdown-arrow.svg';
 
 class ThemeComboboxAnchor extends React.Component {
 
@@ -24,8 +23,7 @@ class ThemeComboboxAnchor extends React.Component {
 				input: css.input,
 				content_hasCaret: css.anchor__content_hasCaret,
 				caret: css.anchor__caret
-			},
-			caretIconName: iconSmallDropdownArrow
+			}
 		};
 		return <ComboboxAnchor {...newProps}/>;
 	}

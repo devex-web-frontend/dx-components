@@ -10,7 +10,6 @@ import {PURE} from 'dx-util/src/react/pure';
 import iconListItemTick from './img/icon-list-item-tick.svg';
 
 import SelectboxAnchor from './SelectboxAnchor.jsx';
-import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
 
 class ThemeSelectboxAnchor extends React.Component {
 
@@ -22,8 +21,7 @@ class ThemeSelectboxAnchor extends React.Component {
 				container: css.anchor,
 				content_hasCaret: css.anchor__content_hasCaret,
 				caret: css.anchor__caret
-			},
-			caretIconName: iconSmallDropdownArrow
+			}
 		};
 
 		return <SelectboxAnchor {...newProps}/>;
