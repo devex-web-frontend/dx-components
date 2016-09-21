@@ -8,21 +8,22 @@ import MenuItem from '../Menu/MenuItem.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 import iconListItemTick from '../Selectbox/img/icon-list-item-tick.svg';
 
-class ThemeComboboxAnchor extends React.Component {
+class DemoComboboxAnchor extends React.Component {
 
 	static propTypes = {
 		...ComboboxAnchor.propTypes
 	}
 
 	render() {
+		const {theme} = this.props;
+
 		const newProps = {
 			...this.props,
 			onChange: this.onChnage,
 			theme: {
+				...theme,
 				container: css.anchor,
-				input: css.input,
-				content_hasCaret: css.anchor__content_hasCaret,
-				caret: css.anchor__caret
+				input: css.input
 			}
 		};
 		return <ComboboxAnchor {...newProps}/>;
@@ -46,7 +47,7 @@ class ComboboxPage extends React.Component {
 				<div>
 					<Combobox defaultValue={1}
 					          selectedItemIconName={iconListItemTick}
-					          AnchorComponent={ThemeComboboxAnchor}>
+					          AnchorComponent={DemoComboboxAnchor}>
 						<MenuItem value={1}>1.00</MenuItem>
 						<MenuItem value={2}>2.00</MenuItem>
 						<MenuItem value={5}>5.00</MenuItem>

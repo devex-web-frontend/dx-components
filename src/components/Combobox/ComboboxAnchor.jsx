@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from '../Input/Input.jsx';
 import Icon from '../Icon/Icon.jsx';
-import {ANCHOR_PROP_TYPES} from '../Selectbox/SelectboxAnchor';
+import {ANCHOR_PROP_TYPES, ANCHOR_THEME} from '../Selectbox/SelectboxAnchor';
 import {themr} from 'react-css-themr';
 import classnames from 'classnames';
 import {PURE} from 'dx-util/src/react/pure';
@@ -17,12 +17,8 @@ export default class ComboboxAnchor extends React.Component {
 		...ANCHOR_PROP_TYPES,
 		onChange: React.PropTypes.func,
 		theme: React.PropTypes.shape({
-			container: React.PropTypes.string,
-			input: React.PropTypes.string,
-			content: React.PropTypes.string,
-			content_hasCaret: React.PropTypes.string,
-			caret: React.PropTypes.string,
-			caret_isReversed: React.PropTypes.string
+			...ANCHOR_THEME,
+			input: React.PropTypes.string
 		})
 	};
 

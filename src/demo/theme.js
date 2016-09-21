@@ -37,7 +37,6 @@ export default {
 	[INPUT]: input,
 	[SELECTBOX]: selectbox,
 	[NUMERIC_STEPPER]: numericStepper,
-	[SELECTBOX]: selectbox,
 	[COMBOBOX]: combobox,
 	[TABLE]: table,
 	[SCROLLABLE]: scrollable

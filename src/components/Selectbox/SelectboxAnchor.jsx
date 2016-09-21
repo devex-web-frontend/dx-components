@@ -18,6 +18,15 @@ export const ANCHOR_PROP_TYPES = {
 	onClick: React.PropTypes.func
 };
 
+export const ANCHOR_THEME = {
+	container: React.PropTypes.string,
+	text: React.PropTypes.string,
+	content: React.PropTypes.string,
+	content_hasCaret: React.PropTypes.string,
+	caret: React.PropTypes.string,
+	caret_isReversed: React.PropTypes.string
+};
+
 @PURE
 @themr(SELECTBOX_ANCHOR)
 export default class SelectboxAnchor extends React.Component {
@@ -25,14 +34,7 @@ export default class SelectboxAnchor extends React.Component {
 		...Button.PropTypes,
 		...ANCHOR_PROP_TYPES,
 		isPrimary: React.PropTypes.bool,
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string,
-			text: React.PropTypes.string,
-			content: React.PropTypes.string,
-			content_hasCaret: React.PropTypes.string,
-			caret: React.PropTypes.string,
-			caret_isReversed: React.PropTypes.string
-		}),
+		theme: React.PropTypes.shape(ANCHOR_THEME),
 	}
 
 	static defaultProps = {

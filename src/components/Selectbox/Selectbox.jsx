@@ -1,13 +1,28 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
-import Popover, {POPOVER_THEME_SHAPE_OBJECT} from '../Popover/Popover.jsx';
-import Menu, {MENU_THEME_SHAPE_OBJECT} from '../Menu/Menu.jsx';
+import Popover from '../Popover/Popover.jsx';
+import Menu from '../Menu/Menu.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 import Icon from '../Icon/Icon.jsx';
 import SelectboxAnchor from './SelectboxAnchor.jsx';
 import classnames from 'classnames';
 
 export const SELECTBOX = Symbol('Selectbox');
+
+export const SELECTBOX_THEME = {
+	container__popover: React.PropTypes.string,
+	container__menu: React.PropTypes.string,
+	container__menu_hasSelectedItem: React.PropTypes.string,
+	container__item: React.PropTypes.string,
+	container__item_isActive: React.PropTypes.string,
+	container__item__text: React.PropTypes.string,
+	container__item__activeIcon: React.PropTypes.string,
+
+	// anchor theme
+	anchor: React.PropTypes.string,
+	anchor__content_hasCaret: React.PropTypes.string,
+	anchor__caret: React.PropTypes.string
+};
 
 @PURE
 @themr(SELECTBOX)
@@ -54,20 +69,7 @@ export default class Selectbox extends React.Component {
 		MenuComponent: React.PropTypes.func,
 		PopoverComponent: React.PropTypes.func,
 
-		theme: React.PropTypes.shape({
-			container__popover: React.PropTypes.string,
-			container__menu: React.PropTypes.string,
-			container__menu_hasSelectedItem: React.PropTypes.string,
-			container__item: React.PropTypes.string,
-			container__item_isActive: React.PropTypes.string,
-			container__item__text: React.PropTypes.string,
-			container__item__activeIcon: React.PropTypes.string,
-
-			// anchor theme
-			anchor: React.PropTypes.string,
-			anchor__content_hasCaret: React.PropTypes.string,
-			anchor__caret: React.PropTypes.string
-		}),
+		theme: React.PropTypes.shape(SELECTBOX_THEME),
 		selectedItemIconName: React.PropTypes.string
 	}
 
