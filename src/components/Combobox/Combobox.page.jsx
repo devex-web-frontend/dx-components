@@ -11,9 +11,14 @@ import iconSmallDropdownArrow from '../Selectbox/img/icon-small-dropdown-arrow.s
 
 class ThemeComboboxAnchor extends React.Component {
 
+	static propTypes = {
+		...ComboboxAnchor.propTypes
+	}
+
 	render() {
 		const newProps = {
 			...this.props,
+			onChange: this.onChnage,
 			theme: {
 				container: css.anchor,
 				input: css.input,
@@ -23,6 +28,13 @@ class ThemeComboboxAnchor extends React.Component {
 			caretIconName: iconSmallDropdownArrow
 		};
 		return <ComboboxAnchor {...newProps}/>;
+	}
+
+	onChnage = (text) => {
+		const originalOnChange = this.props.onChange;
+		const value = Number(text);
+
+		originalOnChange && originalOnChange(text, value);
 	}
 }
 
@@ -34,13 +46,13 @@ class ComboboxPage extends React.Component {
 		return (
 			<Demo>
 				<div>
-					<Combobox defaultValue={1.00}
+					<Combobox defaultValue={1}
 					          selectedItemIconName={iconListItemTick}
 					          AnchorComponent={ThemeComboboxAnchor}>
-						<MenuItem value={1.00}>1.00</MenuItem>
-						<MenuItem value={2.00}>2.00</MenuItem>
-						<MenuItem value={5.00}>5.00</MenuItem>
-						<MenuItem value={10.00}>10.00</MenuItem>
+						<MenuItem value={1}>1.00</MenuItem>
+						<MenuItem value={2}>2.00</MenuItem>
+						<MenuItem value={5}>5.00</MenuItem>
+						<MenuItem value={10}>10.00</MenuItem>
 					</Combobox>
 				</div>
 			</Demo>

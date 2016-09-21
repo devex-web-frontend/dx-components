@@ -249,8 +249,9 @@ export default class Selectbox extends React.Component {
 		});
 	}
 
-	onChange = (value) => {
-		this.onItemSelect(value, value);
+	onChange = (...args) => {
+		const [text, value = text] = args;
+		this.onItemSelect(value, text);
 	}
 
 	onItemSelect = (value, text) => {
