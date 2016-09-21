@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../Icon/Icon'
+import Icon from '../Icon/Icon';
 import {themr} from 'react-css-themr';
 import {PURE} from 'dx-util/src/react/pure';
 import Button from '../Button/Button.jsx';

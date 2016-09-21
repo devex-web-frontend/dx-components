@@ -48,8 +48,7 @@ class SelectboxPage extends React.Component {
 					           value={this.state.hero}
 					           AnchorComponent={ThemeSelectboxAnchor}
 					           onChange={this.onHeroChange}
-					           selectedItemIconName={iconListItemTick}
-					           caretIconName={iconSmallDropdownArrow}>
+					           selectedItemIconName={iconListItemTick}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
@@ -58,8 +57,7 @@ class SelectboxPage extends React.Component {
 					           value={this.state.hero}
 					           AnchorComponent={ThemeSelectboxAnchor}
 					           onChange={this.onHeroChange}
-					           selectedItemIconName={iconListItemTick}
-					           caretIconName={iconSmallDropdownArrow}>
+					           selectedItemIconName={iconListItemTick}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
