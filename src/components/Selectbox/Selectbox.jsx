@@ -61,7 +61,12 @@ export default class Selectbox extends React.Component {
 			container__item: React.PropTypes.string,
 			container__item_isActive: React.PropTypes.string,
 			container__item__text: React.PropTypes.string,
-			container__item__activeIcon: React.PropTypes.string
+			container__item__activeIcon: React.PropTypes.string,
+
+			// anchor theme
+			anchor: React.PropTypes.string,
+			anchor__content_hasCaret: React.PropTypes.string,
+			anchor__caret: React.PropTypes.string
 		}),
 		selectedItemIconName: React.PropTypes.string
 	}
@@ -194,9 +199,16 @@ export default class Selectbox extends React.Component {
 			container: classnames(theme.container__popover),
 		};
 
+		const anchorTheme = {
+			container: theme.anchor,
+			content_hasCaret: theme.anchor__content_hasCaret,
+			caret: theme.anchor__caret
+		};
+
 		return (
 			<Anchor ref={el => this._anchor = el}
 			        isDisabled={isDisabled}
+			        theme={anchorTheme}
 			        isOpened={this.state.isOpened}
 			        placeholder={placeholder}
 			        value={this.state.selectedValueText}

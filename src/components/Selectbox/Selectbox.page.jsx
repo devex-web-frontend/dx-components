@@ -7,20 +7,27 @@ import css from './Selectbox.demo.styl';
 import MenuItem from '../Menu/MenuItem.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 
+import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
 import iconListItemTick from './img/icon-list-item-tick.svg';
 
 import SelectboxAnchor from './SelectboxAnchor.jsx';
 
-class ThemeSelectboxAnchor extends React.Component {
+class DemoSelectboxAnchor extends React.Component {
+
+	static propTypes = {
+		...SelectboxAnchor.PropTypes
+	}
 
 	render() {
+		const {theme} = this.props;
+
 		const newProps = {
 			...this.props,
 			isPrimary: true,
+			caretIconName: iconSmallDropdownArrow,
 			theme: {
-				container: css.anchor,
-				content_hasCaret: css.anchor__content_hasCaret,
-				caret: css.anchor__caret
+				...theme,
+				container: css.anchor
 			}
 		};
 
@@ -38,7 +45,7 @@ class SelectboxPage extends React.Component {
 				<section>
 					<Selectbox placeholder="Choose your hero"
 					           selectedItemIconName={iconListItemTick}
-					           AnchorComponent={ThemeSelectboxAnchor}
+					           AnchorComponent={DemoSelectboxAnchor}
 					           onChange={this.onHeroChange}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
@@ -46,7 +53,7 @@ class SelectboxPage extends React.Component {
 					</Selectbox>
 					<Selectbox placeholder="Controlled by left"
 					           value={this.state.hero}
-					           AnchorComponent={ThemeSelectboxAnchor}
+					           AnchorComponent={DemoSelectboxAnchor}
 					           onChange={this.onHeroChange}
 					           selectedItemIconName={iconListItemTick}>
 						<MenuItem value="superman">Superman</MenuItem>
@@ -55,7 +62,7 @@ class SelectboxPage extends React.Component {
 					</Selectbox>
 					<Selectbox defaultValue="batman"
 					           value={this.state.hero}
-					           AnchorComponent={ThemeSelectboxAnchor}
+					           AnchorComponent={DemoSelectboxAnchor}
 					           onChange={this.onHeroChange}
 					           selectedItemIconName={iconListItemTick}>
 						<MenuItem value="superman">Superman</MenuItem>

@@ -4,7 +4,6 @@ import {themr} from 'react-css-themr';
 import {PURE} from 'dx-util/src/react/pure';
 import Button from '../Button/Button.jsx';
 import classnames from 'classnames';
-import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
 
 export const SELECTBOX_ANCHOR = Symbol('SelectboxAnchor');
 
@@ -37,8 +36,7 @@ export default class SelectboxAnchor extends React.Component {
 	}
 
 	static defaultProps = {
-		IconComponent: Icon,
-		caretIconName: iconSmallDropdownArrow
+		IconComponent: Icon
 	}
 
 	render() {
