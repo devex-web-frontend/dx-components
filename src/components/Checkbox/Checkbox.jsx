@@ -9,7 +9,6 @@ import defaultCheckboxIcon from './img/icon-checkbox-tick.svg';
 export const CHECKBOX = Symbol('Checkbox');
 
 const Checkbox = ({theme, ...props}) => {
-	console.log(theme);
 	const id = props.id || randomId('control-checkbox');
 	const labelClassName = classnames(theme.container__label, {
 		[theme.container__disabled]: props.disabled
