@@ -12,7 +12,7 @@ const Checkbox = ({theme, ...props}) => {
 	console.log(theme);
 	const id = props.id || randomId('control-checkbox');
 	const labelClassName = classnames(theme.container__label, {
-		[theme.container__label_disabled]: props.disabled
+		[theme.container__disabled]: props.disabled
 	});
 	return (
 		<span className={theme.container}>
@@ -36,9 +36,9 @@ Checkbox.propTypes = {
 	disabled: PropTypes.bool,
 	theme: PropTypes.shape({
 		container: PropTypes.string,
+		container__disabled: PropTypes.string,
 		container__input: PropTypes.string,
 		container__label: PropTypes.string,
-		container__label_disabled: PropTypes.string,
 		container__view: PropTypes.string,
 		container__checkboxIcon: PropTypes.string
 	})
