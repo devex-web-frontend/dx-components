@@ -15,7 +15,11 @@ const Checkbox = ({theme, ...props}) => {
 	});
 	return (
 		<span className={theme.container}>
-			<input {...cleanProps(props)} id={id} type="checkbox" className={theme.container__input} />
+			<input {...cleanProps(props)}
+					id={id} type="checkbox"
+					checked={props.checked}
+					onChange={props.onChange}
+					className={theme.container__input} />
 			<label htmlFor={id} className={labelClassName}>
 				<span className={theme.container__view}>
 					<span className={theme.container__checkboxIcon}>
@@ -33,6 +37,8 @@ Checkbox.propTypes = {
 	children: PropTypes.node,
 	checkboxIconName: PropTypes.string,
 	disabled: PropTypes.bool,
+	checked: PropTypes.bool,
+	onChange: PropTypes.func,
 	theme: PropTypes.shape({
 		container: PropTypes.string,
 		container__disabled: PropTypes.string,
