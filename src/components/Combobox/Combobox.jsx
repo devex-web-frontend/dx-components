@@ -11,8 +11,7 @@ export const COMBOBOX = Symbol('Combobox');
 export default class Combobox extends React.Component {
 
 	static propTypes = {
-		...Selectbox.PropTypes,
-		AnchorComponent: React.PropTypes.func,
+		...Selectbox.propTypes,
 		theme: React.PropTypes.shape({
 			...SELECTBOX_THEME,
 			container: React.PropTypes.string

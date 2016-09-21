@@ -65,7 +65,7 @@ export default class ComboboxAnchor extends React.Component {
 
 		const inputProps = {
 			type: 'text',
-			value: this.state.value || value,
+			value: this.state.value || value || '',
 			disabled: isDisabled,
 			theme: {
 				container: theme.input
