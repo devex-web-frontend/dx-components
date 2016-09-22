@@ -4,10 +4,16 @@
 	height: 21px;
 }
 
-.input__container {
-	display: inline-block;
-	margin-right: 7px;
-	height: 100%;
+.input {
+	&__container {
+		display: inline-block;
+		margin-right: 7px;
+		height: 100%;
+
+		&_invalid {
+			background: #b22121;
+		}
+	}
 }
 
 .openCalendar {

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import moment from 'moment';
 import Input from '../../Input/Input';
 import {PURE} from 'dx-util/src/react/react';
@@ -14,18 +15,17 @@ export default class DateInput extends React.Component {
 	}
 
 	state = {
-		displayedDate: this.dateFormat(this.props)
+		displayedDate: this.formatDate(this.props)
 	}
 
 	componentWillReceiveProps(newProps) {
-		if (newProps.value !== this.props.value) {
-			this.setState({
-				displayedDate: this.dateFormat(newProps)
-			});
-		}
+		this.setState({
+			displayedDate: this.formatDate(newProps)
+		});
 	}
 
 	render() {
+		console.log('DateField render');
 		const {
 			onOpenDatePicker,
 			theme,
@@ -38,12 +38,13 @@ export default class DateInput extends React.Component {
 				   onClick={onOpenDatePicker}
 				   onChange={this.onChange}
 				   onBlur={this.onBlur}
+				   onKeyDown={this.onKeyDown}
 				   disabled={isDisabled}/>
 		);
 	}
 
-	dateFormat(props) {
-		return moment(props.value).format(props.dateFormat);
+	formatDate(props) {
+		return props.value ? moment(props.value).format(props.dateFormat) : '';
 	}
 
 	onChange = e => {
@@ -53,13 +54,13 @@ export default class DateInput extends React.Component {
 	}
 
 	onBlur = e => {
-		const newDate = moment(e.target.value, this.props.dateFormat);
-		if (newDate.isValid()) {
-			this.props.onDateChange(newDate.format());
-		} else {
-			this.setState({
-				displayedDate: this.dateFormat(this.props)
-			});
+		console.log('blur');
+		this.props.onDateChange(e.target.value);
+	}
+
+	onKeyDown = e => {
+		if (e.keyCode === 13) {
+			e.target.blur();
 		}
 	}
 }

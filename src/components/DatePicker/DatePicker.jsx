@@ -2,19 +2,20 @@ import React from 'react';
 import moment from 'moment';
 import {themr} from 'react-css-themr';
 import DateInput from './Fields/DateInput';
-import noop from '../../util/func/noop';
 import Popover, {ALIGN, PLACEMENT} from '../Popover/Popover';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import {PURE} from 'dx-util/src/react/react';
+import classnames from 'classnames';
+import stateful from '../../util/react/stateful';
 
 export const DATE_PICKER = Symbol('DATE_PICKER');
 
 @themr(DATE_PICKER)
 @PURE
-export default class DatePicker extends React.Component {
+class DatePicker extends React.Component {
 	static propTypes = {
-		value: React.PropTypes.string, // ISO - "2016-09-20T15:30:39.298Z"
-		onChange: React.PropTypes.func,
+		value: React.PropTypes.string, // ISO - "2016-09-20T15:30:39.298Z" or NULL
+		onChange: React.PropTypes.func.isRequired,
 		dateFormat: React.PropTypes.string,
 		min: React.PropTypes.string, // ISO
 		max: React.PropTypes.string, // ISO
@@ -26,6 +27,7 @@ export default class DatePicker extends React.Component {
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string,
 			input__container: React.PropTypes.string,
+			input__container_invalid: React.PropTypes.string,
 			openCalendar__container: React.PropTypes.string,
 			openCalendar__icon: React.PropTypes.string
 		})
@@ -33,7 +35,6 @@ export default class DatePicker extends React.Component {
 
 	static defaultProps = {
 		value: moment().format(),
-		onChange: noop,
 		dateFormat: 'DD/MM/YYYY',
 		withField: true,
 		closeOnClickAway: true,
@@ -41,12 +42,14 @@ export default class DatePicker extends React.Component {
 	}
 
 	state = {
-		isOpened: false
+		isOpened: false,
+		isInvalid: false
 	}
 
 	_anchor;
 
 	render() {
+		console.log('DatePicker: render');
 		const {
 			theme,
 			openCalendarIconName,
@@ -90,6 +93,8 @@ export default class DatePicker extends React.Component {
 			isDisabled
 		} = this.props;
 
+		const {isInvalid} = this.state;
+
 		if (withField) {
 			if (children) {
 				const customField = React.Children.only(this.props.children);
@@ -102,11 +107,14 @@ export default class DatePicker extends React.Component {
 					dateFormat,
 					onDateChange: this.onDateChange,
 					onOpenDatePicker: this.onCalendarOpenClick,
-					isDisabled
+					isDisabled,
+					isInvalid
 				});
 			} else { // default DateInput
 				const inputTheme = {
-					container: theme.input__container
+					container: classnames(theme.input__container, {
+						[theme.input__container_invalid]: isInvalid
+					})
 				};
 
 				return (
@@ -117,7 +125,8 @@ export default class DatePicker extends React.Component {
 							   onDateChange={this.onDateChange}
 							   onOpenDatePicker={this.onCalendarOpenClick}
 							   theme={inputTheme}
-							   isDisabled={isDisabled}/>
+							   isDisabled={isDisabled}
+							   isInvalid={isInvalid}/>
 				);
 			}
 		}
@@ -136,9 +145,35 @@ export default class DatePicker extends React.Component {
 	}
 
 	/**
-	 * @param {String} newDateISO
+	 * @param {String} newDateRaw
 	 */
-	onDateChange = newDateISO => {
-		this.props.onChange(newDateISO);
+	onDateChange = newDateRaw => {
+		const {min, max} = this.props;
+
+		const newDate = moment(newDateRaw, this.props.dateFormat);
+
+		if (newDate.isSame(moment(this.props.value), 'day')) {
+			return;
+		}
+
+		if (newDate.isValid() &&
+			(min ? newDate.isSameOrAfter(min, 'day') : true) &&
+			(max ? newDate.isSameOrBefore(max, 'day') : true)) {
+			this.setState({
+				isInvalid: false,
+				isOpened: false
+			});
+			this.props.onChange(newDate.format());
+		} else {
+			this.setState({
+				isInvalid: true,
+				isOpened: false
+			});
+			this.props.onChange(null); // empty value
+		}
 	}
 }
+
+DatePicker.Stateful = stateful(DatePicker);
+
+export default DatePicker;
