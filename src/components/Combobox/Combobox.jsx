@@ -1,7 +1,7 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
 import Input from '../Input/Input';
-import Selectbox from '../Selectbox/Selectbox.jsx';
+import Selectbox, {SELECTBOX_THEME} from '../Selectbox/Selectbox.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 import classnames from 'classnames';
 
@@ -34,17 +34,11 @@ export default class Combobox extends React.Component {
 		onChange: React.PropTypes.func,
 		placeholder: React.PropTypes.string,
 		theme: React.PropTypes.shape({
+			...SELECTBOX_THEME,
 			container: React.PropTypes.string,
 			container_isDisabled: React.PropTypes.string,
 			input: React.PropTypes.string,
 			selectbox: React.PropTypes.string,
-
-			anchor: React.PropTypes.string,
-			anchor__content: React.PropTypes.string,
-			anchor__text: React.PropTypes.string,
-			anchor__content_hasCaret: React.PropTypes.string,
-			anchor__caret: React.PropTypes.string,
-			anchor__caret_isReversed: React.PropTypes.string
 		}),
 		caretIconName: React.PropTypes.string,
 		selectedItemIconName: React.PropTypes.string,
@@ -170,14 +164,7 @@ export default class Combobox extends React.Component {
 			selectedItemIconName,
 			children,
 			isDisabled,
-			theme: {
-				container__anchor: theme.anchor,
-				container__anchor__content: theme.anchor__content,
-				container__anchor__text: theme.anchor__text,
-				container__anchor__content_hasCaret: theme.anchor__content_hasCaret,
-				container__anchor__caret: theme.anchor__caret,
-				container__anchor__caret_isReversed: theme.anchor__caret_isReversed
-			},
+			theme,
 			onChange: this.onChangeSelectbox
 		};
 
