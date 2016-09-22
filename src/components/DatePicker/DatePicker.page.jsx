@@ -72,7 +72,7 @@ class DatePickerPage extends React.Component {
 								isDisabled={true}/>
 				</section>
 				<section className={css.section}>
-					<DatePicker.Stateful defaultValue={this.state.date}
+					<DatePicker.Stateful defaultValue={new Date().toISOString()}
 										 min={moment().subtract(1, 'days').format()}
 										 onChange={this.onDateChange}/>
 				</section>

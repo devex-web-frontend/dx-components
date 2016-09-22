@@ -25,85 +25,84 @@ const DEFAULT_OPTIONS = {
  * If you need to process value got from the `onChange` eventm you can provide `getValueFromOnChange` option.
  * This function gets all arguments from `onChange` and should return a new value.
  *
- * @param {ReactComponent} WrappedComponent
  * @param {StatefulOptions} [options]
  * @constructor
  */
-const stateful = (WrappedComponent, options) => {
+const stateful = options => {
 	const componentConfig = {
 		...DEFAULT_OPTIONS,
 		...options
 	};
-	const componentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
-	// TODO: should we extend it from some base class?
-	class Stateful extends React.Component {
-		static displayName = `Stateful(${componentName})`;
+	return WrappedComponent => {
+		const componentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
-		//noinspection JSUnresolvedVariable
-		static propTypes = {
-			...WrappedComponent.propTypes,
-			onChange: React.PropTypes.func,
-			defaultValue: React.PropTypes.any
-		}
+		// TODO: should we extend it from some base class?
+		class Stateful extends React.Component {
+			static displayName = `Stateful(${componentName})`;
 
-		//noinspection JSUnresolvedVariable
-		static defaultProps = {
-			...WrappedComponent.defaultProps
-		}
+			//noinspection JSUnresolvedVariable
+			static propTypes = {
+				...WrappedComponent.propTypes,
+				onChange: React.PropTypes.func,
+				defaultValue: React.PropTypes.any
+			}
 
-		componentWillMount() {
-			this.validateIncomingProps(this.props);
+			componentWillMount() {
+				this.validateIncomingProps(this.props);
 
-			this.setState({
-				value: this.props.defaultValue
-			});
-		}
+				this.setState({
+					value: this.props.defaultValue
+				});
+			}
 
-		componentWillReceiveProps(newProps) {
-			this.validateIncomingProps(newProps);
-		}
+			componentWillReceiveProps(newProps) {
+				this.validateIncomingProps(newProps);
+			}
 
-		render() {
-			const transmittedProps = {
-				[componentConfig.onChangeKey]: this.handleWrappedOnChange,
-				[componentConfig.valueKey]: this.state.value
-			};
+			render() {
+				const transmittedProps = {
+					[componentConfig.onChangeKey]: this.handleWrappedOnChange,
+					[componentConfig.valueKey]: this.state.value
+				};
 
-			return (
-				<WrappedComponent {...this.sanitizeIncomingProps(this.props)}
-								  {...transmittedProps}/>
-			);
-		}
+				return (
+					<WrappedComponent {...this.sanitizeIncomingProps(this.props)}
+									  {...transmittedProps}/>
+				);
+			}
 
-		handleWrappedOnChange = (...args) => {
-			this.setState({
-				value: componentConfig.getValueFromOnChange ?
-					componentConfig.getValueFromOnChange(args) :
-					args[0]
-			});
+			handleWrappedOnChange = (...args) => {
+				this.setState({
+					value: componentConfig.getValueFromOnChange ?
+						componentConfig.getValueFromOnChange(args) :
+						args[0]
+				});
 
-			this.props.onChange && this.props.onChange(...args);
-		}
+				this.props.onChange && this.props.onChange(...args);
+			}
 
-		validateIncomingProps(props) {
-			if (props.value) {
-				throw new Error('You should not pass a \'value\' property to an uncontrolled component');
+			validateIncomingProps(props) {
+				if (props.value) {
+					console.warn(
+						`${Stateful.displayName}: passed 'value' prop will be ignored, use 'defaultValue' instead`
+					);
+				}
+			}
+
+			sanitizeIncomingProps(props) {
+				const newProps = {
+					...props
+				};
+				delete newProps['onChange'];
+				delete newProps['defaultValue'];
+				delete newProps['value'];
+				return newProps;
 			}
 		}
 
-		sanitizeIncomingProps(props) {
-			const newProps = {
-				...props
-			};
-			delete newProps['onChange'];
-			delete newProps['defaultValue'];
-			delete newProps['value'];
-			return newProps;
-		}
-	}
-
-	return Stateful;
+		return Stateful;
+	};
 };
 
 export default stateful;

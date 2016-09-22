@@ -174,6 +174,6 @@ class DatePicker extends React.Component {
 	}
 }
 
-DatePicker.Stateful = stateful(DatePicker);
+DatePicker.Stateful = stateful()(DatePicker);
 
 export default DatePicker;
