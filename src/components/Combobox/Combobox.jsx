@@ -104,7 +104,6 @@ export default class Combobox extends React.Component {
 				value: (child && child.props.children) || newProps.value,
 				selectboxValue: child && child.props.value
 			});
-
 		} else {
 			const previousValueIsReset = typeof this.props.value !== 'undefined' && !newPropsContainNewValue;
 			const currentValue = this.state.value;
@@ -130,7 +129,6 @@ export default class Combobox extends React.Component {
 					selectboxValue: defaultChild && defaultChild.props.value
 				});
 			}
-
 		}
 	}
 

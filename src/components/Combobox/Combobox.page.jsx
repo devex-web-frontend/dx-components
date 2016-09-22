@@ -10,7 +10,6 @@ import {PURE} from 'dx-util/src/react/pure';
 import iconSmallDropdownArrow from '../Selectbox/img/icon-small-dropdown-arrow.svg';
 import iconListItemTick from '../Selectbox/img/icon-list-item-tick.svg';
 
-
 @PURE
 class ComboboxPage extends React.Component {
 	state = {}
