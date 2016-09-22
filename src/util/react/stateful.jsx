@@ -2,10 +2,9 @@ import React from 'react';
 
 /**
  * @typedef {Object} StatefulOptions
- * @property {*} initialValue
- * @property {String} onChangeKey
- * @property {String} valueKey
- * @property {Function} getValueFromOnChange
+ * @property {String} [onChangeKey]
+ * @property {String} [valueKey]
+ * @property {Function} [getValueFromOnChange]
  */
 
 /**
