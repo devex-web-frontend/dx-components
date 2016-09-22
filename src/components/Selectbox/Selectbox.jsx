@@ -301,7 +301,7 @@ export default class Selectbox extends React.Component {
 				selectedValueText: text
 			});
 		}
-		this.props.onChange && this.props.onChange(value);
+		this.props.onChange && this.props.onChange(value, text);
 	}
 
 	onPopoverRequestClose = () => {
