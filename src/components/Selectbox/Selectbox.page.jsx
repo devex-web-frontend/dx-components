@@ -3,37 +3,11 @@ import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
 import Button from '../Button/Button.jsx';
 import Selectbox from './Selectbox.jsx';
-import css from './Selectbox.demo.styl';
 import MenuItem from '../Menu/MenuItem.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 
-import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
 import iconListItemTick from './img/icon-list-item-tick.svg';
-
-import SelectboxAnchor from './SelectboxAnchor.jsx';
-
-class DemoSelectboxAnchor extends React.Component {
-
-	static propTypes = {
-		...SelectboxAnchor.PropTypes
-	}
-
-	render() {
-		const {theme} = this.props;
-
-		const newProps = {
-			...this.props,
-			isPrimary: true,
-			caretIconName: iconSmallDropdownArrow,
-			theme: {
-				...theme,
-				container: css.anchor
-			}
-		};
-
-		return <SelectboxAnchor {...newProps}/>;
-	}
-}
+import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
 
 @PURE
 class SelectboxPage extends React.Component {
@@ -42,37 +16,40 @@ class SelectboxPage extends React.Component {
 	render() {
 		return (
 			<Demo>
-				<section>
+				<div>
 					<Selectbox placeholder="Choose your hero"
+					           isPrimary={true}
 					           selectedItemIconName={iconListItemTick}
-					           AnchorComponent={DemoSelectboxAnchor}
-					           onChange={this.onHeroChange}>
+					           onChange={this.onHeroChange}
+					           caretIconName={iconSmallDropdownArrow}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
 					</Selectbox>
 					<Selectbox placeholder="Controlled by left"
+					           isPrimary={true}
 					           value={this.state.hero}
-					           AnchorComponent={DemoSelectboxAnchor}
 					           onChange={this.onHeroChange}
-					           selectedItemIconName={iconListItemTick}>
+					           selectedItemIconName={iconListItemTick}
+					           caretIconName={iconSmallDropdownArrow}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
 					</Selectbox>
 					<Selectbox defaultValue="batman"
+					           isPrimary={true}
 					           value={this.state.hero}
-					           AnchorComponent={DemoSelectboxAnchor}
 					           onChange={this.onHeroChange}
-					           selectedItemIconName={iconListItemTick}>
+					           selectedItemIconName={iconListItemTick}
+					           caretIconName={iconSmallDropdownArrow}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
 					</Selectbox>
 					<Button onClick={this.onResetClick}>Reset</Button>
-				</section>
+				</div>
 
-				<section>
+				<div>
 					<Selectbox defaultValue="superman">
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
@@ -84,7 +61,7 @@ class SelectboxPage extends React.Component {
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
 					</Selectbox>
-				</section>
+				</div>
 			</Demo>
 		);
 	}

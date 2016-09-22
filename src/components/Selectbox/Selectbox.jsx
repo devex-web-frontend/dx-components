@@ -1,28 +1,13 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
-import Popover from '../Popover/Popover.jsx';
-import Menu from '../Menu/Menu.jsx';
+import Button from '../Button/Button.jsx';
+import Popover, {POPOVER_THEME_SHAPE_OBJECT} from '../Popover/Popover.jsx';
+import Menu, {MENU_THEME_SHAPE_OBJECT} from '../Menu/Menu.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 import Icon from '../Icon/Icon.jsx';
-import SelectboxAnchor from './SelectboxAnchor.jsx';
 import classnames from 'classnames';
 
 export const SELECTBOX = Symbol('Selectbox');
-
-export const SELECTBOX_THEME = {
-	container__popover: React.PropTypes.string,
-	container__menu: React.PropTypes.string,
-	container__menu_hasSelectedItem: React.PropTypes.string,
-	container__item: React.PropTypes.string,
-	container__item_isActive: React.PropTypes.string,
-	container__item__text: React.PropTypes.string,
-	container__item__activeIcon: React.PropTypes.string,
-
-	// anchor theme
-	anchor: React.PropTypes.string,
-	anchor__content_hasCaret: React.PropTypes.string,
-	anchor__caret: React.PropTypes.string
-};
 
 @PURE
 @themr(SELECTBOX)
@@ -30,6 +15,7 @@ export default class Selectbox extends React.Component {
 	static propTypes = {
 		children: React.PropTypes.node,
 		isDisabled: React.PropTypes.bool,
+		isPrimary: React.PropTypes.bool,
 		defaultValue(props) {
 			const {defaultValue, children} = props;
 			const type = typeof defaultValue;
@@ -66,17 +52,38 @@ export default class Selectbox extends React.Component {
 		placeholder: React.PropTypes.string,
 		//C'MON LET'S DO IT VIA DI!
 		AnchorComponent: React.PropTypes.func,
+		IconComponent: React.PropTypes.func,
 		MenuComponent: React.PropTypes.func,
 		PopoverComponent: React.PropTypes.func,
 
-		theme: React.PropTypes.shape(SELECTBOX_THEME),
+		menuTheme: React.PropTypes.shape(MENU_THEME_SHAPE_OBJECT),
+		popoverTheme: React.PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
+		theme: React.PropTypes.shape({
+			container__popover: React.PropTypes.string,
+			container__menu: React.PropTypes.string,
+			container__menu_hasSelectedItem: React.PropTypes.string,
+			container__item: React.PropTypes.string,
+			container__item_isActive: React.PropTypes.string,
+			container__item__text: React.PropTypes.string,
+			container__item__activeIcon: React.PropTypes.string,
+			container__anchor: React.PropTypes.string,
+			container__anchor__content: React.PropTypes.string,
+			container__anchor__text: React.PropTypes.string,
+			container__anchor__content_hasCaret: React.PropTypes.string,
+			container__anchor__caret: React.PropTypes.string,
+			container__anchor__caret_isReversed: React.PropTypes.string
+		}),
+		caretIconName: React.PropTypes.string,
 		selectedItemIconName: React.PropTypes.string
 	}
 
 	static defaultProps = {
-		AnchorComponent: SelectboxAnchor,
+		AnchorComponent: Button,
+		IconComponent: Icon,
 		MenuComponent: Menu,
-		PopoverComponent: Popover
+		PopoverComponent: Popover,
+		popoverTheme: {},
+		menuTheme: {}
 	}
 
 	_anchor;
@@ -176,14 +183,36 @@ export default class Selectbox extends React.Component {
 	render() {
 		const {
 			AnchorComponent: Anchor,
+			IconComponent: Icon,
 			PopoverComponent: Popover,
 			MenuComponent: Menu,
 			placeholder,
 			children,
 			theme,
+			caretIconName,
 			selectedItemIconName,
-			isDisabled
+			isDisabled,
+			isPrimary
 		} = this.props;
+
+		const anchorContentClassName = classnames(
+			theme.container__anchor__content,
+			{
+				[theme.container__anchor__content_hasCaret]: !!caretIconName
+			}
+		);
+
+		let anchorCaretTheme;
+		if (caretIconName) {
+			anchorCaretTheme = {
+				container: classnames(
+					theme.container__anchor__caret,
+					{
+						[theme.container__anchor__caret_isReversed]: this.state.isOpened
+					}
+				)
+			};
+		}
 
 		const menuTheme = {
 			container: classnames(
@@ -197,25 +226,28 @@ export default class Selectbox extends React.Component {
 			)
 		};
 
+		const anchorTheme = {
+			container: theme.container__anchor
+		};
+
 		const popoverTheme = {
 			container: classnames(theme.container__popover),
 		};
 
-		const anchorTheme = {
-			container: theme.anchor,
-			content_hasCaret: theme.anchor__content_hasCaret,
-			caret: theme.anchor__caret
-		};
-
 		return (
 			<Anchor ref={el => this._anchor = el}
-			        isDisabled={isDisabled}
+			        isPrimary={isPrimary}
 			        theme={anchorTheme}
-			        isOpened={this.state.isOpened}
-			        placeholder={placeholder}
-			        value={this.state.selectedValueText}
+			        isDisabled={isDisabled}
 			        onClick={this.onAnchorClick}>
-
+				<div className={anchorContentClassName}>
+					<div className={theme.container__anchor__text}>
+						{this.state.selectedValueText || placeholder}
+					</div>
+					{caretIconName && (
+						<Icon name={caretIconName} theme={anchorCaretTheme}/>
+					)}
+				</div>
 				<Popover isOpened={this.state.isOpened}
 				         theme={popoverTheme}
 				         closeOnClickAway={true}
@@ -232,11 +264,7 @@ export default class Selectbox extends React.Component {
 
 	wrapItem(child) {
 		const {theme, selectedItemIconName} = this.props;
-		const {value} = child.props;
-		const {selectedValue} = this.state;
-
-		const isActive = value && value === selectedValue;
-
+		const isActive = child.props.value && child.props.value === this.state.selectedValue;
 		const iconTheme = {
 			container: theme.container__item__activeIcon
 		};
@@ -273,7 +301,7 @@ export default class Selectbox extends React.Component {
 				selectedValueText: text
 			});
 		}
-		this.props.onChange && this.props.onChange(value, text);
+		this.props.onChange && this.props.onChange(value);
 	}
 
 	onPopoverRequestClose = () => {
