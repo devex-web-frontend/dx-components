@@ -11,10 +11,6 @@ export const AUTOCOMPLETE = Symbol('Autocomplete');
 
 const TAB_KEY = 9;
 
-const AUTOCOMPLETE_VALUE = React.PropTypes.oneOfType([
-	React.PropTypes.string
-]);
-
 @PURE
 export default class Autocomplete extends React.Component {
 	static propTypes = {
@@ -33,8 +29,8 @@ export default class Autocomplete extends React.Component {
 				throw new Error('Autocomplete is controlled component and does not support defaultValue');
 			}
 		},
-		value: AUTOCOMPLETE_VALUE,
-		data: React.PropTypes.arrayOf(AUTOCOMPLETE_VALUE)
+		value: React.PropTypes.any,
+		data: React.PropTypes.arrayOf(React.PropTypes.any)
 	};
 
 	static defaultProps = {
