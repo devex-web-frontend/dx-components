@@ -13,8 +13,6 @@ export default class DateInput extends React.Component {
 		})
 	}
 
-	static defaultProps = {}
-
 	state = {
 		displayedDate: this.dateFormat(this.props)
 	}
@@ -29,16 +27,18 @@ export default class DateInput extends React.Component {
 
 	render() {
 		const {
-			onClick,
-			theme
+			onOpenDatePicker,
+			theme,
+			isDisabled
 		} = this.props;
 
 		return (
 			<Input value={this.state.displayedDate}
 				   theme={theme}
-				   onClick={onClick}
+				   onClick={onOpenDatePicker}
 				   onChange={this.onChange}
-				   onBlur={this.onBlur}/>
+				   onBlur={this.onBlur}
+				   disabled={isDisabled}/>
 		);
 	}
 

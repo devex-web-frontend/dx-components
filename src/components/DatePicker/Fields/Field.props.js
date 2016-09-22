@@ -9,5 +9,6 @@ export const DATE_PICKER_FIELD_PROPS = {
 	onDateChange: React.PropTypes.func, // pass a new value to DatePicker in ISO format
 	min: React.PropTypes.string, // ISO
 	max: React.PropTypes.string, // ISO
-	onClick: React.PropTypes.func
+	onOpenDatePicker: React.PropTypes.func,
+	isDisabled: React.PropTypes.bool
 };

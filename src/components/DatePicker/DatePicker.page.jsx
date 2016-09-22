@@ -15,11 +15,11 @@ const darkDemoTheme = {
 const CustomLabelField = (props) => {
 	const onContextMenu = e => {
 		e.preventDefault();
-		props.onDateChange(moment().format());
+		props.onDateChange(moment().format()); // set current date
 	};
 
 	return (
-		<span onClick={props.onClick}
+		<span onClick={props.onOpenDatePicker}
 			  onContextMenu={onContextMenu}
 			  className={props.theme.container}>
 			{moment(props.value).format(props.dateFormat)}
@@ -58,6 +58,16 @@ class DatePickerPage extends React.Component {
 						<CustomLabelField theme={this.customLabelTheme}/>
 					</DatePicker>
 				</section>
+				<section className={css.section}>
+					<DatePicker value={this.state.date}
+								onChange={this.onDateChange}/>
+				</section>
+				<section className={css.section}>
+					<DatePicker value={this.state.date}
+								onChange={this.onDateChange}
+								openCalendarIconName={iconOpenCalendar}
+								isDisabled={true}/>
+				</section>
 			</Demo>
 		);
 	}
@@ -71,4 +81,4 @@ class DatePickerPage extends React.Component {
 }
 
 storiesOf('DatePicker', module)
-	.add('default', () => <DatePickerPage/>);
+	.add('controlled', () => <DatePickerPage/>);

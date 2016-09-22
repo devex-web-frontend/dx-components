@@ -18,10 +18,11 @@ export default class DatePicker extends React.Component {
 		dateFormat: React.PropTypes.string,
 		min: React.PropTypes.string, // ISO
 		max: React.PropTypes.string, // ISO
-		openCalendarIconName: React.PropTypes.string.isRequired,
+		openCalendarIconName: React.PropTypes.string,
 		withField: React.PropTypes.bool,
 		children: React.PropTypes.element,
 		closeOnClickAway: React.PropTypes.bool,
+		isDisabled: React.PropTypes.bool,
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string,
 			input__container: React.PropTypes.string,
@@ -35,7 +36,8 @@ export default class DatePicker extends React.Component {
 		onChange: noop,
 		dateFormat: 'DD/MM/YYYY',
 		withField: true,
-		closeOnClickAway: true
+		closeOnClickAway: true,
+		isDisabled: false
 	}
 
 	state = {
@@ -46,15 +48,10 @@ export default class DatePicker extends React.Component {
 
 	render() {
 		const {
-			value,
 			theme,
-			withField,
-			children,
-			dateFormat,
-			min,
-			max,
 			openCalendarIconName,
-			closeOnClickAway
+			closeOnClickAway,
+			isDisabled
 		} = this.props;
 
 		const openCalendarBtnTheme = {
@@ -65,9 +62,12 @@ export default class DatePicker extends React.Component {
 		return (
 			<div className={theme.container} ref={el => this._anchor = el}>
 				{this.renderField()}
-				<ButtonIcon onClick={this.onCalendarOpenClick}
-							name={openCalendarIconName}
-							theme={openCalendarBtnTheme}/>
+				{openCalendarIconName && (
+					<ButtonIcon onClick={this.onCalendarOpenClick}
+								name={openCalendarIconName}
+								theme={openCalendarBtnTheme}
+								isDisabled={isDisabled}/>
+				)}
 				<Popover isOpened={this.state.isOpened}
 						 anchor={this._anchor}
 						 closeOnClickAway={closeOnClickAway}
@@ -86,7 +86,8 @@ export default class DatePicker extends React.Component {
 			children,
 			dateFormat,
 			min,
-			max
+			max,
+			isDisabled
 		} = this.props;
 
 		if (withField) {
@@ -100,7 +101,8 @@ export default class DatePicker extends React.Component {
 					max,
 					dateFormat,
 					onDateChange: this.onDateChange,
-					onClick: this.onCalendarOpenClick
+					onOpenDatePicker: this.onCalendarOpenClick,
+					isDisabled
 				});
 			} else { // default DateInput
 				const inputTheme = {
@@ -113,8 +115,9 @@ export default class DatePicker extends React.Component {
 							   min={min}
 							   max={max}
 							   onDateChange={this.onDateChange}
-							   onClick={this.onCalendarOpenClick}
-							   theme={inputTheme}/>
+							   onOpenDatePicker={this.onCalendarOpenClick}
+							   theme={inputTheme}
+							   isDisabled={isDisabled}/>
 				);
 			}
 		}
