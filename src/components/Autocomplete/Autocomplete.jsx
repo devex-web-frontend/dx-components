@@ -78,7 +78,7 @@ export default class Autocomplete extends React.Component {
 		};
 
 		const menuItemTheme = {
-			container: theme.menu__item
+			item: theme.menu__item
 		};
 
 		return (
