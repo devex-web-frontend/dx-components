@@ -16,29 +16,48 @@ const DEFAULT_OPTIONS = {
 };
 
 /**
+ * This decorator creates an adapter to controlled stateless component.
+ * It stores and updates a value got from the wrapped component and provides it back.
+ *
+ * Wrapped component should have `value` and `onChange` props, but these names could be
+ * overriden with options.
+ *
+ * If you need to process value got from the `onChange` eventm you can provide `getValueFromOnChange` option.
+ * This function gets all arguments from `onChange` and should return a new value.
+ *
  * @param {ReactComponent} WrappedComponent
  * @param {StatefulOptions} [options]
  * @constructor
  */
 const stateful = (WrappedComponent, options) => {
-	const componentConfig = Object.assign({}, DEFAULT_OPTIONS, options);
+	const componentConfig = {
+		...DEFAULT_OPTIONS,
+		...options
+	};
 	const componentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
+	// TODO: should we extend it from some base class?
 	class Stateful extends React.Component {
-		static displayName = `Stateful ${componentName}`;
+		static displayName = `Stateful(${componentName})`;
 
+		//noinspection JSUnresolvedVariable
 		static propTypes = {
+			...WrappedComponent.propTypes,
 			onChange: React.PropTypes.func,
 			defaultValue: React.PropTypes.any
 		}
 
-		constructor(props, context) {
-			super(props, context);
-			this.validateIncomingProps(props);
+		//noinspection JSUnresolvedVariable
+		static defaultProps = {
+			...WrappedComponent.defaultProps
+		}
 
-			this.state = {
+		componentWillMount() {
+			this.validateIncomingProps(this.props);
+
+			this.setState({
 				value: this.props.defaultValue
-			};
+			});
 		}
 
 		componentWillReceiveProps(newProps) {
@@ -79,6 +98,7 @@ const stateful = (WrappedComponent, options) => {
 			};
 			delete newProps['onChange'];
 			delete newProps['defaultValue'];
+			delete newProps['value'];
 			return newProps;
 		}
 	}
