@@ -40,6 +40,9 @@ import loadingiIndicaton from '../components/LoadingIndicaton/LoadingIndicaton.s
 import {POPUP} from '../components/Popup/Popup';
 import popup from '../components/Popup/Popup.styl';
 
+import {AUTOCOMPLETE} from '../components/Autocomplete/Autocomplete';
+import autocomplete from '../components/Autocomplete/Autocomplete.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -55,5 +58,6 @@ export default {
 	[TABLE]: table,
 	[GRID]: grid,
 	[LOADINGINDICATON]: loadingiIndicaton,
-	[POPUP]: popup
+	[POPUP]: popup,
+	[AUTOCOMPLETE]: autocomplete
 };
