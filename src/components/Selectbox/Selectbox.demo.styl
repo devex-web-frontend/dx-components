@@ -1,10 +1,13 @@
 @require './Selectbox.mixin.styl';
 @require './Selectbox.styl';
-@require '../Popover/Popover.mixin.styl';
 
 Selectbox(container, 7px, 5px, 10px, 5px);
 
-.anchor,
+.anchor {
+	padding: 0 10px;
+	width: 200px;
+}
+
 .container__popover {
 	width: 200px;
 }

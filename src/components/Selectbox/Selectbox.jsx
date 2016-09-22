@@ -214,8 +214,7 @@ export default class Selectbox extends React.Component {
 			        isOpened={this.state.isOpened}
 			        placeholder={placeholder}
 			        value={this.state.selectedValueText}
-			        onClick={this.onAnchorClick}
-			        onChange={this.onChange}>
+			        onClick={this.onAnchorClick}>
 
 				<Popover isOpened={this.state.isOpened}
 				         theme={popoverTheme}
@@ -263,11 +262,6 @@ export default class Selectbox extends React.Component {
 		});
 	}
 
-	onChange = (...args) => {
-		const [text, value = text] = args;
-		this.onItemSelect(value, text);
-	}
-
 	onItemSelect = (value, text) => {
 		//now we should sheck if selectbox is not controlled
 		//if so we can update the state and call onChange
@@ -279,7 +273,7 @@ export default class Selectbox extends React.Component {
 				selectedValueText: text
 			});
 		}
-		this.props.onChange && this.props.onChange(value);
+		this.props.onChange && this.props.onChange(value, text);
 	}
 
 	onPopoverRequestClose = () => {

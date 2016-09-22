@@ -11,7 +11,10 @@ export const ANCHOR_PROP_TYPES = {
 	isDisabled: React.PropTypes.bool,
 	isOpened: React.PropTypes.bool,
 	placeolder: React.PropTypes.string,
-	value: React.PropTypes.string,
+	value: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number
+	]),
 	IconComponent: React.PropTypes.func,
 	caretIconName: React.PropTypes.string,
 	children: React.PropTypes.node,

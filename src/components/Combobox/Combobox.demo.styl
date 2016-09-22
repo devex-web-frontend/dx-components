@@ -1,35 +1,38 @@
-@require '../Selectbox/Selectbox.mixin.styl';
-@require '../Selectbox/Selectbox.styl';
-@require '../Popover/Popover.mixin.styl';
+@require './Combobox.styl';
 
-$caretSize = 7px;
-$caretMarginLeft = 5px;
+.container {
+	width: 200px;
 
-Selectbox(container, $caretSize, $caretMarginLeft, 10px, 5px);
-
-.anchor__content {
-	&_hasCaret {
-		padding-right: 0;
-		.input {
-			width: 100%;
-			padding-right: ($caretSize + $caretMarginLeft);
-		}
-
-		.anchor__caret {
-			right: 10px;
-		}
+	.input {
+		background: #eee;
+		color: #000;
+		box-shadow: none;
 	}
 }
 
+.article {
+	margin-bottom: 20px;
+}
 
-.anchor,
-.container__popover {
+.section {
 	width: 200px;
+	display: inline-block;
+	vertical-align: top;
+
+	+ .section {
+		margin-left: 20px;
+	}
+}
+
+.anchor {
+	border: 0;
+	padding-right: 7px;
+
+	&__content_hasCaret {
+		border: 1px solid red;
+	}
 }
 
 .input {
-	background: #eee;
-	color: #000;
-	font-size: 14px;
-	box-shadow: none;
+	padding-right: 20px;
 }

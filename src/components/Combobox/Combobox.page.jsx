@@ -1,61 +1,95 @@
 import React from 'react';
 import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
-import ComboboxAnchor from './ComboboxAnchor';
+import Button from '../Button/Button';
 import Combobox from './Combobox.jsx';
 import css from './Combobox.demo.styl';
 import MenuItem from '../Menu/MenuItem.jsx';
 import {PURE} from 'dx-util/src/react/pure';
-import iconListItemTick from '../Selectbox/img/icon-list-item-tick.svg';
 
-class DemoComboboxAnchor extends React.Component {
+import iconSmallDropdownArrow from '../Selectbox/img/icon-small-dropdown-arrow.svg';
+import iconListItemTick from '../Selectbox/img/icon-list-item-tick.svg';
+import SelectboxAnchor from '../Selectbox/SelectboxAnchor.jsx';
+
+class DemoSelectboxAnchor extends React.Component {
 
 	static propTypes = {
-		...ComboboxAnchor.propTypes
+		...SelectboxAnchor.PropTypes
 	}
 
 	render() {
-		const {theme} = this.props;
-
 		const newProps = {
 			...this.props,
-			onChange: this.onChnage,
-			theme: {
-				...theme,
-				container: css.anchor,
-				input: css.input
-			}
+			caretIconName: iconSmallDropdownArrow
 		};
-		return <ComboboxAnchor {...newProps}/>;
-	}
 
-	onChnage = (text) => {
-		const originalOnChange = this.props.onChange;
-		const value = Number(text);
-
-		originalOnChange && originalOnChange(text, value);
+		return <SelectboxAnchor {...newProps}/>;
 	}
 }
 
 @PURE
 class ComboboxPage extends React.Component {
-	state = {}
+	state = {
+		defaultValue: 2
+	}
 
 	render() {
+		console.log(this.state.defaultValue);
 		return (
 			<Demo>
-				<div>
-					<Combobox defaultValue={1}
-					          selectedItemIconName={iconListItemTick}
-					          AnchorComponent={DemoComboboxAnchor}>
-						<MenuItem value={1}>1.00</MenuItem>
-						<MenuItem value={2}>2.00</MenuItem>
-						<MenuItem value={5}>5.00</MenuItem>
-						<MenuItem value={10}>10.00</MenuItem>
-					</Combobox>
-				</div>
+				<article className={css.article}>
+					<Button onClick={this.onSetDefaulValueClick}>Set Defaul Value 10.00</Button>
+				</article>
+				<article className={css.article}>
+					<section className={css.section}>
+						<Combobox placeholder="Choose your value"
+						          defaultValue={this.state.defaultValue}
+						          AnchorComponent={DemoSelectboxAnchor}
+						          selectedItemIconName={iconListItemTick}
+						          onChange={this.onChange}>
+							<MenuItem value={1}>1.00</MenuItem>
+							<MenuItem value={2}>2.00</MenuItem>
+							<MenuItem value={5}>5.00</MenuItem>
+							<MenuItem value={10}>10.00</MenuItem>
+						</Combobox>
+					</section>
+					<section className={css.section}>
+						<Combobox placeholder="Controlled by left"
+						          value={this.state.value}
+						          onChange={this.onChange}
+						          AnchorComponent={DemoSelectboxAnchor}
+						          selectedItemIconName={iconListItemTick}>
+							<MenuItem value={1}>1.00</MenuItem>
+							<MenuItem value={2}>2.00</MenuItem>
+							<MenuItem value={5}>5.00</MenuItem>
+							<MenuItem value={10}>10.00</MenuItem>
+						</Combobox>
+					</section>
+					<section className={css.section}>
+						<Button onClick={this.onResetClick}>Reset</Button>
+					</section>
+				</article>
+
 			</Demo>
 		);
+	}
+
+	onSetDefaulValueClick = e => {
+		this.setState({
+			defaultValue: 10
+		});
+	}
+
+	onChange = value => {
+		this.setState({
+			value
+		});
+	}
+
+	onResetClick = e => {
+		this.setState({
+			value: (void 0) //eslint-disable-line no-void
+		});
 	}
 }
 

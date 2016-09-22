@@ -22,8 +22,8 @@ import popover from '../components/Popover/Popover.styl';
 import {SELECTBOX} from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.styl';
 
-import {COMBOBOX_ANCHOR} from '../components/Combobox/ComboboxAnchor';
-import comboboxAnchor from '../components/Combobox/ComboboxAnchor.styl';
+import {COMBOBOX} from '../components/Combobox/Combobox';
+import combobox from '../components/Combobox/Combobox.styl';
 
 import {SELECTBOX_ANCHOR} from '../components/Selectbox/SelectboxAnchor';
 import selectboxAnchor from '../components/Selectbox/SelectboxAnchor.styl';
@@ -55,8 +55,8 @@ export default {
 	[INPUT]: input,
 	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
+	[COMBOBOX]: combobox,
 	[SELECTBOX_ANCHOR]: selectboxAnchor,
-	[COMBOBOX_ANCHOR]: comboboxAnchor,
 	[TABLE]: table,
 	[GRID]: grid,
 	[LOADINGINDICATON]: loadingiIndicaton
