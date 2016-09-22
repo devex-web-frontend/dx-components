@@ -19,6 +19,11 @@ const AUTOCOMPLETE_VALUE = React.PropTypes.oneOfType([
 export default class Autocomplete extends React.Component {
 	static propTypes = {
 		...Input.propTypes,
+		theme: React.PropTypes.shape({
+			container: React.PropTypes.string,
+			input: React.PropTypes.string,
+			popover: React.PropTypes.string
+		}),
 		Input: React.PropTypes.func,
 		Menu: React.PropTypes.func,
 		MenuItem: React.PropTypes.func,
@@ -59,14 +64,24 @@ export default class Autocomplete extends React.Component {
 			...inputProps
 		} = this.props;
 
+		const inputTheme = {
+			container: theme.input
+		};
+
+		const popoverTheme = {
+			container: theme.popover
+		};
+
 		return (
 			<span className={theme.container}>
 				<Input {...inputProps}
+				       theme={inputTheme}
 				       value={value}
 				       ref={el => this._input = el}
 				       onKeyDown={this.onInputKeyDown}
 				       onChange={this.onInputChange}/>
 				<Popover isOpened={this.state.isOpened}
+				         theme={popoverTheme}
 				         anchor={this._input}
 				         onRequestClose={this.onPopoverRequestClose}
 				         closeOnClickAway={true}>
