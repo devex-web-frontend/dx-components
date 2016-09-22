@@ -28,7 +28,7 @@ class PopupPage extends React.Component {
 	state = {
 		isOpened: false,
 		isModal: false,
-		closeOnClickAway: false
+		shouldCloseOnClickAway: false
 	}
 
 	componentDidMount() {
@@ -40,7 +40,7 @@ class PopupPage extends React.Component {
 	}
 
 	render() {
-		const {isOpened, isModal, closeOnClickAway} = this.state;
+		const {isOpened, isModal, shouldCloseOnClickAway} = this.state;
 
 		return (
 			<Demo theme={theme}>
@@ -51,7 +51,7 @@ class PopupPage extends React.Component {
 				</label>
 				<label className={css.label}>
 					Close on clickaway <input type="checkbox"
-					             value={closeOnClickAway}
+					             value={shouldCloseOnClickAway}
 					             onChange={this.onCloseOnClickAwayChange}/>
 				</label>
 				<Button isPrimary={true}
@@ -61,7 +61,7 @@ class PopupPage extends React.Component {
 					       header={header}
 					       footer={footer}
 					       isModal={isModal}
-					       closeOnClickAway={closeOnClickAway}
+					       shouldCloseOnClickAway={shouldCloseOnClickAway}
 					       onRequestClose={this.onPopupRequestClose}
 					       isOpened={isOpened}>
 						<div>popup content</div>
@@ -85,7 +85,7 @@ class PopupPage extends React.Component {
 
 	onCloseOnClickAwayChange = e => {
 		this.setState({
-			closeOnClickAway: !this.state.closeOnClickAway
+			shouldCloseOnClickAway: !this.state.shouldCloseOnClickAway
 		});
 	}
 

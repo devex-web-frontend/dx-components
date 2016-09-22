@@ -27,13 +27,11 @@ export default class Popup extends React.Component {
 		isModal: React.PropTypes.bool,
 		isOpened: React.PropTypes.bool,
 
-		closeOnClickAway: React.PropTypes.bool,
+		shouldCloseOnClickAway: React.PropTypes.bool,
 		onRequestClose: React.PropTypes.func,
 
 		container: Portal.propTypes.container
 	}
-
-	state = {}
 
 	render() {
 		const {
@@ -44,7 +42,7 @@ export default class Popup extends React.Component {
 			isModal,
 			container,
 			isOpened,
-			closeOnClickAway,
+			shouldCloseOnClickAway,
 			onRequestClose
 		} = this.props;
 
@@ -56,7 +54,7 @@ export default class Popup extends React.Component {
 			theme.backdrop,
 			{
 				[theme.backdrop_isModal]: isModal,
-				[theme.backdrop_closeOnClickAway]: closeOnClickAway
+				[theme.backdrop_closeOnClickAway]: shouldCloseOnClickAway
 			}
 		);
 
@@ -70,7 +68,7 @@ export default class Popup extends React.Component {
 			</div>
 		);
 
-		if (closeOnClickAway) {
+		if (shouldCloseOnClickAway) {
 			child = (
 				<RootClose onRootClose={onRequestClose}>
 					{child}
