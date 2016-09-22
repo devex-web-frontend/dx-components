@@ -3,7 +3,7 @@ import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
 import Button from '../Button/Button';
 import Combobox from './Combobox.jsx';
-import css from './Combobox.demo.styl';
+import css from './Combobox.page.styl';
 import MenuItem from '../Menu/MenuItem.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 
@@ -67,7 +67,6 @@ class ComboboxPage extends React.Component {
 						<Button onClick={this.onResetClick}>Reset</Button>
 					</section>
 				</article>
-
 			</Demo>
 		);
 	}
