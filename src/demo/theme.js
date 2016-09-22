@@ -44,6 +44,5 @@ export default {
 	[TABLE]: table,
 	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
-	[SCROLLABLE]: scrollable,
 	[POPUP]: popup
 };

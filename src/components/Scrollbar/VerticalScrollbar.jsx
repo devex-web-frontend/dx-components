@@ -120,7 +120,7 @@ export default class VerticalScrollbar extends Srollbar {
 
 	_checkScrollbarAtEnd() {
 		const {scrollTop, scrollHeight, offsetHeight} = this._container;
-		return (offsetHeight + scrollTop) > scrollHeight;
+		return (offsetHeight + scrollTop) >= scrollHeight;
 	}
 
 	////////////////////////

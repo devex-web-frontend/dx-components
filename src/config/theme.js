@@ -68,7 +68,7 @@ export default {
 	[TABLE]: table,
 	[GRID]: grid,
 	[LOADINGINDICATON]: loadingiIndicaton,
-	[POPUP]: popup
+	[POPUP]: popup,
 	[GRID]: grid,
 	[SCROLLABLE]: scrollable,
 	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,

@@ -120,7 +120,7 @@ export default class HorizontalScrollbar extends Srollbar {
 
 	_checkScrollbarAtEnd() {
 		const {scrollLeft, scrollWidth, offsetWidth} = this._container;
-		return (offsetWidth + scrollLeft) > scrollWidth;
+		return (offsetWidth + scrollLeft) >= scrollWidth;
 	}
 
 	////////////////////////
