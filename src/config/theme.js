@@ -1,5 +1,3 @@
-import {themeable} from 'react-css-themr';
-
 import {ICON} from '../components/Icon/Icon';
 import icon from '../components/Icon/Icon.styl';
 
@@ -48,6 +46,12 @@ import horizontalScrollbar from '../components/Scrollbar/HorizontalScrollbar.sty
 import {VERTICAL_SCROLLBAR} from '../components/Scrollbar/VerticalScrollbar.jsx';
 import verticalScrollbar from '../components/Scrollbar/VerticalScrollbar.styl';
 
+import {LOADINGINDICATON} from '../components/LoadingIndicaton/LoadingIndicaton';
+import loadingiIndicaton from '../components/LoadingIndicaton/LoadingIndicaton.styl';
+
+import {POPUP} from '../components/Popup/Popup';
+import popup from '../components/Popup/Popup.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -62,6 +66,9 @@ export default {
 	[INPUT]: input,
 	[NUMERIC_STEPPER]: numericStepper,
 	[TABLE]: table,
+	[GRID]: grid,
+	[LOADINGINDICATON]: loadingiIndicaton,
+	[POPUP]: popup
 	[GRID]: grid,
 	[SCROLLABLE]: scrollable,
 	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,

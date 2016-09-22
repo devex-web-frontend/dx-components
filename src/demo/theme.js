@@ -28,6 +28,9 @@ import horizontalScrollbar from '../components/Scrollbar/HorizontalScrollbar.dem
 import {VERTICAL_SCROLLBAR} from '../components/Scrollbar/VerticalScrollbar.jsx';
 import verticalScrollbar from '../components/Scrollbar/VerricalScrollbar.demo.styl';
 
+import {POPUP} from '../components/Popup/Popup';
+import popup from '../components/Popup/Popup.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -41,4 +44,6 @@ export default {
 	[TABLE]: table,
 	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
+	[SCROLLABLE]: scrollable,
+	[POPUP]: popup
 };
