@@ -43,7 +43,6 @@ export default class Combobox extends React.Component {
 		caretIconName: React.PropTypes.string,
 		selectedItemIconName: React.PropTypes.string,
 		SelectboxComponent: React.PropTypes.func,
-		AnchorComponent: React.PropTypes.func,
 		InputComponent: React.PropTypes.func,
 	}
 
@@ -135,7 +134,6 @@ export default class Combobox extends React.Component {
 			selectedItemIconName,
 			InputComponent: Input,
 			children,
-			AnchorComponent,
 			SelectboxComponent: Selectbox
 		} = this.props;
 
@@ -159,7 +157,6 @@ export default class Combobox extends React.Component {
 		const selectboxProps = {
 			value: selectboxValue,
 			placeholder: placeholder || '',
-			AnchorComponent,
 			caretIconName,
 			selectedItemIconName,
 			children,
