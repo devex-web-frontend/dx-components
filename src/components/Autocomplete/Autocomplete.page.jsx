@@ -1,6 +1,6 @@
 import React from 'react';
 import Demo from '../../demo/Demo';
-import Autocomplete, {UncontrolledAutocomplete} from './Autocomplete';
+import Autocomplete from './Autocomplete';
 import {PURE} from 'dx-util/src/react/pure';
 import {storiesOf, action} from '@kadira/storybook';
 
