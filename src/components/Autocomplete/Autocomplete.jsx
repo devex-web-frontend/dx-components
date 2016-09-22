@@ -18,7 +18,9 @@ export default class Autocomplete extends React.Component {
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string,
 			input: React.PropTypes.string,
-			popover: React.PropTypes.string
+			popover: React.PropTypes.string,
+			menu: React.PropTypes.string,
+			menu__item: React.PropTypes.string
 		}),
 		Input: React.PropTypes.func,
 		Menu: React.PropTypes.func,
@@ -71,6 +73,14 @@ export default class Autocomplete extends React.Component {
 			container: theme.popover
 		};
 
+		const menuTheme = {
+			container: theme.menu
+		};
+
+		const menuItemTheme = {
+			container: theme.menu__item
+		};
+
 		return (
 			<span className={theme.container}>
 				<Input {...inputProps}
@@ -90,9 +100,13 @@ export default class Autocomplete extends React.Component {
 
 							return (
 								filtered.length > 0 && (
-									<Menu onItemSelect={this.onMenuItemSelect}>
+									<Menu onItemSelect={this.onMenuItemSelect} theme={menuTheme}>
 										{filtered.map((item, i) => (
-											<MenuItem key={i} value={item}>{item}</MenuItem>
+											<MenuItem key={i}
+											          theme={menuItemTheme}
+											          value={item}>
+												{item}
+											</MenuItem>
 										))}
 									</Menu>
 								)
