@@ -2,8 +2,8 @@ import React from 'react';
 import {themr} from 'react-css-themr';
 import Input from '../Input/Input';
 import Selectbox from '../Selectbox/Selectbox.jsx';
-import SelectboxAnchor from '../Selectbox/SelectboxAnchor';
 import {PURE} from 'dx-util/src/react/pure';
+import classnames from 'classnames';
 
 export const COMBOBOX = Symbol('Combobox');
 
@@ -35,12 +35,19 @@ export default class Combobox extends React.Component {
 		placeholder: React.PropTypes.string,
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string,
+			container_isDisabled: React.PropTypes.string,
 			input: React.PropTypes.string,
 			selectbox: React.PropTypes.string,
+
 			anchor: React.PropTypes.string,
+			anchor__content: React.PropTypes.string,
+			anchor__text: React.PropTypes.string,
 			anchor__content_hasCaret: React.PropTypes.string,
-			anchor__caret: React.PropTypes.string
+			anchor__caret: React.PropTypes.string,
+			anchor__caret_isReversed: React.PropTypes.string
 		}),
+		caretIconName: React.PropTypes.string,
+		selectedItemIconName: React.PropTypes.string,
 		SelectboxComponent: React.PropTypes.func,
 		AnchorComponent: React.PropTypes.func,
 		InputComponent: React.PropTypes.func,
@@ -48,8 +55,7 @@ export default class Combobox extends React.Component {
 
 	static defaultProps = {
 		SelectboxComponent: Selectbox,
-		InputComponent: Input,
-		AnchorComponent: SelectboxAnchor,
+		InputComponent: Input
 	};
 
 	state = {
@@ -100,48 +106,45 @@ export default class Combobox extends React.Component {
 			});
 
 		} else {
-
 			const previousValueIsReset = typeof this.props.value !== 'undefined' && !newPropsContainNewValue;
+			const currentValue = this.state.value;
+
 			if (previousValueIsReset) {
-				//reset current selected
 				this.setState({
 					value: (void 0), //eslint-disable-line no-void
 					selectboxValue: (void 0) //eslint-disable-line no-void
 				});
-
-				const hasCurrentValue = typeof this.state.value !== 'undefined';
-
-				const newChildrenMissCurrentValue =
-					hasCurrentValue && !children.find(c => c.props.value === this.state.value);
-
-				const newPropsContainNewDefaultValue = typeof newProps.defaultValue !== 'undefined';
-
-				const shouldSetNewDefaultValue =
-					(previousValueIsReset || !hasCurrentValue || newChildrenMissCurrentValue) &&
-					newPropsContainNewDefaultValue;
-
-				if (shouldSetNewDefaultValue) {
-					console.log('test');
-					/*//try to set default (again existance is checked in prop types)
-					const defaultChild = children.find(child => child.props.value === defaultValue);
-					this.setState({
-						selectedValue: defaultValue,
-						selectedValueText: defaultChild.props.text || defaultChild.props.children
-					});*/
-				}
-
 			}
+
+			const hasCurrentValue = typeof currentValue !== 'undefined' && currentValue !== '';
+			const newPropsContainNewDefaultValue = typeof newProps.defaultValue !== 'undefined';
+
+			const shouldSetNewDefaultValue =
+				(previousValueIsReset || !hasCurrentValue) &&
+				newPropsContainNewDefaultValue;
+
+			if (shouldSetNewDefaultValue) {
+				const defaultChild = children.find(child => child.props.value === defaultValue);
+				this.setState({
+					value: (defaultChild && defaultChild.props.children) || defaultValue,
+					selectboxValue: defaultChild && defaultChild.props.value
+				});
+			}
+
 		}
 	}
 
 	render() {
 		const {
 			theme,
-			defaultValue,
 			placeholder,
+			isDisabled,
+			caretIconName,
+			selectedItemIconName,
 			InputComponent: Input,
-			SelectboxComponent: Selectbox,
-			...props
+			children,
+			AnchorComponent,
+			SelectboxComponent: Selectbox
 		} = this.props;
 
 		const {value, selectboxValue} = this.state;
@@ -151,6 +154,7 @@ export default class Combobox extends React.Component {
 			value: value || '',
 			onChange: this.onChange,
 			onBlur: this.onBlur,
+			disabled: isDisabled,
 			theme: {
 				container: theme.input
 			}
@@ -161,19 +165,30 @@ export default class Combobox extends React.Component {
 		}
 
 		const selectboxProps = {
-			...props,
-			value: selectboxValue || defaultValue,
-			placeholder,
-			onChange: this.onChangeSelectbox,
+			value: selectboxValue,
+			placeholder: placeholder || '',
+			AnchorComponent,
+			caretIconName,
+			selectedItemIconName,
+			children,
+			isDisabled,
 			theme: {
-				anchor: theme.anchor,
-				anchor__content_hasCaret: theme.anchor__content_hasCaret,
-				anchor__caret: theme.anchor__caret
-			}
+				container__anchor: theme.anchor,
+				container__anchor__content: theme.anchor__content,
+				container__anchor__text: theme.anchor__text,
+				container__anchor__content_hasCaret: theme.anchor__content_hasCaret,
+				container__anchor__caret: theme.anchor__caret,
+				container__anchor__caret_isReversed: theme.anchor__caret_isReversed
+			},
+			onChange: this.onChangeSelectbox
 		};
 
+		const className = classnames(theme.container, {
+			[theme.container_isDisabled]: isDisabled
+		});
+
 		return (
-			<div className={theme.container}>
+			<div className={className}>
 				<div className={theme.selectbox}>
 					<Selectbox {...selectboxProps} />
 				</div>
@@ -195,7 +210,6 @@ export default class Combobox extends React.Component {
 	onChange = (event) => {
 		const {onChange} = this.props;
 		const {value} = event.target;
-
 		this.setState({
 			value,
 			selectboxValue: (void 0) //eslint-disable-line no-void,
@@ -214,7 +228,6 @@ export default class Combobox extends React.Component {
 			});
 			onChange && onChange(value);
 		}
-
 	}
 
 }
