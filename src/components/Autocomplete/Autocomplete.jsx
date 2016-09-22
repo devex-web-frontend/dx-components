@@ -30,7 +30,8 @@ export default class Autocomplete extends React.Component {
 			}
 		},
 		value: React.PropTypes.any,
-		data: React.PropTypes.arrayOf(React.PropTypes.any)
+		data: React.PropTypes.arrayOf(React.PropTypes.any),
+		filter: React.PropTypes.func
 	};
 
 	static defaultProps = {
@@ -38,7 +39,8 @@ export default class Autocomplete extends React.Component {
 		Menu,
 		MenuItem,
 		Popover,
-		data: []
+		data: [],
+		filter: value => (item, index) => item.indexOf(value) !== -1
 	};
 
 	state = {
@@ -57,6 +59,7 @@ export default class Autocomplete extends React.Component {
 			Popover,
 			data,
 			value,
+			filter,
 			...inputProps
 		} = this.props;
 
@@ -81,9 +84,9 @@ export default class Autocomplete extends React.Component {
 				         anchor={this._input}
 				         onRequestClose={this.onPopoverRequestClose}
 				         closeOnClickAway={true}>
-					<Pure data={data} value={value} Menu={Menu}>
+					<Pure data={data} value={value} Menu={Menu} filter={filter}>
 						{() => {
-							const filtered = data.filter(item => item.indexOf(value) !== -1);
+							const filtered = data.filter(filter(value));
 
 							return (
 								filtered.length > 0 && (
