@@ -43,6 +43,9 @@ import grid from '../components/Grid/Grid.styl';
 import {LOADINGINDICATON} from '../components/LoadingIndicaton/LoadingIndicaton';
 import loadingiIndicaton from '../components/LoadingIndicaton/LoadingIndicaton.styl';
 
+import {POPUP} from '../components/Popup/Popup';
+import popup from '../components/Popup/Popup.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -59,5 +62,6 @@ export default {
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
 	[GRID]: grid,
-	[LOADINGINDICATON]: loadingiIndicaton
+	[LOADINGINDICATON]: loadingiIndicaton,
+	[POPUP]: popup
 };

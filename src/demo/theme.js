@@ -28,6 +28,9 @@ import table from '../components/Table/Table.demo.styl';
 import {SCROLLABLE} from '../components/Scrollable/Scrollable';
 import scrollable from '../components/Scrollable/Scrollable.demo.styl';
 
+import {POPUP} from '../components/Popup/Popup';
+import popup from '../components/Popup/Popup.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -41,5 +44,6 @@ export default {
 	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
-	[SCROLLABLE]: scrollable
+	[SCROLLABLE]: scrollable,
+	[POPUP]: popup
 };
