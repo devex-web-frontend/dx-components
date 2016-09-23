@@ -5,16 +5,9 @@ import Month from './Month';
 import {PURE} from 'dx-util/src/react/react';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import {MEMOIZE} from 'dx-util/src/function/function';
+import {CALENDAR_THEME} from './Calendar.constants';
 
 export const CALENDAR = Symbol('Calendar');
-
-export const CALENDAR_THEME = {
-	container: React.PropTypes.string,
-	header: React.PropTypes.string,
-	header__text: React.PropTypes.string,
-	changeMonth__container: React.PropTypes.string,
-	changeMonth__icon: React.PropTypes.string,
-};
 
 @PURE
 @themr(CALENDAR)
@@ -43,7 +36,6 @@ export default class Calendar extends React.Component {
 	render() {
 		const {
 			theme,
-			value,
 			onChange,
 			min,
 			max,
@@ -73,7 +65,8 @@ export default class Calendar extends React.Component {
 				<Month date={this.state.displayedDate.clone()}
 					   onChange={onChange}
 					   min={min}
-					   max={max}/>
+					   max={max}
+					   theme={theme}/>
 			</div>
 		);
 	}
