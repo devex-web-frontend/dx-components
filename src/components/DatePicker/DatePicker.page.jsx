@@ -7,7 +7,7 @@ import {DATE_PICKER_FIELD_PROPS} from './Fields/Field.props';
 import {PURE} from 'dx-util/src/react/react';
 
 import css from './DatePicker.page.styl';
-import iconOpenCalendar from './res/icon-open-calendar.svg';
+import iconOpenCalendar from './resources/icon-open-calendar.svg';
 
 const darkDemoTheme = {
 	container: css.container
@@ -16,14 +16,14 @@ const darkDemoTheme = {
 const CustomLabelField = (props) => {
 	const onContextMenu = e => {
 		e.preventDefault();
-		props.onDateChange(moment().format()); // set current date
+		props.onDateChange(moment().format(props.dateFormat)); // set current date
 	};
 
 	return (
 		<span onClick={props.onOpenDatePicker}
 			  onContextMenu={onContextMenu}
 			  className={props.theme.container}>
-			{props.isInvalid ? 'Not selected' : moment(props.value).format(props.dateFormat)}
+			{props.value}
 		</span>
 	);
 };
@@ -56,7 +56,8 @@ class DatePickerPage extends React.Component {
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
 								openCalendarIconName={iconOpenCalendar}
-								onChange={this.onDateChange}>
+								onChange={this.onDateChange}
+								dateNotSelectedMsg={'Date not selected'}>
 						<CustomLabelField theme={this.customLabelTheme}/>
 					</DatePicker>
 				</section>

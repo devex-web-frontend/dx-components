@@ -15,17 +15,16 @@ export default class DateInput extends React.Component {
 	}
 
 	state = {
-		displayedDate: this.formatDate(this.props)
+		displayedDate: this.props.value
 	}
 
 	componentWillReceiveProps(newProps) {
 		this.setState({
-			displayedDate: this.formatDate(newProps)
+			displayedDate: newProps.value
 		});
 	}
 
 	render() {
-		console.log('DateField render');
 		const {
 			onOpenDatePicker,
 			theme,
@@ -43,10 +42,6 @@ export default class DateInput extends React.Component {
 		);
 	}
 
-	formatDate(props) {
-		return props.value ? moment(props.value).format(props.dateFormat) : '';
-	}
-
 	onChange = e => {
 		this.setState({
 			displayedDate: e.target.value
@@ -54,7 +49,6 @@ export default class DateInput extends React.Component {
 	}
 
 	onBlur = e => {
-		console.log('blur');
 		this.props.onDateChange(e.target.value);
 	}
 

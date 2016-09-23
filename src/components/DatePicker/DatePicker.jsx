@@ -21,6 +21,7 @@ class DatePicker extends React.Component {
 		max: React.PropTypes.string, // ISO
 		openCalendarIconName: React.PropTypes.string,
 		withField: React.PropTypes.bool,
+		dateNotSelectedMsg: React.PropTypes.string,
 		children: React.PropTypes.element,
 		closeOnClickAway: React.PropTypes.bool,
 		isDisabled: React.PropTypes.bool,
@@ -38,7 +39,8 @@ class DatePicker extends React.Component {
 		dateFormat: 'DD/MM/YYYY',
 		withField: true,
 		closeOnClickAway: true,
-		isDisabled: false
+		isDisabled: false,
+		dateNotSelectedMsg: ''
 	}
 
 	state = {
@@ -48,8 +50,16 @@ class DatePicker extends React.Component {
 
 	_anchor;
 
+	componentWillReceiveProps(newProps) {
+		const newDate = newProps.value;
+		if (!moment(newDate).isValid()) {
+			this.setState({
+				isInvalid: true
+			});
+		}
+	}
+
 	render() {
-		console.log('DatePicker: render');
 		const {
 			theme,
 			openCalendarIconName,
@@ -90,10 +100,12 @@ class DatePicker extends React.Component {
 			dateFormat,
 			min,
 			max,
-			isDisabled
+			isDisabled,
+			dateNotSelectedMsg
 		} = this.props;
 
 		const {isInvalid} = this.state;
+		const formattedDate = isInvalid ? dateNotSelectedMsg : moment(value).format(dateFormat);
 
 		if (withField) {
 			if (children) {
@@ -101,7 +113,7 @@ class DatePicker extends React.Component {
 
 				return React.cloneElement(customField, {
 					...customField.props,
-					value,
+					value: formattedDate,
 					min,
 					max,
 					dateFormat,
@@ -118,7 +130,7 @@ class DatePicker extends React.Component {
 				};
 
 				return (
-					<DateInput value={value}
+					<DateInput value={formattedDate}
 							   dateFormat={dateFormat}
 							   min={min}
 							   max={max}
@@ -153,6 +165,9 @@ class DatePicker extends React.Component {
 		const newDate = moment(newDateRaw, this.props.dateFormat);
 
 		if (newDate.isSame(moment(this.props.value), 'day')) {
+			this.setState({
+				isOpened: false
+			});
 			return;
 		}
 
