@@ -3,6 +3,7 @@ import {themr} from 'react-css-themr';
 import ListItem, {PROP_TYPES, DEFAULT_PROPS} from '../List/ListItem.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 import classnames from 'classnames';
+export {LIST_ITEM_THEME_SHAPE as MENU_ITEM_THEME_SHAPE} from '../List/ListItem';
 
 import {MENU} from './Menu.jsx';
 

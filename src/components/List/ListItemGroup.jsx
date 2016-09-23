@@ -7,16 +7,17 @@ import {
 	DEFAULT_PROPS as LIST_ITEM_DEFAULT_PROPS, PROP_TYPES as LIST_ITEM_PROP_TYPES
 } from './ListItem.jsx';
 
+export const LIST_ITEM_GROUP_THEME_SHAPE = {
+	itemGroup: React.PropTypes.string,
+	itemGroup_isCollapsed: React.PropTypes.string,
+	itemGroup__header: React.PropTypes.string
+};
 export const PROP_TYPES = {
 	...LIST_ITEM_PROP_TYPES,
 
 	children: React.PropTypes.element.isRequired,
 	header: React.PropTypes.node,
-	theme: React.PropTypes.shape({
-		itemGroup: React.PropTypes.string,
-		itemGroup_isCollapsed: React.PropTypes.string,
-		itemGroup__header: React.PropTypes.string
-	}),
+	theme: React.PropTypes.shape(LIST_ITEM_GROUP_THEME_SHAPE),
 	isCollapsed: React.PropTypes.bool
 };
 

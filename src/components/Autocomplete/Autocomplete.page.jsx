@@ -6,8 +6,12 @@ import {storiesOf, action} from '@kadira/storybook';
 
 import css from './Autocomplete.page.styl';
 const theme = {
-	input: css.autocomplete__input,
-	popover: css.autocomplete__popover
+	Input: {
+		container: css.autocomplete__input
+	},
+	Popover: {
+		container: css.autocomplete__popover
+	}
 };
 
 const notifyChanged = action('Change');

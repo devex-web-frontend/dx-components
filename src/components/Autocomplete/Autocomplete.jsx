@@ -1,10 +1,10 @@
 import React from 'react';
 import {PURE} from 'dx-util/src/react/pure';
 import {themr} from 'react-css-themr';
-import Input from '../Input/Input';
-import Menu from '../Menu/Menu';
-import MenuItem from '../Menu/MenuItem';
-import Popover from '../Popover/Popover';
+import Input, {INPUT_THEME_SHAPE} from '../Input/Input';
+import Menu, {MENU_THEME_SHAPE_OBJECT} from '../Menu/Menu';
+import MenuItem, {MENU_ITEM_THEME_SHAPE} from '../Menu/MenuItem';
+import Popover, {POPOVER_THEME_SHAPE_OBJECT} from '../Popover/Popover';
 import Pure from '../Pure/Pure';
 
 export const AUTOCOMPLETE = Symbol('Autocomplete');
@@ -17,10 +17,10 @@ export default class Autocomplete extends React.Component {
 		...Input.propTypes,
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string,
-			input: React.PropTypes.string,
-			popover: React.PropTypes.string,
-			menu: React.PropTypes.string,
-			menu__item: React.PropTypes.string
+			Input: React.PropTypes.shape(INPUT_THEME_SHAPE),
+			Popover: React.PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
+			Menu: React.PropTypes.shape(MENU_THEME_SHAPE_OBJECT),
+			MenuItem: React.PropTypes.shape(MENU_ITEM_THEME_SHAPE)
 		}),
 		Input: React.PropTypes.func,
 		Menu: React.PropTypes.func,
@@ -65,32 +65,16 @@ export default class Autocomplete extends React.Component {
 			...inputProps
 		} = this.props;
 
-		const inputTheme = {
-			container: theme.input
-		};
-
-		const popoverTheme = {
-			container: theme.popover
-		};
-
-		const menuTheme = {
-			container: theme.menu
-		};
-
-		const menuItemTheme = {
-			item: theme.menu__item
-		};
-
 		return (
 			<span className={theme.container}>
 				<Input {...inputProps}
-				       theme={inputTheme}
+				       theme={theme.Input}
 				       value={value}
 				       ref={el => this._input = el}
 				       onKeyDown={this.onInputKeyDown}
 				       onChange={this.onInputChange}/>
 				<Popover isOpened={this.state.isOpened}
-				         theme={popoverTheme}
+				         theme={theme.Popover}
 				         anchor={this._input}
 				         onRequestClose={this.onPopoverRequestClose}
 				         closeOnClickAway={true}>
@@ -100,10 +84,11 @@ export default class Autocomplete extends React.Component {
 
 							return (
 								filtered.length > 0 && (
-									<Menu onItemSelect={this.onMenuItemSelect} theme={menuTheme}>
+									<Menu onItemSelect={this.onMenuItemSelect}
+									      theme={theme.Menu}>
 										{filtered.map((item, i) => (
 											<MenuItem key={i}
-											          theme={menuItemTheme}
+											          theme={theme.MenuItem}
 											          value={item}>
 												{item}
 											</MenuItem>
