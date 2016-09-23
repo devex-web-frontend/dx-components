@@ -34,16 +34,12 @@ export default class SelectboxAnchor extends React.Component {
 		valueText: React.PropTypes.string
 	}
 
-	getFormattedValue() {
-		const {valueText} = this.props;
-		return valueText;
-	}
-
 	render() {
 		const {
 			theme,
 			children,
 			isOpened,
+			valueText,
 			isDisabled,
 			isPrimary,
 			IconComponent: Icon,
@@ -79,7 +75,7 @@ export default class SelectboxAnchor extends React.Component {
 			<Button {...buttonProps}>
 				<div className={contentClassName}>
 					<div className={theme.text}>
-						{this.getFormattedValue()}
+						{valueText}
 					</div>
 					{caretIconName && (
 						<Icon name={caretIconName} theme={anchorCaretTheme}/>
