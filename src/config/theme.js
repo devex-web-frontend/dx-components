@@ -22,11 +22,17 @@ import popover from '../components/Popover/Popover.styl';
 import {SELECTBOX} from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.styl';
 
+import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
+import toggleButtons from '../components/ToggleButtons/ToggleButtons.styl';
+
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.styl';
 
 import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.styl';
+
+import {SCROLLABLE} from '../components/Scrollable/Scrollable.jsx';
+import scrollable from '../components/Scrollable/Scrollable.config.styl';
 
 import {TABLE} from '../components/Table/Table';
 import table from '../components/Table/Table.styl';
@@ -40,6 +46,9 @@ import loadingiIndicaton from '../components/LoadingIndicaton/LoadingIndicaton.s
 import {CHECKBOX} from '../components/Checkbox/Checkbox.jsx';
 import checkbox from '../components/Checkbox/Checkbox.styl';
 
+import {POPUP} from '../components/Popup/Popup';
+import popup from '../components/Popup/Popup.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -49,11 +58,14 @@ export default {
 	[MENU]: menu,
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
+	[TOGGLE_BUTTONS]: toggleButtons,
+	[SCROLLABLE]: scrollable,
 	[INPUT]: input,
 	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
 	[GRID]: grid,
 	[LOADINGINDICATON]: loadingiIndicaton,
+	[POPUP]: popup,
 	[CHECKBOX]: checkbox
 };
