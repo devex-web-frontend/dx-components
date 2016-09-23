@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {PURE} from 'dx-util/src/react/pure';
 import Demo from '../../demo/Demo.jsx';
 
 import Checkbox from './Checkbox.jsx';
@@ -10,6 +11,7 @@ const darkDemoTheme = {
 	container: css.container
 };
 
+@PURE
 class CheckboxPage extends Component {
 	state = {
 		checked: false
