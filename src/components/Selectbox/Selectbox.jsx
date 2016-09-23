@@ -213,8 +213,6 @@ export default class Selectbox extends React.Component {
 			caret: theme.anchor__caret
 		};
 
-		console.log(anchorTheme);
-
 		return (
 			<Anchor ref={el => this._anchor = el}
 			        isDisabled={isDisabled}
@@ -240,7 +238,10 @@ export default class Selectbox extends React.Component {
 
 	wrapItem(child) {
 		const {theme, selectedItemIconName} = this.props;
-		const isActive = child.props.value && child.props.value === this.state.selectedValue;
+		const {value} = child.props;
+		const {selectedValue} = this.state;
+		const isActive = (typeof value === 'number' || typeof value === 'string') && value === selectedValue;
+
 		const iconTheme = {
 			container: theme.container__item__activeIcon
 		};

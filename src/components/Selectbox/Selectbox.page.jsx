@@ -42,6 +42,15 @@ class SelectboxPage extends React.Component {
 		return (
 			<Demo>
 				<div>
+					<Selectbox value={0}
+					           placeholder={'Choose value'}
+					           AnchorComponent={ThemeSelectboxAnchor}
+					           selectedItemIconName={iconListItemTick}
+					           caretIconName={iconSmallDropdownArrow}>
+						<MenuItem value={0}>0</MenuItem>
+						<MenuItem value={1}>1</MenuItem>
+						<MenuItem value={2}>2</MenuItem>
+					</Selectbox>
 					<Selectbox placeholder="Choose your hero"
 					           AnchorComponent={ThemeSelectboxAnchor}
 					           selectedItemIconName={iconListItemTick}
