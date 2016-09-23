@@ -28,6 +28,9 @@ import scrollable from '../components/Scrollable/Scrollable.demo.styl';
 import {POPUP} from '../components/Popup/Popup';
 import popup from '../components/Popup/Popup.demo.styl';
 
+import {HIGHLIGHT} from '../components/Highlight/Highlight';
+import highlight from '../components/Highlight/Highlight.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -40,5 +43,6 @@ export default {
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
 	[SCROLLABLE]: scrollable,
-	[POPUP]: popup
+	[POPUP]: popup,
+	[HIGHLIGHT]: highlight
 };
