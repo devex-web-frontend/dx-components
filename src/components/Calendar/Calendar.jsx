@@ -23,15 +23,21 @@ export default class Calendar extends React.Component {
 		value: React.PropTypes.string.isRequired, // ISO - "2016-09-20T15:30:39.298Z"
 		headerDateFormat: React.PropTypes.string.isRequired,
 		onChange: React.PropTypes.func,
-		min: React.PropTypes.string.isRequired, // ISO
-		max: React.PropTypes.string.isRequired, // ISO
+		min: React.PropTypes.string, // ISO
+		max: React.PropTypes.string, // ISO
 		previousMonthIcon: React.PropTypes.string,
 		nextMonthIcon: React.PropTypes.string,
 		theme: React.PropTypes.shape(CALENDAR_THEME)
 	}
 
 	state = {
-		month: moment(this.props.value).month()
+		displayedDate: moment(this.props.value)
+	}
+
+	componentWillReceiveProps(newProps) {
+		this.setState({
+			displayedDate: moment(newProps.value)
+		});
 	}
 
 	render() {
@@ -46,7 +52,7 @@ export default class Calendar extends React.Component {
 			nextMonthIcon
 		} = this.props;
 
-		const headerDate = moment(value).format(headerDateFormat);
+		const headerDate = this.state.displayedDate.format(headerDateFormat);
 
 		const changeMonthBtnTheme = {
 			container: theme.changeMonth__container,
@@ -64,8 +70,7 @@ export default class Calendar extends React.Component {
 								theme={changeMonthBtnTheme}
 								onClick={this.onChangeMonth(1)}/>
 				</div>
-				<Month month={this.state.month}
-					   value={value}
+				<Month date={this.state.displayedDate.clone()}
 					   onChange={onChange}
 					   min={min}
 					   max={max}/>
@@ -75,6 +80,8 @@ export default class Calendar extends React.Component {
 
 	@MEMOIZE
 	onChangeMonth = step => () => {
-		console.log(step);
+		this.setState({
+			displayedDate: this.state.displayedDate.clone().add(step, 'month')
+		});
 	}
 }
