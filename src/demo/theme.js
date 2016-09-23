@@ -34,6 +34,9 @@ import popup from '../components/Popup/Popup.demo.styl';
 import {DATE_PICKER} from '../components/DatePicker/DatePicker';
 import datePicker from '../components/DatePicker/DatePicker.demo.styl';
 
+import {CALENDAR} from '../components/Calendar/Calendar';
+import calendarTheme from '../components/Calendar/Calendar.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -47,5 +50,6 @@ export default {
 	[TABLE]: table,
 	[SCROLLABLE]: scrollable,
 	[DATE_PICKER]: datePicker,
-	[POPUP]: popup
+	[POPUP]: popup,
+	[CALENDAR]: calendarTheme
 };

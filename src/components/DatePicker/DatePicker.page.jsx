@@ -6,8 +6,10 @@ import moment from 'moment';
 import {DATE_PICKER_FIELD_PROPS} from './Fields/Field.props';
 import {PURE} from 'dx-util/src/react/react';
 
-import css from './DatePicker.page.styl';
 import iconOpenCalendar from './resources/icon-open-calendar.svg';
+import nextMonthIcon from './resources/icon-move-right.svg';
+import previousMonthIcon from './resources/icon-move-left.svg';
+import css from './DatePicker.page.styl';
 
 const darkDemoTheme = {
 	container: css.container
@@ -51,25 +53,34 @@ class DatePickerPage extends React.Component {
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
 								onChange={this.onDateChange}
-								openCalendarIconName={iconOpenCalendar}/>
+								openCalendarIconName={iconOpenCalendar}
+								nextMonthIcon={nextMonthIcon}
+								previousMonthIcon={previousMonthIcon}/>
 				</section>
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
 								openCalendarIconName={iconOpenCalendar}
 								onChange={this.onDateChange}
-								dateNotSelectedMsg={'Date not selected'}>
+								dateNotSelectedMsg={'Date not selected'}
+								nextMonthIcon={nextMonthIcon}
+								previousMonthIcon={previousMonthIcon}>
 						<CustomLabelField theme={this.customLabelTheme}/>
 					</DatePicker>
 				</section>
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
 								onChange={this.onDateChange}
-								min={moment().subtract(1, 'days').format()}/>
+								min={moment().subtract(1, 'days').format()}
+								closeOnClickAway={false}
+								nextMonthIcon={nextMonthIcon}
+								previousMonthIcon={previousMonthIcon}/>
 				</section>
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
 								onChange={this.onDateChange}
 								openCalendarIconName={iconOpenCalendar}
+								nextMonthIcon={nextMonthIcon}
+								previousMonthIcon={previousMonthIcon}
 								isDisabled={true}/>
 				</section>
 				<section className={css.section}>
@@ -82,7 +93,6 @@ class DatePickerPage extends React.Component {
 	}
 
 	onDateChange = date => {
-		console.log('DatePickerPage : onDateChange', date);
 		this.setState({
 			date
 		});

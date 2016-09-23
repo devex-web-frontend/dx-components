@@ -49,6 +49,9 @@ import popup from '../components/Popup/Popup.styl';
 import {DATE_PICKER} from '../components/DatePicker/DatePicker';
 import datePicker from '../components/DatePicker/DatePicker.styl';
 
+import {CALENDAR} from '../components/Calendar/Calendar';
+import calendarTheme from '../components/Calendar/Calendar.demo.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -67,5 +70,6 @@ export default {
 	[GRID]: grid,
 	[LOADINGINDICATON]: loadingiIndicaton,
 	[POPUP]: popup,
-	[DATE_PICKER]: datePicker
+	[DATE_PICKER]: datePicker,
+	[CALENDAR]: calendarTheme
 };

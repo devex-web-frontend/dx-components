@@ -49,7 +49,9 @@ export default class DateInput extends React.Component {
 	}
 
 	onBlur = e => {
-		this.props.onDateChange(e.target.value);
+		if (e.target.value !== this.props.value) {
+			this.props.onDateChange(e.target.value);
+		}
 	}
 
 	onKeyDown = e => {

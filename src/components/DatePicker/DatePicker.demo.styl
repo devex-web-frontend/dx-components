@@ -1,29 +1,37 @@
+@require "./DatePicker.styl";
+
 .container {
 	position: relative;
 	display: inline-block;
 	height: 21px;
 }
 
-.input {
+.popover {
 	&__container {
-		display: inline-block;
-		margin-right: 7px;
-		height: 100%;
 
-		&_invalid {
-			background: #b22121;
-		}
+	}
+
+	&__content {
+		padding: 0;
+	}
+}
+
+.input {
+	display: inline-block;
+	margin-right: 7px;
+	height: 100%;
+
+	&_invalid {
+		background: #b22121;
 	}
 }
 
 .openCalendar {
-	&__container {
-		background: transparent;
-		border: none;
-		width: 17px;
-		padding: 0;
-		height: 100%;
-	}
+	background: transparent;
+	border: none;
+	width: 17px;
+	padding: 0;
+	height: 100%;
 
 	&__icon {
 		fill: #6cb5d9;

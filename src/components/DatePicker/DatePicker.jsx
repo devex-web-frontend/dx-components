@@ -7,19 +7,23 @@ import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import {PURE} from 'dx-util/src/react/react';
 import classnames from 'classnames';
 import stateful from '../../util/react/stateful';
+import Calendar, {CALENDAR_THEME} from '../Calendar/Calendar';
 
 export const DATE_PICKER = Symbol('DATE_PICKER');
 
-@themr(DATE_PICKER)
 @PURE
+@themr(DATE_PICKER)
 class DatePicker extends React.Component {
 	static propTypes = {
 		value: React.PropTypes.string, // ISO - "2016-09-20T15:30:39.298Z" or NULL
 		onChange: React.PropTypes.func.isRequired,
 		dateFormat: React.PropTypes.string,
+		headerDateFormat: React.PropTypes.string,
 		min: React.PropTypes.string, // ISO
 		max: React.PropTypes.string, // ISO
-		openCalendarIconName: React.PropTypes.string,
+		openCalendarIcon: React.PropTypes.string,
+		previousMonthIcon: React.PropTypes.string,
+		nextMonthIcon: React.PropTypes.string,
 		withField: React.PropTypes.bool,
 		dateNotSelectedMsg: React.PropTypes.string,
 		children: React.PropTypes.element,
@@ -27,16 +31,20 @@ class DatePicker extends React.Component {
 		isDisabled: React.PropTypes.bool,
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string,
-			input__container: React.PropTypes.string,
-			input__container_invalid: React.PropTypes.string,
-			openCalendar__container: React.PropTypes.string,
-			openCalendar__icon: React.PropTypes.string
-		})
+			input: React.PropTypes.string,
+			input_invalid: React.PropTypes.string,
+			openCalendar: React.PropTypes.string,
+			openCalendar__icon: React.PropTypes.string,
+			popover__container: React.PropTypes.string,
+			popover__content: React.PropTypes.string
+		}),
+		calendarTheme: React.PropTypes.shape(CALENDAR_THEME)
 	}
 
 	static defaultProps = {
 		value: moment().format(),
 		dateFormat: 'DD/MM/YYYY',
+		headerDateFormat: 'MMM YYYY',
 		withField: true,
 		closeOnClickAway: true,
 		isDisabled: false,
@@ -52,9 +60,10 @@ class DatePicker extends React.Component {
 
 	componentWillReceiveProps(newProps) {
 		const newDate = newProps.value;
-		if (!moment(newDate).isValid()) {
+		if (newDate !== this.props.value) {
 			this.setState({
-				isInvalid: true
+				isInvalid: !this.isDateValid(moment(newDate), newProps.min, newProps.max),
+				isOpened: false
 			});
 		}
 	}
@@ -62,30 +71,51 @@ class DatePicker extends React.Component {
 	render() {
 		const {
 			theme,
-			openCalendarIconName,
+			calendarTheme,
+			openCalendarIcon,
 			closeOnClickAway,
-			isDisabled
+			isDisabled,
+			value,
+			headerDateFormat,
+			min,
+			max,
+			previousMonthIcon,
+			nextMonthIcon
 		} = this.props;
 
+		const {isInvalid} = this.state;
+
 		const openCalendarBtnTheme = {
-			container: theme.openCalendar__container,
+			container: theme.openCalendar,
 			icon: theme.openCalendar__icon
+		};
+		const popoverTheme = {
+			container: theme.popover__container,
+			content: theme.popover__content
 		};
 
 		return (
 			<div className={theme.container} ref={el => this._anchor = el}>
 				{this.renderField()}
-				{openCalendarIconName && (
+				{openCalendarIcon && (
 					<ButtonIcon onClick={this.onCalendarOpenClick}
-								name={openCalendarIconName}
+								name={openCalendarIcon}
 								theme={openCalendarBtnTheme}
 								isDisabled={isDisabled}/>
 				)}
-				<Popover isOpened={this.state.isOpened}
+				<Popover theme={popoverTheme}
+						 isOpened={this.state.isOpened}
 						 anchor={this._anchor}
 						 closeOnClickAway={closeOnClickAway}
 						 onRequestClose={this.onPopoverRequestClose}>
-					<div>1</div>
+					<Calendar theme={calendarTheme}
+							  value={isInvalid ? moment().format() : value}
+							  onChange={this.onCalendarDateChange}
+							  min={min}
+							  max={max}
+							  headerDateFormat={headerDateFormat}
+							  previousMonthIcon={previousMonthIcon}
+							  nextMonthIcon={nextMonthIcon}/>
 				</Popover>
 			</div>
 		);
@@ -117,15 +147,15 @@ class DatePicker extends React.Component {
 					min,
 					max,
 					dateFormat,
-					onDateChange: this.onDateChange,
+					onDateChange: this.onFieldDateChange,
 					onOpenDatePicker: this.onCalendarOpenClick,
 					isDisabled,
 					isInvalid
 				});
 			} else { // default DateInput
 				const inputTheme = {
-					container: classnames(theme.input__container, {
-						[theme.input__container_invalid]: isInvalid
+					container: classnames(theme.input, {
+						[theme.input_invalid]: isInvalid
 					})
 				};
 
@@ -134,7 +164,7 @@ class DatePicker extends React.Component {
 							   dateFormat={dateFormat}
 							   min={min}
 							   max={max}
-							   onDateChange={this.onDateChange}
+							   onDateChange={this.onFieldDateChange}
 							   onOpenDatePicker={this.onCalendarOpenClick}
 							   theme={inputTheme}
 							   isDisabled={isDisabled}
@@ -142,6 +172,14 @@ class DatePicker extends React.Component {
 				);
 			}
 		}
+
+		return null;
+	}
+
+	isDateValid(momentDate, min, max) {
+		return momentDate.isValid() &&
+			(min ? momentDate.isSameOrAfter(min, 'day') : true) &&
+			(max ? momentDate.isSameOrBefore(max, 'day') : true);
 	}
 
 	onPopoverRequestClose = () => {
@@ -159,7 +197,7 @@ class DatePicker extends React.Component {
 	/**
 	 * @param {String} newDateRaw
 	 */
-	onDateChange = newDateRaw => {
+	onFieldDateChange = newDateRaw => {
 		const {min, max} = this.props;
 
 		const newDate = moment(newDateRaw, this.props.dateFormat);
@@ -171,21 +209,22 @@ class DatePicker extends React.Component {
 			return;
 		}
 
-		if (newDate.isValid() &&
-			(min ? newDate.isSameOrAfter(min, 'day') : true) &&
-			(max ? newDate.isSameOrBefore(max, 'day') : true)) {
-			this.setState({
-				isInvalid: false,
-				isOpened: false
-			});
+		if (this.isDateValid(newDate, min, max)) {
 			this.props.onChange(newDate.format());
 		} else {
-			this.setState({
-				isInvalid: true,
-				isOpened: false
-			});
 			this.props.onChange(null); // empty value
 		}
+	}
+
+	/**
+	 * @param {String} newISODate
+	 */
+	onCalendarDateChange = newISODate => {
+		this.setState({
+			isOpened: false
+		});
+
+		this.props.onChange(newISODate);
 	}
 }
 
