@@ -1,19 +1,22 @@
 Selectbox($selector, $caretSize = 0, $caretMarginLeft = 0, $selectedIconSize = 0, $selectedIconMarginLeft = 0) {
-	.{$selector} {
-		if $caretSize and $caretMarginLeft {
-			&__anchor {
-				&__content {
-					&_hasCaret {
-						padding-right: unquote('calc(' + $caretSize + ' + ' + $caretMarginLeft + ')');
-						.{$selector}__anchor__caret {
-							width: $caretSize;
-							height: $caretSize;
-						}
-					}
+
+	if $caretSize and $caretMarginLeft {
+		.anchor {
+			&__content {
+				&_hasCaret {
+					padding-right: unquote('calc(' + $caretSize + ' + ' + $caretMarginLeft + ')');
 				}
 			}
+
+			&__caret {
+				width: $caretSize;
+				height: $caretSize;
+			}
+
 		}
-		
+	}
+
+	.{$selector} {
 		if $selectedIconSize and $selectedIconMarginLeft {
 			&__menu_hasSelectedItem {
 				.{$selector}__item {
