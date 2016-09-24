@@ -6,7 +6,9 @@ export const CALENDAR_THEME = {
 	header__text: React.PropTypes.string,
 	changeMonth__container: React.PropTypes.string,
 	changeMonth__icon: React.PropTypes.string,
-	month__container: React.PropTypes.string,
-	day__container: React.PropTypes.string,
-	week__container: React.PropTypes.string,
+	month: React.PropTypes.string,
+	monthHeader: React.PropTypes.string,
+	monthHeader__day: React.PropTypes.string,
+	week: React.PropTypes.string,
+	day: React.PropTypes.string,
 };

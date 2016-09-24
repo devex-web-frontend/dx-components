@@ -18,7 +18,7 @@ const darkDemoTheme = {
 const CustomLabelField = (props) => {
 	const onContextMenu = e => {
 		e.preventDefault();
-		props.onChange(moment()); // set current date
+		props.onChange(moment().locale(props.locale)); // set current date
 	};
 
 	const onClick = e => {

@@ -17,8 +17,10 @@ class DatePicker extends React.Component {
 	static propTypes = {
 		value: React.PropTypes.string, // ISO - "2016-09-20T15:30:39.298Z" or NULL
 		onChange: React.PropTypes.func.isRequired,
-		dateFormat: React.PropTypes.string,
+		fieldDateFormat: React.PropTypes.string, // field
 		headerDateFormat: React.PropTypes.string,
+		headerDayFormat: React.PropTypes.string,
+		dayFormat: React.PropTypes.string,
 		min: React.PropTypes.string, // ISO
 		max: React.PropTypes.string, // ISO
 		openCalendarIcon: React.PropTypes.string,
@@ -43,9 +45,11 @@ class DatePicker extends React.Component {
 
 	static defaultProps = {
 		value: moment().format(),
-		dateFormat: 'DD/MM/YYYY',
+		fieldDateFormat: 'DD/MM/YYYY',
 		headerDateFormat: 'MMM YYYY',
-		locale: 'en', // TODO: pass to children
+		dayFormat: 'D',
+		headerDayFormat: 'ddd',
+		locale: 'en',
 		withField: true,
 		fieldComponent: DateInput,
 		isDisabled: false,
@@ -64,10 +68,12 @@ class DatePicker extends React.Component {
 			calendarTheme,
 			openCalendarIcon,
 			isDisabled,
-			dateFormat,
+			fieldDateFormat,
+			headerDateFormat,
+			headerDayFormat,
+			dayFormat,
 			placeholder,
 			value,
-			headerDateFormat,
 			min,
 			max,
 			fieldComponent: Field,
@@ -91,8 +97,8 @@ class DatePicker extends React.Component {
 		return (
 			<div className={theme.container} ref={el => this._anchor = el}>
 				{withField && (
-					<Field value={moment(value)}
-						   dateFormat={dateFormat}
+					<Field value={moment(value).locale(locale)}
+						   dateFormat={fieldDateFormat}
 						   min={min}
 						   max={max}
 						   onChange={this.onFieldDateChange}
@@ -113,7 +119,7 @@ class DatePicker extends React.Component {
 				<Popover theme={popoverTheme}
 						 isOpened={this.state.isOpened}
 						 anchor={this._anchor}
-						 closeOnClickAway={true}
+						 closeOnClickAway={false}
 						 onRequestClose={this.onPopoverRequestClose}>
 					<Calendar theme={calendarTheme}
 							  value={isInvalid ? moment().format() : value}
@@ -121,6 +127,8 @@ class DatePicker extends React.Component {
 							  min={min}
 							  max={max}
 							  headerDateFormat={headerDateFormat}
+							  dayFormat={dayFormat}
+							  headerDayFormat={headerDayFormat}
 							  previousMonthIcon={previousMonthIcon}
 							  nextMonthIcon={nextMonthIcon}
 							  locale={locale}/>
@@ -142,7 +150,7 @@ class DatePicker extends React.Component {
 	}
 
 	/**
-	 * @param {Moment} newDate
+	 * @param {moment.Moment} newDate
 	 */
 	onFieldDateChange = newDate => {
 		const {min, max} = this.props;
@@ -161,7 +169,7 @@ class DatePicker extends React.Component {
 	}
 
 	/**
-	 * @param {Moment} newDate
+	 * @param {moment.Moment} newDate
 	 */
 	onCalendarDateChange = newDate => {
 		this.setState({

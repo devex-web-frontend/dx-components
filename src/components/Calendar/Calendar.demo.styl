@@ -11,6 +11,8 @@
 	font-size: 12px;
 	font-weight: bold;
 	user-select: none;
+	text-align: center;
+	vertical-align: middle;
 
 	&__text {
 		margin: 0 14px;
@@ -33,19 +35,27 @@
 }
 
 .month {
-	&__container {
 
+}
+
+.monthHeader {
+	&__day {
+		display: inline-block;
+		width: (100 / 7) %;
+		text-align: center;
+		vertical-align: middle;
+		min-width: 25px;
 	}
 }
 
 .week {
-	&__container {
 
-	}
 }
 
 .day {
-	&__container {
-
-	}
+	display: inline-block;
+	width: (100 / 7) %;
+	text-align: center;
+	vertical-align: middle;
+	min-width: 25px;
 }

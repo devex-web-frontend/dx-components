@@ -1,11 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import moment from 'moment';
 import Input from '../../Input/Input';
 import {PURE} from 'dx-util/src/react/react';
 import {DATE_PICKER_FIELD_PROPS} from './field.props';
 import classnames from 'classnames';
-import {isDateValid} from '../../../util/func/date';
 
 @PURE
 export default class DateInput extends React.Component {
@@ -62,8 +60,11 @@ export default class DateInput extends React.Component {
 	}
 
 	onBlur = e => {
-		const inputDate = moment(e.target.value, this.props.dateFormat);
-		this.props.onChange(inputDate);
+		const {dateFormat, locale, value} = this.props;
+		if (e.target.value !== value.format(dateFormat)) {
+			const inputDate = moment(e.target.value, dateFormat, locale);
+			this.props.onChange(inputDate);
+		}
 	}
 
 	onKeyDown = e => {
