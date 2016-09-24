@@ -2,6 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import {PURE} from 'dx-util/src/react/react';
 import {CALENDAR_THEME} from './Calendar.constants';
+import Week from './Week';
+import range from '../../util/func/range';
 
 @PURE
 export default class Month extends React.Component {
@@ -14,10 +16,18 @@ export default class Month extends React.Component {
 	}
 
 	render() {
-		const {date} = this.props;
+		const {date, theme} = this.props;
+
+		const from = date.startOf('month').startOf('week');
 
 		return (
-			<div>{date.format('MMMM')}</div>
+			<div className={theme.month__container}>
+				{range(0, 4).map(week => (
+					<Week key={week}
+						  from={from.add(week, 'week').clone()}
+						  theme={theme}/>
+				))}
+			</div>
 		);
 	}
 }

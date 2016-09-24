@@ -3,7 +3,7 @@ import DatePicker from './DatePicker';
 import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
 import moment from 'moment';
-import {DATE_PICKER_FIELD_PROPS} from './Fields/Field.props';
+import {DATE_PICKER_FIELD_PROPS} from './fields/field.props';
 import {PURE} from 'dx-util/src/react/react';
 
 import iconOpenCalendar from './resources/icon-open-calendar.svg';
@@ -18,14 +18,18 @@ const darkDemoTheme = {
 const CustomLabelField = (props) => {
 	const onContextMenu = e => {
 		e.preventDefault();
-		props.onDateChange(moment().format(props.dateFormat)); // set current date
+		props.onChange(moment()); // set current date
+	};
+
+	const onClick = e => {
+		props.openDatePicker();
 	};
 
 	return (
-		<span onClick={props.onOpenDatePicker}
+		<span onClick={onClick}
 			  onContextMenu={onContextMenu}
-			  className={props.theme.container}>
-			{props.value}
+			  className={css.customLabelField}>
+			{props.isInvalid ? props.placeholder : props.value.format(props.dateFormat)}
 		</span>
 	);
 };
@@ -43,42 +47,38 @@ class DatePickerPage extends React.Component {
 		date: new Date().toISOString()
 	}
 
-	customLabelTheme = {
-		container: css.customLabelField
-	};
-
 	render() {
 		return (
 			<Demo theme={darkDemoTheme}>
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
 								onChange={this.onDateChange}
-								openCalendarIconName={iconOpenCalendar}
+								openCalendarIcon={iconOpenCalendar}
 								nextMonthIcon={nextMonthIcon}
 								previousMonthIcon={previousMonthIcon}/>
 				</section>
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
-								openCalendarIconName={iconOpenCalendar}
+								openCalendarIcon={iconOpenCalendar}
 								onChange={this.onDateChange}
-								dateNotSelectedMsg={'Date not selected'}
+								placeholder={'Date not selected'}
 								nextMonthIcon={nextMonthIcon}
-								previousMonthIcon={previousMonthIcon}>
-						<CustomLabelField theme={this.customLabelTheme}/>
-					</DatePicker>
+								previousMonthIcon={previousMonthIcon}
+								fieldComponent={CustomLabelField}
+								locale={'ru'}/>
 				</section>
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
 								onChange={this.onDateChange}
 								min={moment().subtract(1, 'days').format()}
-								closeOnClickAway={false}
 								nextMonthIcon={nextMonthIcon}
-								previousMonthIcon={previousMonthIcon}/>
+								previousMonthIcon={previousMonthIcon}
+								locale={'ru'}/>
 				</section>
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
 								onChange={this.onDateChange}
-								openCalendarIconName={iconOpenCalendar}
+								openCalendarIcon={iconOpenCalendar}
 								nextMonthIcon={nextMonthIcon}
 								previousMonthIcon={previousMonthIcon}
 								isDisabled={true}/>
