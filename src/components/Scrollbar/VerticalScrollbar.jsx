@@ -33,7 +33,7 @@ export default class VerticalScrollbar extends Srollbar {
 	 * Hide native scroll
 	 * @private
 	 */
-	_hideNativaScrollContainer() {
+	_hideNativeScrollContainer() {
 		const {width} = this.context.size;
 		this._container.style.marginRight = `-${width}px`;
 		this._container.style.width = `calc(100% + ${width}px)`;
@@ -42,7 +42,7 @@ export default class VerticalScrollbar extends Srollbar {
 	componentDidMount() {
 		super.componentDidMount();
 		this._minBarSize = this._getMinBarSize();
-		this._hideNativaScrollContainer();
+		this._hideNativeScrollContainer();
 		this._update();
 
 		if (this.props.scrollTop) {

@@ -35,7 +35,7 @@ export default class HorizontalScrollbar extends Srollbar {
 	 * Hide native scroll
 	 * @private
 	 */
-	_hideNativaScrollContainer() {
+	_hideNativeScrollContainer() {
 		const {container} = this.props;
 		const {height} = this.context.size;
 		container.style.marginBottom = `-${height}px`;
@@ -45,7 +45,7 @@ export default class HorizontalScrollbar extends Srollbar {
 	componentDidMount() {
 		super.componentDidMount();
 		this._minBarSize = this._getMinBarSize();
-		this._hideNativaScrollContainer();
+		this._hideNativeScrollContainer();
 		this._update();
 
 		if (this.props.scrollLeft) {
