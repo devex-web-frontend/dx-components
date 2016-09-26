@@ -1,5 +1,8 @@
 import React from 'react';
+import {PURE} from 'dx-util/src/react/pure';
+import EventListener from 'react-event-listener';
 
+@PURE
 export default class Bar extends React.Component {
 
 	static propTypes = {
@@ -10,10 +13,38 @@ export default class Bar extends React.Component {
 		})
 	}
 
+	state = {
+		isDragging: false
+	}
+
 	render() {
-		const {theme} = this.props;
+		const {isDragging} = this.state;
+
+		let eventListenerProps = {
+			target: 'window',
+			capture: true,
+		};
+
+		if (isDragging) {
+			eventListenerProps = {
+				...eventListenerProps,
+				onMouseUp: this.onDocumentMouseUp,
+				onMouseMove: this.onDocumentMouseMove,
+				onSelectStart: this.onDocumentSelectStart,
+
+			};
+		}
+
+		const barProps = {
+			onMouseDown: this.onBarMouseDown,
+			onClick: this.onBarClick,
+			className: this.props.theme.container
+		};
+
 		return (
-			<div onMouseDown={this.onBarMouseDown} onClick={this.onBarClick} className={theme.container}/>
+			<EventListener {...eventListenerProps}>
+				<div {...barProps} />
+			</EventListener>
 		);
 	}
 
@@ -21,34 +52,34 @@ export default class Bar extends React.Component {
 		event.stopPropagation();
 	}
 
+	onDocumentSelectStart = (event) => {
+		event.preventDefault();
+		event.stopPropagation();
+		return false;
+	}
+
+	onDocumentMouseMove = (event) => {
+		const {onBarDrag} = this.props;
+		onBarDrag && onBarDrag(event);
+	}
+
+	onDocumentMouseUp = (event) => {
+		const {onBarDrag} = this.props;
+
+		this.setState({
+			isDragging: false
+		});
+
+		onBarDrag && onBarDrag(event);
+	}
+
 	onBarMouseDown = (event) => {
 		const {onBarDragStart} = this.props;
 
 		onBarDragStart && onBarDragStart(event);
 
-		document.addEventListener('mousemove', this._onDocumentMouseMove);
-		document.addEventListener('mouseup', this._onDocumentMouseUp);
-		document.addEventListener('selectstart', this._onDocumentSelectStart);
-	}
-
-	_onDocumentMouseUp = (event) => {
-		const {onBarDrag} = this.props;
-
-		document.removeEventListener('selectstart', this._onDocumentSelectStart);
-		document.removeEventListener('mouseup', this._onDocumentMouseUp);
-		document.removeEventListener('mousemove', this._onDocumentMouseMove);
-
-		onBarDrag && onBarDrag(event);
-	}
-
-	_onDocumentMouseMove = (event) => {
-		const {onBarDrag} = this.props;
-		onBarDrag && onBarDrag(event);
-	}
-
-	_onDocumentSelectStart(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		return false;
+		this.setState({
+			isDragging: true
+		});
 	}
 }
