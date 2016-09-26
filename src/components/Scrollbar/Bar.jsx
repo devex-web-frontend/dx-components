@@ -31,6 +31,7 @@ export default class Bar extends React.Component {
 				onMouseUp: this.onDocumentMouseUp,
 				onMouseMove: this.onDocumentMouseMove,
 				onSelectStart: this.onDocumentSelectStart,
+				onDragEnd: this.onDragEnd
 
 			};
 		}
@@ -52,7 +53,7 @@ export default class Bar extends React.Component {
 		event.stopPropagation();
 	}
 
-	onDocumentSelectStart = (event) => {
+	onDocumentSelectStart(event) {
 		event.preventDefault();
 		event.stopPropagation();
 		return false;
@@ -63,7 +64,15 @@ export default class Bar extends React.Component {
 		onBarDrag && onBarDrag(event);
 	}
 
+	onDragEnd = (event) => {
+		this._stopDrag(event);
+	}
+
 	onDocumentMouseUp = (event) => {
+		this._stopDrag(event);
+	}
+
+	_stopDrag = (event) => {
 		const {onBarDrag} = this.props;
 
 		this.setState({
