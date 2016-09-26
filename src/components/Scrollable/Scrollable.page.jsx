@@ -1,6 +1,5 @@
 import React from 'react';
 import {storiesOf} from '@kadira/storybook';
-import Lorem from 'react-lorem-component';
 import Scrollable from './Scrollable.jsx';
 import Demo from '../../demo/Demo';
 import css from './Scrollable.page.styl';
