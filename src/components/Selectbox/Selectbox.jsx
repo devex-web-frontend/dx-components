@@ -220,7 +220,6 @@ export default class Selectbox extends React.Component {
 			        isOpened={this.state.isOpened}
 			        value={this.state.selectedValue}
 			        valueText={this.state.selectedValueText || placeholder}
-			        IconComponent={Icon}
 			        onClick={this.onAnchorClick} >
 				<Popover isOpened={this.state.isOpened}
 				         theme={popoverTheme}
@@ -240,7 +239,7 @@ export default class Selectbox extends React.Component {
 		const {theme, selectedItemIconName} = this.props;
 		const {value} = child.props;
 		const {selectedValue} = this.state;
-		const isActive = (typeof value === 'number' || typeof value === 'string') && value === selectedValue;
+		const isActive = typeof value !== 'undefined' && value === selectedValue;
 
 		const iconTheme = {
 			container: theme.container__item__activeIcon

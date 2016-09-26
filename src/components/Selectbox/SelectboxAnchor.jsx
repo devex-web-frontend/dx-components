@@ -2,6 +2,7 @@ import React from 'react';
 import {themr} from 'react-css-themr';
 import {PURE} from 'dx-util/src/react/pure';
 import Button from '../Button/Button.jsx';
+import Icon from '../Icon/Icon.jsx';
 import classnames from 'classnames';
 
 export const SELECTBOX_ANCHOR = Symbol('SelectboxAnchor');
@@ -19,10 +20,8 @@ export const ANCHOR_THEME = {
 @themr(SELECTBOX_ANCHOR)
 export default class SelectboxAnchor extends React.Component {
 	static propTypes = {
-		...Button.PropTypes,
+		...Button.propTypes,
 		theme: React.PropTypes.shape(ANCHOR_THEME),
-		isDisabled: React.PropTypes.bool,
-		isPrimary: React.PropTypes.bool,
 		isOpened: React.PropTypes.bool,
 		caretIconName: React.PropTypes.string,
 		children: React.PropTypes.node,
@@ -32,6 +31,10 @@ export default class SelectboxAnchor extends React.Component {
 			React.PropTypes.number
 		]),
 		valueText: React.PropTypes.string
+	}
+
+	static defaultProps = {
+		IconComponent: Icon
 	}
 
 	render() {
