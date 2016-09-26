@@ -26,7 +26,10 @@ AutocompleteMenuItem.propTypes = {
 };
 AutocompleteMenuItem.defaultProps = {
 	...MenuItem.defaultProps,
-	search: ''
+	search: '',
+	theme: {
+		Highlight: {}
+	}
 };
 
 export default AutocompleteMenuItem;
