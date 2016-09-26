@@ -139,17 +139,6 @@ export default class Combobox extends React.Component {
 
 		const {value, selectboxValue} = this.state;
 
-		const selectboxProps = {
-			value: selectboxValue,
-			placeholder: placeholder || '',
-			caretIconName,
-			selectedItemIconName,
-			children,
-			isDisabled,
-			theme,
-			onChange: this.onChangeSelectbox
-		};
-
 		const className = classnames(theme.container, {
 			[theme.container_isDisabled]: isDisabled
 		});
@@ -157,7 +146,13 @@ export default class Combobox extends React.Component {
 		return (
 			<div className={className}>
 				<div className={theme.selectbox}>
-					<Selectbox {...selectboxProps} />
+					<Selectbox value={selectboxValue}
+					           placeholder={placeholder || ''}
+					           caretIconName={caretIconName}
+					           selectedItemIconName={selectedItemIconName}
+					           children={children} isDisabled={isDisabled}
+					           theme={theme}
+					           onChange={this.onChangeSelectbox} />
 				</div>
 				<Input type="text"
 				       value={value || ''}
