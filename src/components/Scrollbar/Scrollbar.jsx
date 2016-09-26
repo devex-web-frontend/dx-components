@@ -71,17 +71,19 @@ export default class Scrollbar extends React.Component {
 			[theme.containerIsVisible]: isVisible
 		});
 
-		const barTheme = {
-			container: theme.bar
+		const barProps = {
+			theme: {
+				container: theme.bar
+			},
+			onBarDragStart: this.onBarDragStart,
+			onBarDrag: this.onBarDrag
 		};
 
 		return (
 			<div className={className} ref={el => this._scrollbar = el}>
 				<div className={theme.track} onWheel={this.onTrackMouseWheel} onClick={this.onTrackClick}
 				     ref={el => this._track = el}>
-					<Bar theme={barTheme} ref={el => this._bar = ReactDOM.findDOMNode(el)}
-					     onBarDragStart={this.onBarDragStart}
-					     onBarDrag={this.onBarDrag}/>
+					<Bar {...barProps} ref={el => this._bar = ReactDOM.findDOMNode(el)} />
 				</div>
 			</div>
 		);
