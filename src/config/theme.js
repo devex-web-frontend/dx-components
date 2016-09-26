@@ -22,6 +22,9 @@ import popover from '../components/Popover/Popover.styl';
 import {SELECTBOX} from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.styl';
 
+import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
+import toggleButtons from '../components/ToggleButtons/ToggleButtons.styl';
+
 import {RESIZE_DETECTOR} from '../components/ResizeDetector/ResizeDetector';
 import resizeDetector from '../components/ResizeDetector/ResizeDetector.styl';
 
@@ -61,6 +64,7 @@ export default {
 	[MENU]: menu,
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
+	[TOGGLE_BUTTONS]: toggleButtons,
 	[RESIZE_DETECTOR]: resizeDetector,
 	[SELECTBOX]: selectbox,
 	[INPUT]: input,

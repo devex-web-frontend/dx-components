@@ -13,6 +13,9 @@ import popover from '../components/Popover/Popover.demo.styl';
 import {SELECTBOX} from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 
+import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
+import toggleButtons from '../components/ToggleButtons/ToggleButtons.demo.styl';
+
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.demo.styl';
 
@@ -37,6 +40,8 @@ export default {
 	[LIST]: list,
 	[MENU]: menu,
 	[POPOVER]: popover,
+	[SELECTBOX]: selectbox,
+	[TOGGLE_BUTTONS]: toggleButtons,
 	[INPUT]: input,
 	[SELECTBOX]: selectbox,
 	[NUMERIC_STEPPER]: numericStepper,
