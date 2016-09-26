@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import Bar from './Bar.jsx';
-import Holdable from '../Holdable/Holdable.jsx';
-import Button from '../Button/Button.jsx';
 
 import {
 	CONTEXT_TYPES,
@@ -16,8 +14,6 @@ export const SCROLLBAR_TYPE = {
 	HORIZONTAL: 'horizontal',
 	VERTICAL: 'vertical'
 };
-
-export const BUTTON_SCROLL_STEP = 20;
 
 export default class Scrollbar extends React.Component {
 
@@ -37,28 +33,12 @@ export default class Scrollbar extends React.Component {
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string,
 			containerIsVisible: React.PropTypes.string,
-			button: React.PropTypes.string,
 			track: React.PropTypes.string,
-			bar: React.PropTypes.string,
-			buttonToStart: React.PropTypes.string,
-			buttonBackward: React.PropTypes.string,
-			buttonForward: React.PropTypes.string,
-			buttonToEnd: React.PropTypes.string,
-		}),
-		ButtonToStart: React.PropTypes.func,
-		ButtonStepBackward: React.PropTypes.func,
-		ButtonStepForward: React.PropTypes.func,
-		ButtonToEnd: React.PropTypes.func,
+			bar: React.PropTypes.string
+		})
 	};
 
 	static contextTypes = CONTEXT_TYPES;
-
-	static defaultProps = {
-		ButtonToStart: Button,
-		ButtonStepBackward: Button,
-		ButtonStepForward: Button,
-		ButtonToEnd: Button
-	}
 
 	state = {
 		isVisible: false
@@ -73,7 +53,6 @@ export default class Scrollbar extends React.Component {
 	componentDidMount() {
 		const emitter = this.context[SCROLLABLE_CONTEXT_EMITTER];
 		emitter.on(EVENT_SCROLABLE.RESIZE, this.onResize);
-		this._updateState();
 		this._container.addEventListener('scroll', this._onContainerScroll);
 	}
 
@@ -84,23 +63,9 @@ export default class Scrollbar extends React.Component {
 	}
 
 	render() {
-		const {
-			theme,
-			ButtonToStart,
-			ButtonStepBackward,
-			ButtonStepForward,
-			ButtonToEnd
-		} = this.props;
+		const {theme} = this.props;
 
-		const {
-			isVisible,
-			isScrollbarAtStart,
-			isScrollbarAtEnd
-		} = this.state;
-
-		const buttonTheme = (mixinContainer) => ({
-			container: classnames(theme.button, mixinContainer)
-		});
+		const {isVisible} = this.state;
 
 		const className = classnames(theme.container, {
 			[theme.containerIsVisible]: isVisible
@@ -112,24 +77,12 @@ export default class Scrollbar extends React.Component {
 
 		return (
 			<div className={className} ref={el => this._scrollbar = el}>
-				<ButtonToStart theme={buttonTheme(theme.buttonToStart)}
-				               onClick={this.onButtonToStartClick}
-				               isDisabled={isScrollbarAtStart}/>
-				<Holdable onHold={this.onButtonBackwardClick} isDisabled={isScrollbarAtStart}>
-					<ButtonStepBackward theme={buttonTheme(theme.buttonBackward)} onClick={this.onButtonBackwardClick}/>
-				</Holdable>
 				<div className={theme.track} onWheel={this.onTrackMouseWheel} onClick={this.onTrackClick}
 				     ref={el => this._track = el}>
 					<Bar theme={barTheme} ref={el => this._bar = ReactDOM.findDOMNode(el)}
 					     onBarDragStart={this.onBarDragStart}
 					     onBarDrag={this.onBarDrag}/>
 				</div>
-				<Holdable onHold={this.onButtonForwardClick} isDisabled={isScrollbarAtEnd}>
-					<ButtonStepForward theme={buttonTheme(theme.buttonForward)} onClick={this.onButtonForwardClick}/>
-				</Holdable>
-				<ButtonToEnd theme={buttonTheme(theme.buttonToEnd)}
-				             onClick={this.onButtonToEndClick}
-				             isDisabled={isScrollbarAtEnd}/>
 			</div>
 		);
 	}
@@ -140,19 +93,8 @@ export default class Scrollbar extends React.Component {
 	 */
 	_onContainerScroll = (event) => {
 		this._updateBar();
-		this._updateState();
 		const emitter = this.context[SCROLLABLE_CONTEXT_EMITTER];
 		emitter.emit(EVENT_SCROLABLE.SCROLL, event);
-	}
-
-	_updateState = () => {
-		const isScrollbarAtStart = this._checkScrollbarAtStart();
-		const isScrollbarAtEnd = this._checkScrollbarAtEnd();
-
-		this.setState({
-			isScrollbarAtStart,
-			isScrollbarAtEnd
-		});
 	}
 
 	onResize = () => {
@@ -169,39 +111,6 @@ export default class Scrollbar extends React.Component {
 	 * @protected
 	 */
 	onTrackMouseWheel(event) {
-	}
-
-	/**
-	 * @abstract
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonForwardClick(event) {
-	}
-
-	/**
-	 * @abstract
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonBackwardClick(event) {
-	}
-
-	/**
-	 * @abstract
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonToStartClick(event) {
-
-	}
-
-	/**
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonToEndClick(event) {
-
 	}
 
 	/**

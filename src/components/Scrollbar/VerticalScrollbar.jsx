@@ -1,5 +1,5 @@
 import React from 'react';
-import Srollbar, {SCROLLBAR_TYPE, BUTTON_SCROLL_STEP} from './Scrollbar.jsx';
+import Srollbar, {SCROLLBAR_TYPE} from './Scrollbar.jsx';
 import {
 	EVENT_SCROLABLE,
 	SCROLLABLE_CONTEXT_EMITTER,
@@ -62,10 +62,6 @@ export default class VerticalScrollbar extends Srollbar {
 		this._updateBar();
 	}
 
-	_updateState() {
-
-	}
-
 	_toggle() {
 		const bounds = this._container.getBoundingClientRect();
 		const hegiht = Math.round(bounds.height);
@@ -113,16 +109,6 @@ export default class VerticalScrollbar extends Srollbar {
 		this._container.scrollTop = position;
 	}
 
-	_checkScrollbarAtStart() {
-		const {scrollTop} = this._container;
-		return scrollTop <= 0;
-	}
-
-	_checkScrollbarAtEnd() {
-		const {scrollTop, scrollHeight, offsetHeight} = this._container;
-		return (offsetHeight + scrollTop) >= scrollHeight;
-	}
-
 	////////////////////////
 	// DOM EVENT HANDLERS //
 	////////////////////////
@@ -133,38 +119,6 @@ export default class VerticalScrollbar extends Srollbar {
 	 */
 	onTrackMouseWheel = (event) => {
 		this._container.scrollTop += (event.deltaY * 10 || event['detail'] * 10 || event['wheelDelta'] * -1);
-	}
-
-	/**
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonForwardClick = (event) => {
-		this._container.scrollTop += BUTTON_SCROLL_STEP;
-	}
-
-	/**
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonBackwardClick = (event) => {
-		this._container.scrollTop -= BUTTON_SCROLL_STEP;
-	}
-
-	/**
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonToStartClick = (event) => {
-		this._container.scrollTop = 0;
-	}
-
-	/**
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonToEndClick = (event) => {
-		this._container.scrollTop = this._container.scrollHeight;
 	}
 
 	/**

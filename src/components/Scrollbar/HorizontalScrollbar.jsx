@@ -1,5 +1,5 @@
 import React from 'react';
-import Srollbar, {SCROLLBAR_TYPE, BUTTON_SCROLL_STEP} from './Scrollbar.jsx';
+import Srollbar, {SCROLLBAR_TYPE} from './Scrollbar.jsx';
 
 import {
 	EVENT_SCROLABLE,
@@ -113,16 +113,6 @@ export default class HorizontalScrollbar extends Srollbar {
 		this._container.scrollLeft = position;
 	}
 
-	_checkScrollbarAtStart() {
-		const {scrollLeft} = this._container;
-		return scrollLeft <= 0;
-	}
-
-	_checkScrollbarAtEnd() {
-		const {scrollLeft, scrollWidth, offsetWidth} = this._container;
-		return (offsetWidth + scrollLeft) >= scrollWidth;
-	}
-
 	////////////////////////
 	// DOM EVENT HANDLERS //
 	////////////////////////
@@ -133,38 +123,6 @@ export default class HorizontalScrollbar extends Srollbar {
 	 */
 	onTrackMouseWheel = (event) => {
 		this._container.scrollLeft += (event.deltaX * 10 || event['detail'] * 10 || event['wheelDelta'] * -1);
-	}
-
-	/**
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonForwardClick = (event) => {
-		this._container.scrollLeft += BUTTON_SCROLL_STEP;
-	}
-
-	/**
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonBackwardClick = (event) => {
-		this._container.scrollLeft -= BUTTON_SCROLL_STEP;
-	}
-
-	/**
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonToStartClick = (event) => {
-		this._container.scrollLeft = 0;
-	}
-
-	/**
-	 * @param {Event} event
-	 * @protected
-	 */
-	onButtonToEndClick = (event) => {
-		this._container.scrollLeft = this._container.scrollWidth;
 	}
 
 	/**
