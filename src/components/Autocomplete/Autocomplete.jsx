@@ -6,6 +6,7 @@ import Menu, {MENU_THEME_SHAPE_OBJECT} from '../Menu/Menu';
 import MenuItem, {MENU_ITEM_THEME_SHAPE} from '../Menu/MenuItem';
 import Popover, {POPOVER_THEME_SHAPE_OBJECT} from '../Popover/Popover';
 import Pure from '../Pure/Pure';
+import Highlight, {HIGHLIGHT_THEME_SHAPE} from '../Highlight/Highlight';
 
 export const AUTOCOMPLETE = Symbol('Autocomplete');
 
@@ -20,12 +21,14 @@ export default class Autocomplete extends React.Component {
 			Input: React.PropTypes.shape(INPUT_THEME_SHAPE),
 			Popover: React.PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
 			Menu: React.PropTypes.shape(MENU_THEME_SHAPE_OBJECT),
-			MenuItem: React.PropTypes.shape(MENU_ITEM_THEME_SHAPE)
+			MenuItem: React.PropTypes.shape(MENU_ITEM_THEME_SHAPE),
+			Highlight: React.PropTypes.shape(HIGHLIGHT_THEME_SHAPE)
 		}),
 		Input: React.PropTypes.func,
 		Menu: React.PropTypes.func,
 		MenuItem: React.PropTypes.func,
 		Popover: React.PropTypes.func,
+		Highlight: React.PropTypes.func,
 		defaultValue(props) {
 			if (typeof props.defaultValue !== 'undefined') {
 				throw new Error('Autocomplete is controlled component and does not support defaultValue');
@@ -40,6 +43,7 @@ export default class Autocomplete extends React.Component {
 		Input,
 		Menu,
 		MenuItem,
+		Highlight,
 		Popover,
 		data: [],
 		filter: value => (item, index) => item.indexOf(value) !== -1
@@ -59,6 +63,7 @@ export default class Autocomplete extends React.Component {
 			MenuItem,
 			Menu,
 			Popover,
+			Highlight,
 			data,
 			value,
 			filter,
@@ -90,7 +95,9 @@ export default class Autocomplete extends React.Component {
 											<MenuItem key={i}
 											          theme={theme.MenuItem}
 											          value={item}>
-												{item}
+												<Highlight search={value} theme={theme.Highlight}>
+													{item}
+												</Highlight>
 											</MenuItem>
 										))}
 									</Menu>

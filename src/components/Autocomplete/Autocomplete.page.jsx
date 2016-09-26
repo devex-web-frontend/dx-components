@@ -11,6 +11,9 @@ const theme = {
 	},
 	Popover: {
 		container: css.autocomplete__popover
+	},
+	Highlight: {
+		mark: css.highlight__mark
 	}
 };
 
