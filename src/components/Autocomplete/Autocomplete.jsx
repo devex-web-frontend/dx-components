@@ -12,6 +12,7 @@ export const AUTOCOMPLETE = Symbol('Autocomplete');
 const TAB_KEY = 9;
 
 @PURE
+@themr(AUTOCOMPLETE)
 export default class Autocomplete extends React.Component {
 	static propTypes = {
 		...Input.propTypes,
@@ -147,5 +148,3 @@ export default class Autocomplete extends React.Component {
 		this.props.onChange && this.props.onChange(value);
 	}
 }
-
-export default themr(AUTOCOMPLETE)(Autocomplete);
