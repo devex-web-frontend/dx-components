@@ -128,27 +128,9 @@ export default class Scrollable extends React.Component {
 			[theme.withVerticalScrollbar]: this._withVerticalScrollbar
 		}, children.props.className || '');
 
-		const contaninerClassName = classnames(theme.scrollbar, {
+		const containerClassName = classnames(theme.scrollbar, {
 			withBothScrollabars: this._withHorizontalScrollbar && this._withVerticalScrollbar
 		});
-
-		const horizontalScrollbarProps = {
-			container,
-			scrollLeft: this.props.scrollLeft,
-			theme: {
-				bar: theme.horizontal_scrollbar__bar,
-				container: contaninerClassName
-			}
-		};
-
-		const verticalScrollbarProps = {
-			container,
-			scrollTop: this.props.scrollTop,
-			theme: {
-				bar: theme.vertical_scrollbar__bar,
-				container: contaninerClassName
-			}
-		};
 
 		const resizeDetectorProps = {
 			theme: {
@@ -171,10 +153,20 @@ export default class Scrollable extends React.Component {
 					{container && [
 						<HorizontalScrollbar ref={el => this._horizontalScrollbar = el}
 						                     key="horizontalScrollbar"
-						                     {...horizontalScrollbarProps} />,
+						                     container={container}
+						                     scrollLeft={this.props.scrollLeft}
+						                     theme={{
+							                     bar: theme.horizontal_scrollbar__bar,
+							                     container: containerClassName
+						                     }}/>,
 						<VerticalScrollbar ref={el => this._verticalScrollbar = el}
 						                   key="verticalScrollbar"
-						                   {...verticalScrollbarProps} />
+						                   container={container}
+						                   scrollTop={this.props.scrollTop}
+						                   theme={{
+							                   bar: theme.vertical_scrollbar__bar,
+							                   container: containerClassName
+						                   }}/>
 					]}
 				</div>
 				<ResizeDetector {...resizeDetectorProps} />
