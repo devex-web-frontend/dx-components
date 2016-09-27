@@ -1,5 +1,8 @@
 .container {
 	display: inline-block;
+	position: relative;
+	float: left;
+	line-height: .9em;
 
 	input[type="checkbox"] {
 		position: absolute;
@@ -14,23 +17,15 @@
 	}
 	&__view {
 		display: inline-block;
-		float: left;
 		width: 12px;
 		height: @width;
 		outline: none;
 		border: 1px solid;
 		border-radius: 1px;
 		margin-right: 10px;
-		line-height: @height;
 		border-color: #3b3b3b;
 		box-shadow: 0 1px 0 rgba(#000000, .7) inset;
 		background-color: #202020;
-
-		&:hover {
-			background-color: lighten(#202020, 5);
-			border-color: gold;
-			color: gold;
-		}
 	}
 	&__checkboxIcon {
 		display: block;
