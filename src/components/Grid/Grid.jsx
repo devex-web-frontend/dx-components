@@ -4,7 +4,7 @@ import prefix from 'dx-util/src/dom/prefix';
 import {PURE} from 'dx-util/src/react/pure';
 import {themr} from 'react-css-themr';
 import Pure from '../Pure/Pure';
-import {TABLE_IS_IN_HEAD_KEY, Table, TableBody, TableHead, TableCell, TableRow} from '../Table/Table';
+import {TABLE_IS_IN_HEAD_KEY, Table, TableBody, TABLE_BODY_THEME, TableHead, TableCell, TableRow} from '../Table/Table';
 import Emitter from 'dx-util/src/emitter/Emitter';
 import Scrollable from '../Scrollable/Scrollable';
 import classnames from 'classnames';
@@ -229,6 +229,11 @@ export class GridHead extends React.Component {
 export class GridBody extends React.Component {
 	static propTypes = {
 		...TableBody.propTypes,
+		theme: React.PropTypes.shape({
+			...TABLE_BODY_THEME,
+			horizontal_scrollbar__bar: React.PropTypes.string,
+			vertical_scrollbar__bar: React.PropTypes.string,
+		}),
 		Table: React.PropTypes.func,
 		TableBody: React.PropTypes.func
 	}
@@ -247,8 +252,13 @@ export class GridBody extends React.Component {
 	render() {
 		const {Table, TableBody, theme, ...props} = this.props;
 
+		const scrollableTheme = {
+			horizontal_scrollbar__bar: theme.horizontal_scrollbar__bar,
+			vertical_scrollbar__bar: theme.vertical_scrollbar__bar
+		};
+
 		return (
-			<Scrollable onScroll={this.onScroll} onUpdate={this.onUpdate}>
+			<Scrollable onScroll={this.onScroll} onUpdate={this.onUpdate} theme={scrollableTheme}>
 				<div className={theme.gridBody}>
 					<Table theme={theme}>
 						<TableBody theme={theme} {...props}>
