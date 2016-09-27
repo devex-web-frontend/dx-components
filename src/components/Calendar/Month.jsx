@@ -5,7 +5,6 @@ import {CALENDAR_THEME} from './Calendar.constants';
 import Week from './Week';
 import range from '../../util/func/range';
 import noop from '../../util/func/noop';
-import {fullWeeksInMonth} from '../../util/func/date';
 
 @PURE
 export default class Month extends React.Component {

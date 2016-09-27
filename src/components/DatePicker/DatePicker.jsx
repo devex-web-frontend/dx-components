@@ -47,6 +47,8 @@ class DatePicker extends React.Component {
 	static defaultProps = {
 		value: moment().format(),
 		onChange: noop,
+		min: null,
+		max: null,
 		fieldDateFormat: 'DD/MM/YYYY',
 		headerDateFormat: 'MMM YYYY',
 		dayFormat: 'D',
@@ -101,8 +103,8 @@ class DatePicker extends React.Component {
 				{withField && (
 					<Field value={moment(value).locale(locale)}
 						   dateFormat={fieldDateFormat}
-						   min={moment(min)}
-						   max={moment(max)}
+						   min={moment(min).locale(locale)}
+						   max={moment(max).locale(locale)}
 						   onChange={this.onFieldDateChange}
 						   openDatePicker={this.openDatePicker}
 						   closeDatePicker={this.closeDatePicker}
