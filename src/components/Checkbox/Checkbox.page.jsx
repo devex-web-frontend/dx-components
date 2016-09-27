@@ -7,7 +7,6 @@ import Checkbox from './Checkbox.jsx';
 import {storiesOf} from '@kadira/storybook';
 
 import css from './Checkbox.page.styl';
-import checkboxCSS from './Checkbox.demo.styl';
 
 const darkDemoTheme = {
 	container: css.container,
