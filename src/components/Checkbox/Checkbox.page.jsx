@@ -12,7 +12,8 @@ import css from './Checkbox.page.styl';
 const darkDemoTheme = {
 	container: css.container,
 	container__view: css.container__view,
-	container__checkboxIcon: css.container__checkboxIcon
+	container__checkboxIcon: css.container__checkboxIcon,
+	container__checkboxIcon_disabled: css.container__checkboxIcon_disabled
 };
 
 export const CHECKBOX = 'Checkbox';

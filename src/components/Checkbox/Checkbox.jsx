@@ -14,7 +14,6 @@ export const CHECKBOX = Symbol('Checkbox');
 export default class Checkbox extends Component {
 	static propTypes = {
 		id: PropTypes.string,
-		children: PropTypes.node,
 		checkboxIconName: PropTypes.string,
 		isDisabled: PropTypes.bool,
 		isChecked: PropTypes.bool,
@@ -63,7 +62,6 @@ export default class Checkbox extends Component {
 	render() {
 		const {
 				id,
-				children,
 				checkboxIconName,
 				isDisabled,
 				isChecked,
