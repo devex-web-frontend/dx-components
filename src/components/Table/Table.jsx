@@ -55,14 +55,16 @@ export class TableHead extends React.Component {
 	}
 }
 
+export const TABLE_BODY_THEME = {
+	body: React.PropTypes.string
+};
+
 @PURE
 @themr(TABLE)
 export class TableBody extends React.Component {
 	static propTypes = {
 		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			body: React.PropTypes.string
-		})
+		theme: React.PropTypes.shape(TABLE_BODY_THEME)
 	}
 
 	render() {
