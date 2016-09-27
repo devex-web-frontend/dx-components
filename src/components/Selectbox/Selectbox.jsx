@@ -65,9 +65,12 @@ export default class Selectbox extends React.Component {
 			container__item__activeIcon: React.PropTypes.string,
 
 			// anchor theme
-			anchor: React.PropTypes.string,
-			anchor__content_hasCaret: React.PropTypes.string,
-			anchor__caret: React.PropTypes.string
+			container__anchor: React.PropTypes.string,
+			container__anchor__content: React.PropTypes.string,
+			container__anchor__text: React.PropTypes.string,
+			container__anchor__content_hasCaret: React.PropTypes.string,
+			container__anchor__caret: React.PropTypes.string,
+			container__anchor__caret_isReversed: React.PropTypes.string
 
 		}),
 		caretIconName: React.PropTypes.string,
@@ -181,11 +184,11 @@ export default class Selectbox extends React.Component {
 	render() {
 		const {
 			AnchorComponent: Anchor,
-			IconComponent: Icon,
 			PopoverComponent: Popover,
 			MenuComponent: Menu,
 			placeholder,
 			children,
+			caretIconName,
 			theme,
 			selectedItemIconName,
 			isDisabled
@@ -203,20 +206,32 @@ export default class Selectbox extends React.Component {
 			)
 		};
 
-		const popoverTheme = {
-			container: classnames(theme.container__popover),
+		const anchorTheme = {
+			container: theme.container__anchor,
+			text: theme.container__anchor__text,
+			content: classnames(
+				theme.container__anchor__content,
+				{
+					[theme.container__anchor__content_hasCaret]: !!caretIconName
+				}
+			)
 		};
 
-		const anchorTheme = {
-			container: theme.anchor,
-			content_hasCaret: theme.anchor__content_hasCaret,
-			caret: theme.anchor__caret
+		if (caretIconName) {
+			anchorTheme.caret = classnames(theme.container__anchor__caret, {
+				[theme.container__anchor__caret_isReversed]: this.state.isOpened
+			});
+		}
+
+		const popoverTheme = {
+			container: classnames(theme.container__popover),
 		};
 
 		return (
 			<Anchor ref={el => this._anchor = el}
 			        isDisabled={isDisabled}
 			        theme={anchorTheme}
+			        caretIconName={caretIconName}
 			        isOpened={this.state.isOpened}
 			        value={this.state.selectedValue}
 			        valueText={this.state.selectedValueText || placeholder}

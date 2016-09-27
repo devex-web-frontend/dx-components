@@ -1,23 +1,16 @@
 import React from 'react';
-import {themr} from 'react-css-themr';
 import {PURE} from 'dx-util/src/react/pure';
 import Button from '../Button/Button.jsx';
 import Icon from '../Icon/Icon.jsx';
-import classnames from 'classnames';
-
-export const SELECTBOX_ANCHOR = Symbol('SelectboxAnchor');
 
 export const ANCHOR_THEME = {
 	container: React.PropTypes.string,
 	text: React.PropTypes.string,
 	content: React.PropTypes.string,
-	content_hasCaret: React.PropTypes.string,
-	caret: React.PropTypes.string,
-	caret_isReversed: React.PropTypes.string
+	caret: React.PropTypes.string
 };
 
 @PURE
-@themr(SELECTBOX_ANCHOR)
 export default class SelectboxAnchor extends React.Component {
 	static propTypes = {
 		...Button.propTypes,
@@ -41,7 +34,6 @@ export default class SelectboxAnchor extends React.Component {
 		const {
 			theme,
 			children,
-			isOpened,
 			valueText,
 			isDisabled,
 			isPrimary,
@@ -50,33 +42,18 @@ export default class SelectboxAnchor extends React.Component {
 			onClick,
 		} = this.props;
 
-		const contentClassName = classnames(theme.content, {
-			[theme.content_hasCaret]: !!caretIconName
-		});
+		const buttonTheme = {
+			container: theme.container
+		};
 
-		let anchorCaretTheme;
-		if (caretIconName) {
-			anchorCaretTheme = {
-				container: classnames(theme.caret,
-					{
-						[theme.caret_isReversed]: isOpened
-					}
-				)
-			};
-		}
-
-		const buttonProps = {
-			onClick,
-			isDisabled,
-			isPrimary,
-			theme: {
-				container: theme.container
-			}
+		const anchorCaretTheme = {
+			container: theme.caret
 		};
 
 		return (
-			<Button {...buttonProps}>
-				<div className={contentClassName}>
+			<Button onClick={onClick} isDisabled={isDisabled} isPrimary={isPrimary}
+			        theme={buttonTheme}>
+				<div className={theme.content}>
 					<div className={theme.text}>
 						{valueText}
 					</div>
