@@ -6,21 +6,19 @@
 		position: absolute;
 		clip: rect(0,0,0,0);
 	}
-	input[type="checkbox"] + label {
-		display: inline-block;
-		.container__checkboxIcon {
-			visibility: hidden;
-		}
 
-	}
-	input[type="checkbox"]:checked + label {
-		display: inline-block;
-		.container__checkboxIcon {
-			visibility: visible;
-		}
-	}
 	&__checkboxIcon {
 		display: block;
 		margin: 0 auto;
+	}
+
+	&__checkboxIconChecked {
+		visibility: visible;
+	}
+	&__view {
+		display: inline-block;
+		float: left;
+		margin-right: 10px;
+		line-height: @height;
 	}
 }
