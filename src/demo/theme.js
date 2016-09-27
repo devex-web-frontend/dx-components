@@ -13,6 +13,9 @@ import popover from '../components/Popover/Popover.demo.styl';
 import {SELECTBOX} from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 
+import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
+import toggleButtons from '../components/ToggleButtons/ToggleButtons.demo.styl';
+
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.demo.styl';
 
@@ -22,8 +25,11 @@ import numericStepper from '../components/NumericStepper/NumericStepper.demo.sty
 import {TABLE} from '../components/Table/Table';
 import table from '../components/Table/Table.demo.styl';
 
-import {SCROLLABLE} from '../components/Scrollable/Scrollable';
-import scrollable from '../components/Scrollable/Scrollable.demo.styl';
+import {HORIZONTAL_SCROLLBAR} from '../components/Scrollbar/HorizontalScrollbar.jsx';
+import horizontalScrollbar from '../components/Scrollbar/HorizontalScrollbar.demo.styl';
+
+import {VERTICAL_SCROLLBAR} from '../components/Scrollbar/VerticalScrollbar.jsx';
+import verticalScrollbar from '../components/Scrollbar/VerricalScrollbar.demo.styl';
 
 import {POPUP} from '../components/Popup/Popup';
 import popup from '../components/Popup/Popup.demo.styl';
@@ -37,12 +43,15 @@ export default {
 	[LIST]: list,
 	[MENU]: menu,
 	[POPOVER]: popover,
+	[SELECTBOX]: selectbox,
+	[TOGGLE_BUTTONS]: toggleButtons,
 	[INPUT]: input,
 	[SELECTBOX]: selectbox,
 	[NUMERIC_STEPPER]: numericStepper,
 	[SELECTBOX]: selectbox,
 	[TABLE]: table,
-	[SCROLLABLE]: scrollable,
+	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
+	[VERTICAL_SCROLLBAR]: verticalScrollbar,
 	[POPUP]: popup,
 	[HIGHLIGHT]: highlight
 };
