@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {PURE} from 'dx-util/src/react/pure';
+import classnames from 'classnames';
 import {themr} from 'react-css-themr';
 import Demo from '../../demo/Demo.jsx';
 
@@ -26,10 +27,13 @@ class CheckboxPage extends Component {
 		isDisabled: PropTypes.bool
 	}
 	render() {
+		const labelClassName = classnames(css.container__label, {
+			[css.container__disabled]: this.props.isDisabled
+		});
 		return (
 			<Demo>
 				<div className={css.container}>
-					<label htmlFor="check1" className={css.container__label}>
+					<label htmlFor="check1" className={labelClassName}>
 						<Checkbox theme={darkDemoTheme}
 							isChecked={this.state.isChecked}
 							onChange={this.onChangeHandler}
@@ -41,7 +45,7 @@ class CheckboxPage extends Component {
 					</label>
 				</div>
 				<div className={css.container}>
-					<label htmlFor="check2" className={css.container__label}>
+					<label htmlFor="check2" className={labelClassName}>
 						<Checkbox theme={darkDemoTheme}
 								isChecked={this.state.isChecked}
 								onChange={this.onChangeHandler}
@@ -53,7 +57,7 @@ class CheckboxPage extends Component {
 					</label>
 				</div>
 				<div className={css.container}>
-					<label htmlFor="check3" className={css.container__label}>
+					<label htmlFor="check3" className={labelClassName}>
 						<Checkbox theme={darkDemoTheme}
 								onChange={this.onChangeHandler}
 								isDisabled={this.props.isDisabled}

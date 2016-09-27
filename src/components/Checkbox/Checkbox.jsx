@@ -70,9 +70,6 @@ export default class Checkbox extends Component {
 		} = this.props;
 
 		const checkboxId = id || randomId('control-checkbox');
-		const labelClassName = classnames(theme.container__label, {
-			[theme.container__disabled]: isDisabled
-		});
 
 		const iconClassName = classnames(theme.container__checkboxIcon, {
 			[theme.container__checkboxIconChecked]: this.state.isChecked,
