@@ -74,6 +74,9 @@ export default class Checkbox extends Component {
 			[theme.container__checkboxIcon_checked]: this.state.isChecked,
 			[theme.container__checkboxIcon_disabled]: isDisabled
 		});
+		const viewClassName = classnames(theme.container__view, {
+			[theme.container__view_disabled]: isDisabled
+		});
 
 		return (
 			<span className={theme.container}>
@@ -84,7 +87,7 @@ export default class Checkbox extends Component {
 						disabled={isDisabled}
 						onChange={this.onChangeHandler}
 						className={theme.container__input}/>
-				<span className={theme.container__view}>
+				<span className={viewClassName}>
 					<span className={iconClassName}>
 						<Icon name={checkboxIconName}/>
 					</span>
