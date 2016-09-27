@@ -2,8 +2,9 @@
 	display: inline-block;
 	position: relative;
 	float: left;
+	line-height: .9em;
 
-	input[type="checkbox"] {
+	&__input {
 		position: absolute;
 		clip: rect(0,0,0,0);
 	}
@@ -11,14 +12,13 @@
 	&__checkboxIcon {
 		display: block;
 		margin: 0 auto;
+		visibility: hidden;
 	}
 
-	&__checkboxIconChecked {
+	&__checkboxIcon_checked {
 		visibility: visible;
 	}
 	&__view {
-		display: inline-block;
-		float: left;
 		margin-right: 10px;
 	}
 }

@@ -12,7 +12,7 @@ export const CHECKBOX = Symbol('Checkbox');
 @PURE
 @themr(CHECKBOX)
 export default class Checkbox extends Component {
-	 static propTypes = {
+	static propTypes = {
 		id: PropTypes.string,
 		children: PropTypes.node,
 		checkboxIconName: PropTypes.string,
@@ -25,13 +25,16 @@ export default class Checkbox extends Component {
 			container__input: PropTypes.string,
 			container__label: PropTypes.string,
 			container__view: PropTypes.string,
+			container__view_disabled: PropTypes.string,
 			container__checkboxIcon: PropTypes.string,
-			container__checkboxIconChecked: PropTypes.string
+			container__checkboxIcon_checked: PropTypes.string,
+			container__checkboxIcon_disabled: PropTypes.string
 		})
 	};
 
 	static defaultProps = {
-		checkboxIconName: defaultCheckboxIcon
+		checkboxIconName: defaultCheckboxIcon,
+		id: randomId('control-checkbox')
 	};
 
 	constructor(...args) {
@@ -59,39 +62,39 @@ export default class Checkbox extends Component {
 
 	render() {
 		const {
-			id,
-			children,
-			checkboxIconName,
-			isDisabled,
-			isChecked,
-			onChange,
-			theme
-
+				id,
+				children,
+				checkboxIconName,
+				isDisabled,
+				isChecked,
+				onChange,
+				theme,
+				...cleanProps
 		} = this.props;
 
-		const checkboxId = id || randomId('control-checkbox');
-
 		const iconClassName = classnames(theme.container__checkboxIcon, {
-			[theme.container__checkboxIconChecked]: this.state.isChecked,
-			[theme.container__disabled]: isDisabled
+			[theme.container__checkboxIcon_checked]: this.state.isChecked,
+			[theme.container__checkboxIcon_disabled]: isDisabled
 		});
 
 		return (
 			<span className={theme.container}>
-				<input {...cleanProps(this.props)}
-					id={checkboxId} type="checkbox"
-					checked={isChecked || this.state.isChecked}
-					disabled={isDisabled}
-					onChange={this.onChangeHandler}
-					className={theme.container__input} />
+				<input {...cleanProps}
+						type="checkbox"
+						id={id}
+						checked={isChecked || this.state.isChecked}
+						disabled={isDisabled}
+						onChange={this.onChangeHandler}
+						className={theme.container__input}/>
 				<span className={theme.container__view}>
 					<span className={iconClassName}>
-						<Icon name={checkboxIconName} />
+						<Icon name={checkboxIconName}/>
 					</span>
 				</span>
 			</span>
 		);
 	}
+
 	onChangeHandler = (e) => {
 		this.setState({
 			isChecked: e.target.checked
@@ -99,20 +102,4 @@ export default class Checkbox extends Component {
 		this.props.onChange && this.props.onChange(e);
 	}
 
-}
-
-/**
- * @param {{}} props
- * @returns {{}}
- */
-function cleanProps(props) {
-	const {
-		theme,
-		children,
-		checkboxIconName,
-		isChecked,
-		isDisabled,
-		...checkboxProps
-	} = props;
-	return checkboxProps;
 }

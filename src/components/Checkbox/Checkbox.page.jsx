@@ -26,6 +26,7 @@ class CheckboxPage extends Component {
 	static propTypes = {
 		isDisabled: PropTypes.bool
 	}
+
 	render() {
 		const labelClassName = classnames(css.container__label, {
 			[css.container__disabled]: this.props.isDisabled
@@ -35,12 +36,12 @@ class CheckboxPage extends Component {
 				<div className={css.container}>
 					<label htmlFor="check1" className={labelClassName}>
 						<Checkbox theme={darkDemoTheme}
-							isChecked={this.state.isChecked}
-							onChange={this.onChangeHandler}
-							isDisabled={this.props.isDisabled}
-							value="check1"
-							name="check1"
-							id="check1"/>
+								isChecked={this.state.isChecked}
+								onChange={this.onChangeHandler}
+								isDisabled={this.props.isDisabled}
+								value="check1"
+								name="check1"
+								id="check1"/>
 						I'am controlled checkbox
 					</label>
 				</div>
@@ -70,6 +71,7 @@ class CheckboxPage extends Component {
 			</Demo>
 		);
 	}
+
 	onChangeHandler = (e) => {
 		this.setState({
 			isChecked: !this.state.isChecked

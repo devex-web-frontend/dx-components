@@ -3,7 +3,7 @@
 
 	&__label {
 		display: inline-block;
-		padding: 20px;
+		padding: 10px;
 		color: #fff;
 		&:hover {
 			color: gold;
@@ -16,23 +16,21 @@
 			}
 		}
 	}
-	&__disabled {
+
+	&__disabled,
+	&__disabled:hover {
 		color: #CCC;
 		.container__view {
+			color: #ccc;
 			background-color: darken(#202020, 5);
-			border-color: darken(#3B3B3B, 5);
+			border-color: darken(#3b3b3b, 5);
 		}
-
-		&:hover {
+		.container__checkboxIcon {
 			color: #CCC;
-			.container__view {
-				background-color: darken(#202020, 5);
-				border-color: darken(#3B3B3B, 5);
-				color: #CCC;
-			}
-			.container__checkboxIcon {
-				color: #CCC;
-			}
 		}
+	}
+
+	&__checkboxIcon_disabled {
+		color: #CCC;
 	}
 }
