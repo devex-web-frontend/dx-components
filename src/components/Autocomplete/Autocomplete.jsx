@@ -11,9 +11,10 @@ export const AUTOCOMPLETE = Symbol('Autocomplete');
 
 const TAB_KEY = 9;
 
+//do not change exports, this class is extendable
+
 @PURE
-@themr(AUTOCOMPLETE)
-export default class Autocomplete extends React.Component {
+export class Autocomplete extends React.Component {
 	static propTypes = {
 		...Input.propTypes,
 		theme: React.PropTypes.shape({
@@ -148,3 +149,6 @@ export default class Autocomplete extends React.Component {
 		this.props.onChange && this.props.onChange(value);
 	}
 }
+
+//do not change default export
+export default themr(AUTOCOMPLETE)(Autocomplete);
