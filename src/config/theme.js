@@ -25,20 +25,29 @@ import selectbox from '../components/Selectbox/Selectbox.styl';
 import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
 import toggleButtons from '../components/ToggleButtons/ToggleButtons.styl';
 
+import {RESIZE_DETECTOR} from '../components/ResizeDetector/ResizeDetector';
+import resizeDetector from '../components/ResizeDetector/ResizeDetector.styl';
+
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.styl';
 
 import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.styl';
 
-import {SCROLLABLE} from '../components/Scrollable/Scrollable.jsx';
-import scrollable from '../components/Scrollable/Scrollable.config.styl';
-
 import {TABLE} from '../components/Table/Table';
 import table from '../components/Table/Table.styl';
 
 import {GRID} from '../components/Grid/Grid';
 import grid from '../components/Grid/Grid.styl';
+
+import {SCROLLABLE} from '../components/Scrollable/Scrollable';
+import scrollable from '../components/Scrollable/Scrollable.styl';
+
+import {HORIZONTAL_SCROLLBAR} from '../components/Scrollbar/HorizontalScrollbar.jsx';
+import horizontalScrollbar from '../components/Scrollbar/HorizontalScrollbar.styl';
+
+import {VERTICAL_SCROLLBAR} from '../components/Scrollbar/VerticalScrollbar.jsx';
+import verticalScrollbar from '../components/Scrollbar/VerticalScrollbar.styl';
 
 import {LOADINGINDICATON} from '../components/LoadingIndicaton/LoadingIndicaton';
 import loadingiIndicaton from '../components/LoadingIndicaton/LoadingIndicaton.styl';
@@ -60,12 +69,16 @@ export default {
 	[POPOVER]: popover,
 	[SELECTBOX]: selectbox,
 	[TOGGLE_BUTTONS]: toggleButtons,
-	[SCROLLABLE]: scrollable,
+	[RESIZE_DETECTOR]: resizeDetector,
+	[SELECTBOX]: selectbox,
 	[INPUT]: input,
 	[NUMERIC_STEPPER]: numericStepper,
-	[SELECTBOX]: selectbox,
 	[TABLE]: table,
 	[GRID]: grid,
 	[LOADINGINDICATON]: loadingiIndicaton,
-	[POPUP]: popup
+	[POPUP]: popup,
+	[GRID]: grid,
+	[SCROLLABLE]: scrollable,
+	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
+	[VERTICAL_SCROLLBAR]: verticalScrollbar,
 };
