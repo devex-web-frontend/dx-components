@@ -1,8 +1,23 @@
 .container {
 	background: #000;
-	padding: 20px;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
+
+	&__label {
+		display: inline-block;
+		padding: 20px;
+		color: #fff;
+		&:hover {
+			color: gold;
+			.container__view {
+				background-color: lighten(#202020, 5);
+				border-color: gold;
+			}
+			 .container__checkboxIcon {
+				color: gold;
+			}
+		}
+	}
 }

@@ -54,6 +54,7 @@ export default {
 	[BUTTON]: button,
 	[BUTTON_ICON]: buttonIcon,
 	[LINK]: link,
+	[CHECKBOX]: checkbox,
 	[LIST]: list,
 	[MENU]: menu,
 	[POPOVER]: popover,
@@ -66,6 +67,5 @@ export default {
 	[TABLE]: table,
 	[GRID]: grid,
 	[LOADINGINDICATON]: loadingiIndicaton,
-	[POPUP]: popup,
-	[CHECKBOX]: checkbox
+	[POPUP]: popup
 };

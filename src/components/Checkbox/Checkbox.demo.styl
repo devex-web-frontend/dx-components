@@ -1,23 +1,20 @@
 .container {
-	display: block;
+	display: inline-block;
+
 	input[type="checkbox"] {
 		position: absolute;
 		clip: rect(0,0,0,0);
 	}
-	input[type="checkbox"] + label {
-		.container__checkboxIcon {
-			visibility: hidden;
-
-		}
-
+	&__checkboxIcon {
+		color: #fff;
+		visibility: hidden;
 	}
-	input[type="checkbox"]:checked + label{
-		.container__checkboxIcon {
-			visibility: visible;
-		}
+	&__checkboxIconChecked {
+		visibility: visible;
 	}
 	&__view {
 		display: inline-block;
+		float: left;
 		width: 12px;
 		height: @width;
 		outline: none;
@@ -28,15 +25,11 @@
 		border-color: #3b3b3b;
 		box-shadow: 0 1px 0 rgba(#000000, .7) inset;
 		background-color: #202020;
-	}
-	&__label {
-		color: #fff;
+
 		&:hover {
-			.container__view {
-				background-color: lighten(#202020, 5);
-				border-color: gold;
-				color: gold;
-			}
+			background-color: lighten(#202020, 5);
+			border-color: gold;
+			color: gold;
 		}
 	}
 	&__checkboxIcon {
