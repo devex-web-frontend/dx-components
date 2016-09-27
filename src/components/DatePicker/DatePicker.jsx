@@ -8,6 +8,7 @@ import {PURE} from 'dx-util/src/react/react';
 import stateful from '../../util/react/stateful';
 import Calendar, {CALENDAR_THEME} from '../Calendar/Calendar';
 import {isDateValid} from '../../util/func/date';
+import noop from '../../util/func/noop';
 
 export const DATE_PICKER = Symbol('DATE_PICKER');
 
@@ -16,7 +17,7 @@ export const DATE_PICKER = Symbol('DATE_PICKER');
 class DatePicker extends React.Component {
 	static propTypes = {
 		value: React.PropTypes.string, // ISO - "2016-09-20T15:30:39.298Z" or NULL
-		onChange: React.PropTypes.func.isRequired,
+		onChange: React.PropTypes.func,
 		fieldDateFormat: React.PropTypes.string, // field
 		headerDateFormat: React.PropTypes.string,
 		headerDayFormat: React.PropTypes.string,
@@ -45,6 +46,7 @@ class DatePicker extends React.Component {
 
 	static defaultProps = {
 		value: moment().format(),
+		onChange: noop,
 		fieldDateFormat: 'DD/MM/YYYY',
 		headerDateFormat: 'MMM YYYY',
 		dayFormat: 'D',
@@ -99,8 +101,8 @@ class DatePicker extends React.Component {
 				{withField && (
 					<Field value={moment(value).locale(locale)}
 						   dateFormat={fieldDateFormat}
-						   min={min}
-						   max={max}
+						   min={moment(min)}
+						   max={moment(max)}
 						   onChange={this.onFieldDateChange}
 						   openDatePicker={this.openDatePicker}
 						   closeDatePicker={this.closeDatePicker}
@@ -119,7 +121,7 @@ class DatePicker extends React.Component {
 				<Popover theme={popoverTheme}
 						 isOpened={this.state.isOpened}
 						 anchor={this._anchor}
-						 closeOnClickAway={false}
+						 closeOnClickAway={true}
 						 onRequestClose={this.onPopoverRequestClose}>
 					<Calendar theme={calendarTheme}
 							  value={isInvalid ? moment().format() : value}
@@ -169,14 +171,14 @@ class DatePicker extends React.Component {
 	}
 
 	/**
-	 * @param {moment.Moment} newDate
+	 * @param {string} dateISO
 	 */
-	onCalendarDateChange = newDate => {
+	onCalendarDateChange = dateISO => {
 		this.setState({
 			isOpened: false
 		});
 
-		this.props.onChange(newDate.format());
+		this.props.onChange(dateISO);
 	}
 
 	onPopoverRequestClose = () => this.closeDatePicker();

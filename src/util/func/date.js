@@ -1,13 +1,19 @@
+import moment from 'moment';
+
 /**
  * @param {moment.Moment} momentDate
  * @param {*} min
  * @param {*} max
  * @returns {boolean}
  */
-export const isDateValid = (momentDate, min, max) => {
+export const isDateValid = (momentDate, min = null, max = null) => {
+	// set `min` and `max` to null by default because of `moment(undefined).isValid() === true`
+	const minBound = moment.isMoment(min) ? min : moment(min);
+	const maxBound = moment.isMoment(max) ? max : moment(max);
+
 	return momentDate.isValid() &&
-		(min ? momentDate.isSameOrAfter(min, 'day') : true) &&
-		(max ? momentDate.isSameOrBefore(max, 'day') : true);
+		(minBound.isValid() ? momentDate.isSameOrAfter(minBound, 'day') : true) &&
+		(maxBound.isValid() ? momentDate.isSameOrBefore(maxBound, 'day') : true);
 };
 
 /**
@@ -15,12 +21,7 @@ export const isDateValid = (momentDate, min, max) => {
  * @returns {number}
  */
 export const fullWeeksInMonth = momentDate => {
-	const startOfMonth = momentDate.clone().startOf('month');
-	const startOfFirstWeek = startOfMonth.clone().startOf('week');
-	if (startOfMonth.isSame(startOfFirstWeek, 'day') && !startOfMonth.isLeapYear()) {
-		// February with the beginning of the month to the first day of the first week is the only case.
-		return 4;
-	} else {
-		return 5;
-	}
+	const startOfFirstWeek = momentDate.clone().startOf('month').startOf('week');
+	const endOfLastWeek = momentDate.clone().endOf('month').endOf('week');
+	return Math.ceil(endOfLastWeek.diff(startOfFirstWeek, 'days') / 7);
 };

@@ -6,6 +6,7 @@ import {PURE} from 'dx-util/src/react/react';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import {MEMOIZE} from 'dx-util/src/function/function';
 import {CALENDAR_THEME} from './Calendar.constants';
+import noop from '../../util/func/noop';
 
 export const CALENDAR = Symbol('Calendar');
 
@@ -24,6 +25,12 @@ export default class Calendar extends React.Component {
 		nextMonthIcon: React.PropTypes.string,
 		locale: React.PropTypes.string.isRequired,
 		theme: React.PropTypes.shape(CALENDAR_THEME)
+	}
+
+	static defaultProps = {
+		onChange: noop,
+		min: null,
+		max: null
 	}
 
 	state = {
@@ -47,7 +54,8 @@ export default class Calendar extends React.Component {
 			dayFormat,
 			previousMonthIcon,
 			nextMonthIcon,
-			locale
+			locale,
+			value
 		} = this.props;
 
 		const displayedDate = this.state.displayedDate.locale(locale);
@@ -69,10 +77,13 @@ export default class Calendar extends React.Component {
 								theme={changeMonthBtnTheme}
 								onClick={this.onChangeMonth(1)}/>
 				</div>
-				<Month date={displayedDate.clone()}
+				<Month selectedDate={moment(value).locale(locale)}
 					   onChange={onChange}
-					   min={min}
-					   max={max}
+					   startOfMonth={displayedDate.clone().startOf('month')}
+					   endOfMonth={displayedDate.clone().endOf('month')}
+					   currentDate={moment().locale(locale)}
+					   min={moment(min).locale(locale)}
+					   max={moment(max).locale(locale)}
 					   theme={theme}
 					   headerDayFormat={headerDayFormat}
 					   dayFormat={dayFormat}/>

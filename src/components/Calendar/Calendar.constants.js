@@ -11,4 +11,7 @@ export const CALENDAR_THEME = {
 	monthHeader__day: React.PropTypes.string,
 	week: React.PropTypes.string,
 	day: React.PropTypes.string,
+	day_disabled: React.PropTypes.string,
+	day_current: React.PropTypes.string,
+	day_selected: React.PropTypes.string
 };

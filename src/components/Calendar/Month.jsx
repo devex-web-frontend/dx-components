@@ -4,37 +4,58 @@ import {PURE} from 'dx-util/src/react/react';
 import {CALENDAR_THEME} from './Calendar.constants';
 import Week from './Week';
 import range from '../../util/func/range';
+import noop from '../../util/func/noop';
+import {fullWeeksInMonth} from '../../util/func/date';
 
 @PURE
 export default class Month extends React.Component {
 	static propTypes = {
-		date: React.PropTypes.instanceOf(moment).isRequired,
+		selectedDate: React.PropTypes.instanceOf(moment).isRequired,
 		onChange: React.PropTypes.func,
-		min: React.PropTypes.string,
-		max: React.PropTypes.string,
+		min: React.PropTypes.instanceOf(moment).isRequired,
+		max: React.PropTypes.instanceOf(moment).isRequired,
+		startOfMonth: React.PropTypes.instanceOf(moment).isRequired,
+		endOfMonth: React.PropTypes.instanceOf(moment).isRequired,
+		currentDate: React.PropTypes.instanceOf(moment).isRequired,
 		headerDayFormat: React.PropTypes.string.isRequired,
 		dayFormat: React.PropTypes.string.isRequired,
 		theme: React.PropTypes.shape(CALENDAR_THEME)
 	}
 
+	static defaultProps = {
+		onChange: noop
+	}
+
 	render() {
 		const {
-			date,
+			selectedDate,
 			theme,
 			dayFormat,
+			onChange,
+			min,
+			max,
+			startOfMonth,
+			endOfMonth,
+			currentDate
 		} = this.props;
 
-		const from = date.startOf('month').startOf('week');
+		const from = startOfMonth.clone().startOf('week');
 
-		// Hard-code 5 weeks even for February for consistency
 		return (
 			<div className={theme.month}>
 				{this.renderDaysHeader(from.clone())}
-				{range(0, 5).map(week => (
-					<Week key={week}
+				{range(0, 6).map(week => (
+					<Week selectedDate={selectedDate.clone()}
+						  onChange={onChange}
+						  key={week}
 						  from={from.clone().add(week, 'weeks')}
 						  dayFormat={dayFormat}
-						  theme={theme}/>
+						  theme={theme}
+						  min={min}
+						  max={max}
+						  startOfMonth={startOfMonth}
+						  endOfMonth={endOfMonth}
+						  currentDate={currentDate}/>
 				))}
 			</div>
 		);
