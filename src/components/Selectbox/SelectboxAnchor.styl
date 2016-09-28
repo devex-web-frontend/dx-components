@@ -1,0 +1,29 @@
+.container {
+	position: relative;
+}
+
+.text {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.content {
+	text-align: left;
+
+	&_hasCaret {
+		position: relative;
+
+		.caret {
+			display: block;
+			position: absolute;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%);
+
+			&_isReversed {
+				transform: translateY(-50%) rotate(-180deg);
+			}
+		}
+	}
+}
