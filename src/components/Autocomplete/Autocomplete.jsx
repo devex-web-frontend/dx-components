@@ -8,6 +8,10 @@ import Pure from '../Pure/Pure';
 import AutocompleteMenuItem, {AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE} from './AutocompleteMenuItem';
 
 export const AUTOCOMPLETE = Symbol('Autocomplete');
+export const AUTOCOMPLETE_CHANGE_TYPE = {
+	INPUT: 'AUTOCOMPLETE_CHANGE_TYPE:INPUT',
+	SELECT: 'AUTOCOMPLETE_CHANGE_TYPE:SELECT'
+};
 
 const TAB_KEY = 9;
 
@@ -122,15 +126,7 @@ export default class Autocomplete extends React.Component {
 		});
 	}
 
-	onMenuItemSelect = (...args) => {
-		this.handleMenuItemSelect(...args);
-	}
-
-	onInputChange = (...args) => {
-		this.handleInputChange(...args);
-	}
-
-	handleInputChange(e) {
+	onInputChange = e => {
 		const {target: {value}} = e;
 		if (value && value.length !== 0) {
 			this.setState({
@@ -141,10 +137,10 @@ export default class Autocomplete extends React.Component {
 				isOpened: false
 			});
 		}
-		this.props.onChange && this.props.onChange(value);
+		this.props.onChange && this.props.onChange(value, AUTOCOMPLETE_CHANGE_TYPE.INPUT);
 	}
 
-	handleMenuItemSelect(value, text) {
-		this.props.onChange && this.props.onChange(value);
+	onMenuItemSelect = (value, text) => {
+		this.props.onChange && this.props.onChange(value, AUTOCOMPLETE_CHANGE_TYPE.SELECT);
 	}
 }
