@@ -21,8 +21,8 @@ export default class Calendar extends React.Component {
 		onChange: React.PropTypes.func,
 		min: React.PropTypes.string, // ISO
 		max: React.PropTypes.string, // ISO
-		previousMonthIcon: React.PropTypes.string.isRequired,
-		nextMonthIcon: React.PropTypes.string.isRequired,
+		previousMonthIcon: React.PropTypes.string,
+		nextMonthIcon: React.PropTypes.string,
 		locale: React.PropTypes.string,
 		theme: React.PropTypes.shape(CALENDAR_THEME)
 	}
