@@ -3,11 +3,43 @@ import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
 import Button from '../Button/Button.jsx';
 import Selectbox from './Selectbox.jsx';
+import SelectboxAnchor from './SelectboxAnchor.jsx';
 import MenuItem from '../Menu/MenuItem.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 
 import iconListItemTick from './img/icon-list-item-tick.svg';
 import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
+
+class DemoSelectboxAnchor extends React.Component {
+
+	static propTypes = {
+		...SelectboxAnchor.propTypes
+	}
+
+	render() {
+		const newProps = {
+			...this.props,
+			isPrimary: true
+		};
+		return <SelectboxAnchor {...newProps}/>;
+	}
+}
+
+class DemoSelectbox extends React.Component {
+	static propTypes = {
+		...Selectbox.propTypes
+	}
+
+	render() {
+		const newProps = {
+			...this.props,
+			AnchorComponent: DemoSelectboxAnchor,
+			caretIconName: iconSmallDropdownArrow,
+		};
+
+		return <Selectbox {...newProps} />;
+	}
+}
 
 @PURE
 class SelectboxPage extends React.Component {
@@ -17,50 +49,52 @@ class SelectboxPage extends React.Component {
 		return (
 			<Demo>
 				<div>
-					<Selectbox placeholder="Choose your hero"
-					           isPrimary={true}
-					           selectedItemIconName={iconListItemTick}
-					           onChange={this.onHeroChange}
-					           caretIconName={iconSmallDropdownArrow}>
+					<DemoSelectbox value={0}
+					               selectedItemIconName={iconListItemTick}
+					               placeholder={'Choose value'}>
+						<MenuItem value={0}>0</MenuItem>
+						<MenuItem value={1}>1</MenuItem>
+						<MenuItem value={2}>2</MenuItem>
+					</DemoSelectbox>
+					<DemoSelectbox placeholder="Choose your hero"
+					               selectedItemIconName={iconListItemTick}
+					               onChange={this.onHeroChange}
+					               caretIconName={iconSmallDropdownArrow}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
-					</Selectbox>
-					<Selectbox placeholder="Controlled by left"
-					           isPrimary={true}
-					           value={this.state.hero}
-					           onChange={this.onHeroChange}
-					           selectedItemIconName={iconListItemTick}
-					           caretIconName={iconSmallDropdownArrow}>
+					</DemoSelectbox>
+					<DemoSelectbox placeholder="Controlled by left"
+					               selectedItemIconName={iconListItemTick}
+					               value={this.state.hero}
+					               onChange={this.onHeroChange}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
-					</Selectbox>
-					<Selectbox defaultValue="batman"
-					           isPrimary={true}
-					           value={this.state.hero}
-					           onChange={this.onHeroChange}
-					           selectedItemIconName={iconListItemTick}
-					           caretIconName={iconSmallDropdownArrow}>
+					</DemoSelectbox>
+					<DemoSelectbox defaultValue="batman"
+					               selectedItemIconName={iconListItemTick}
+					               value={this.state.hero}
+					               onChange={this.onHeroChange}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
-					</Selectbox>
+					</DemoSelectbox>
 					<Button onClick={this.onResetClick}>Reset</Button>
 				</div>
 
 				<div>
-					<Selectbox defaultValue="superman">
+					<DemoSelectbox defaultValue="batman">
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
-					</Selectbox>
-					<Selectbox defaultValue="superman"
-					           isDisabled={true}>
+					</DemoSelectbox>
+					<DemoSelectbox defaultValue="superman"
+					               isDisabled={true}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
-					</Selectbox>
+					</DemoSelectbox>
 				</div>
 			</Demo>
 		);
