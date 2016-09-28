@@ -49,7 +49,7 @@ class DatePicker extends React.Component {
 		onChange: noop,
 		min: null,
 		max: null,
-		fieldDateFormat: 'DD/MM/YYYY',
+		fieldDateFormat: 'MM/DD/YYYY',
 		headerDateFormat: 'MMM YYYY',
 		dayFormat: 'D',
 		headerDayFormat: 'ddd',

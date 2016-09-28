@@ -5,6 +5,7 @@ import Demo from '../../demo/Demo.jsx';
 import moment from 'moment';
 import {DATE_PICKER_FIELD_PROPS} from './fields/field.props';
 import {PURE} from 'dx-util/src/react/react';
+import 'moment/locale/ru';
 
 import iconOpenCalendar from './resources/icon-open-calendar.svg';
 import nextMonthIcon from './resources/icon-move-right.svg';
@@ -65,7 +66,9 @@ class DatePickerPage extends React.Component {
 								nextMonthIcon={nextMonthIcon}
 								previousMonthIcon={previousMonthIcon}
 								fieldComponent={CustomLabelField}
-								locale={'ru'}/>
+								fieldDateFormat="MMMM YYYY"
+								headerDateFormat="YYYY, MMMM"
+								dayFormat="DD"/>
 				</section>
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
@@ -73,7 +76,9 @@ class DatePickerPage extends React.Component {
 								min={moment().subtract(1, 'days').format()}
 								nextMonthIcon={nextMonthIcon}
 								previousMonthIcon={previousMonthIcon}
-								locale={'ru'}/>
+								headerDateFormat="MMMM YYYY"
+								fieldDateFormat="DD/MM/YYYY"
+								locale="ru"/>
 				</section>
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
