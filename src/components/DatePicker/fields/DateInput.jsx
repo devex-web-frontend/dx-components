@@ -64,14 +64,13 @@ export default class DateInput extends React.Component {
 		if (e.target.value !== value.format(dateFormat)) {
 			const inputDate = moment(e.target.value, dateFormat, locale);
 			this.props.onChange(inputDate);
-		} else {
-			this.props.closeDatePicker();
 		}
 	}
 
 	onKeyDown = e => {
 		if (e.keyCode === 13) {
 			e.target.blur();
+			this.props.closeDatePicker();
 		}
 	}
 }
