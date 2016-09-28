@@ -1,19 +1,9 @@
-.container {
-	display: inline-block;
-	position: relative;
-	float: left;
-	line-height: .9em;
+@require './Checkbox.styl';
 
-	&__input {
-		position: absolute;
-		clip: rect(0,0,0,0);
-	}
+.container {
+
 	&__checkboxIcon {
 		color: #fff;
-		visibility: hidden;
-	}
-	&__checkboxIcon_checked {
-		visibility: visible;
 	}
 	&__checkboxIcon_disabled {
 		color: #ccc;
@@ -25,7 +15,6 @@
 		outline: none;
 		border: 1px solid;
 		border-radius: 1px;
-		margin-right: 10px;
 		border-color: #3b3b3b;
 		box-shadow: 0 1px 0 rgba(#000000, .7) inset;
 		background-color: #202020;
