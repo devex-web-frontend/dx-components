@@ -15,22 +15,26 @@ export const CALENDAR = Symbol('Calendar');
 export default class Calendar extends React.Component {
 	static propTypes = {
 		value: React.PropTypes.string.isRequired, // ISO - "2016-09-20T15:30:39.298Z"
-		headerDateFormat: React.PropTypes.string.isRequired,
-		headerDayFormat: React.PropTypes.string.isRequired,
-		dayFormat: React.PropTypes.string.isRequired,
+		headerDateFormat: React.PropTypes.string,
+		headerDayFormat: React.PropTypes.string,
+		dayFormat: React.PropTypes.string,
 		onChange: React.PropTypes.func,
 		min: React.PropTypes.string, // ISO
 		max: React.PropTypes.string, // ISO
-		previousMonthIcon: React.PropTypes.string,
-		nextMonthIcon: React.PropTypes.string,
-		locale: React.PropTypes.string.isRequired,
+		previousMonthIcon: React.PropTypes.string.isRequired,
+		nextMonthIcon: React.PropTypes.string.isRequired,
+		locale: React.PropTypes.string,
 		theme: React.PropTypes.shape(CALENDAR_THEME)
 	}
 
 	static defaultProps = {
 		onChange: noop,
 		min: null,
-		max: null
+		max: null,
+		headerDateFormat: 'MMM YYYY',
+		dayFormat: 'D',
+		headerDayFormat: 'ddd',
+		locale: 'en'
 	}
 
 	state = {
