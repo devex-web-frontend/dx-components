@@ -11,17 +11,17 @@ export default class Day extends React.Component {
 		value: React.PropTypes.instanceOf(moment).isRequired,
 		onChange: React.PropTypes.func,
 		dayFormat: React.PropTypes.string.isRequired,
-		disabled: React.PropTypes.bool,
+		isDisabled: React.PropTypes.bool,
 		isCurrent: React.PropTypes.bool,
-		selected: React.PropTypes.bool,
+		isSelected: React.PropTypes.bool,
 		theme: React.PropTypes.shape(CALENDAR_THEME)
 	}
 
 	static defaultProps = {
 		onChange: noop,
-		disabled: false,
+		isDisabled: false,
 		isCurrent: false,
-		selected: false
+		isSelected: false
 	}
 
 	render() {
@@ -30,14 +30,14 @@ export default class Day extends React.Component {
 			value,
 			dayFormat,
 			isCurrent,
-			disabled,
-			selected
+			isDisabled,
+			isSelected
 		} = this.props;
 
 		const className = classnames(theme.day, {
-			[theme.day_disabled]: disabled,
-			[theme.day_current]: isCurrent && !disabled,
-			[theme.day_selected]: selected && !disabled
+			[theme.day_disabled]: isDisabled,
+			[theme.day_current]: isCurrent && !isDisabled,
+			[theme.day_selected]: isSelected && !isDisabled
 		});
 
 		return (
@@ -49,7 +49,7 @@ export default class Day extends React.Component {
 	}
 
 	onDayClick = e => {
-		if (!this.props.disabled) {
+		if (!this.props.isDisabled) {
 			this.props.onChange(this.props.value.format());
 		}
 	}

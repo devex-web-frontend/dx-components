@@ -55,9 +55,9 @@ export default class Week extends React.Component {
 							 onChange={onChange}
 							 dayFormat={dayFormat}
 							 className={theme.day}
-							 disabled={!isDateInBounds}
+							 isDisabled={!isDateInBounds}
 							 isCurrent={isCurrent}
-							 selected={isSelected}
+							 isSelected={isSelected}
 							 theme={theme}
 							 key={i}/>
 					);
