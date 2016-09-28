@@ -36,7 +36,7 @@ export default class Day extends React.Component {
 
 		const className = classnames(theme.day, {
 			[theme.day_disabled]: disabled,
-			[theme.day_current]: isCurrent,
+			[theme.day_current]: isCurrent && !selected,
 			[theme.day_selected]: selected && !disabled
 		});
 

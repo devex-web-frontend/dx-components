@@ -3,7 +3,6 @@
 .container {
 	font-size: 12px;
 	color: #fff;
-	padding: 0;
 	background-color: #3d3b39;
 }
 
@@ -11,9 +10,6 @@
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 	padding: 10px 0;
 	font-weight: bold;
-	user-select: none;
-	text-align: center;
-	vertical-align: middle;
 	margin: 0 5px;
 
 	&__text {
@@ -23,15 +19,17 @@
 
 .changeMonth {
 	&__container {
-		background: transparent;
 		border: none;
 		box-shadow: none;
 		vertical-align: top;
-		height: 12px;
+		fill: #6cb5d9;
+
+		&:hover {
+			fill: #dbaf67;
+		}
 	}
 
 	&__icon {
-		fill: #6cb5d9;
 		height: 12px;
 		width: 12px;
 	}
@@ -45,46 +43,32 @@
 	margin: 6px 0 12px;
 
 	&__day {
-		display: inline-block;
 		font-size: 10px;
 		line-height: 8px;
 		color: darken(#fff, 30);
 		text-transform: uppercase;
 		font-weight: bold;
-		text-align: center;
-		vertical-align: middle;
-		box-sizing: border-box;
-		margin: 0 10px 0;
-		width: 25px;
 	}
 }
 
 .week {
-	width: 100%;
 }
 
 .day {
-	box-sizing: border-box;
 	line-height: 8px;
-	display: inline-block;
-	text-align: center;
-	vertical-align: middle;
-	cursor: pointer;
 	padding: 5px;
-	margin: 0 10px 2px;
-	width: 25px;
+	user-select: none;
 
 	&_selected {
-		box-shadow: inset 0 0 0 1px gold;
-		background: goldenrod;
+		box-shadow: inset 0 0 0 1px #d0a662;
+		background: #8a724a;
 	}
 
 	&_current {
-		color: red;
+		color: #885a32;
 	}
 
 	&_disabled {
-		cursor: default;
-		color: gray;
+		color: #7c7b7b;
 	}
 }
