@@ -25,8 +25,8 @@ class DatePicker extends React.Component {
 		min: React.PropTypes.string, // ISO
 		max: React.PropTypes.string, // ISO
 		openCalendarIcon: React.PropTypes.string,
-		previousMonthIcon: React.PropTypes.string,
-		nextMonthIcon: React.PropTypes.string,
+		previousMonthIcon: React.PropTypes.string.isRequired,
+		nextMonthIcon: React.PropTypes.string.isRequired,
 		withField: React.PropTypes.bool,
 		fieldComponent: React.PropTypes.func,
 		placeholder: React.PropTypes.string,
