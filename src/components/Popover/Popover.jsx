@@ -174,21 +174,19 @@ export default class Popover extends React.Component {
 		}
 
 		let child = (
-			<Portal container={container}>
-				<UpdateDetector onUpdate={this.onSizeUpdate}>
-					<div ref={el => this._popover = el}
-					     style={style}
-					     className={popoverClassName}>
-						<div className={theme.content}>
-							{isMeasured && hasArrow && (
-								<div className={theme.arrow}
-								     style={getArrowStyle(finalPlacement, finalAlign, arrowOffset)}/>
-							)}
-							{this.props.children}
-						</div>
+			<UpdateDetector onUpdate={this.onSizeUpdate}>
+				<div ref={el => this._popover = el}
+				     style={style}
+				     className={popoverClassName}>
+					<div className={theme.content}>
+						{isMeasured && hasArrow && (
+							<div className={theme.arrow}
+							     style={getArrowStyle(finalPlacement, finalAlign, arrowOffset)}/>
+						)}
+						{this.props.children}
 					</div>
-				</UpdateDetector>
-			</Portal>
+				</div>
+			</UpdateDetector>
 		);
 		if (closeOnClickAway) {
 			child = (
@@ -203,7 +201,9 @@ export default class Popover extends React.Component {
 			               onResize={this.onResize}
 			               onScroll={this.onScroll}
 			               target="window">
-				{child}
+				<Portal container={container}>
+					{child}
+				</Portal>
 			</EventListener>
 		);
 	}
