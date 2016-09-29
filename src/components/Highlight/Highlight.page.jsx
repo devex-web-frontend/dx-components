@@ -5,8 +5,15 @@ import Highlight from './Highlight';
 
 storiesOf('Highlight', module).add('Default', () => (
 	<Demo>
-		<Highlight search="test">
-			test/test2 fdgkjdklfj dfgs test sdkfjksdfksaratestjfkdsjl
-		</Highlight>
+		<div>
+			<Highlight search="test">
+				test/test2 fdgkjdklfj dfgs test sdkfjksdfksaratestjfkdsjl
+			</Highlight>
+		</div>
+		<div>
+			<Highlight>
+				test/test2 fdgkjdklfj dfgs test sdkfjksdfksaratestjfkdsjl
+			</Highlight>
+		</div>
 	</Demo>
 ));

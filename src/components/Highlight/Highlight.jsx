@@ -24,18 +24,25 @@ export default class Highlight extends React.Component {
 	};
 
 	render() {
-		const search = this.props.search.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, 'i');
-		const splitted = this.props.children.split(new RegExp(`(${search})`, 'ig'));
-		const {theme} = this.props;
+		const {search, children, theme} = this.props;
+
+		let result;
+		if (this.props.search === '') {
+			result = children;
+		} else {
+			const search = this.props.search.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, 'i');
+			const splitted = this.props.children.split(new RegExp(`(${search})`, 'ig'));
+			result = splitted.reduce((acc, el, i) => {
+				if (el.trim() !== '') {
+					acc.push(i % 2 ? <mark className={theme.mark} key={i}>{el}</mark> : el);
+				}
+				return acc;
+			}, []);
+		}
 
 		return (
 			<span className={theme.container}>
-				{splitted.reduce((acc, el, i) => {
-					if (el.trim() !== '') {
-						acc.push(i % 2 ? <mark className={theme.mark} key={i}>{el}</mark> : el);
-					}
-					return acc;
-				}, [])}
+				{result}
 			</span>
 		);
 	}
