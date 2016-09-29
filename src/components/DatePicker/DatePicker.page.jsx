@@ -5,6 +5,7 @@ import Demo from '../../demo/Demo.jsx';
 import moment from 'moment';
 import {DATE_PICKER_FIELD_PROPS} from './fields/field.props';
 import {PURE} from 'dx-util/src/react/react';
+import classnames from 'classnames';
 import 'moment/locale/ru';
 
 import iconOpenCalendar from './resources/icon-open-calendar.svg';
@@ -26,10 +27,12 @@ const CustomLabelField = (props) => {
 		props.openDatePicker();
 	};
 
+	const className = classnames(css.customLabelField, props.theme.field);
+
 	return (
 		<span onClick={onClick}
 			  onContextMenu={onContextMenu}
-			  className={css.customLabelField}>
+			  className={className}>
 			{props.isInvalid ? props.placeholder : props.value.format(props.dateFormat)}
 		</span>
 	);
