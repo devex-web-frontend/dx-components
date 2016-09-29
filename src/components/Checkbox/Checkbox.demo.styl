@@ -2,13 +2,13 @@
 
 .container {
 
-	&__checkboxIcon {
+	.checkboxIcon {
 		color: #fff;
 	}
-	&__checkboxIcon_disabled {
+	.checkboxIcon_isDisabled {
 		color: #ccc;
 	}
-	&__view {
+	.view {
 		width: 12px;
 		height: @width;
 		margin-right: 10px;
@@ -19,15 +19,15 @@
 		box-shadow: 0 1px 0 rgba(#000000, .7) inset;
 		background-color: #202020;
 	}
-	&__checkboxIcon {
+	.checkboxIcon {
 		display: block;
 		margin: 0 auto;
 		width: 10px;
 		height: @width;
 		line-height: @height;
 	}
-	&__view_disabled,
-	&__view_disabled:hover {
+	.view_isDisabled,
+	.view_isDisabled:hover {
 		color: #ccc;
 		background-color: darken(#202020, 5);
 		border-color: darken(#3b3b3b, 5);

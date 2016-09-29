@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import {randomId} from 'dx-util/src/string/string';
 
 import Icon from '../Icon/Icon.jsx';
-import defaultCheckboxIcon from './img/icon-checkbox-tick.svg';
 
 export const CHECKBOX = Symbol('Checkbox');
 
@@ -20,44 +19,16 @@ export default class Checkbox extends Component {
 		onChange: PropTypes.func,
 		theme: PropTypes.shape({
 			container: PropTypes.string,
-			container__disabled: PropTypes.string,
-			container__input: PropTypes.string,
-			container__label: PropTypes.string,
-			container__view: PropTypes.string,
-			container__view_disabled: PropTypes.string,
-			container__checkboxIcon: PropTypes.string,
-			container__checkboxIcon_checked: PropTypes.string,
-			container__checkboxIcon_disabled: PropTypes.string
+			container_isDisabled: PropTypes.string,
+			input: PropTypes.string,
+			label: PropTypes.string,
+			view: PropTypes.string,
+			view_isDisabled: PropTypes.string,
+			checkboxIcon: PropTypes.string,
+			checkboxIcon_isChecked: PropTypes.string,
+			checkboxIcon_isDisabled: PropTypes.string
 		})
 	};
-
-	static defaultProps = {
-		checkboxIconName: defaultCheckboxIcon,
-		id: randomId('control-checkbox')
-	};
-
-	constructor(...args) {
-		super(...args);
-
-		this.state = {
-			isChecked: false
-		};
-
-		if (typeof this.props.isChecked !== 'undefined') {
-			this.state = {
-				...this.state,
-				isChecked: this.props.isChecked,
-			};
-		}
-	}
-
-	componentWillReceiveProps(newProps) {
-		if (typeof newProps.isChecked !== 'undefined') {
-			this.setState({
-				isChecked: newProps.isChecked
-			});
-		}
-	}
 
 	render() {
 		const {
@@ -66,27 +37,25 @@ export default class Checkbox extends Component {
 				isDisabled,
 				isChecked,
 				onChange,
-				theme,
-				...cleanProps
+				theme
 		} = this.props;
 
-		const iconClassName = classnames(theme.container__checkboxIcon, {
-			[theme.container__checkboxIcon_checked]: this.state.isChecked,
-			[theme.container__checkboxIcon_disabled]: isDisabled
+		const iconClassName = classnames(theme.checkboxIcon, {
+			[theme.checkboxIcon_isChecked]: isChecked,
+			[theme.checkboxIcon_isDisabled]: isDisabled
 		});
-		const viewClassName = classnames(theme.container__view, {
-			[theme.container__view_disabled]: isDisabled
+		const viewClassName = classnames(theme.view, {
+			[theme.container__view_isDisabled]: isDisabled
 		});
 
 		return (
 			<span className={theme.container}>
-				<input {...cleanProps}
-						type="checkbox"
+				<input type="checkbox"
 						id={id}
-						checked={isChecked || this.state.isChecked}
+						checked={isChecked}
 						disabled={isDisabled}
-						onChange={this.onChangeHandler}
-						className={theme.container__input}/>
+						onChange={onChange}
+						className={theme.input}/>
 				<span className={viewClassName}>
 					<span className={iconClassName}>
 						<Icon name={checkboxIconName}/>
@@ -95,12 +64,4 @@ export default class Checkbox extends Component {
 			</span>
 		);
 	}
-
-	onChangeHandler = (e) => {
-		this.setState({
-			isChecked: e.target.checked
-		});
-		this.props.onChange && this.props.onChange(e);
-	}
-
 }

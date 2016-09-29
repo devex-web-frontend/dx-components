@@ -1,37 +1,37 @@
 .container {
 	background: #000;
 
-	&__label {
+	.label {
 		display: inline-block;
 		padding: 10px;
 		color: #fff;
 		vertical-align: middle;
 		&:hover {
 			color: gold;
-			.container__view {
+			.view {
 				background-color: lighten(#202020, 5);
 				border-color: gold;
 			}
-			 .container__checkboxIcon {
+			 .checkboxIcon {
 				color: gold;
 			}
 		}
 	}
 
-	&__disabled,
-	&__disabled:hover {
+	&_isDisabled,
+	&_isDisabled:hover {
 		color: #CCC;
-		.container__view {
+		.view {
 			color: #ccc;
 			background-color: darken(#202020, 5);
 			border-color: darken(#3b3b3b, 5);
 		}
-		.container__checkboxIcon {
+		.checkboxIcon {
 			color: #CCC;
 		}
 	}
 
-	&__checkboxIcon_disabled {
+	.checkboxIcon_isDisabled {
 		color: #CCC;
 	}
 }

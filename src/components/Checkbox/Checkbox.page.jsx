@@ -7,13 +7,14 @@ import Demo from '../../demo/Demo.jsx';
 import Checkbox from './Checkbox.jsx';
 import {storiesOf} from '@kadira/storybook';
 
+import checkboxIcon from './img/icon-checkbox-tick.svg';
 import css from './Checkbox.page.styl';
 
 const darkDemoTheme = {
 	container: css.container,
-	container__view: css.container__view,
-	container__checkboxIcon: css.container__checkboxIcon,
-	container__checkboxIcon_disabled: css.container__checkboxIcon_disabled
+	view: css.view,
+	checkboxIcon: css.checkboxIcon,
+	checkboxIcon_isDisabled: css.checkboxIcon_isDisabled
 };
 
 export const CHECKBOX = 'Checkbox';
@@ -29,14 +30,15 @@ class CheckboxPage extends Component {
 	}
 
 	render() {
-		const labelClassName = classnames(css.container__label, {
-			[css.container__disabled]: this.props.isDisabled
+		const labelClassName = classnames(css.label, {
+			[css.container_isDisabled]: this.props.isDisabled
 		});
 		return (
 			<Demo>
 				<div className={css.container}>
 					<label htmlFor="check1" className={labelClassName}>
 						<Checkbox theme={darkDemoTheme}
+								checkboxIconName={checkboxIcon}
 								isChecked={this.state.isChecked}
 								onChange={this.onChangeHandler}
 								isDisabled={this.props.isDisabled}
@@ -44,29 +46,6 @@ class CheckboxPage extends Component {
 								name="check1"
 								id="check1"/>
 						I'am controlled checkbox
-					</label>
-				</div>
-				<div className={css.container}>
-					<label htmlFor="check2" className={labelClassName}>
-						<Checkbox theme={darkDemoTheme}
-								isChecked={this.state.isChecked}
-								onChange={this.onChangeHandler}
-								isDisabled={this.props.isDisabled}
-								value="check2"
-								name="check2"
-								id="check2"/>
-						I'am controlled checkbox
-					</label>
-				</div>
-				<div className={css.container}>
-					<label htmlFor="check3" className={labelClassName}>
-						<Checkbox theme={darkDemoTheme}
-								onChange={this.onChangeHandler}
-								isDisabled={this.props.isDisabled}
-								value="check3"
-								name="check3"
-								id="check3"/>
-						I'am uncontrolled checkbox
 					</label>
 				</div>
 			</Demo>
