@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import moment from 'moment';
 import Input from '../../Input/Input';
 import {PURE} from 'dx-util/src/react/react';
@@ -14,6 +15,8 @@ export default class DateInput extends React.Component {
 	state = {
 		displayedDate: this.formatDateForView(this.props)
 	}
+
+	_input;
 
 	componentWillReceiveProps(newProps) {
 		this.setState({
@@ -35,7 +38,8 @@ export default class DateInput extends React.Component {
 		};
 
 		return (
-			<Input value={this.state.displayedDate}
+			<Input ref={e => this._input = ReactDOM.findDOMNode(e)}
+				   value={this.state.displayedDate}
 				   theme={inputTheme}
 				   onClick={this.onClick}
 				   onChange={this.onChange}
@@ -50,7 +54,14 @@ export default class DateInput extends React.Component {
 	}
 
 	onClick = e => {
-		this.props.openDatePicker();
+		const {isDatePickerOpened} = this.props;
+		if (isDatePickerOpened) {
+			this._input.focus();
+			this.props.closeDatePicker();
+		} else {
+			this._input.blur();
+			this.props.openDatePicker();
+		}
 	}
 
 	onChange = e => {
@@ -69,7 +80,7 @@ export default class DateInput extends React.Component {
 
 	onKeyDown = e => {
 		if (e.keyCode === 13) {
-			e.target.blur();
+			this._input.blur();
 			this.props.closeDatePicker();
 		}
 	}

@@ -65,7 +65,7 @@ class DatePickerPage extends React.Component {
 					<DatePicker value={this.state.date}
 								openCalendarIcon={iconOpenCalendar}
 								onChange={this.onDateChange}
-								placeholder={'Date not selected'}
+								placeholder="Not selected"
 								nextMonthIcon={nextMonthIcon}
 								previousMonthIcon={previousMonthIcon}
 								fieldComponent={CustomLabelField}

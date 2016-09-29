@@ -112,7 +112,8 @@ class DatePicker extends React.Component {
 						   isDisabled={isDisabled}
 						   isInvalid={isInvalid}
 						   locale={locale}
-						   placeholder={placeholder}/>
+						   placeholder={placeholder}
+						   isDatePickerOpened={this.state.isOpened}/>
 				)}
 				{openCalendarIcon && (
 					<ButtonIcon onClick={this.onIconClick}
