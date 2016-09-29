@@ -31,7 +31,7 @@ class CheckboxPage extends Component {
 
 	render() {
 		const labelClassName = classnames(css.label, {
-			[css.container_isDisabled]: this.props.isDisabled
+			[css.label_isDisabled]: this.props.isDisabled
 		});
 		return (
 			<Demo>
