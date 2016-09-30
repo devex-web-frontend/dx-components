@@ -16,6 +16,7 @@ export const SELECTBOX_THEME = {
 	container__item__text: React.PropTypes.string,
 	container__item__activeIcon: React.PropTypes.string,
 	container__anchor: React.PropTypes.string,
+	container__anchor_isDisabled: React.PropTypes.string,
 	container__anchor__content: React.PropTypes.string,
 	container__anchor__text: React.PropTypes.string,
 	container__anchor__content_hasCaret: React.PropTypes.string,
@@ -71,8 +72,6 @@ export default class Selectbox extends React.Component {
 		MenuComponent: React.PropTypes.func,
 		PopoverComponent: React.PropTypes.func,
 
-		menuTheme: React.PropTypes.shape(MENU_THEME_SHAPE_OBJECT),
-		popoverTheme: React.PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
 		theme: React.PropTypes.shape(SELECTBOX_THEME),
 		caretIconName: React.PropTypes.string,
 		selectedItemIconName: React.PropTypes.string
@@ -207,7 +206,9 @@ export default class Selectbox extends React.Component {
 		};
 
 		const anchorTheme = {
-			container: theme.container__anchor,
+			container: classnames(theme.container__anchor, {
+				[theme.container__anchor_isDisabled]:  isDisabled
+			}),
 			text: theme.container__anchor__text,
 			content: classnames(
 				theme.container__anchor__content,

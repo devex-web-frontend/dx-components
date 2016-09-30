@@ -1,11 +1,46 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
 import Input from '../Input/Input';
+import Icon from '../Icon/Icon.jsx';
 import Selectbox, {SELECTBOX_THEME} from '../Selectbox/Selectbox.jsx';
+import {ANCHOR_SHARE_PROP_TYPES} from '../Selectbox/SelectboxAnchor';
 import {PURE} from 'dx-util/src/react/pure';
 import classnames from 'classnames';
 
 export const COMBOBOX = Symbol('Combobox');
+
+class ComboboxAnchor extends React.Component {
+	static propTypes = {
+		...ANCHOR_SHARE_PROP_TYPES
+	};
+
+	static defaultProps = {
+		IconComponent: Icon
+	}
+
+	render() {
+		const {
+			theme,
+			children,
+			IconComponent: Icon,
+			caretIconName,
+			onClick,
+		} = this.props;
+
+		return (
+			<div className={theme.container}>
+				<div className={theme.content}>
+					{caretIconName && (
+						<Icon name={caretIconName} onClick={onClick} theme={{
+							container: theme.caret
+						}}/>
+					)}
+				</div>
+				{children}
+			</div>
+		);
+	}
+}
 
 @PURE
 @themr(COMBOBOX)
@@ -152,6 +187,7 @@ export default class Combobox extends React.Component {
 					           selectedItemIconName={selectedItemIconName}
 					           children={children} isDisabled={isDisabled}
 					           theme={theme}
+					           AnchorComponent={ComboboxAnchor}
 					           onChange={this.onChangeSelectbox} />
 				</div>
 				<Input type="text"
