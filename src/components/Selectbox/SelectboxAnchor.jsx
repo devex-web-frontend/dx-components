@@ -8,7 +8,8 @@ export const ANCHOR_THEME = {
 	text: React.PropTypes.string,
 	content: React.PropTypes.string,
 	wrapperCaret: React.PropTypes.string,
-	caret: React.PropTypes.string
+	caret: React.PropTypes.string,
+	caret__icon: React.PropTypes.string
 };
 
 export const ANCHOR_SHARE_PROP_TYPES = {
@@ -52,7 +53,7 @@ export default class SelectboxAnchor extends React.Component {
 		};
 
 		const anchorCaretTheme = {
-			container: theme.caret
+			container: theme.caret__icon
 		};
 
 		return (

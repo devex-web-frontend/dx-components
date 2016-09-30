@@ -20,9 +20,9 @@ export const SELECTBOX_THEME = {
 	container__anchor__content: React.PropTypes.string,
 	container__anchor__text: React.PropTypes.string,
 	container__anchor__content_hasCaret: React.PropTypes.string,
-	container__anchor__wrapperCaret: React.PropTypes.string,
 	container__anchor__caret: React.PropTypes.string,
-	container__anchor__caret_isReversed: React.PropTypes.string
+	container__anchor__caret__icon: React.PropTypes.string,
+	container__anchor__caret__icon_isReversed: React.PropTypes.string
 };
 
 export const SELECTBOX = Symbol('Selectbox');
@@ -220,9 +220,9 @@ export default class Selectbox extends React.Component {
 		};
 
 		if (caretIconName) {
-			anchorTheme.wrapperCaret = theme.container__anchor__wrapperCaret;
-			anchorTheme.caret = classnames(theme.container__anchor__caret, {
-				[theme.container__anchor__caret_isReversed]: this.state.isOpened
+			anchorTheme.caret = theme.container__anchor__caret;
+			anchorTheme.caret__icon = classnames(theme.container__anchor__caret__icon, {
+				[theme.container__anchor__caret__icon_isReversed]: this.state.isOpened
 			});
 		}
 

@@ -34,10 +34,10 @@ class ComboboxAnchor extends React.Component {
 				<div className={theme.content}>
 					{caretIconName && (
 						<Button isDisabled={isDisabled} theme={{
-							container: theme.wrapperCaret
+							container: theme.caret
 						}} onClick={onClick}>
 							<Icon name={caretIconName} theme={{
-								container: theme.caret
+								container: theme.caret__icon
 							}}/>
 						</Button>
 					)}
