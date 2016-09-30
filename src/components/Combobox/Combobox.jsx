@@ -1,6 +1,7 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
 import Input from '../Input/Input';
+import Button from '../Button/Button';
 import Icon from '../Icon/Icon.jsx';
 import Selectbox, {SELECTBOX_THEME} from '../Selectbox/Selectbox.jsx';
 import {ANCHOR_SHARE_PROP_TYPES} from '../Selectbox/SelectboxAnchor';
@@ -24,6 +25,7 @@ class ComboboxAnchor extends React.Component {
 			children,
 			IconComponent: Icon,
 			caretIconName,
+			isDisabled,
 			onClick,
 		} = this.props;
 
@@ -31,11 +33,13 @@ class ComboboxAnchor extends React.Component {
 			<div className={theme.container}>
 				<div className={theme.content}>
 					{caretIconName && (
-						<div className={theme.wrapperCaret} onClick={onClick}>
+						<Button isDisabled={isDisabled} theme={{
+							container: theme.wrapperCaret
+						}} onClick={onClick}>
 							<Icon name={caretIconName} theme={{
 								container: theme.caret
 							}}/>
-						</div>
+						</Button>
 					)}
 				</div>
 				{children}
