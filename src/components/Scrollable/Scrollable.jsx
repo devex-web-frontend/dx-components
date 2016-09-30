@@ -34,7 +34,9 @@ export default class Scrollable extends React.Component {
 			container: React.PropTypes.string,
 			wrapper: React.PropTypes.string,
 			content: React.PropTypes.string,
-			resizeDetector: React.PropTypes.string
+			resizeDetector: React.PropTypes.string,
+			horizontal_scrollbar__bar: React.PropTypes.string,
+			vertical_scrollbar__bar: React.PropTypes.string,
 		}),
 		onUpdate: React.PropTypes.func,
 		onScroll: React.PropTypes.func,
@@ -126,14 +128,9 @@ export default class Scrollable extends React.Component {
 			[theme.withVerticalScrollbar]: this._withVerticalScrollbar
 		}, children.props.className || '');
 
-		const scrollbarProps = {
-			container,
-			theme: {
-				container: classnames(theme.scrollbar, {
-					withBothScrollabars: this._withHorizontalScrollbar && this._withVerticalScrollbar
-				})
-			}
-		};
+		const containerClassName = classnames(theme.scrollbar, {
+			withBothScrollabars: this._withHorizontalScrollbar && this._withVerticalScrollbar
+		});
 
 		const resizeDetectorProps = {
 			theme: {
@@ -155,11 +152,21 @@ export default class Scrollable extends React.Component {
 					</div>
 					{container && [
 						<HorizontalScrollbar ref={el => this._horizontalScrollbar = el}
-						                     key="horizontalScrollbar" {...scrollbarProps}
-						                     scrollLeft={this.props.scrollLeft} />,
+						                     key="horizontalScrollbar"
+						                     container={container}
+						                     scrollLeft={this.props.scrollLeft}
+						                     theme={{
+							                     bar: theme.horizontal_scrollbar__bar,
+							                     container: containerClassName
+						                     }}/>,
 						<VerticalScrollbar ref={el => this._verticalScrollbar = el}
-						                   key="verticalScrollbar" {...scrollbarProps}
-						                   scrollTop={this.props.scrollTop} />
+						                   key="verticalScrollbar"
+						                   container={container}
+						                   scrollTop={this.props.scrollTop}
+						                   theme={{
+							                   bar: theme.vertical_scrollbar__bar,
+							                   container: containerClassName
+						                   }}/>
 					]}
 				</div>
 				<ResizeDetector {...resizeDetectorProps} />
