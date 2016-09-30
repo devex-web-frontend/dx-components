@@ -45,7 +45,7 @@ export default class Day extends React.Component {
 
 		return (
 			<Button theme={btnTheme}
-					onClick={this.onDayClick}
+					onMouseDown={this.onDayClick}
 					isDisabled={isDisabled}
 					isFlat={true}
 					type="button">

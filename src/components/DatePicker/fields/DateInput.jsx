@@ -53,13 +53,17 @@ export default class DateInput extends React.Component {
 		return props.isInvalid ? props.placeholder : props.value.format(props.dateFormat);
 	}
 
+	setNewValue(inputString) {
+		const {dateFormat, locale, value} = this.props;
+		if (inputString !== value.format(dateFormat)) { // if changed
+			const inputDate = moment(inputString, dateFormat, locale);
+			this.props.onChange(inputDate);
+		}
+	}
+
 	onClick = e => {
 		const {isDatePickerOpened} = this.props;
-		if (isDatePickerOpened) {
-			this._input.focus();
-			this.props.closeDatePicker();
-		} else {
-			this._input.blur();
+		if (!isDatePickerOpened) {
 			this.props.openDatePicker();
 		}
 	}
@@ -71,16 +75,12 @@ export default class DateInput extends React.Component {
 	}
 
 	onBlur = e => {
-		const {dateFormat, locale, value} = this.props;
-		if (e.target.value !== value.format(dateFormat)) {
-			const inputDate = moment(e.target.value, dateFormat, locale);
-			this.props.onChange(inputDate);
-		}
+		this.setNewValue(e.target.value);
 	}
 
 	onKeyDown = e => {
 		if (e.keyCode === 13) {
-			this._input.blur();
+			this.setNewValue(e.target.value);
 			this.props.closeDatePicker();
 		}
 	}
