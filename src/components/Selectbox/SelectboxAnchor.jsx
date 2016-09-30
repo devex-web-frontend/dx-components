@@ -7,23 +7,28 @@ export const ANCHOR_THEME = {
 	container: React.PropTypes.string,
 	text: React.PropTypes.string,
 	content: React.PropTypes.string,
+	wrapperCaret: React.PropTypes.string,
 	caret: React.PropTypes.string
+};
+
+export const ANCHOR_SHARE_PROP_TYPES = {
+	theme: React.PropTypes.shape(ANCHOR_THEME),
+	isOpened: React.PropTypes.bool,
+	caretIconName: React.PropTypes.string,
+	children: React.PropTypes.node,
+	IconComponent: React.PropTypes.func,
+	value: React.PropTypes.oneOfType([
+		React.PropTypes.string,
+		React.PropTypes.number
+	]),
+	valueText: React.PropTypes.string
 };
 
 @PURE
 export default class SelectboxAnchor extends React.Component {
 	static propTypes = {
 		...Button.propTypes,
-		theme: React.PropTypes.shape(ANCHOR_THEME),
-		isOpened: React.PropTypes.bool,
-		caretIconName: React.PropTypes.string,
-		children: React.PropTypes.node,
-		IconComponent: React.PropTypes.func,
-		value: React.PropTypes.oneOfType([
-			React.PropTypes.string,
-			React.PropTypes.number
-		]),
-		valueText: React.PropTypes.string
+		...ANCHOR_SHARE_PROP_TYPES
 	}
 
 	static defaultProps = {

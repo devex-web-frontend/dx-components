@@ -28,6 +28,9 @@ import toggleButtons from '../components/ToggleButtons/ToggleButtons.styl';
 import {RESIZE_DETECTOR} from '../components/ResizeDetector/ResizeDetector';
 import resizeDetector from '../components/ResizeDetector/ResizeDetector.styl';
 
+import {COMBOBOX} from '../components/Combobox/Combobox';
+import combobox from '../components/Combobox/Combobox.styl';
+
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.styl';
 
@@ -73,6 +76,8 @@ export default {
 	[SELECTBOX]: selectbox,
 	[INPUT]: input,
 	[NUMERIC_STEPPER]: numericStepper,
+	[SELECTBOX]: selectbox,
+	[COMBOBOX]: combobox,
 	[TABLE]: table,
 	[GRID]: grid,
 	[LOADINGINDICATON]: loadingiIndicaton,

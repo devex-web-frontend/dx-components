@@ -16,6 +16,9 @@ import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
 import toggleButtons from '../components/ToggleButtons/ToggleButtons.demo.styl';
 
+import {COMBOBOX} from '../components/Combobox/Combobox';
+import combobox from '../components/Combobox/Combobox.demo.styl';
+
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.demo.styl';
 
@@ -48,7 +51,7 @@ export default {
 	[INPUT]: input,
 	[SELECTBOX]: selectbox,
 	[NUMERIC_STEPPER]: numericStepper,
-	[SELECTBOX]: selectbox,
+	[COMBOBOX]: combobox,
 	[TABLE]: table,
 	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
