@@ -28,6 +28,9 @@ import toggleButtons from '../components/ToggleButtons/ToggleButtons.styl';
 import {RESIZE_DETECTOR} from '../components/ResizeDetector/ResizeDetector';
 import resizeDetector from '../components/ResizeDetector/ResizeDetector.styl';
 
+import {COMBOBOX} from '../components/Combobox/Combobox';
+import combobox from '../components/Combobox/Combobox.styl';
+
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.styl';
 
@@ -52,6 +55,9 @@ import verticalScrollbar from '../components/Scrollbar/VerticalScrollbar.styl';
 import {LOADINGINDICATON} from '../components/LoadingIndicaton/LoadingIndicaton';
 import loadingiIndicaton from '../components/LoadingIndicaton/LoadingIndicaton.styl';
 
+import {CHECKBOX} from '../components/Checkbox/Checkbox.jsx';
+import checkbox from '../components/Checkbox/Checkbox.styl';
+
 import {POPUP} from '../components/Popup/Popup';
 import popup from '../components/Popup/Popup.styl';
 
@@ -63,6 +69,7 @@ export default {
 	[BUTTON]: button,
 	[BUTTON_ICON]: buttonIcon,
 	[LINK]: link,
+	[CHECKBOX]: checkbox,
 	[LIST]: list,
 	[MENU]: menu,
 	[POPOVER]: popover,
@@ -72,6 +79,8 @@ export default {
 	[SELECTBOX]: selectbox,
 	[INPUT]: input,
 	[NUMERIC_STEPPER]: numericStepper,
+	[SELECTBOX]: selectbox,
+	[COMBOBOX]: combobox,
 	[TABLE]: table,
 	[GRID]: grid,
 	[LOADINGINDICATON]: loadingiIndicaton,

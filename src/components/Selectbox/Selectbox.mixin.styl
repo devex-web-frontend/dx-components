@@ -1,4 +1,5 @@
 Selectbox($selector, $caretSize = 0, $caretMarginLeft = 0, $selectedIconSize = 0, $selectedIconMarginLeft = 0) {
+
 	.{$selector} {
 		if $caretSize and $caretMarginLeft {
 			&__anchor {
@@ -13,7 +14,7 @@ Selectbox($selector, $caretSize = 0, $caretMarginLeft = 0, $selectedIconSize = 0
 				}
 			}
 		}
-		
+
 		if $selectedIconSize and $selectedIconMarginLeft {
 			&__menu_hasSelectedItem {
 				.{$selector}__item {

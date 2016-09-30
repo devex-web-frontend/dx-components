@@ -16,6 +16,9 @@ import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
 import toggleButtons from '../components/ToggleButtons/ToggleButtons.demo.styl';
 
+import {COMBOBOX} from '../components/Combobox/Combobox';
+import combobox from '../components/Combobox/Combobox.demo.styl';
+
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.demo.styl';
 
@@ -31,6 +34,9 @@ import horizontalScrollbar from '../components/Scrollbar/HorizontalScrollbar.dem
 import {VERTICAL_SCROLLBAR} from '../components/Scrollbar/VerticalScrollbar.jsx';
 import verticalScrollbar from '../components/Scrollbar/VerricalScrollbar.demo.styl';
 
+import {CHECKBOX} from '../components/Checkbox/Checkbox.jsx';
+import checkbox from '../components/Checkbox/Checkbox.demo.styl';
+
 import {POPUP} from '../components/Popup/Popup';
 import popup from '../components/Popup/Popup.demo.styl';
 
@@ -43,15 +49,15 @@ export default {
 	[LIST]: list,
 	[MENU]: menu,
 	[POPOVER]: popover,
-	[SELECTBOX]: selectbox,
 	[TOGGLE_BUTTONS]: toggleButtons,
 	[INPUT]: input,
 	[SELECTBOX]: selectbox,
 	[NUMERIC_STEPPER]: numericStepper,
-	[SELECTBOX]: selectbox,
+	[COMBOBOX]: combobox,
 	[TABLE]: table,
 	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
+	[CHECKBOX]: checkbox,
 	[POPUP]: popup,
 	[HIGHLIGHT]: highlight
 };
