@@ -2,6 +2,7 @@ import React from 'react';
 import {PURE} from 'dx-util/src/react/react';
 import moment from 'moment';
 import {CALENDAR_THEME} from './Calendar.constants';
+import Button from '../Button/Button';
 import noop from '../../util/func/noop';
 import classnames from 'classnames';
 
@@ -34,23 +35,26 @@ export default class Day extends React.Component {
 			isSelected
 		} = this.props;
 
-		const className = classnames(theme.day, {
-			[theme.day_disabled]: isDisabled,
-			[theme.day_current]: isCurrent && !isDisabled,
-			[theme.day_selected]: isSelected && !isDisabled
-		});
+		const btnTheme = {
+			container: classnames(theme.day, {
+				[theme.day_disabled]: isDisabled,
+				[theme.day_current]: isCurrent && !isDisabled,
+				[theme.day_selected]: isSelected && !isDisabled
+			})
+		};
 
 		return (
-			<div className={className}
-				 onClick={this.onDayClick}>
+			<Button theme={btnTheme}
+					onClick={this.onDayClick}
+					isDisabled={isDisabled}
+					isFlat={true}
+					type="button">
 				{value.format(dayFormat)}
-			</div>
+			</Button>
 		);
 	}
 
 	onDayClick = e => {
-		if (!this.props.isDisabled) {
-			this.props.onChange(this.props.value.format());
-		}
+		this.props.onChange(this.props.value.format());
 	}
 }

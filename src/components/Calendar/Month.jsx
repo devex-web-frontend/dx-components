@@ -3,7 +3,6 @@ import moment from 'moment';
 import {PURE} from 'dx-util/src/react/react';
 import {CALENDAR_THEME} from './Calendar.constants';
 import Week from './Week';
-import range from '../../util/func/range';
 import noop from '../../util/func/noop';
 
 @PURE
@@ -43,7 +42,7 @@ export default class Month extends React.Component {
 		return (
 			<div className={theme.month}>
 				{this.renderDaysHeader(from.clone())}
-				{range(0, 6).map(week => (
+				{Array.from(new Array(6).keys()).map(week => (
 					<Week selectedDate={selectedDate.clone()}
 						  onChange={onChange}
 						  key={week}
@@ -68,7 +67,7 @@ export default class Month extends React.Component {
 		const {theme, headerDayFormat} = this.props;
 		return (
 			<div className={theme.monthHeader}>
-				{range(0, 7).map(i => (
+				{Array.from(new Array(7).keys()).map(i => (
 					<div className={theme.monthHeader__day}
 						 key={i}>
 						{startDate.clone().add(i, 'days').format(headerDayFormat)}

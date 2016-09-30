@@ -3,7 +3,6 @@ import {PURE} from 'dx-util/src/react/react';
 import moment from 'moment';
 import {CALENDAR_THEME} from './Calendar.constants';
 import Day from './Day';
-import range from '../../util/func/range';
 import noop from '../../util/func/noop';
 import {isDateValid} from '../../util/func/date';
 
@@ -42,7 +41,7 @@ export default class Week extends React.Component {
 
 		return (
 			<div className={theme.week}>
-				{range(0, 7).map(i => {
+				{Array.from(new Array(7).keys()).map(i => {
 					const date = from.clone().add(i, 'days');
 
 					const isDateInBounds = isDateValid(date, startOfMonth, endOfMonth) &&
