@@ -93,7 +93,7 @@ class DatePickerPage extends React.Component {
 				</section>
 				<section className={css.section}>
 					<DatePicker.Stateful defaultValue={new Date().toISOString()}
-										 min={moment().subtract(10, 'days').format()}
+										 max={moment().add(1, 'months').format()}
 										 onChange={this.onDateChange}
 										 nextMonthIcon={nextMonthIcon}
 										 previousMonthIcon={previousMonthIcon}/>
