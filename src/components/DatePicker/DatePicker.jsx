@@ -47,7 +47,7 @@ class DatePicker extends React.Component {
 	static defaultProps = {
 		value: moment().format(),
 		onChange: noop,
-		min: null,
+		min: null, // for date validation: moment(undefined) == current date, moment(null) is invalid
 		max: null,
 		fieldDateFormat: 'MM/DD/YYYY',
 		headerDateFormat: 'MMM YYYY',
