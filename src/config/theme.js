@@ -52,6 +52,9 @@ import verticalScrollbar from '../components/Scrollbar/VerticalScrollbar.styl';
 import {LOADINGINDICATON} from '../components/LoadingIndicaton/LoadingIndicaton';
 import loadingiIndicaton from '../components/LoadingIndicaton/LoadingIndicaton.styl';
 
+import {CHECKBOX} from '../components/Checkbox/Checkbox.jsx';
+import checkbox from '../components/Checkbox/Checkbox.styl';
+
 import {POPUP} from '../components/Popup/Popup';
 import popup from '../components/Popup/Popup.styl';
 
@@ -60,6 +63,7 @@ export default {
 	[BUTTON]: button,
 	[BUTTON_ICON]: buttonIcon,
 	[LINK]: link,
+	[CHECKBOX]: checkbox,
 	[LIST]: list,
 	[MENU]: menu,
 	[POPOVER]: popover,

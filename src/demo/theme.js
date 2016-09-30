@@ -31,6 +31,9 @@ import horizontalScrollbar from '../components/Scrollbar/HorizontalScrollbar.dem
 import {VERTICAL_SCROLLBAR} from '../components/Scrollbar/VerticalScrollbar.jsx';
 import verticalScrollbar from '../components/Scrollbar/VerricalScrollbar.demo.styl';
 
+import {CHECKBOX} from '../components/Checkbox/Checkbox.jsx';
+import checkbox from '../components/Checkbox/Checkbox.demo.styl';
+
 import {POPUP} from '../components/Popup/Popup';
 import popup from '../components/Popup/Popup.demo.styl';
 
@@ -49,5 +52,6 @@ export default {
 	[TABLE]: table,
 	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
+	[CHECKBOX]: checkbox,
 	[POPUP]: popup
 };
