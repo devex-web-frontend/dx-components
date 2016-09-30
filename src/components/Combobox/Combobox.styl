@@ -7,6 +7,12 @@
 		height: 100%;
 	}
 
+	&_isDisabled {
+		.container__anchor__wrapperCaret {
+			cursor: default;
+		}
+	}
+
 	&__anchor {
 		padding-top: 0;
 		padding-bottom: 0;
@@ -14,8 +20,27 @@
 		height: 100%;
 		box-sizing border-box;
 
-		&__caret {
-			z-index: 2
+		&__content {
+			&_hasCaret {
+				.container__anchor__caret {
+					z-index: 2;
+					left: 50%;
+					transform: translate(-50%, -50%);
+
+					&_isReversed {
+						transform: translate(-50%, -50%) rotate(-180deg);
+					}
+				}
+			}
+		}
+
+		&__wrapperCaret {
+			position: absolute;
+			cursor: pointer;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			z-index: 2;
 		}
 
 		&__content {
