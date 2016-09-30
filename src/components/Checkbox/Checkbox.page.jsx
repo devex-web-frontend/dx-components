@@ -13,8 +13,8 @@ import css from './Checkbox.page.styl';
 const darkDemoTheme = {
 	container: css.container,
 	view: css.view,
-	checkboxIcon: css.checkboxIcon,
-	checkboxIcon_isDisabled: css.checkboxIcon_isDisabled
+	icon: css.icon,
+	icon_isDisabled: css.icon_isDisabled
 };
 
 export const CHECKBOX = 'Checkbox';
@@ -38,13 +38,11 @@ class CheckboxPage extends Component {
 				<div className={css.container}>
 					<label htmlFor="check1" className={labelClassName}>
 						<Checkbox theme={darkDemoTheme}
-								checkboxIconName={checkboxIcon}
-								isChecked={this.state.isChecked}
-								onChange={this.onChangeHandler}
-								isDisabled={this.props.isDisabled}
-								value="check1"
-								name="check1"
-								id="check1"/>
+							checkboxIconName={checkboxIcon}
+							isChecked={this.state.isChecked}
+							onChange={this.onChangeHandler}
+							isDisabled={this.props.isDisabled}
+							id="check1"/>
 						I'am controlled checkbox
 					</label>
 				</div>
@@ -60,5 +58,5 @@ class CheckboxPage extends Component {
 }
 
 storiesOf('Checkbox', module).add('default', () => <CheckboxPage/>)
-		.add('disabled', () => <CheckboxPage isDisabled={true}/>);
+	.add('disabled', () => <CheckboxPage isDisabled={true}/>);
 

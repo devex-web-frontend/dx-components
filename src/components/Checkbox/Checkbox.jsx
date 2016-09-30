@@ -21,41 +21,40 @@ export default class Checkbox extends Component {
 			container: PropTypes.string,
 			container_isDisabled: PropTypes.string,
 			input: PropTypes.string,
-			label: PropTypes.string,
 			view: PropTypes.string,
 			view_isDisabled: PropTypes.string,
-			checkboxIcon: PropTypes.string,
-			checkboxIcon_isChecked: PropTypes.string,
-			checkboxIcon_isDisabled: PropTypes.string
+			icon: PropTypes.string,
+			icon_isChecked: PropTypes.string,
+			icon_isDisabled: PropTypes.string
 		})
 	};
 
 	render() {
 		const {
-				id,
-				checkboxIconName,
-				isDisabled,
-				isChecked,
-				onChange,
-				theme
+			id,
+			checkboxIconName,
+			isDisabled,
+			isChecked,
+			onChange,
+			theme
 		} = this.props;
 
-		const iconClassName = classnames(theme.checkboxIcon, {
-			[theme.checkboxIcon_isChecked]: isChecked,
-			[theme.checkboxIcon_isDisabled]: isDisabled
+		const iconClassName = classnames(theme.icon, {
+			[theme.icon_isChecked]: isChecked,
+			[theme.icon_isDisabled]: isDisabled
 		});
 		const viewClassName = classnames(theme.view, {
-			[theme.container__view_isDisabled]: isDisabled
+			[theme.view_isDisabled]: isDisabled
 		});
 
 		return (
 			<span className={theme.container}>
 				<input type="checkbox"
-						id={id}
-						checked={isChecked}
-						disabled={isDisabled}
-						onChange={onChange}
-						className={theme.input}/>
+					id={id}
+					checked={isChecked}
+					disabled={isDisabled}
+					onChange={onChange}
+					className={theme.input}/>
 				<span className={viewClassName}>
 					<span className={iconClassName}>
 						<Icon name={checkboxIconName}/>
