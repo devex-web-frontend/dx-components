@@ -7,7 +7,6 @@ export const ANCHOR_THEME = {
 	container: React.PropTypes.string,
 	text: React.PropTypes.string,
 	content: React.PropTypes.string,
-	wrapperCaret: React.PropTypes.string,
 	caret: React.PropTypes.string,
 	caret__icon: React.PropTypes.string
 };
