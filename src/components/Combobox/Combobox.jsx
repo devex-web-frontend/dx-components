@@ -49,8 +49,7 @@ class ComboboxAnchor extends React.Component {
 export default class Combobox extends React.Component {
 
 	static propTypes = {
-		children: React.PropTypes.node,
-		isDisabled: React.PropTypes.bool,
+		...Selectbox.propTypes,
 		defaultValue(props) {
 			const {defaultValue} = props;
 			const type = typeof defaultValue;
@@ -68,8 +67,6 @@ export default class Combobox extends React.Component {
 			React.PropTypes.string,
 			React.PropTypes.number
 		]),
-		onChange: React.PropTypes.func,
-		placeholder: React.PropTypes.string,
 		theme: React.PropTypes.shape({
 			...SELECTBOX_THEME,
 			container: React.PropTypes.string,
@@ -77,15 +74,14 @@ export default class Combobox extends React.Component {
 			input: React.PropTypes.string,
 			selectbox: React.PropTypes.string,
 		}),
-		caretIconName: React.PropTypes.string,
-		selectedItemIconName: React.PropTypes.string,
-		SelectboxComponent: React.PropTypes.func,
-		InputComponent: React.PropTypes.func,
+		Selectbox: React.PropTypes.func,
+		Input: React.PropTypes.func,
 	}
 
 	static defaultProps = {
-		SelectboxComponent: Selectbox,
-		InputComponent: Input
+		Selectbox,
+		Input,
+		Anchor: ComboboxAnchor
 	};
 
 	state = {
@@ -164,33 +160,50 @@ export default class Combobox extends React.Component {
 
 	render() {
 		const {
-			theme,
 			placeholder,
+			theme,
 			isDisabled,
+			Selectbox,
+			Input,
+
+			//selectboxProps
 			caretIconName,
 			selectedItemIconName,
-			InputComponent: Input,
 			children,
-			SelectboxComponent: Selectbox
+			Anchor
 		} = this.props;
 
 		const {value, selectboxValue} = this.state;
 
-		const className = classnames(theme.container, {
-			[theme.container_isDisabled]: isDisabled
+		const {
+			container: themeContainer,
+			container_isDisabled: themeContainerIsDisabled,
+			input: themeInput,
+			selectbox: themeSelectbox,
+			...selectboxTheme
+		} = theme;
+
+		const className = classnames(themeContainer, {
+			[themeContainerIsDisabled]: isDisabled
 		});
+
+		const inputTheme = {
+			container: themeInput
+		};
 
 		return (
 			<div className={className}>
-				<div className={theme.selectbox}>
+				<div className={themeSelectbox}>
 					<Selectbox value={selectboxValue}
-					           placeholder={placeholder || ''}
+					           placeholder=""
 					           caretIconName={caretIconName}
+					           isDisabled={isDisabled}
+					           theme={selectboxTheme}
+					           AnchorComponent={Anchor}
 					           selectedItemIconName={selectedItemIconName}
-					           children={children} isDisabled={isDisabled}
-					           theme={theme}
-					           AnchorComponent={ComboboxAnchor}
-					           onChange={this.onChangeSelectbox} />
+					           onChange={this.onChangeSelectbox}>
+						{children}
+					</Selectbox>
 				</div>
 				<Input type="text"
 				       value={value || ''}
@@ -198,9 +211,7 @@ export default class Combobox extends React.Component {
 				       onBlur={this.onBlur}
 				       disabled={isDisabled}
 				       placeholder={placeholder}
-				       theme={{
-					       container: theme.input
-				       }} />
+				       theme={inputTheme}/>
 			</div>
 		);
 	}

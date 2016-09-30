@@ -208,7 +208,7 @@ export default class Selectbox extends React.Component {
 
 		const anchorTheme = {
 			container: classnames(theme.container__anchor, {
-				[theme.container__anchor_isDisabled]:  isDisabled
+				[theme.container__anchor_isDisabled]: isDisabled
 			}),
 			text: theme.container__anchor__text,
 			content: classnames(
