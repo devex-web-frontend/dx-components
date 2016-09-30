@@ -24,8 +24,8 @@ class ComboboxAnchor extends React.Component {
 		} = this.props;
 
 		const buttonIconTheme = {
-			container: theme.caret,
-			icon: theme.caret__icon
+			container: theme.wrapperCaret,
+			icon: theme.caret
 		};
 
 		return (

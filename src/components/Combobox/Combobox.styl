@@ -7,12 +7,6 @@
 		height: 100%;
 	}
 
-	&_isDisabled {
-		.container__anchor__caret {
-			cursor: default;
-		}
-	}
-
 	&__anchor {
 		padding-top: 0;
 		padding-bottom: 0;
@@ -22,7 +16,7 @@
 
 		&__content {
 			&_hasCaret {
-				.container__anchor__caret__icon {
+				.container__anchor__caret {
 					z-index: 2;
 					left: 50%;
 					transform: translate(-50%, -50%);
@@ -34,7 +28,11 @@
 			}
 		}
 
-		&__caret {
+		.wrapperCaret_isDisabled {
+			cursor: default;
+		}
+
+		&__wrapperCaret {
 			background: transparent;
 			border: 0;
 			position: absolute;

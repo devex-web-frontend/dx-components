@@ -16,13 +16,12 @@ export const SELECTBOX_THEME = {
 	container__item__text: React.PropTypes.string,
 	container__item__activeIcon: React.PropTypes.string,
 	container__anchor: React.PropTypes.string,
-	container__anchor_isDisabled: React.PropTypes.string,
 	container__anchor__content: React.PropTypes.string,
 	container__anchor__text: React.PropTypes.string,
 	container__anchor__content_hasCaret: React.PropTypes.string,
+	container__anchor__wrapperCaret: React.PropTypes.string,
 	container__anchor__caret: React.PropTypes.string,
-	container__anchor__caret__icon: React.PropTypes.string,
-	container__anchor__caret__icon_isReversed: React.PropTypes.string
+	container__anchor__caret_isReversed: React.PropTypes.string
 };
 
 export const SELECTBOX = Symbol('Selectbox');
@@ -207,9 +206,7 @@ export default class Selectbox extends React.Component {
 		};
 
 		const anchorTheme = {
-			container: classnames(theme.container__anchor, {
-				[theme.container__anchor_isDisabled]: isDisabled
-			}),
+			container: theme.container__anchor,
 			text: theme.container__anchor__text,
 			content: classnames(
 				theme.container__anchor__content,
@@ -220,10 +217,10 @@ export default class Selectbox extends React.Component {
 		};
 
 		if (caretIconName) {
-			anchorTheme.caret = theme.container__anchor__caret;
-			anchorTheme.caret__icon = classnames(theme.container__anchor__caret__icon, {
-				[theme.container__anchor__caret__icon_isReversed]: this.state.isOpened
+			anchorTheme.caret = classnames(theme.container__anchor__caret, {
+				[theme.container__anchor__caret_isReversed]: this.state.isOpened
 			});
+			anchorTheme.wrapperCaret = theme.container__anchor__wrapperCaret;
 		}
 
 		const popoverTheme = {
