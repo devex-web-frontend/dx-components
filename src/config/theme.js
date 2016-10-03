@@ -64,6 +64,12 @@ import popup from '../components/Popup/Popup.styl';
 import {AUTOCOMPLETE} from '../components/Autocomplete/Autocomplete';
 import autocomplete from '../components/Autocomplete/Autocomplete.styl';
 
+import {DATE_PICKER} from '../components/DatePicker/DatePicker';
+import datePicker from '../components/DatePicker/DatePicker.styl';
+
+import {CALENDAR} from '../components/Calendar/Calendar';
+import calendarTheme from '../components/Calendar/Calendar.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -89,5 +95,7 @@ export default {
 	[SCROLLABLE]: scrollable,
 	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
-	[AUTOCOMPLETE]: autocomplete
+	[AUTOCOMPLETE]: autocomplete,
+	[DATE_PICKER]: datePicker,
+	[CALENDAR]: calendarTheme
 };

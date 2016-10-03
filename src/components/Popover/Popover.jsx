@@ -176,12 +176,12 @@ export default class Popover extends React.Component {
 		let child = (
 			<UpdateDetector onUpdate={this.onSizeUpdate}>
 				<div ref={el => this._popover = el}
-				     style={style}
-				     className={popoverClassName}>
+					 style={style}
+					 className={popoverClassName}>
 					<div className={theme.content}>
 						{isMeasured && hasArrow && (
 							<div className={theme.arrow}
-							     style={getArrowStyle(finalPlacement, finalAlign, arrowOffset)}/>
+								 style={getArrowStyle(finalPlacement, finalAlign, arrowOffset)}/>
 						)}
 						{this.props.children}
 					</div>
@@ -198,9 +198,9 @@ export default class Popover extends React.Component {
 
 		return (
 			<EventListener capture={false}
-			               onResize={this.onResize}
-			               onScroll={this.onScroll}
-			               target="window">
+						   onResize={this.onResize}
+						   onScroll={this.onScroll}
+						   target="window">
 				<Portal container={container}>
 					{child}
 				</Portal>
@@ -351,11 +351,11 @@ function getArrowStyle(placement, align, offset) {
  * @returns {{top: Number, placement: PLACEMENT, align: ALIGN}}
  */
 function movePopoverVertically(placement,
-                               align,
-                               anchorTop,
-                               anchorBottom,
-                               popoverHeight,
-                               checkBounds = false) {
+							   align,
+							   anchorTop,
+							   anchorBottom,
+							   popoverHeight,
+							   checkBounds = false) {
 	switch (placement) {
 		case PLACEMENT.TOP: {
 			const top = anchorTop - popoverHeight;
@@ -457,11 +457,11 @@ function movePopoverVertically(placement,
  * @returns {{left: Number, placement: PLACEMENT, align: ALIGN}}
  */
 function movePopoverHorizontally(placement,
-                                 align,
-                                 anchorLeft,
-                                 anchorRight,
-                                 popoverWidth,
-                                 checkBounds = false) {
+								 align,
+								 anchorLeft,
+								 anchorRight,
+								 popoverWidth,
+								 checkBounds = false) {
 	switch (placement) {
 		case PLACEMENT.LEFT: {
 			const left = anchorLeft - popoverWidth;

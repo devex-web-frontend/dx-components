@@ -43,6 +43,12 @@ import popup from '../components/Popup/Popup.demo.styl';
 import {HIGHLIGHT} from '../components/Highlight/Highlight';
 import highlight from '../components/Highlight/Highlight.demo.styl';
 
+import {DATE_PICKER} from '../components/DatePicker/DatePicker';
+import datePicker from '../components/DatePicker/DatePicker.demo.styl';
+
+import {CALENDAR} from '../components/Calendar/Calendar';
+import calendarTheme from '../components/Calendar/Calendar.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -51,13 +57,15 @@ export default {
 	[POPOVER]: popover,
 	[TOGGLE_BUTTONS]: toggleButtons,
 	[INPUT]: input,
-	[SELECTBOX]: selectbox,
 	[NUMERIC_STEPPER]: numericStepper,
 	[COMBOBOX]: combobox,
+	[SELECTBOX]: selectbox,
 	[TABLE]: table,
 	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
 	[CHECKBOX]: checkbox,
 	[POPUP]: popup,
 	[HIGHLIGHT]: highlight
+	[DATE_PICKER]: datePicker,
+	[CALENDAR]: calendarTheme
 };
