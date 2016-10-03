@@ -61,6 +61,9 @@ import checkbox from '../components/Checkbox/Checkbox.styl';
 import {POPUP} from '../components/Popup/Popup';
 import popup from '../components/Popup/Popup.styl';
 
+import {AUTOCOMPLETE} from '../components/Autocomplete/Autocomplete';
+import autocomplete from '../components/Autocomplete/Autocomplete.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -86,4 +89,5 @@ export default {
 	[SCROLLABLE]: scrollable,
 	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
+	[AUTOCOMPLETE]: autocomplete
 };

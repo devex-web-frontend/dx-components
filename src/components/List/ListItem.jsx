@@ -4,12 +4,13 @@ import classnames from 'classnames';
 import {PURE} from 'dx-util/src/react/pure';
 
 import {LIST, CONTEXT_TYPES, CONTEXT_LEVEL_KEY} from './List.jsx';
+export const LIST_ITEM_THEME_SHAPE = {
+	item: React.PropTypes.string
+};
 export const PROP_TYPES = {
 	children: React.PropTypes.node,
 	level: React.PropTypes.number,
-	theme: React.PropTypes.shape({
-		item: React.PropTypes.string
-	}),
+	theme: React.PropTypes.shape(LIST_ITEM_THEME_SHAPE),
 	onClick: React.PropTypes.func
 };
 

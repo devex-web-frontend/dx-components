@@ -4,6 +4,7 @@ import ListItemGroup, {PROP_TYPES, DEFAULT_PROPS} from '../List/ListItemGroup.js
 import Menu, {MENU} from './Menu.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 import Pure from '../Pure/Pure';
+export {LIST_ITEM_GROUP_THEME_SHAPE as MENU_ITEM_GROUP_THEME_SHAPE} from '../List/ListItemGroup';
 
 @PURE
 @themr(MENU)

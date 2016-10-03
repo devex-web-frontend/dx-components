@@ -4,5 +4,7 @@
 Popover(container, 5px, lightgrey);
 .content {
 	background-color: lightgrey;
-	padding: 10px;
+	&:not(:empty) {
+		padding: 10px;
+	}
 }

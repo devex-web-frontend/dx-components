@@ -40,13 +40,15 @@ import checkbox from '../components/Checkbox/Checkbox.demo.styl';
 import {POPUP} from '../components/Popup/Popup';
 import popup from '../components/Popup/Popup.demo.styl';
 
+import {HIGHLIGHT} from '../components/Highlight/Highlight';
+import highlight from '../components/Highlight/Highlight.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
 	[LIST]: list,
 	[MENU]: menu,
 	[POPOVER]: popover,
-	[SELECTBOX]: selectbox,
 	[TOGGLE_BUTTONS]: toggleButtons,
 	[INPUT]: input,
 	[SELECTBOX]: selectbox,
@@ -56,5 +58,6 @@ export default {
 	[HORIZONTAL_SCROLLBAR]: horizontalScrollbar,
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
 	[CHECKBOX]: checkbox,
-	[POPUP]: popup
+	[POPUP]: popup,
+	[HIGHLIGHT]: highlight
 };
