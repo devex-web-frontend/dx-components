@@ -7,6 +7,23 @@ import {PURE} from 'dx-util/src/react/pure';
 import Icon from '../Icon/Icon.jsx';
 import classnames from 'classnames';
 
+export const SELECTBOX_THEME = {
+	container__popover: React.PropTypes.string,
+	container__menu: React.PropTypes.string,
+	container__menu_hasSelectedItem: React.PropTypes.string,
+	container__item: React.PropTypes.string,
+	container__item_isActive: React.PropTypes.string,
+	container__item__text: React.PropTypes.string,
+	container__item__activeIcon: React.PropTypes.string,
+	container__anchor: React.PropTypes.string,
+	container__anchor__content: React.PropTypes.string,
+	container__anchor__text: React.PropTypes.string,
+	container__anchor__content_hasCaret: React.PropTypes.string,
+	container__anchor__wrapperCaret: React.PropTypes.string,
+	container__anchor__caret: React.PropTypes.string,
+	container__anchor__caret_isReversed: React.PropTypes.string
+};
+
 export const SELECTBOX = Symbol('Selectbox');
 
 @PURE
@@ -55,24 +72,7 @@ export default class Selectbox extends React.Component {
 		MenuComponent: React.PropTypes.func,
 		PopoverComponent: React.PropTypes.func,
 
-		theme: React.PropTypes.shape({
-			container__popover: React.PropTypes.string,
-			container__menu: React.PropTypes.string,
-			container__menu_hasSelectedItem: React.PropTypes.string,
-			container__item: React.PropTypes.string,
-			container__item_isActive: React.PropTypes.string,
-			container__item__text: React.PropTypes.string,
-			container__item__activeIcon: React.PropTypes.string,
-
-			// anchor theme
-			container__anchor: React.PropTypes.string,
-			container__anchor__content: React.PropTypes.string,
-			container__anchor__text: React.PropTypes.string,
-			container__anchor__content_hasCaret: React.PropTypes.string,
-			container__anchor__caret: React.PropTypes.string,
-			container__anchor__caret_isReversed: React.PropTypes.string
-
-		}),
+		theme: React.PropTypes.shape(SELECTBOX_THEME),
 		caretIconName: React.PropTypes.string,
 		selectedItemIconName: React.PropTypes.string
 	}
@@ -106,7 +106,6 @@ export default class Selectbox extends React.Component {
 		} else if (typeof defaultValue !== 'undefined') {
 			//set default value if present (existance is checked in prop types)
 			const defaultChild = React.Children.toArray(children).find(child => child.props.value === defaultValue);
-
 			this.state = {
 				...this.state,
 				selectedValue: defaultValue,
@@ -221,6 +220,7 @@ export default class Selectbox extends React.Component {
 			anchorTheme.caret = classnames(theme.container__anchor__caret, {
 				[theme.container__anchor__caret_isReversed]: this.state.isOpened
 			});
+			anchorTheme.wrapperCaret = theme.container__anchor__wrapperCaret;
 		}
 
 		const popoverTheme = {
@@ -292,7 +292,7 @@ export default class Selectbox extends React.Component {
 				selectedValueText: text
 			});
 		}
-		this.props.onChange && this.props.onChange(value);
+		this.props.onChange && this.props.onChange(value, text);
 	}
 
 	onPopoverRequestClose = () => {
