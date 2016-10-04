@@ -6,16 +6,18 @@ import Icon from '../Icon/Icon.jsx';
 
 export const BUTTON_ICON = Symbol('ButtonIcon');
 
+export const BUTTON_ICON_THEME = {
+	container: React.PropTypes.string,
+	icon: React.PropTypes.string
+};
+
 @PURE
 @themr(BUTTON_ICON)
 export default class ButtonIcon extends React.Component {
 	static propTypes = {
 		...Button.propTypes,
 		name: React.PropTypes.string,
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string,
-			icon: React.PropTypes.string
-		})
+		theme: React.PropTypes.shape(BUTTON_ICON_THEME)
 	}
 
 	render() {
