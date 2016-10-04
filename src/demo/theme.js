@@ -65,7 +65,7 @@ export default {
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
 	[CHECKBOX]: checkbox,
 	[POPUP]: popup,
-	[HIGHLIGHT]: highlight
+	[HIGHLIGHT]: highlight,
 	[DATE_PICKER]: datePicker,
 	[CALENDAR]: calendarTheme
 };

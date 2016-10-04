@@ -19,13 +19,14 @@ storiesOf('Input', module)
 	.add('Readonly', () => {
 		return (
 			<Demo theme={darkDemoTheme}>
-				<Input value="Test Value" readOnly={true} />
+				<Input value="Test Value" readOnly={true}/>
 			</Demo>
 		);
-	}).add('Disabled', () => {
+	})
+	.add('Disabled', () => {
 		return (
 			<Demo theme={darkDemoTheme}>
-				<Input value="Test Value" disabled={true} />
+				<Input value="Test Value" disabled={true}/>
 			</Demo>
 		);
 	});
