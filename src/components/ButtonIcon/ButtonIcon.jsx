@@ -16,12 +16,19 @@ export const BUTTON_ICON_THEME = {
 export default class ButtonIcon extends React.Component {
 	static propTypes = {
 		...Button.propTypes,
+		Button: React.PropTypes.func,
+		Icon: React.PropTypes.func,
 		name: React.PropTypes.string,
 		theme: React.PropTypes.shape(BUTTON_ICON_THEME)
 	}
 
+	static defaultProps = {
+		Button,
+		Icon
+	}
+
 	render() {
-		const {theme, name, ...props} = this.props;
+		const {theme, name, Button, Icon, ...props} = this.props;
 		const iconTheme = {
 			container: theme.icon
 		};
