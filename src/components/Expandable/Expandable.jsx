@@ -20,11 +20,22 @@ export default class Expandable extends React.Component {
 		children: React.PropTypes.node,
 		Handler: React.PropTypes.func,
 		isExpanded: React.PropTypes.bool,
-		theme: React.PropTypes.shape(EXPANDABLE_THEME)
+		theme: React.PropTypes.shape(EXPANDABLE_THEME),
+		onToggle: React.PropTypes.func
 	}
 
 	static defaultProps = {
 		isExpanded: false
+	}
+
+	componentWillReceiveProps(newProps) {
+		const {isExpanded} = this.state;
+		const {isExpanded: newIsExpanded} = newProps;
+		if (isExpanded !== newIsExpanded) {
+			this.setState({
+				isExpanded: newIsExpanded
+			});
+		}
 	}
 
 	constructor(...args) {
@@ -57,8 +68,13 @@ export default class Expandable extends React.Component {
 	}
 
 	onHandlerClick = () => {
+		const {onToggle} = this.props;
+		const {isExpanded} = this.state;
+
 		this.setState({
-			isExpanded: !this.state.isExpanded
+			isExpanded: !isExpanded
 		});
+
+		onToggle && onToggle(!isExpanded);
 	}
 }
