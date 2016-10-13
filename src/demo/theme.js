@@ -22,6 +22,9 @@ import combobox from '../components/Combobox/Combobox.demo.styl';
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.demo.styl';
 
+import {PASSWORD_INPUT} from '../components/PasswordInput/PasswordInput';
+import passwordInput from '../components/PasswordInput/PasswordInput.demo.styl';
+
 import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.demo.styl';
 
@@ -49,6 +52,17 @@ import datePicker from '../components/DatePicker/DatePicker.demo.styl';
 import {CALENDAR} from '../components/Calendar/Calendar';
 import calendarTheme from '../components/Calendar/Calendar.demo.styl';
 
+const passwordInputTheme = {
+	container: passwordInput.container,
+	RevealButton: {
+		container: passwordInput.button,
+		icon: passwordInput.icon
+	},
+	Input: {
+		container: passwordInput.input
+	}
+};
+
 export default {
 	...config,
 	//additional demo styles
@@ -67,5 +81,6 @@ export default {
 	[POPUP]: popup,
 	[HIGHLIGHT]: highlight,
 	[DATE_PICKER]: datePicker,
-	[CALENDAR]: calendarTheme
+	[CALENDAR]: calendarTheme,
+	[PASSWORD_INPUT]: passwordInputTheme
 };

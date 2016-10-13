@@ -34,6 +34,9 @@ import combobox from '../components/Combobox/Combobox.styl';
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.styl';
 
+import {PASSWORD_INPUT} from '../components/PasswordInput/PasswordInput';
+import passwordInput from '../components/PasswordInput/PasswordInput.styl';
+
 import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.styl';
 
@@ -97,5 +100,6 @@ export default {
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
 	[AUTOCOMPLETE]: autocomplete,
 	[DATE_PICKER]: datePicker,
-	[CALENDAR]: calendarTheme
+	[CALENDAR]: calendarTheme,
+	[PASSWORD_INPUT]: passwordInput
 };
