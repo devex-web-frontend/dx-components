@@ -1,4 +1,5 @@
 import React from 'react';
+import ExpandableHandler, {EXPANDABLE_HANDLER_THEME} from './ExpandableHandler';
 import classnames from 'classnames';
 import {PURE} from 'dx-util/src/react/pure';
 import {themr} from 'react-css-themr';
@@ -8,7 +9,7 @@ export const EXPANDABLE = Symbol('Expandable');
 export const EXPANDABLE_THEME = {
 	container: React.PropTypes.string,
 	container_isExpanded: React.PropTypes.string,
-	handler: React.PropTypes.string,
+	handler: React.PropTypes.shape(EXPANDABLE_HANDLER_THEME),
 	content: React.PropTypes.string
 };
 
@@ -25,6 +26,7 @@ export default class Expandable extends React.Component {
 	}
 
 	static defaultProps = {
+		Handler: ExpandableHandler,
 		isExpanded: false
 	}
 

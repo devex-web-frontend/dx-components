@@ -1,5 +1,6 @@
 import React from 'react';
 import {storiesOf, action} from '@kadira/storybook';
+import ExpandableHandler from './ExpandableHandler';
 import Button from '../Button/Button';
 import Demo from '../../demo/Demo.jsx';
 import Icon from '../Icon/Icon';
@@ -15,10 +16,8 @@ const iconTheme = {
 	container: css.icon
 };
 
-class Handler extends React.Component {
-	static propTypes = {
-		isExpanded: React.PropTypes.bool
-	}
+class CustomHandler extends React.Component {
+	static propTypes = ExpandableHandler.propTypes;
 
 	render() {
 		const {isExpanded} = this.props;
@@ -26,10 +25,10 @@ class Handler extends React.Component {
 		const icon = isExpanded ? iconMoveRight : iconMoveLeft;
 
 		return (
-			<div>
+			<ExpandableHandler isExpanded={isExpanded}>
 				{text}
 				<Icon name={icon} theme={iconTheme}/>
-			</div>
+			</ExpandableHandler>
 		);
 	}
 }
@@ -54,13 +53,13 @@ class ExpandablePage extends React.Component {
 					</Button>
 				</section>
 				<section className={css.section}>
-					<Expandable Handler={Handler} onToggle={this.onToggle} isExpanded={shouldExpandAll}>
+					<Expandable Handler={CustomHandler} onToggle={this.onToggle} isExpanded={shouldExpandAll}>
 						You will not be asked for further confirmation of trades. <br/>
 						Trades will be executed with on click.
 					</Expandable>
 				</section>
 				<section className={css.section}>
-					<Expandable Handler={Handler} onToggle={this.onToggle}
+					<Expandable Handler={ExpandableHandler} onToggle={this.onToggle}
 					            isExpanded={typeof shouldExpandAll === 'undefined' ? true : shouldExpandAll}>
 						You will not be asked for further confirmation of trades. <br/>
 						Trades will be executed with on click.
@@ -83,7 +82,7 @@ class ExpandablePage extends React.Component {
 	}
 
 	onToggle = (isExpanded) => {
-		action('Change')('resized', isExpanded);
+		action('Change')('onChange', isExpanded);
 	}
 }
 
