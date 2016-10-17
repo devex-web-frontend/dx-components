@@ -6,6 +6,7 @@ import Selectbox from './Selectbox.jsx';
 import SelectboxAnchor from './SelectboxAnchor.jsx';
 import MenuItem from '../Menu/MenuItem.jsx';
 import {PURE} from 'dx-util/src/react/pure';
+import stateful from '../../util/react/stateful';
 
 import iconListItemTick from './img/icon-list-item-tick.svg';
 import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
@@ -41,6 +42,8 @@ class DemoSelectbox extends React.Component {
 	}
 }
 
+const Stateful = stateful()(DemoSelectbox);
+
 @PURE
 class SelectboxPage extends React.Component {
 	state = {}
@@ -49,14 +52,16 @@ class SelectboxPage extends React.Component {
 		return (
 			<Demo>
 				<div>
-					<DemoSelectbox value={0}
-					               selectedItemIconName={iconListItemTick}
-					               placeholder={'Choose value'}>
-						<MenuItem value={0}>0</MenuItem>
-						<MenuItem value={1}>1</MenuItem>
-						<MenuItem value={2}>2</MenuItem>
-					</DemoSelectbox>
-					<DemoSelectbox placeholder="Choose your hero"
+					<Stateful placeholder="Choose your hero"
+					          selectedItemIconName={iconListItemTick}
+					          onChange={this.onHeroChange}
+					          caretIconName={iconSmallDropdownArrow}>
+						<MenuItem value="superman">Superman</MenuItem>
+						<MenuItem value="batman">Batman</MenuItem>
+						<MenuItem value="flash">Flash</MenuItem>
+					</Stateful>
+					<DemoSelectbox placeholder="Controlled by left"
+					               value={this.state.hero}
 					               selectedItemIconName={iconListItemTick}
 					               onChange={this.onHeroChange}
 					               caretIconName={iconSmallDropdownArrow}>
@@ -64,37 +69,7 @@ class SelectboxPage extends React.Component {
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
 					</DemoSelectbox>
-					<DemoSelectbox placeholder="Controlled by left"
-					               selectedItemIconName={iconListItemTick}
-					               value={this.state.hero}
-					               onChange={this.onHeroChange}>
-						<MenuItem value="superman">Superman</MenuItem>
-						<MenuItem value="batman">Batman</MenuItem>
-						<MenuItem value="flash">Flash</MenuItem>
-					</DemoSelectbox>
-					<DemoSelectbox defaultValue="batman"
-					               selectedItemIconName={iconListItemTick}
-					               value={this.state.hero}
-					               onChange={this.onHeroChange}>
-						<MenuItem value="superman">Superman</MenuItem>
-						<MenuItem value="batman">Batman</MenuItem>
-						<MenuItem value="flash">Flash</MenuItem>
-					</DemoSelectbox>
 					<Button onClick={this.onResetClick}>Reset</Button>
-				</div>
-
-				<div>
-					<DemoSelectbox defaultValue="batman">
-						<MenuItem value="superman">Superman</MenuItem>
-						<MenuItem value="batman">Batman</MenuItem>
-						<MenuItem value="flash">Flash</MenuItem>
-					</DemoSelectbox>
-					<DemoSelectbox defaultValue="superman"
-					               isDisabled={true}>
-						<MenuItem value="superman">Superman</MenuItem>
-						<MenuItem value="batman">Batman</MenuItem>
-						<MenuItem value="flash">Flash</MenuItem>
-					</DemoSelectbox>
 				</div>
 			</Demo>
 		);
