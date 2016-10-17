@@ -1,4 +1,5 @@
 import React from 'react';
+import stateful from '../../util/react/stateful';
 import ExpandableHandler, {EXPANDABLE_HANDLER_THEME} from './ExpandableHandler';
 import classnames from 'classnames';
 import {PURE} from 'dx-util/src/react/pure';
@@ -9,7 +10,7 @@ export const EXPANDABLE = Symbol('Expandable');
 export const EXPANDABLE_THEME = {
 	container: React.PropTypes.string,
 	container_isExpanded: React.PropTypes.string,
-	handler: React.PropTypes.shape(EXPANDABLE_HANDLER_THEME),
+	Handler: React.PropTypes.shape(EXPANDABLE_HANDLER_THEME),
 	content: React.PropTypes.string
 };
 
@@ -22,7 +23,7 @@ export default class Expandable extends React.Component {
 		Handler: React.PropTypes.func,
 		isExpanded: React.PropTypes.bool,
 		theme: React.PropTypes.shape(EXPANDABLE_THEME),
-		onToggle: React.PropTypes.func
+		onChange: React.PropTypes.func
 	}
 
 	static defaultProps = {
@@ -30,28 +31,8 @@ export default class Expandable extends React.Component {
 		isExpanded: false
 	}
 
-	componentWillReceiveProps(newProps) {
-		const {isExpanded} = this.state;
-		const {isExpanded: newIsExpanded} = newProps;
-		if (isExpanded !== newIsExpanded) {
-			this.setState({
-				isExpanded: newIsExpanded
-			});
-		}
-	}
-
-	constructor(...args) {
-		super(...args);
-		const {isExpanded} = this.props;
-
-		this.state = {
-			isExpanded
-		};
-	}
-
 	render() {
-		const {theme, Handler, children} = this.props;
-		const {isExpanded} = this.state;
+		const {theme, Handler, isExpanded, children} = this.props;
 
 		const className = classnames(theme.container, {
 			[theme.container_isExpanded]: isExpanded
@@ -60,7 +41,7 @@ export default class Expandable extends React.Component {
 		return (
 			<div className={className}>
 				<div className={theme.handler} onClick={this.onHandlerClick}>
-					<Handler isExpanded={isExpanded} />
+					<Handler isExpanded={isExpanded} theme={theme.Handler} />
 				</div>
 				<div className={theme.content}>
 					{children}
@@ -70,13 +51,14 @@ export default class Expandable extends React.Component {
 	}
 
 	onHandlerClick = () => {
-		const {onToggle} = this.props;
-		const {isExpanded} = this.state;
+		const {onChange, isExpanded} = this.props;
 
-		this.setState({
-			isExpanded: !isExpanded
-		});
-
-		onToggle && onToggle(!isExpanded);
+		onChange && onChange(!isExpanded);
 	}
 }
+
+const statefulProps = {
+	valueKey: 'isExpanded'
+};
+
+Expandable.Stateful = stateful(statefulProps)(Expandable);

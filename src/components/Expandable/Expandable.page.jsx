@@ -20,12 +20,12 @@ class CustomHandler extends React.Component {
 	static propTypes = ExpandableHandler.propTypes;
 
 	render() {
-		const {isExpanded} = this.props;
+		const {theme, isExpanded} = this.props;
 		const text = isExpanded ? 'Close me!' : 'Open me!';
 		const icon = isExpanded ? iconMoveRight : iconMoveLeft;
 
 		return (
-			<ExpandableHandler isExpanded={isExpanded}>
+			<ExpandableHandler theme={theme} isExpanded={isExpanded}>
 				{text}
 				<Icon name={icon} theme={iconTheme}/>
 			</ExpandableHandler>
@@ -53,13 +53,13 @@ class ExpandablePage extends React.Component {
 					</Button>
 				</section>
 				<section className={css.section}>
-					<Expandable Handler={CustomHandler} onToggle={this.onToggle} isExpanded={shouldExpandAll}>
+					<Expandable.Stateful Handler={CustomHandler} onChange={this.onChange} isExpanded={shouldExpandAll}>
 						You will not be asked for further confirmation of trades. <br/>
 						Trades will be executed with on click.
-					</Expandable>
+					</Expandable.Stateful>
 				</section>
 				<section className={css.section}>
-					<Expandable Handler={ExpandableHandler} onToggle={this.onToggle}
+					<Expandable Handler={ExpandableHandler} onChange={this.onChange}
 					            isExpanded={typeof shouldExpandAll === 'undefined' ? true : shouldExpandAll}>
 						You will not be asked for further confirmation of trades. <br/>
 						Trades will be executed with on click.
@@ -81,7 +81,7 @@ class ExpandablePage extends React.Component {
 		});
 	}
 
-	onToggle = (isExpanded) => {
+	onChange = (isExpanded) => {
 		action('Change')('onChange', isExpanded);
 	}
 }
