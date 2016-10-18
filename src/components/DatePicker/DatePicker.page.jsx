@@ -23,15 +23,10 @@ const CustomLabelField = (props) => {
 		props.onChange(moment().locale(props.locale)); // set current date
 	};
 
-	const onClick = e => {
-		props.openDatePicker();
-	};
-
 	const className = classnames(css.customLabelField, props.theme.field);
 
 	return (
-		<span onClick={onClick}
-			  onContextMenu={onContextMenu}
+		<span onClick={props.onClick} onContextMenu={onContextMenu}
 			  className={className}>
 			{props.isInvalid ? props.placeholder : props.value.format(props.dateFormat)}
 		</span>

@@ -105,9 +105,8 @@ class DatePicker extends React.Component {
 						   dateFormat={fieldDateFormat}
 						   min={moment(min).locale(locale)}
 						   max={moment(max).locale(locale)}
+						   onClick={this.onFieldClick}
 						   onChange={this.onFieldDateChange}
-						   openDatePicker={this.openDatePicker}
-						   closeDatePicker={this.closeDatePicker}
 						   theme={theme}
 						   isDisabled={isDisabled}
 						   isInvalid={isInvalid}
@@ -140,6 +139,13 @@ class DatePicker extends React.Component {
 				</Popover>
 			</div>
 		);
+	}
+
+	onFieldClick = () => {
+		const {isOpened} = this.state;
+		this.setState({
+			isOpened: !isOpened
+		});
 	}
 
 	openDatePicker = () => {

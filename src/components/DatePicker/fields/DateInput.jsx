@@ -28,6 +28,7 @@ export default class DateInput extends React.Component {
 		const {
 			theme,
 			isDisabled,
+			onClick,
 			isInvalid
 		} = this.props;
 
@@ -41,7 +42,7 @@ export default class DateInput extends React.Component {
 			<Input ref={e => this._input = ReactDOM.findDOMNode(e)}
 				   value={this.state.displayedDate}
 				   theme={inputTheme}
-				   onClick={this.onClick}
+				   onClick={onClick}
 				   onChange={this.onChange}
 				   onBlur={this.onBlur}
 				   onKeyDown={this.onKeyDown}
@@ -58,13 +59,6 @@ export default class DateInput extends React.Component {
 		if (inputString !== value.format(dateFormat)) { // if changed
 			const inputDate = moment(inputString, dateFormat, locale);
 			this.props.onChange(inputDate);
-		}
-	}
-
-	onClick = e => {
-		const {isDatePickerOpened} = this.props;
-		if (!isDatePickerOpened) {
-			this.props.openDatePicker();
 		}
 	}
 

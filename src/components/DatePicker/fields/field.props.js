@@ -10,8 +10,7 @@ export const DATE_PICKER_FIELD_PROPS = {
 	onChange: React.PropTypes.func, // pass a new `date: Moment` back
 	min: React.PropTypes.instanceOf(moment),
 	max: React.PropTypes.instanceOf(moment), // ISO
-	openDatePicker: React.PropTypes.func.isRequired,
-	closeDatePicker: React.PropTypes.func.isRequired,
+	onClick: React.PropTypes.func,
 	isDisabled: React.PropTypes.bool,
 	isInvalid: React.PropTypes.bool,
 	locale: React.PropTypes.string,
