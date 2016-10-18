@@ -10,6 +10,7 @@ import AutocompleteMenuItem, {AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE} from './Autoco
 export const AUTOCOMPLETE = Symbol('Autocomplete');
 
 const TAB_KEY = 9;
+const ENTER_KEY = 13;
 
 @PURE
 @themr(AUTOCOMPLETE)
@@ -73,6 +74,7 @@ export default class Autocomplete extends React.Component {
 				       value={value}
 				       ref={el => this._input = el}
 				       onKeyDown={this.onInputKeyDown}
+				       onKeyPress={this.onInputKeyPress}
 				       onChange={this.onInputChange}/>
 				<Popover isOpened={this.state.isOpened}
 				         theme={theme.Popover}
@@ -116,6 +118,15 @@ export default class Autocomplete extends React.Component {
 		}
 	}
 
+	onInputKeyPress = e => {
+		if ((e.keyCode || e.which) === ENTER_KEY) {
+			this._isFocused = false;
+			this.setState({
+				isOpened: false
+			});
+		}
+	}
+
 	onPopoverRequestClose = () => {
 		this.setState({
 			isOpened: false
@@ -137,6 +148,9 @@ export default class Autocomplete extends React.Component {
 	}
 
 	onMenuItemSelect = (value, text) => {
+		this.setState({
+			isOpened: false
+		});
 		this.props.onChange && this.props.onChange(value);
 	}
 }
