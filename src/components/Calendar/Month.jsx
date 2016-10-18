@@ -19,7 +19,7 @@ export default class Month extends React.Component {
 		dayFormat: React.PropTypes.string.isRequired,
 		theme: React.PropTypes.shape(CALENDAR_THEME),
 		Week: React.PropTypes.func,
-		Day: React.PropTypes.func
+		Day: React.PropTypes.func,
 
 	}
 

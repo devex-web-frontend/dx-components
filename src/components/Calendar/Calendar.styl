@@ -26,3 +26,26 @@
 		fill: inherit;
 	}
 }
+
+// css table
+.month {
+	display: table;
+	table-layout: fixed;
+}
+
+.week,
+.monthHeader {
+	display: table-row;
+}
+
+.monthHeader {
+	&__day {
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+
+.dayContainer  {
+	display: table-cell;
+	vertical-align: middle;
+}

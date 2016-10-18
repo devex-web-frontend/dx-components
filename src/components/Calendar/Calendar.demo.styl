@@ -1,12 +1,22 @@
 @require "./Calendar.styl";
-
 .container {
 	padding: 0;
 	display: inline-block;
 	font-size: 12px;
 	color: #fff;
 	background-color: #3d3b39;
+	padding-bottom: 5px;
 }
+
+.monthHeader {
+	&__day {
+		width: 25px;
+	}
+}
+.dayContainer {
+	width: 25px;
+}
+
 
 .header {
 	text-align: center;
@@ -41,24 +51,16 @@
 	}
 }
 
-.month {
-	padding-bottom: 5px;
-}
-
 .week {
 	width: 100%;
 }
 
 .monthHeader {
-	margin: 6px 0 12px;
-
 	&__day {
-		display: inline-block;
 		text-align: center;
 		vertical-align: middle;
 		box-sizing: border-box;
-		margin: 0 10px 0;
-		width: 25px;
+		padding: 10px 0;
 		font-size: 10px;
 		line-height: 8px;
 		color: darken(#fff, 30);
@@ -67,14 +69,15 @@
 	}
 }
 
+.dayContainer {
+	text-align: center;
+}
+
 .day {
 	box-sizing: border-box;
 	display: inline-block;
-	text-align: center;
-	vertical-align: middle;
 	cursor: pointer;
 	margin: 0 10px 2px;
-	width: 25px;
 	line-height: 8px;
 	padding: 5px;
 	user-select: none;

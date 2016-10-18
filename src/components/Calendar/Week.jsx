@@ -18,13 +18,11 @@ export default class Week extends React.Component {
 		endOfMonth: React.PropTypes.instanceOf(moment).isRequired,
 		currentDate: React.PropTypes.instanceOf(moment).isRequired,
 		onChange: React.PropTypes.func,
-		theme: React.PropTypes.shape(CALENDAR_THEME),
-		Day: React.PropTypes.func
+		theme: React.PropTypes.shape(CALENDAR_THEME)
 	}
 
 	static defaultProps = {
-		onChange: noop,
-		Day
+		onChange: noop
 	}
 
 	render() {
@@ -38,8 +36,7 @@ export default class Week extends React.Component {
 			startOfMonth,
 			endOfMonth,
 			currentDate,
-			selectedDate,
-			Day
+			selectedDate
 		} = this.props;
 
 		return (
@@ -53,15 +50,16 @@ export default class Week extends React.Component {
 					const isSelected = date.isSame(selectedDate, 'day');
 
 					return (
-						<Day value={date}
-							 onChange={onChange}
-							 dayFormat={dayFormat}
-							 className={theme.day}
-							 isDisabled={!isDateInBounds}
-							 isCurrent={isCurrent}
-							 isSelected={isSelected}
-							 theme={theme}
-							 key={i}/>
+						<div className={theme.dayContainer} key={i}>
+							<Day value={date}
+								 onChange={onChange}
+								 dayFormat={dayFormat}
+								 className={theme.day}
+								 isDisabled={!isDateInBounds}
+								 isCurrent={isCurrent}
+								 isSelected={isSelected}
+								 theme={theme} />
+						</div>
 					);
 				})}
 			</div>
