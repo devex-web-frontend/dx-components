@@ -28,7 +28,6 @@ class DatePicker extends React.Component {
 		previousMonthIcon: React.PropTypes.string.isRequired,
 		nextMonthIcon: React.PropTypes.string.isRequired,
 		withField: React.PropTypes.bool,
-		fieldComponent: React.PropTypes.func,
 		placeholder: React.PropTypes.string,
 		isDisabled: React.PropTypes.bool,
 		locale: React.PropTypes.string,
@@ -41,6 +40,7 @@ class DatePicker extends React.Component {
 			popover__container: React.PropTypes.string,
 			popover__content: React.PropTypes.string
 		}),
+		Input: React.PropTypes.func,
 		calendarTheme: React.PropTypes.shape(CALENDAR_THEME)
 	}
 
@@ -55,7 +55,7 @@ class DatePicker extends React.Component {
 		headerDayFormat: 'ddd',
 		locale: 'en',
 		withField: true,
-		fieldComponent: DateInput,
+		Input: DateInput,
 		isDisabled: false,
 		placeholder: ''
 	}
@@ -80,7 +80,7 @@ class DatePicker extends React.Component {
 			value,
 			min,
 			max,
-			fieldComponent: Field,
+			Input,
 			previousMonthIcon,
 			nextMonthIcon,
 			locale,
@@ -101,7 +101,7 @@ class DatePicker extends React.Component {
 		return (
 			<div className={theme.container} ref={el => this._anchor = el}>
 				{withField && (
-					<Field value={moment(value).locale(locale)}
+					<Input value={moment(value).locale(locale)}
 						   dateFormat={fieldDateFormat}
 						   min={moment(min).locale(locale)}
 						   max={moment(max).locale(locale)}

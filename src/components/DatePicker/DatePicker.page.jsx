@@ -63,7 +63,7 @@ class DatePickerPage extends React.Component {
 								placeholder="Not selected"
 								nextMonthIcon={nextMonthIcon}
 								previousMonthIcon={previousMonthIcon}
-								fieldComponent={CustomLabelField}
+								Input={CustomLabelField}
 								fieldDateFormat="MMMM YYYY"
 								headerDateFormat="YYYY, MMMM"
 								dayFormat="DD"/>
