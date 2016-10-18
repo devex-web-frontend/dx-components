@@ -24,7 +24,10 @@ export default class Calendar extends React.Component {
 		previousMonthIcon: React.PropTypes.string,
 		nextMonthIcon: React.PropTypes.string,
 		locale: React.PropTypes.string,
-		theme: React.PropTypes.shape(CALENDAR_THEME)
+		theme: React.PropTypes.shape(CALENDAR_THEME),
+		Month: React.PropTypes.func,
+		Week: React.PropTypes.func,
+		Day: React.PropTypes.func
 	}
 
 	static defaultProps = {
@@ -34,7 +37,8 @@ export default class Calendar extends React.Component {
 		headerDateFormat: 'MMM YYYY',
 		dayFormat: 'D',
 		headerDayFormat: 'ddd',
-		locale: 'en'
+		locale: 'en',
+		Month
 	}
 
 	state = {
@@ -59,7 +63,10 @@ export default class Calendar extends React.Component {
 			previousMonthIcon,
 			nextMonthIcon,
 			locale,
-			value
+			value,
+			Month,
+			Week,
+			Day
 		} = this.props;
 
 		const displayedDate = this.state.displayedDate.locale(locale);
@@ -90,7 +97,9 @@ export default class Calendar extends React.Component {
 					   max={moment(max).locale(locale)}
 					   theme={theme}
 					   headerDayFormat={headerDayFormat}
-					   dayFormat={dayFormat}/>
+					   dayFormat={dayFormat}
+				       Week={Week}
+				       Day={Day} />
 			</div>
 		);
 	}
