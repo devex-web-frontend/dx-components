@@ -1,5 +1,5 @@
 import React from 'react';
-import stateful from '../../util/react/stateful';
+
 import ExpandableHandler, {EXPANDABLE_HANDLER_THEME} from './ExpandableHandler';
 import classnames from 'classnames';
 import {PURE} from 'dx-util/src/react/pure';
@@ -56,9 +56,3 @@ export default class Expandable extends React.Component {
 		onChange && onChange(!isExpanded);
 	}
 }
-
-const statefulProps = {
-	valueKey: 'isExpanded'
-};
-
-Expandable.Stateful = stateful(statefulProps)(Expandable);

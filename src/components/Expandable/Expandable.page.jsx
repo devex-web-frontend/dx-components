@@ -1,4 +1,5 @@
 import React from 'react';
+import stateful from '../../util/react/stateful';
 import {storiesOf, action} from '@kadira/storybook';
 import ExpandableHandler from './ExpandableHandler';
 import Button from '../Button/Button';
@@ -15,6 +16,12 @@ import css from './Expandable.page.styl';
 const iconTheme = {
 	container: css.icon
 };
+
+const statefulProps = {
+	valueKey: 'isExpanded'
+};
+
+const Stateful = stateful(statefulProps)(Expandable);
 
 class CustomHandler extends React.Component {
 	static propTypes = ExpandableHandler.propTypes;
@@ -53,10 +60,10 @@ class ExpandablePage extends React.Component {
 					</Button>
 				</section>
 				<section className={css.section}>
-					<Expandable.Stateful Handler={CustomHandler} onChange={this.onChange} isExpanded={shouldExpandAll}>
+					<Stateful Handler={CustomHandler} onChange={this.onChange} isExpanded={shouldExpandAll}>
 						You will not be asked for further confirmation of trades. <br/>
 						Trades will be executed with on click.
-					</Expandable.Stateful>
+					</Stateful>
 				</section>
 				<section className={css.section}>
 					<Expandable Handler={ExpandableHandler} onChange={this.onChange}
