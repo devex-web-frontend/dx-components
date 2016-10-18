@@ -45,7 +45,7 @@ export default class Day extends React.Component {
 
 		return (
 			<Button theme={btnTheme}
-					onMouseDown={this.onMouseDown}
+					onClick={this.onClick}
 					isDisabled={isDisabled}
 					isFlat={true}
 					type="button">
@@ -54,8 +54,8 @@ export default class Day extends React.Component {
 		);
 	}
 
-	onMouseDown = e => {
-		e.preventDefault();
+	onClick = event => {
+		event.preventDefault();
 		this.props.onChange(this.props.value.format());
 	}
 }
