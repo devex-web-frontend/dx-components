@@ -12,7 +12,8 @@ const locale = 'en';
 
 const headerDateFormatter = (date) => {
 	return new Intl.DateTimeFormat(locale, {
-		month: 'long'
+		month: 'short',
+		year: 'numeric'
 	}).format(date);
 };
 
