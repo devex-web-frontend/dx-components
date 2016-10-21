@@ -1,5 +1,33 @@
 import moment from 'moment';
 
+
+
+/**
+ * Clone date
+ * @param {Date} date
+ * @returns {Date}
+ */
+export const cloneDate = (date) => new Date(date.getTime());
+
+export const addDays = (date, days) => {
+	const newDate = cloneDate(date);
+	newDate.setDate(date.getDate() + days);
+	return newDate;
+};
+
+/**
+ * Compare date
+ * @param {Date} date1
+ * @param {Date} date2
+ * @returns {boolean}
+ */
+export const isEqualDate = (date1, date2) => {
+	return date1 && date2 &&
+		(date1.getFullYear() === date2.getFullYear()) &&
+		(date1.getMonth() === date2.getMonth()) &&
+		(date1.getDate() === date2.getDate());
+};
+
 /**
  * @param {moment.Moment} momentDate
  * @param {*} min

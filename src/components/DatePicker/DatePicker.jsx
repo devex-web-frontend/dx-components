@@ -16,7 +16,7 @@ export const DATE_PICKER = Symbol('DATE_PICKER');
 @themr(DATE_PICKER)
 class DatePicker extends React.Component {
 	static propTypes = {
-		value: React.PropTypes.string, // ISO - "2016-09-20T15:30:39.298Z" or NULL
+		//value: React.PropTypes.string, // ISO - "2016-09-20T15:30:39.298Z" or NULL
 		onChange: React.PropTypes.func,
 		fieldDateFormat: React.PropTypes.string, // field
 		headerDateFormat: React.PropTypes.string,
