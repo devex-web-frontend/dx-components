@@ -33,7 +33,6 @@ export default class Calendar extends React.Component {
 		nextMonthIcon: React.PropTypes.string,
 		theme: React.PropTypes.shape(CALENDAR_THEME),
 		Month: React.PropTypes.func,
-		Week: React.PropTypes.func,
 		Day: React.PropTypes.func
 	}
 
@@ -64,7 +63,6 @@ export default class Calendar extends React.Component {
 			previousMonthIcon,
 			nextMonthIcon,
 			Month,
-			Week,
 			Day,
 			firstDayOfWeek
 		} = this.props;
@@ -98,7 +96,6 @@ export default class Calendar extends React.Component {
 					       theme={theme}
 					       headerDayFormatter={headerDayFormatter}
 					       dayFormatter={dayFormatter}
-					       Week={Week}
 					       Day={Day}
 					       firstDayOfWeek={firstDayOfWeek}/>
 

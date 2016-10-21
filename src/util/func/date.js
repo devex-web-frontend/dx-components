@@ -1,7 +1,5 @@
 import moment from 'moment';
 
-
-
 /**
  * Clone date
  * @param {Date} date

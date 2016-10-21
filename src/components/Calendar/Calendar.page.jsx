@@ -40,6 +40,7 @@ class CalendarPage extends React.Component {
 			<Demo>
 				<section>
 					<Calendar value={new Date(2016, 9, 16)}
+					          min={new Date(2016, 9, 10)}
 					          headerDateFormatter={headerDateFormatter}
 					          headerDayFormatter={headerDayFormatter}
 					          previousMonthIcon={previousMonthIcon}
@@ -47,7 +48,7 @@ class CalendarPage extends React.Component {
 					          nextMonthIcon={nextMonthIcon}/>
 				</section>
 				<br/>
-				{/*<section>
+				<section>
 					<Calendar value={this.state.value}
 					          firstDayOfWeek={0}
 					          onChange={this.onChnage}
@@ -56,7 +57,7 @@ class CalendarPage extends React.Component {
 					          previousMonthIcon={previousMonthIcon}
 					          dayFormatter={dayFormatter}
 					          nextMonthIcon={nextMonthIcon}/>
-				</section>*/}
+				</section>
 
 			</Demo>
 		);
