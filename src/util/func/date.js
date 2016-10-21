@@ -7,9 +7,27 @@ import moment from 'moment';
  */
 export const cloneDate = (date) => new Date(date.getTime());
 
-export const addDays = (date, days) => {
+/**
+ * Add day`s to date
+ * @param {Date} date
+ * @param {Number} amountDay
+ * @returns {Date}
+ */
+export const addDays = (date, amountDay) => {
 	const newDate = cloneDate(date);
-	newDate.setDate(date.getDate() + days);
+	newDate.setDate(date.getDate() + amountDay);
+	return newDate;
+};
+
+/**
+ * Add month`s to date
+ * @param {Date} date
+ * @param {Number} amountMonth
+ * @returns {Date}
+ */
+export const addMonths = (date, amountMonth) => {
+	const newDate = cloneDate(date);
+	newDate.setMonth(date.getMonth() + amountMonth);
 	return newDate;
 };
 
@@ -25,6 +43,7 @@ export const isEqualDate = (date1, date2) => {
 		(date1.getMonth() === date2.getMonth()) &&
 		(date1.getDate() === date2.getDate());
 };
+
 
 /**
  * @param {moment.Moment} momentDate

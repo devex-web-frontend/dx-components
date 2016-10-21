@@ -8,7 +8,7 @@ import {cloneDate, isEqualDate, addDays} from '../../util/func/date';
 export default class Month extends React.Component {
 	static propTypes = {
 		selectedDate: React.PropTypes.instanceOf(Date),
-		value: React.PropTypes.instanceOf(Date),
+		displayedDate: React.PropTypes.instanceOf(Date),
 		min: React.PropTypes.instanceOf(Date),
 		max: React.PropTypes.instanceOf(Date),
 		firstDayOfWeek: React.PropTypes.number,
@@ -26,49 +26,46 @@ export default class Month extends React.Component {
 
 	renderWeek(currentDate, startOfMonth, endOfMonth, from) {
 		const {theme, dayFormatter, selectedDate, onChange, min, max, Day} = this.props;
-		return (
-			<div className={theme.week}>
-				{Array.from(new Array(7).keys()).map(i => {
-					const date = addDays(from, i);
-					const isSelected = isEqualDate(date, selectedDate);
-					const isCurrent = isEqualDate(date, currentDate);
-					let isDisabled = date.getTime() < startOfMonth.getTime() ||
-						date.getTime() > endOfMonth.getTime();
+		return Array.from(new Array(7).keys()).map(i => {
 
-					if (min && !isDisabled) {
-						isDisabled = date.getTime() < min.getTime();
-					}
+			const date = addDays(from, i);
+			const isSelected = isEqualDate(date, selectedDate);
+			const isCurrent = isEqualDate(date, currentDate);
+			let isDisabled = date.getTime() < startOfMonth.getTime() ||
+				date.getTime() > endOfMonth.getTime();
 
-					if (max && !isDisabled) {
-						isDisabled = date.getTime() > max.getTime();
-					}
+			if (min && !isDisabled) {
+				isDisabled = date.getTime() < min.getTime();
+			}
 
-					return (
-						<div className={theme.dayContainer} key={i}>
-							<Day value={date}
-							     theme={theme}
-							     dayFormatter={dayFormatter}
-							     isDisabled={isDisabled}
-							     isSelected={isSelected}
-							     isCurrent={isCurrent}
-							     onChange={onChange}/>
-						</div>
-					);
-				})}
-			</div>
-		);
+			if (max && !isDisabled) {
+				isDisabled = date.getTime() > max.getTime();
+			}
+
+			return (
+				<div className={theme.dayContainer} key={i}>
+					<Day value={date}
+					     theme={theme}
+					     dayFormatter={dayFormatter}
+					     isDisabled={isDisabled}
+					     isSelected={isSelected}
+					     isCurrent={isCurrent}
+					     onChange={onChange}/>
+				</div>
+			);
+		});
 	}
 
 	render() {
 		const {
 			theme,
-			value,
+			displayedDate,
 			firstDayOfWeek
 		} = this.props;
 
 		const currentDate = new Date();
-		const startOfMonth = new Date(value.getFullYear(), value.getMonth(), 1);
-		const endOfMonth = new Date(value.getFullYear(), value.getMonth() + 1, 0);
+		const startOfMonth = new Date(displayedDate.getFullYear(), displayedDate.getMonth(), 1);
+		const endOfMonth = new Date(displayedDate.getFullYear(), displayedDate.getMonth() + 1, 0);
 
 		const from = cloneDate(startOfMonth);
 		while (from.getDay() > 0) {
@@ -85,7 +82,11 @@ export default class Month extends React.Component {
 				{Array.from(new Array(6).keys()).map(week => {
 					const weekFrom = cloneDate(from);
 					weekFrom.setDate(weekFrom.getDate() + 7 * week);
-					return this.renderWeek(currentDate, startOfMonth, endOfMonth, weekFrom);
+					return (
+						<div className={theme.week} key={week}>
+							{this.renderWeek(currentDate, startOfMonth, endOfMonth, weekFrom)}
+						</div>
+					);
 				})}
 			</div>
 		);

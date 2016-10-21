@@ -3,6 +3,7 @@ import {PURE} from 'dx-util/src/react/pure';
 import Demo from '../../demo/Demo.jsx';
 
 import Calendar from './Calendar.jsx';
+import stateful from '../../util/react/stateful';
 import {storiesOf} from '@kadira/storybook';
 
 import nextMonthIcon from '../DatePicker/resources/icon-move-right.svg';
@@ -29,6 +30,8 @@ const dayFormatter = (date) => {
 	}).format(date);
 };
 
+const Stateful = stateful()(Calendar);
+
 @PURE
 class CalendarPage extends React.Component {
 
@@ -40,7 +43,7 @@ class CalendarPage extends React.Component {
 		return (
 			<Demo>
 				<section>
-					<Calendar value={new Date(2016, 9, 16)}
+					<Stateful defaultValue={new Date(2016, 9, 16)}
 					          min={new Date(2016, 9, 10)}
 					          headerDateFormatter={headerDateFormatter}
 					          headerDayFormatter={headerDayFormatter}

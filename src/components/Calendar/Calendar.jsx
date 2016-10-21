@@ -5,7 +5,7 @@ import {PURE} from 'dx-util/src/react/react';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import {MEMOIZE} from 'dx-util/src/function/function';
 import {CALENDAR_THEME} from './Calendar.constants';
-import {cloneDate} from '../../util/func/date';
+import {addMonths} from '../../util/func/date';
 
 export const CALENDAR = Symbol('Calendar');
 
@@ -45,12 +45,6 @@ export default class Calendar extends React.Component {
 		displayedDate: this.props.value
 	}
 
-	componentWillReceiveProps(newProps) {
-		this.setState({
-			displayedDate: newProps.value
-		});
-	}
-
 	render() {
 		const {
 			theme,
@@ -64,6 +58,7 @@ export default class Calendar extends React.Component {
 			nextMonthIcon,
 			Month,
 			Day,
+			value,
 			firstDayOfWeek
 		} = this.props;
 
@@ -88,8 +83,8 @@ export default class Calendar extends React.Component {
 					            onClick={this.onChangeMonth(1)}/>
 				</div>
 				{
-					<Month selectedDate={cloneDate(displayedDate)}
-					       value={this.state.displayedDate}
+					<Month selectedDate={value}
+					       displayedDate={displayedDate}
 					       onChange={onChange}
 					       min={min}
 					       max={max}
@@ -107,12 +102,8 @@ export default class Calendar extends React.Component {
 	@MEMOIZE
 	onChangeMonth = step => () => {
 		const {displayedDate} = this.state;
-
-		const date = cloneDate(displayedDate);
-		date.setMonth(displayedDate.getMonth() + step);
-
 		this.setState({
-			displayedDate: date
+			displayedDate: addMonths(displayedDate, step)
 		});
 	}
 }
