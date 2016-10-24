@@ -120,7 +120,12 @@ export default class Selectbox extends React.Component {
 			container: classnames(theme.container__popover),
 		};
 
-		const valueText = typeof value !== 'undefined' ? `${value}` : placeholder;
+		let valueText = placeholder;
+		if (typeof value !== 'undefined') {
+			const valueChild = React.Children.toArray(children).find(child => child.props.value === value);
+			//existance is checked in prop types
+			valueText = valueChild.props.text || valueChild.props.children;
+		}
 
 		return (
 			<Anchor ref={el => this._anchor = el}
