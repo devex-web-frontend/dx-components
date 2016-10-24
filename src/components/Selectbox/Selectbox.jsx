@@ -120,13 +120,15 @@ export default class Selectbox extends React.Component {
 			container: classnames(theme.container__popover),
 		};
 
+		const valueText = typeof value !== 'undefined' ? `${value}` : placeholder;
+
 		return (
 			<Anchor ref={el => this._anchor = el}
 			        isDisabled={isDisabled}
 			        theme={anchorTheme}
 			        caretIconName={caretIconName}
 			        isOpened={this.state.isOpened}
-			        valueText={value || placeholder}
+			        valueText={valueText}
 			        onClick={this.onAnchorClick} >
 				<Popover isOpened={this.state.isOpened}
 				         theme={popoverTheme}
