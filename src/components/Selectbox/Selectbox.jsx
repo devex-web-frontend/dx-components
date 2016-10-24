@@ -133,6 +133,7 @@ export default class Selectbox extends React.Component {
 			        theme={anchorTheme}
 			        caretIconName={caretIconName}
 			        isOpened={this.state.isOpened}
+			        value={value}
 			        valueText={valueText}
 			        onClick={this.onAnchorClick} >
 				<Popover isOpened={this.state.isOpened}
