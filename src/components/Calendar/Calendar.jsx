@@ -34,11 +34,13 @@ export default class Calendar extends React.Component {
 		theme: React.PropTypes.shape(CALENDAR_THEME),
 		locale: React.PropTypes.string,
 		Month: React.PropTypes.func,
+		CalendarHeader: React.PropTypes.func,
 		Day: React.PropTypes.func
 	}
 
 	static defaultProps = {
 		Month,
+		CalendarHeader,
 		locale: 'en',
 		...Month.defaultProps
 	}
@@ -54,13 +56,13 @@ export default class Calendar extends React.Component {
 			min,
 			locale,
 			max,
-			headerDateFormatter,
 			previousMonthIcon,
 			nextMonthIcon,
 			Month,
 			Day,
 			value,
 			firstDayOfWeek,
+			headerDateFormatter: originalHeaderDateFormatter,
 			headerDayFormatter: originalHeaderDayFormatter,
 			dayFormatter: originalDayFormatter
 		} = this.props;
@@ -73,26 +75,19 @@ export default class Calendar extends React.Component {
 			return originalDayFormatter(value, locale);
 		};
 
-		const changeMonthBtnTheme = {
-			container: theme.changeMonth__container,
-			icon: theme.changeMonth__icon
+		const headerDateFormatter = value => {
+			return originalHeaderDateFormatter(value, locale);
 		};
 
 		const {displayedDate} = this.state;
 
 		return (
 			<div className={theme.container}>
-				<div className={theme.header}>
-					<ButtonIcon name={previousMonthIcon}
-					            theme={changeMonthBtnTheme}
-					            onClick={this.onChangeMonth(-1)}/>
-					<span className={theme.header__text}>
-						{headerDateFormatter ? headerDateFormatter(displayedDate, locale) : displayedDate}
-					</span>
-					<ButtonIcon name={nextMonthIcon}
-					            theme={changeMonthBtnTheme}
-					            onClick={this.onChangeMonth(1)}/>
-				</div>
+				<CalendarHeader theme={theme}
+				                value={displayedDate}
+				                headerDateFormatter={headerDateFormatter}
+				                previousMonthIcon={previousMonthIcon} nextMonthIcon={nextMonthIcon}
+				                onChange={this.onChangeDisplayedDate}/>
 				{
 					<Month selectedDate={value}
 					       displayedDate={displayedDate}
@@ -110,11 +105,53 @@ export default class Calendar extends React.Component {
 		);
 	}
 
+	onChangeDisplayedDate = displayedDate => {
+		this.setState({
+			displayedDate
+		});
+	}
+}
+
+class CalendarHeader extends React.Component {
+	static propTypes = {
+		value: React.PropTypes.instanceOf(Date),
+		onChange: React.PropTypes.func,
+		locale: React.PropTypes.string,
+		headerDateFormatter: React.PropTypes.func,
+		previousMonthIcon: React.PropTypes.string,
+		nextMonthIcon: React.PropTypes.string,
+		theme: React.PropTypes.shape(CALENDAR_THEME),
+	}
+
+	render() {
+		const {
+			theme,
+			value,
+			headerDateFormatter,
+			previousMonthIcon,
+			nextMonthIcon,
+		} = this.props;
+
+		const changeMonthBtnTheme = {
+			container: theme.changeMonth__container,
+			icon: theme.changeMonth__icon
+		};
+
+		return (
+			<div className={theme.header}>
+				<ButtonIcon name={previousMonthIcon} theme={changeMonthBtnTheme} onClick={this.onChangeMonth(-1)}/>
+				<span className={theme.header__text}>
+					{headerDateFormatter ? headerDateFormatter(value) : value}
+				</span>
+				<ButtonIcon name={nextMonthIcon} theme={changeMonthBtnTheme} onClick={this.onChangeMonth(1)}/>
+			</div>
+		);
+	}
+
 	@MEMOIZE
 	onChangeMonth = step => () => {
-		const {displayedDate} = this.state;
-		this.setState({
-			displayedDate: addMonths(displayedDate, step)
-		});
+		const {value, onChange} = this.props;
+		const newValue = addMonths(value, step);
+		onChange && onChange(newValue);
 	}
 }

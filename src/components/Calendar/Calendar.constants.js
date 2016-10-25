@@ -1,5 +1,4 @@
 import React from 'react';
-
 export const CALENDAR_THEME = {
 	container: React.PropTypes.string,
 	header: React.PropTypes.string,
