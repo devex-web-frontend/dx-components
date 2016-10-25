@@ -12,11 +12,17 @@ export default class Day extends React.Component {
 		theme: React.PropTypes.shape(BUTTON_THEME)
 	}
 
+	renderInnerContent() {
+		const {
+			dayFormatter,
+			value,
+		} = this.props;
+		return dayFormatter ? dayFormatter(value) : value;
+	}
+
 	render() {
 		const {
 			theme,
-			dayFormatter,
-			value,
 			isDisabled,
 		} = this.props;
 
@@ -26,7 +32,7 @@ export default class Day extends React.Component {
 			        isDisabled={isDisabled}
 			        isFlat={true}
 			        type="button">
-				{dayFormatter ? dayFormatter(value) : value}
+				{this.renderInnerContent()}
 			</Button>
 		);
 	}
