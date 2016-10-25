@@ -6,6 +6,7 @@ import moment from 'moment';
 import {DATE_PICKER_FIELD_PROPS} from './fields/field.props';
 import {PURE} from 'dx-util/src/react/react';
 import classnames from 'classnames';
+import {cloneDate, addMonths} from '../../util/func/date';
 import 'moment/locale/ru';
 
 import iconOpenCalendar from './resources/icon-open-calendar.svg';
@@ -17,6 +18,12 @@ const darkDemoTheme = {
 	container: css.container
 };
 
+const now = new Date();
+const minDemo = cloneDate(now);
+addMonths(minDemo, -1);
+const maxDemo = cloneDate(now);
+addMonths(maxDemo, 1);
+
 const CustomLabelField = (props) => {
 	const onContextMenu = e => {
 		e.preventDefault();
@@ -25,10 +32,12 @@ const CustomLabelField = (props) => {
 
 	const className = classnames(css.customLabelField, props.theme.field);
 
+	const {dateFormatter, value} = props;
+
 	return (
 		<span onClick={props.onClick} onContextMenu={onContextMenu}
 			  className={className}>
-			{props.isInvalid ? props.placeholder : props.value.format(props.dateFormat)}
+			{dateFormatter ? dateFormatter(value) : value}
 		</span>
 	);
 };
@@ -40,10 +49,35 @@ CustomLabelField.propTypes = {
 	})
 };
 
+
+const locale = 'en';
+const headerDateFormatter = (date) => {
+	return new Intl.DateTimeFormat(locale, {
+		month: 'short',
+		year: 'numeric'
+	}).format(date);
+};
+
+const headerDayFormatter = (date) => {
+	return new Intl.DateTimeFormat(locale, {
+		weekday: 'short'
+	}).format(date);
+};
+
+const dayFormatter = (date) => {
+	return new Intl.DateTimeFormat(locale, {
+		day: 'numeric'
+	}).format(date);
+};
+
+const dateFormatter = (date) => {
+	return new Intl.DateTimeFormat(locale).format(date);
+};
+
 @PURE
 class DatePickerPage extends React.Component {
 	state = {
-		date: new Date().toISOString()
+		date: new Date()
 	}
 
 	render() {
@@ -54,6 +88,10 @@ class DatePickerPage extends React.Component {
 								onChange={this.onDateChange}
 								openCalendarIcon={iconOpenCalendar}
 								nextMonthIcon={nextMonthIcon}
+								headerDateFormatter={headerDateFormatter}
+								headerDayFormatter={headerDayFormatter}
+								dayFormatter={dayFormatter}
+								dateFormatter={dateFormatter}
 								previousMonthIcon={previousMonthIcon}/>
 				</section>
 				<section className={css.section}>
@@ -64,32 +102,43 @@ class DatePickerPage extends React.Component {
 								nextMonthIcon={nextMonthIcon}
 								previousMonthIcon={previousMonthIcon}
 								Input={CustomLabelField}
-								fieldDateFormat="MMMM YYYY"
-								headerDateFormat="YYYY, MMMM"
-								dayFormat="DD"/>
+								headerDateFormatter={headerDateFormatter}
+								headerDayFormatter={headerDayFormatter}
+								dayFormatter={dayFormatter}
+								dateFormatter={dateFormatter} />
 				</section>
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
 								onChange={this.onDateChange}
-								min={moment().subtract(1, 'days').format()}
+								min={minDemo}
 								nextMonthIcon={nextMonthIcon}
 								previousMonthIcon={previousMonthIcon}
-								headerDateFormat="MMMM YYYY"
-								fieldDateFormat="DD/MM/YYYY"
-								locale="ru"/>
+								headerDateFormatter={headerDateFormatter}
+								headerDayFormatter={headerDayFormatter}
+								dayFormatter={dayFormatter}
+								dateFormatter={dateFormatter}
+								locale="ru" />
 				</section>
 				<section className={css.section}>
 					<DatePicker value={this.state.date}
 								onChange={this.onDateChange}
 								openCalendarIcon={iconOpenCalendar}
 								nextMonthIcon={nextMonthIcon}
+								headerDateFormatter={headerDateFormatter}
+								headerDayFormatter={headerDayFormatter}
+								dayFormatter={dayFormatter}
+								dateFormatter={dateFormatter}
 								previousMonthIcon={previousMonthIcon}
 								isDisabled={true}/>
 				</section>
 				<section className={css.section}>
-					<DatePicker.Stateful defaultValue={new Date().toISOString()}
-										 max={moment().add(1, 'months').format()}
+					<DatePicker.Stateful defaultValue={now}
+										 max={maxDemo}
 										 onChange={this.onDateChange}
+										 headerDateFormatter={headerDateFormatter}
+										 headerDayFormatter={headerDayFormatter}
+										 dayFormatter={dayFormatter}
+										 dateFormatter={dateFormatter}
 										 nextMonthIcon={nextMonthIcon}
 										 previousMonthIcon={previousMonthIcon}/>
 				</section>

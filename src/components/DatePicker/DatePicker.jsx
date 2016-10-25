@@ -10,7 +10,6 @@ import Calendar from '../Calendar/Calendar';
 import {CALENDAR_THEME} from '../Calendar/Calendar.constants';
 
 import {isDateValid} from '../../util/func/date';
-import noop from '../../util/func/noop';
 
 export const DATEPICKER_THEME = {
 	container: React.PropTypes.string,
@@ -27,14 +26,15 @@ export const DATE_PICKER = Symbol('DATE_PICKER');
 @themr(DATE_PICKER)
 class DatePicker extends React.Component {
 	static propTypes = {
-		//value: React.PropTypes.string, // ISO - "2016-09-20T15:30:39.298Z" or NULL
+		value: React.PropTypes.instanceOf(Date),
+		min: React.PropTypes.instanceOf(Date),
+		max: React.PropTypes.instanceOf(Date),
+
 		onChange: React.PropTypes.func,
-		fieldDateFormat: React.PropTypes.string, // field
-		headerDateFormat: React.PropTypes.string,
-		headerDayFormat: React.PropTypes.string,
-		dayFormat: React.PropTypes.string,
-		min: React.PropTypes.string, // ISO
-		max: React.PropTypes.string, // ISO
+		dateFormatter: React.PropTypes.func,
+		headerDateFormatter: React.PropTypes.func,
+		dayFormatter: React.PropTypes.func,
+		headerDayFormatter: React.PropTypes.func,
 		openCalendarIcon: React.PropTypes.string,
 		previousMonthIcon: React.PropTypes.string.isRequired,
 		nextMonthIcon: React.PropTypes.string.isRequired,
@@ -47,19 +47,9 @@ class DatePicker extends React.Component {
 	}
 
 	static defaultProps = {
-		value: moment().format(),
-		onChange: noop,
-		min: null, // for date validation: moment(undefined) == current date, moment(null) is invalid
-		max: null,
-		fieldDateFormat: 'MM/DD/YYYY',
-		headerDateFormat: 'MMM YYYY',
-		dayFormat: 'D',
-		headerDayFormat: 'ddd',
 		locale: 'en',
 		withField: true,
-		Input: DateInput,
-		isDisabled: false,
-		placeholder: ''
+		Input: DateInput
 	}
 
 	state = {
@@ -73,10 +63,10 @@ class DatePicker extends React.Component {
 			theme,
 			openCalendarIcon,
 			isDisabled,
-			fieldDateFormat,
-			headerDateFormat,
-			headerDayFormat,
-			dayFormat,
+			dateFormatter,
+			headerDateFormatter,
+			headerDayFormatter,
+			dayFormatter,
 			placeholder,
 			value,
 			min,
@@ -90,13 +80,11 @@ class DatePicker extends React.Component {
 
 		const isInvalid = !isDateValid(moment(this.props.value), this.props.min, this.props.max);
 
-		console.log(theme);
-
 		return (
 			<div className={theme.container} ref={el => this._anchor = el}>
 				{withField && (
 					<Input value={moment(value).locale(locale)}
-						   dateFormat={fieldDateFormat}
+						   dateFormatter={dateFormatter}
 						   min={moment(min).locale(locale)}
 						   max={moment(max).locale(locale)}
 						   onClick={this.onFieldClick}
@@ -114,19 +102,20 @@ class DatePicker extends React.Component {
 								theme={theme.ButtonOpen}
 								isDisabled={isDisabled}/>
 				)}
+
 				<Popover theme={theme.Popover}
 						 isOpened={this.state.isOpened}
 						 anchor={this._anchor}
 						 closeOnClickAway={true}
 						 onRequestClose={this.onPopoverRequestClose}>
 					<Calendar theme={theme.Calendar}
-							  value={isInvalid ? moment().format() : value}
+							  value={value}
 							  onChange={this.onCalendarDateChange}
 							  min={min}
 							  max={max}
-							  headerDateFormat={headerDateFormat}
-							  dayFormat={dayFormat}
-							  headerDayFormat={headerDayFormat}
+							  headerDateFormatter={headerDateFormatter}
+							  dayFormatter={dayFormatter}
+							  headerDayFormatter={headerDayFormatter}
 							  previousMonthIcon={previousMonthIcon}
 							  nextMonthIcon={nextMonthIcon}
 							  locale={locale}/>

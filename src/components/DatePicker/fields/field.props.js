@@ -6,7 +6,7 @@ import moment from 'moment';
  */
 export const DATE_PICKER_FIELD_PROPS = {
 	value: React.PropTypes.instanceOf(moment).isRequired, // formatted date string
-	dateFormat: React.PropTypes.string,
+	dateFormatter: React.PropTypes.func,
 	onChange: React.PropTypes.func, // pass a new `date: Moment` back
 	min: React.PropTypes.instanceOf(moment),
 	max: React.PropTypes.instanceOf(moment), // ISO

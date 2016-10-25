@@ -47,8 +47,8 @@ class CalendarPage extends React.Component {
 					          min={new Date(2016, 9, 10)}
 					          headerDateFormatter={headerDateFormatter}
 					          headerDayFormatter={headerDayFormatter}
-					          previousMonthIcon={previousMonthIcon}
 					          dayFormatter={dayFormatter}
+					          previousMonthIcon={previousMonthIcon}
 					          nextMonthIcon={nextMonthIcon}/>
 				</section>
 				<br/>

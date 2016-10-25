@@ -51,7 +51,9 @@ export default class DateInput extends React.Component {
 	}
 
 	formatDateForView(props) {
-		return props.isInvalid ? props.placeholder : props.value.format(props.dateFormat);
+		const {dateFormatter} = this.props;
+		const {value} = props;
+		return dateFormatter ? dateFormatter(value) : value;
 	}
 
 	setNewValue(inputString) {
