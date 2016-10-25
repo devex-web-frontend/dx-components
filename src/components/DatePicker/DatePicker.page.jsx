@@ -13,7 +13,7 @@ import iconOpenCalendar from './resources/icon-open-calendar.svg';
 import nextMonthIcon from './resources/icon-move-right.svg';
 import previousMonthIcon from './resources/icon-move-left.svg';
 import css from './DatePicker.page.styl';
-
+import stateful from '../../util/react/stateful';
 const darkDemoTheme = {
 	container: css.container
 };
@@ -49,7 +49,6 @@ CustomLabelField.propTypes = {
 	})
 };
 
-
 const locale = 'en';
 const headerDateFormatter = (date) => {
 	return new Intl.DateTimeFormat(locale, {
@@ -73,6 +72,8 @@ const dayFormatter = (date) => {
 const dateFormatter = (date) => {
 	return new Intl.DateTimeFormat(locale).format(date);
 };
+
+const Stateful = stateful()(DatePicker);
 
 @PURE
 class DatePickerPage extends React.Component {
@@ -132,7 +133,7 @@ class DatePickerPage extends React.Component {
 								isDisabled={true}/>
 				</section>
 				<section className={css.section}>
-					<DatePicker.Stateful defaultValue={now}
+					<Stateful defaultValue={now}
 										 max={maxDemo}
 										 onChange={this.onDateChange}
 										 headerDateFormatter={headerDateFormatter}

@@ -24,7 +24,7 @@ export const DATE_PICKER = Symbol('DATE_PICKER');
 
 @PURE
 @themr(DATE_PICKER)
-class DatePicker extends React.Component {
+export default class DatePicker extends React.Component {
 	static propTypes = {
 		value: React.PropTypes.instanceOf(Date),
 		min: React.PropTypes.instanceOf(Date),
@@ -178,7 +178,3 @@ class DatePicker extends React.Component {
 	onPopoverRequestClose = () => this.closeDatePicker();
 	onIconClick = () => this.openDatePicker();
 }
-
-DatePicker.Stateful = stateful()(DatePicker);
-
-export default DatePicker;
