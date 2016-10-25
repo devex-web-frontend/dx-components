@@ -5,11 +5,11 @@ import moment from 'moment';
  * Custom field components should handle these properties to interact with DatePicker.
  */
 export const DATE_PICKER_FIELD_PROPS = {
-	value: React.PropTypes.instanceOf(moment).isRequired, // formatted date string
+	value: React.PropTypes.instanceOf(Date),
 	dateFormatter: React.PropTypes.func,
-	onChange: React.PropTypes.func, // pass a new `date: Moment` back
-	min: React.PropTypes.instanceOf(moment),
-	max: React.PropTypes.instanceOf(moment), // ISO
+	onChange: React.PropTypes.func,
+	min: React.PropTypes.instanceOf(Date),
+	max: React.PropTypes.instanceOf(Date),
 	onClick: React.PropTypes.func,
 	isDisabled: React.PropTypes.bool,
 	isInvalid: React.PropTypes.bool,
