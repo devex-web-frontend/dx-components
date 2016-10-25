@@ -1,15 +1,12 @@
 import React from 'react';
-import moment from 'moment';
 import {themr} from 'react-css-themr';
+import classnames from 'classnames';
 import DateInput from './fields/DateInput';
 import Popover, {POPOVER_THEME_SHAPE_OBJECT} from '../Popover/Popover';
 import ButtonIcon, {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
 import {PURE} from 'dx-util/src/react/react';
-import stateful from '../../util/react/stateful';
 import Calendar from '../Calendar/Calendar';
 import {CALENDAR_THEME} from '../Calendar/Calendar.constants';
-
-import {isDateValid} from '../../util/func/date';
 
 export const DATEPICKER_THEME = {
 	container: React.PropTypes.string,
@@ -78,18 +75,31 @@ export default class DatePicker extends React.Component {
 			withField
 		} = this.props;
 
-		const isInvalid = !isDateValid(moment(this.props.value), this.props.min, this.props.max);
+		let isInvalid = false;
+		if (min && !isInvalid) {
+			isInvalid = value.getTime() < min.getTime();
+		}
+
+		if (max && !isDisabled) {
+			isInvalid = value.getTime() > max.getTime();
+		}
+
+		const inputTheme = {
+			container: classnames(theme.field, {
+				[theme.field_invalid]: isInvalid
+			})
+		};
 
 		return (
 			<div className={theme.container} ref={el => this._anchor = el}>
 				{withField && (
-					<Input value={moment(value).locale(locale)}
+					<Input value={value}
 						   dateFormatter={dateFormatter}
-						   min={moment(min).locale(locale)}
-						   max={moment(max).locale(locale)}
+						   min={min}
+						   max={max}
 						   onClick={this.onFieldClick}
 						   onChange={this.onFieldDateChange}
-						   theme={theme}
+						   theme={inputTheme}
 						   isDisabled={isDisabled}
 						   isInvalid={isInvalid}
 						   locale={locale}
@@ -110,7 +120,7 @@ export default class DatePicker extends React.Component {
 						 onRequestClose={this.onPopoverRequestClose}>
 					<Calendar theme={theme.Calendar}
 							  value={value}
-							  onChange={this.onCalendarDateChange}
+							  onChange={this.onCalendarDateSelected}
 							  min={min}
 							  max={max}
 							  headerDateFormatter={headerDateFormatter}
@@ -144,35 +154,27 @@ export default class DatePicker extends React.Component {
 	}
 
 	/**
-	 * @param {moment.Moment} newDate
+	 * @param {String} dateString
 	 */
-	onFieldDateChange = newDate => {
-		const {min, max, onChange} = this.props;
-
-		if (isDateValid(newDate, min, max)) {
-			this.setState({
-				isOpened: false
-			});
-			onChange && onChange(newDate.format());
-		} else {
-			this.setState({
-				isOpened: false
-			});
-			onChange && onChange(null); // empty value;
-		}
-	}
-
-	/**
-	 * @param {string} dateISO
-	 */
-	onCalendarDateChange = dateISO => {
+	onFieldDateChange = dateString => {
 		const {onChange} = this.props;
 
 		this.setState({
 			isOpened: false
 		});
 
-		onChange && onChange(dateISO);
+		onChange && onChange(dateString);
+	}
+
+	/**
+	 * @param {Date} date
+	 */
+	onCalendarDateSelected = date => {
+		const {onChange} = this.props;
+		this.setState({
+			isOpened: false
+		});
+		onChange && onChange(date);
 	}
 
 	onPopoverRequestClose = () => this.closeDatePicker();

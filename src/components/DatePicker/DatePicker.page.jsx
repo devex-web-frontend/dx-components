@@ -2,12 +2,10 @@ import React from 'react';
 import DatePicker from './DatePicker';
 import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
-import moment from 'moment';
 import {DATE_PICKER_FIELD_PROPS} from './fields/field.props';
 import {PURE} from 'dx-util/src/react/react';
 import classnames from 'classnames';
 import {cloneDate, addMonths} from '../../util/func/date';
-import 'moment/locale/ru';
 
 import iconOpenCalendar from './resources/icon-open-calendar.svg';
 import nextMonthIcon from './resources/icon-move-right.svg';
@@ -27,7 +25,7 @@ addMonths(maxDemo, 1);
 const CustomLabelField = (props) => {
 	const onContextMenu = e => {
 		e.preventDefault();
-		props.onChange(moment().locale(props.locale)); // set current date
+		props.onChange(now);
 	};
 
 	const className = classnames(css.customLabelField, props.theme.field);
@@ -36,7 +34,7 @@ const CustomLabelField = (props) => {
 
 	return (
 		<span onClick={props.onClick} onContextMenu={onContextMenu}
-			  className={className}>
+		      className={className}>
 			{dateFormatter ? dateFormatter(value) : value}
 		</span>
 	);
@@ -73,7 +71,21 @@ const dateFormatter = (date) => {
 	return new Intl.DateTimeFormat(locale).format(date);
 };
 
-const Stateful = stateful()(DatePicker);
+const DemoDatePicker = (props) => (
+	<DatePicker {...props} />
+);
+
+DemoDatePicker.defaultProps = {
+	openCalendarIcon: iconOpenCalendar,
+	nextMonthIcon,
+	headerDateFormatter,
+	headerDayFormatter,
+	dayFormatter,
+	dateFormatter,
+	previousMonthIcon
+};
+
+const Stateful = stateful()(DemoDatePicker);
 
 @PURE
 class DatePickerPage extends React.Component {
@@ -85,71 +97,43 @@ class DatePickerPage extends React.Component {
 		return (
 			<Demo theme={darkDemoTheme}>
 				<section className={css.section}>
-					<DatePicker value={this.state.date}
-								onChange={this.onDateChange}
-								openCalendarIcon={iconOpenCalendar}
-								nextMonthIcon={nextMonthIcon}
-								headerDateFormatter={headerDateFormatter}
-								headerDayFormatter={headerDayFormatter}
-								dayFormatter={dayFormatter}
-								dateFormatter={dateFormatter}
-								previousMonthIcon={previousMonthIcon}/>
+					<DemoDatePicker value={this.state.date}
+					                onChange={this.onDateChange}/>
 				</section>
 				<section className={css.section}>
-					<DatePicker value={this.state.date}
-								openCalendarIcon={iconOpenCalendar}
-								onChange={this.onDateChange}
-								placeholder="Not selected"
-								nextMonthIcon={nextMonthIcon}
-								previousMonthIcon={previousMonthIcon}
-								Input={CustomLabelField}
-								headerDateFormatter={headerDateFormatter}
-								headerDayFormatter={headerDayFormatter}
-								dayFormatter={dayFormatter}
-								dateFormatter={dateFormatter} />
+					<DemoDatePicker value={this.state.date}
+					                onChange={this.onDateChange}
+					                Input={CustomLabelField}/>
 				</section>
 				<section className={css.section}>
-					<DatePicker value={this.state.date}
-								onChange={this.onDateChange}
-								min={minDemo}
-								nextMonthIcon={nextMonthIcon}
-								previousMonthIcon={previousMonthIcon}
-								headerDateFormatter={headerDateFormatter}
-								headerDayFormatter={headerDayFormatter}
-								dayFormatter={dayFormatter}
-								dateFormatter={dateFormatter}
-								locale="ru" />
+					<DemoDatePicker value={this.state.date}
+					                onChange={this.onDateChange}
+					                locale="ru"
+					                min={minDemo}/>
 				</section>
 				<section className={css.section}>
-					<DatePicker value={this.state.date}
-								onChange={this.onDateChange}
-								openCalendarIcon={iconOpenCalendar}
-								nextMonthIcon={nextMonthIcon}
-								headerDateFormatter={headerDateFormatter}
-								headerDayFormatter={headerDayFormatter}
-								dayFormatter={dayFormatter}
-								dateFormatter={dateFormatter}
-								previousMonthIcon={previousMonthIcon}
-								isDisabled={true}/>
+					<DemoDatePicker value={this.state.date}
+					                onChange={this.onDateChange}
+					                isDisabled={true}/>
 				</section>
 				<section className={css.section}>
 					<Stateful defaultValue={now}
-										 max={maxDemo}
-										 onChange={this.onDateChange}
-										 headerDateFormatter={headerDateFormatter}
-										 headerDayFormatter={headerDayFormatter}
-										 dayFormatter={dayFormatter}
-										 dateFormatter={dateFormatter}
-										 nextMonthIcon={nextMonthIcon}
-										 previousMonthIcon={previousMonthIcon}/>
+					          max={maxDemo}
+					          onChange={this.onDateChange}/>
 				</section>
 			</Demo>
 		);
 	}
 
 	onDateChange = date => {
+		let newDate = Date.parse(date);
+		if (isNaN(newDate)) {
+			newDate = now;
+		} else {
+			newDate = new Date(newDate);
+		}
 		this.setState({
-			date
+			date: newDate
 		});
 	}
 }

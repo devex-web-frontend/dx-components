@@ -4,7 +4,6 @@ import {CALENDAR_THEME} from './Calendar.constants';
 import Button from '../Button/Button';
 import classnames from 'classnames';
 
-
 @PURE
 export default class Day extends React.Component {
 	static propTypes = {

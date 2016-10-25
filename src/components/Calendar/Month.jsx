@@ -27,7 +27,6 @@ export default class Month extends React.Component {
 	renderWeek(currentDate, startOfMonth, endOfMonth, from) {
 		const {theme, dayFormatter, selectedDate, onChange, min, max, Day} = this.props;
 		return Array.from(new Array(7).keys()).map(i => {
-
 			const date = addDays(from, i);
 			const isSelected = isEqualDate(date, selectedDate);
 			const isCurrent = isEqualDate(date, currentDate);

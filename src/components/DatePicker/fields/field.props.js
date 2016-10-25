@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 /**
  * Custom field components should handle these properties to interact with DatePicker.
@@ -17,7 +16,6 @@ export const DATE_PICKER_FIELD_PROPS = {
 	placeholder: React.PropTypes.string,
 	isDatePickerOpened: React.PropTypes.bool,
 	theme: React.PropTypes.shape({
-		field: React.PropTypes.string,
-		field_invalid: React.PropTypes.string
+		container: React.PropTypes.string
 	})
 };

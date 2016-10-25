@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import moment from 'moment';
 import Input from '../../Input/Input';
 import {PURE} from 'dx-util/src/react/react';
 import {DATE_PICKER_FIELD_PROPS} from './field.props';
-import classnames from 'classnames';
+
+const KEY_ENTER = 13;
 
 @PURE
 export default class DateInput extends React.Component {
@@ -28,24 +28,17 @@ export default class DateInput extends React.Component {
 		const {
 			theme,
 			isDisabled,
-			onClick,
-			isInvalid
+			onClick
 		} = this.props;
-
-		const inputTheme = {
-			container: classnames(theme.field, {
-				[theme.field_invalid]: isInvalid
-			})
-		};
 
 		return (
 			<Input ref={e => this._input = ReactDOM.findDOMNode(e)}
 				   value={this.state.displayedDate}
-				   theme={inputTheme}
+				   theme={theme}
 				   onClick={onClick}
-				   onChange={this.onChange}
-				   onBlur={this.onBlur}
-				   onKeyDown={this.onKeyDown}
+				   onChange={this.onInputChange}
+				   onBlur={this.onInputBlur}
+				   onKeyPress={this.onInputKeyPress}
 				   disabled={isDisabled}/>
 		);
 	}
@@ -56,28 +49,27 @@ export default class DateInput extends React.Component {
 		return dateFormatter ? dateFormatter(value) : value;
 	}
 
-	setNewValue(inputString) {
-		const {dateFormat, locale, value} = this.props;
-		if (inputString !== value.format(dateFormat)) { // if changed
-			const inputDate = moment(inputString, dateFormat, locale);
-			this.props.onChange(inputDate);
-		}
+	setNewValue(value) {
+		const {onChange} = this.props;
+		onChange && onChange(value);
 	}
 
-	onChange = e => {
+	onInputChange = ({target: {value}}) => {
 		this.setState({
-			displayedDate: e.target.value
+			displayedDate: value
 		});
 	}
 
-	onBlur = e => {
-		this.setNewValue(e.target.value);
+	onInputBlur = ({target: {value}}) => {
+		this.setNewValue(value);
 	}
 
-	onKeyDown = e => {
-		if (e.keyCode === 13) {
-			this.setNewValue(e.target.value);
-			this.props.closeDatePicker();
+	onInputKeyPress = e => {
+		switch (e.keyCode || e.which) {
+			case KEY_ENTER: {
+				this.setNewValue(e.target.value);
+				break;
+			}
 		}
 	}
 }
