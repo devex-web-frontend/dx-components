@@ -43,11 +43,14 @@ import popup from '../components/Popup/Popup.demo.styl';
 import {HIGHLIGHT} from '../components/Highlight/Highlight';
 import highlight from '../components/Highlight/Highlight.demo.styl';
 
-import {DATE_PICKER} from '../components/DatePicker/DatePicker';
-import datePicker from '../components/DatePicker/DatePicker.demo.styl';
 
+import {DATE_PICKER} from '../components/DatePicker/DatePicker';
+import datePicker from '../components/DatePicker/demoTheme/DatePicker.styl';
+import datePickerPopover from '../components/DatePicker/demoTheme/Popover.styl';
+import buttonOpen from '../components/DatePicker/demoTheme/ButtonOpen.styl';
 import {CALENDAR} from '../components/Calendar/Calendar';
 import calendarTheme from '../components/Calendar/Calendar.demo.styl';
+
 
 export default {
 	...config,
@@ -66,6 +69,10 @@ export default {
 	[CHECKBOX]: checkbox,
 	[POPUP]: popup,
 	[HIGHLIGHT]: highlight,
-	[DATE_PICKER]: datePicker,
+	[DATE_PICKER]: {
+		...datePicker,
+		Popover: datePickerPopover,
+		ButtonOpen: buttonOpen
+	},
 	[CALENDAR]: calendarTheme
 };

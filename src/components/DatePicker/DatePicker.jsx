@@ -2,13 +2,24 @@ import React from 'react';
 import moment from 'moment';
 import {themr} from 'react-css-themr';
 import DateInput from './fields/DateInput';
-import Popover, {ALIGN, PLACEMENT} from '../Popover/Popover';
-import ButtonIcon from '../ButtonIcon/ButtonIcon';
+import Popover, {POPOVER_THEME_SHAPE_OBJECT} from '../Popover/Popover';
+import ButtonIcon, {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
 import {PURE} from 'dx-util/src/react/react';
 import stateful from '../../util/react/stateful';
-import Calendar, {CALENDAR_THEME} from '../Calendar/Calendar';
+import Calendar from '../Calendar/Calendar';
+import {CALENDAR_THEME} from '../Calendar/Calendar.constants';
+
 import {isDateValid} from '../../util/func/date';
 import noop from '../../util/func/noop';
+
+export const DATEPICKER_THEME = {
+	container: React.PropTypes.string,
+	field: React.PropTypes.string,
+	field_invalid: React.PropTypes.string,
+	ButtonOpen: React.PropTypes.shape(BUTTON_ICON_THEME),
+	Popover: React.PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
+	Calendar: React.PropTypes.shape(CALENDAR_THEME)
+};
 
 export const DATE_PICKER = Symbol('DATE_PICKER');
 
@@ -31,17 +42,8 @@ class DatePicker extends React.Component {
 		placeholder: React.PropTypes.string,
 		isDisabled: React.PropTypes.bool,
 		locale: React.PropTypes.string,
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string,
-			field: React.PropTypes.string,
-			field_invalid: React.PropTypes.string,
-			openCalendar: React.PropTypes.string,
-			openCalendar__icon: React.PropTypes.string,
-			popover__container: React.PropTypes.string,
-			popover__content: React.PropTypes.string
-		}),
+		theme: React.PropTypes.shape(DATEPICKER_THEME),
 		Input: React.PropTypes.func,
-		calendarTheme: React.PropTypes.shape(CALENDAR_THEME)
 	}
 
 	static defaultProps = {
@@ -69,7 +71,6 @@ class DatePicker extends React.Component {
 	render() {
 		const {
 			theme,
-			calendarTheme,
 			openCalendarIcon,
 			isDisabled,
 			fieldDateFormat,
@@ -89,14 +90,7 @@ class DatePicker extends React.Component {
 
 		const isInvalid = !isDateValid(moment(this.props.value), this.props.min, this.props.max);
 
-		const openCalendarBtnTheme = {
-			container: theme.openCalendar,
-			icon: theme.openCalendar__icon
-		};
-		const popoverTheme = {
-			container: theme.popover__container,
-			content: theme.popover__content
-		};
+		console.log(theme);
 
 		return (
 			<div className={theme.container} ref={el => this._anchor = el}>
@@ -117,15 +111,15 @@ class DatePicker extends React.Component {
 				{openCalendarIcon && (
 					<ButtonIcon onClick={this.onIconClick}
 								name={openCalendarIcon}
-								theme={openCalendarBtnTheme}
+								theme={theme.ButtonOpen}
 								isDisabled={isDisabled}/>
 				)}
-				<Popover theme={popoverTheme}
+				<Popover theme={theme.Popover}
 						 isOpened={this.state.isOpened}
 						 anchor={this._anchor}
 						 closeOnClickAway={true}
 						 onRequestClose={this.onPopoverRequestClose}>
-					<Calendar theme={calendarTheme}
+					<Calendar theme={theme.Calendar}
 							  value={isInvalid ? moment().format() : value}
 							  onChange={this.onCalendarDateChange}
 							  min={min}
@@ -164,18 +158,18 @@ class DatePicker extends React.Component {
 	 * @param {moment.Moment} newDate
 	 */
 	onFieldDateChange = newDate => {
-		const {min, max} = this.props;
+		const {min, max, onChange} = this.props;
 
 		if (isDateValid(newDate, min, max)) {
 			this.setState({
 				isOpened: false
 			});
-			this.props.onChange(newDate.format());
+			onChange && onChange(newDate.format());
 		} else {
 			this.setState({
 				isOpened: false
 			});
-			this.props.onChange(null); // empty value
+			onChange && onChange(null); // empty value;
 		}
 	}
 
@@ -183,11 +177,13 @@ class DatePicker extends React.Component {
 	 * @param {string} dateISO
 	 */
 	onCalendarDateChange = dateISO => {
+		const {onChange} = this.props;
+
 		this.setState({
 			isOpened: false
 		});
 
-		this.props.onChange(dateISO);
+		onChange && onChange(dateISO);
 	}
 
 	onPopoverRequestClose = () => this.closeDatePicker();
