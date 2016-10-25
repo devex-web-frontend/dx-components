@@ -1,7 +1,7 @@
 import React from 'react';
 import {PURE} from 'dx-util/src/react/pure';
 import Demo from '../../demo/Demo.jsx';
-
+import {FORMATTER} from '../DatePicker/DatePicker.page';
 import Calendar from './Calendar.jsx';
 import stateful from '../../util/react/stateful';
 import {storiesOf} from '@kadira/storybook';
@@ -9,26 +9,11 @@ import {storiesOf} from '@kadira/storybook';
 import nextMonthIcon from '../DatePicker/resources/icon-move-right.svg';
 import previousMonthIcon from '../DatePicker/resources/icon-move-left.svg';
 
-const locale = 'en';
+const formatter = FORMATTER.INTL;
 
-const headerDateFormatter = (date) => {
-	return new Intl.DateTimeFormat(locale, {
-		month: 'short',
-		year: 'numeric'
-	}).format(date);
-};
-
-const headerDayFormatter = (date) => {
-	return new Intl.DateTimeFormat(locale, {
-		weekday: 'short'
-	}).format(date);
-};
-
-const dayFormatter = (date) => {
-	return new Intl.DateTimeFormat(locale, {
-		day: 'numeric'
-	}).format(date);
-};
+const headerDateFormatter = formatter.headerDate;
+const headerDayFormatter = formatter.headerDay;
+const dayFormatter = formatter.day;
 
 const Stateful = stateful()(Calendar);
 
@@ -45,6 +30,7 @@ class CalendarPage extends React.Component {
 				<section>
 					<Stateful defaultValue={new Date(2016, 9, 16)}
 					          min={new Date(2016, 9, 10)}
+					          locale="ru"
 					          headerDateFormatter={headerDateFormatter}
 					          headerDayFormatter={headerDayFormatter}
 					          dayFormatter={dayFormatter}

@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/devex-web-frontend/dx-components#readme",
   "devDependencies": {
+    "moment": "^2.15.0",
     "@kadira/storybook": "2.1.1",
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.10.4",
@@ -92,7 +93,6 @@
   "dependencies": {
     "bower": "^1.7.9",
     "classnames": "^2.2.5",
-    "moment": "^2.15.0",
     "react": "^15.3.0",
     "react-css-themr": "~1.4.0",
     "react-dom": "^15.3.0",

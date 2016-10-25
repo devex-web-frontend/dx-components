@@ -21,7 +21,6 @@ export default class Day extends React.Component {
 			theme,
 			dayFormatter,
 			value,
-
 			isCurrent,
 			isDisabled,
 			isSelected

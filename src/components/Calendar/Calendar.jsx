@@ -32,12 +32,14 @@ export default class Calendar extends React.Component {
 		previousMonthIcon: React.PropTypes.string,
 		nextMonthIcon: React.PropTypes.string,
 		theme: React.PropTypes.shape(CALENDAR_THEME),
+		locale: React.PropTypes.string,
 		Month: React.PropTypes.func,
 		Day: React.PropTypes.func
 	}
 
 	static defaultProps = {
 		Month,
+		locale: 'en',
 		...Month.defaultProps
 	}
 
@@ -50,17 +52,26 @@ export default class Calendar extends React.Component {
 			theme,
 			onChange,
 			min,
+			locale,
 			max,
 			headerDateFormatter,
-			headerDayFormatter,
-			dayFormatter,
 			previousMonthIcon,
 			nextMonthIcon,
 			Month,
 			Day,
 			value,
-			firstDayOfWeek
+			firstDayOfWeek,
+			headerDayFormatter: originalHeaderDayFormatter,
+			dayFormatter: originalDayFormatter
 		} = this.props;
+
+		const headerDayFormatter = value => {
+			return originalHeaderDayFormatter(value, locale);
+		};
+
+		const dayFormatter = value => {
+			return originalDayFormatter(value, locale);
+		};
 
 		const changeMonthBtnTheme = {
 			container: theme.changeMonth__container,
@@ -76,7 +87,7 @@ export default class Calendar extends React.Component {
 					            theme={changeMonthBtnTheme}
 					            onClick={this.onChangeMonth(-1)}/>
 					<span className={theme.header__text}>
-						{headerDateFormatter ? headerDateFormatter(displayedDate) : displayedDate}
+						{headerDateFormatter ? headerDateFormatter(displayedDate, locale) : displayedDate}
 					</span>
 					<ButtonIcon name={nextMonthIcon}
 					            theme={changeMonthBtnTheme}
