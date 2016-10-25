@@ -1,8 +1,6 @@
 import React from 'react';
 import {PURE} from 'dx-util/src/react/react';
-import {CALENDAR_THEME} from './Calendar.constants';
-import Button from '../Button/Button';
-import classnames from 'classnames';
+import Button, {BUTTON_THEME} from '../Button/Button';
 
 @PURE
 export default class Day extends React.Component {
@@ -11,9 +9,7 @@ export default class Day extends React.Component {
 		onChange: React.PropTypes.func,
 		dayFormatter: React.PropTypes.func,
 		isDisabled: React.PropTypes.bool,
-		isCurrent: React.PropTypes.bool,
-		isSelected: React.PropTypes.bool,
-		theme: React.PropTypes.shape(CALENDAR_THEME)
+		theme: React.PropTypes.shape(BUTTON_THEME)
 	}
 
 	render() {
@@ -21,21 +17,11 @@ export default class Day extends React.Component {
 			theme,
 			dayFormatter,
 			value,
-			isCurrent,
 			isDisabled,
-			isSelected
 		} = this.props;
 
-		const btnTheme = {
-			container: classnames(theme.day, {
-				[theme.day_disabled]: isDisabled,
-				[theme.day_current]: isCurrent && !isDisabled,
-				[theme.day_selected]: isSelected && !isDisabled
-			})
-		};
-
 		return (
-			<Button theme={btnTheme}
+			<Button theme={theme}
 			        onClick={this.onClick}
 			        isDisabled={isDisabled}
 			        isFlat={true}

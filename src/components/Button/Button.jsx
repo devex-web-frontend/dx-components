@@ -3,6 +3,10 @@ import classnames from 'classnames';
 import {PURE} from 'dx-util/src/react/pure';
 import {themr} from 'react-css-themr';
 
+export const BUTTON_THEME = {
+	container: React.PropTypes.string
+};
+
 export const BUTTON = Symbol('Button');
 
 @PURE
@@ -10,9 +14,7 @@ export const BUTTON = Symbol('Button');
 export default class Button extends React.Component {
 	static propTypes = {
 		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string
-		}),
+		theme: React.PropTypes.shape(BUTTON_THEME),
 		type: React.PropTypes.string,
 		isDisabled: React.PropTypes.bool,
 		isPrimary: React.PropTypes.bool,

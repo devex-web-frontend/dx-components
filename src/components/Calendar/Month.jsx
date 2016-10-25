@@ -1,5 +1,6 @@
 import React from 'react';
 import Day from './Day';
+import classnames from 'classnames';
 import {PURE} from 'dx-util/src/react/react';
 import {CALENDAR_THEME} from './Calendar.constants';
 import {cloneDate, isEqualDate, addDays} from '../../util/func/date';
@@ -41,10 +42,18 @@ export default class Month extends React.Component {
 				isDisabled = date.getTime() > max.getTime();
 			}
 
+			const dayTheme = {
+				container: classnames(theme.day, {
+					[theme.day_disabled]: isDisabled,
+					[theme.day_current]: isCurrent && !isDisabled,
+					[theme.day_selected]: isSelected && !isDisabled
+				})
+			};
+
 			return (
 				<div className={theme.dayContainer} key={i}>
 					<Day value={date}
-					     theme={theme}
+					     theme={dayTheme}
 					     dayFormatter={dayFormatter}
 					     isDisabled={isDisabled}
 					     isSelected={isSelected}
