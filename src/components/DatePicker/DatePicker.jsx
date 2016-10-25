@@ -102,7 +102,6 @@ export default class DatePicker extends React.Component {
 						   theme={inputTheme}
 						   isDisabled={isDisabled}
 						   isInvalid={isInvalid}
-						   locale={locale}
 						   placeholder={placeholder}
 						   isDatePickerOpened={this.state.isOpened}/>
 				)}

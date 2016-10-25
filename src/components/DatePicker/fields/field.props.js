@@ -12,7 +12,6 @@ export const DATE_PICKER_FIELD_PROPS = {
 	onClick: React.PropTypes.func,
 	isDisabled: React.PropTypes.bool,
 	isInvalid: React.PropTypes.bool,
-	locale: React.PropTypes.string,
 	placeholder: React.PropTypes.string,
 	isDatePickerOpened: React.PropTypes.bool,
 	theme: React.PropTypes.shape({
