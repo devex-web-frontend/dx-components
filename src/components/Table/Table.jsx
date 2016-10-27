@@ -43,13 +43,11 @@ export class TableHead extends React.Component {
 	render() {
 		const {children, theme} = this.props;
 
-		//todo support multiple rows in head
-
 		return (
 			<thead className={theme.head}>
-				{React.cloneElement(React.Children.only(children), {
+			{React.Children.map(children, child => React.cloneElement(child, {
 					[TABLE_IS_IN_HEAD_KEY]: true
-				})}
+			}))}
 			</thead>
 		);
 	}
@@ -120,12 +118,13 @@ export class TableCell extends React.Component {
 		style: React.PropTypes.object,
 		//not for direct usage
 		//injected by TableHead
-		[TABLE_IS_IN_HEAD_KEY]: React.PropTypes.bool
+		[TABLE_IS_IN_HEAD_KEY]: React.PropTypes.bool,
+		colSpan: React.PropTypes.number,
+		rowSpan: React.PropTypes.number
 	}
 
 	render() {
-		//todo support colspan/rowspans, for now it's difficult to sync width with header
-		const {children, theme, style} = this.props;
+		const {children, theme, style, colSpan, rowSpan} = this.props;
 		const isInHead = this.props[TABLE_IS_IN_HEAD_KEY];
 
 		const className = classnames(
@@ -139,7 +138,10 @@ export class TableCell extends React.Component {
 		const Tag = isInHead ? 'th' : 'td';
 
 		return (
-			<Tag className={className} style={style}>
+			<Tag className={className}
+				 style={style}
+				 colSpan={colSpan}
+				 rowSpan={rowSpan}>
 				{children}
 			</Tag>
 		);
