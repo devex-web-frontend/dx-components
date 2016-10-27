@@ -34,6 +34,9 @@ import combobox from '../components/Combobox/Combobox.styl';
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.styl';
 
+import {PASSWORD_INPUT} from '../components/PasswordInput/PasswordInput';
+import passwordInput from '../components/PasswordInput/PasswordInput.styl';
+
 import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.styl';
 
@@ -73,6 +76,7 @@ import datePicker from '../components/DatePicker/DatePicker.styl';
 import {CALENDAR} from '../components/Calendar/Calendar';
 import calendarTheme from '../components/Calendar/Calendar.styl';
 
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -101,5 +105,11 @@ export default {
 	[AUTOCOMPLETE]: autocomplete,
 	[DATE_PICKER]: datePicker,
 	[CALENDAR]: calendarTheme,
-	[EXPANDABLE]: expandable
+	[EXPANDABLE]: expandable,
+	[CALENDAR]: calendarTheme,
+	[PASSWORD_INPUT]: {
+		Input: {
+			container: passwordInput.input
+		}
+	}
 };
