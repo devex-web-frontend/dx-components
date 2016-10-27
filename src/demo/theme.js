@@ -90,7 +90,7 @@ export default {
 		Handler: {
 			container: expandable.handler
 		}
-	}
+	},
 	[CALENDAR]: calendarTheme,
 	[PASSWORD_INPUT]: passwordInputTheme
 };
