@@ -45,9 +45,9 @@ export class TableHead extends React.Component {
 
 		return (
 			<thead className={theme.head}>
-			{React.Children.map(children, child => React.cloneElement(child, {
+				{React.Children.map(children, child => React.cloneElement(child, {
 					[TABLE_IS_IN_HEAD_KEY]: true
-			}))}
+				}))}
 			</thead>
 		);
 	}
