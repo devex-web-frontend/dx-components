@@ -15,7 +15,7 @@ import iconShowPassword from './img/icon-show-password.svg';
 
 const Stateful = stateful({
 	valueKey: 'isRevealed',
-	onChangeKey: 'onChangeRevealed'
+	onChangeKey: 'onReveal'
 })(PasswordInput);
 
 @PURE
@@ -32,7 +32,7 @@ class PasswordInputPage extends React.Component {
 				<main>
 					<section className={css.form}>
 						<PasswordInput iconShow={iconHidePassword} value={this.state.value} onChange={this.onChange}
-						               onChangeRevealed={this.onChangeRevealed}
+						               onReveal={this.onReveal}
 						               isRevealed={isRevealed} iconHide={iconShowPassword}/>
 					</section>
 					<section className={css.form}>
@@ -55,7 +55,7 @@ class PasswordInputPage extends React.Component {
 		});
 	}
 
-	onChangeRevealed = isRevealed => {
+	onReveal = isRevealed => {
 		this.setState({
 			isRevealed
 		});

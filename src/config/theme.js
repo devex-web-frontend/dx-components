@@ -76,6 +76,7 @@ import datePicker from '../components/DatePicker/DatePicker.styl';
 import {CALENDAR} from '../components/Calendar/Calendar';
 import calendarTheme from '../components/Calendar/Calendar.styl';
 
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -106,5 +107,9 @@ export default {
 	[CALENDAR]: calendarTheme,
 	[EXPANDABLE]: expandable,
 	[CALENDAR]: calendarTheme,
-	[PASSWORD_INPUT]: passwordInput
+	[PASSWORD_INPUT]: {
+		Input: {
+			container: passwordInput.input
+		}
+	}
 };

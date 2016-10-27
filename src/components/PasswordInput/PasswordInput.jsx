@@ -23,7 +23,7 @@ export default class PasswordInput extends React.Component {
 		iconShow: React.PropTypes.string,
 		iconHide: React.PropTypes.string,
 		isRevealed: React.PropTypes.bool,
-		onChangeRevealed: React.PropTypes.func
+		onReveal: React.PropTypes.func
 	}
 
 	static defaultProps = {
@@ -41,7 +41,7 @@ export default class PasswordInput extends React.Component {
 			iconHide,
 			isDisabled,
 			isRevealed,
-			onChangeRevealed,
+			onReveal,
 			...props
 		} = this.props;
 
@@ -56,7 +56,7 @@ export default class PasswordInput extends React.Component {
 	}
 
 	onClickRevealButton = () => {
-		const {onChangeRevealed} = this.props;
-		onChangeRevealed && onChangeRevealed(!this.props.isRevealed);
+		const {onReveal} = this.props;
+		onReveal && onReveal(!this.props.isRevealed);
 	}
 }

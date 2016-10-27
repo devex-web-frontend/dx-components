@@ -55,17 +55,6 @@ import calendarTheme from '../components/Calendar/Calendar.demo.styl';
 import {EXPANDABLE} from '../components/Expandable/Expandable.jsx';
 import expandable from '../components/Expandable/Expandable.demo.styl';
 
-const passwordInputTheme = {
-	container: passwordInput.container,
-	RevealButton: {
-		container: passwordInput.button,
-		icon: passwordInput.icon
-	},
-	Input: {
-		container: passwordInput.input
-	}
-};
-
 export default {
 	...config,
 	//additional demo styles
@@ -92,5 +81,14 @@ export default {
 		}
 	},
 	[CALENDAR]: calendarTheme,
-	[PASSWORD_INPUT]: passwordInputTheme
+	[PASSWORD_INPUT]: {
+		container: passwordInput.container,
+		RevealButton: {
+			container: passwordInput.button,
+			icon: passwordInput.icon
+		},
+		Input: {
+			container: passwordInput.input
+		}
+	}
 };
