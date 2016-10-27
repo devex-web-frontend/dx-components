@@ -17,7 +17,9 @@ export default class Month extends React.Component {
 		currentDate: React.PropTypes.instanceOf(moment).isRequired,
 		headerDayFormat: React.PropTypes.string.isRequired,
 		dayFormat: React.PropTypes.string.isRequired,
-		theme: React.PropTypes.shape(CALENDAR_THEME)
+		theme: React.PropTypes.shape(CALENDAR_THEME),
+		Week: React.PropTypes.func,
+		Day: React.PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -34,7 +36,9 @@ export default class Month extends React.Component {
 			max,
 			startOfMonth,
 			endOfMonth,
-			currentDate
+			currentDate,
+			Week,
+			Day,
 		} = this.props;
 
 		const from = startOfMonth.clone().startOf('week');
@@ -46,6 +50,7 @@ export default class Month extends React.Component {
 					<Week selectedDate={selectedDate.clone()}
 						  onChange={onChange}
 						  key={week}
+						  Day={Day}
 						  from={from.clone().add(week, 'weeks')}
 						  dayFormat={dayFormat}
 						  theme={theme}
