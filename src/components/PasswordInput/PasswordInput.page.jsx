@@ -1,7 +1,9 @@
 import React from 'react';
 import Demo from '../../demo/Demo.jsx';
+import stateful from '../../util/react/stateful';
 import {storiesOf} from '@kadira/storybook';
 import PasswordInput from './PasswordInput';
+import {PURE} from 'dx-util/src/react/pure';
 
 import css from './PasswordInput.page.styl';
 const darkDemoTheme = {
@@ -11,21 +13,53 @@ const darkDemoTheme = {
 import iconHidePassword from './img/icon-hide-password.svg';
 import iconShowPassword from './img/icon-show-password.svg';
 
-storiesOf('PasswordInput', module)
-	.add('Default', () => (
-		<Demo theme={darkDemoTheme}>
-			<main>
-				<section className={css.form}>
-					<PasswordInput iconShow={iconHidePassword} iconHide={iconShowPassword}/>
-				</section>
-				<section className={css.form}>
-					<PasswordInput placeholder="Password" value="test" isRevealed={true} iconShow={iconHidePassword}
-					               iconHide={iconShowPassword}/>
-				</section>
-				<section className={css.form}>
-					<PasswordInput placeholder="Password" disabled={true} iconShow={iconHidePassword}
-					               iconHide={iconShowPassword}/>
-				</section>
-			</main>
-		</Demo>
-	));
+const Stateful = stateful({
+	valueKey: 'isRevealed',
+	onChangeKey: 'onChangeRevealed'
+})(PasswordInput);
+
+@PURE
+class PasswordInputPage extends React.Component {
+
+	state = {
+		value: 'test'
+	};
+
+	render() {
+		const {isRevealed} = this.state;
+		return (
+			<Demo theme={darkDemoTheme}>
+				<main>
+					<section className={css.form}>
+						<PasswordInput iconShow={iconHidePassword} value={this.state.value} onChange={this.onChange}
+						               onChangeRevealed={this.onChangeRevealed}
+						               isRevealed={isRevealed} iconHide={iconShowPassword}/>
+					</section>
+					<section className={css.form}>
+						<Stateful placeholder="Password" defaultValue={false} iconShow={iconHidePassword}
+						          iconHide={iconShowPassword}/>
+					</section>
+					<section className={css.form}>
+						<PasswordInput placeholder="Password" isDisabled={true}
+						               iconShow={iconHidePassword}
+						               iconHide={iconShowPassword}/>
+					</section>
+				</main>
+			</Demo>
+		);
+	}
+
+	onChange = ({target: {value}}) => {
+		this.setState({
+			value
+		});
+	}
+
+	onChangeRevealed = isRevealed => {
+		this.setState({
+			isRevealed
+		});
+	}
+}
+
+storiesOf('PasswordInput', module).add('default', () => <PasswordInputPage/>);
