@@ -18,7 +18,8 @@ export default class Week extends React.Component {
 		endOfMonth: React.PropTypes.instanceOf(moment).isRequired,
 		currentDate: React.PropTypes.instanceOf(moment).isRequired,
 		onChange: React.PropTypes.func,
-		theme: React.PropTypes.shape(CALENDAR_THEME)
+		theme: React.PropTypes.shape(CALENDAR_THEME),
+		Day: React.PropTypes.func,
 	}
 
 	static defaultProps = {
@@ -36,7 +37,8 @@ export default class Week extends React.Component {
 			startOfMonth,
 			endOfMonth,
 			currentDate,
-			selectedDate
+			selectedDate,
+			Day
 		} = this.props;
 
 		return (

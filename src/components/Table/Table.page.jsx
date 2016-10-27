@@ -22,9 +22,12 @@ storiesOf('Table', module).add('default', () => (
 		<Table>
 			<THead>
 				<Tr>
-					<Cell theme={firstTheme}>1</Cell>
+					<Cell rowSpan={2} theme={firstTheme}>1</Cell>
 					<Cell style={secondStyle}>2</Cell>
 					<Cell>3</Cell>
+				</Tr>
+				<Tr>
+					<Cell theme={firstTheme} colSpan={2}>_________colspan_________</Cell>
 				</Tr>
 			</THead>
 			<TBody>

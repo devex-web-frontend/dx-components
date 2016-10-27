@@ -52,6 +52,9 @@ import datePicker from '../components/DatePicker/DatePicker.demo.styl';
 import {CALENDAR} from '../components/Calendar/Calendar';
 import calendarTheme from '../components/Calendar/Calendar.demo.styl';
 
+import {EXPANDABLE} from '../components/Expandable/Expandable.jsx';
+import expandable from '../components/Expandable/Expandable.demo.styl';
+
 const passwordInputTheme = {
 	container: passwordInput.container,
 	RevealButton: {
@@ -81,6 +84,13 @@ export default {
 	[POPUP]: popup,
 	[HIGHLIGHT]: highlight,
 	[DATE_PICKER]: datePicker,
+	[CALENDAR]: calendarTheme,
+	[EXPANDABLE]: {
+		...expandable,
+		Handler: {
+			container: expandable.handler
+		}
+	}
 	[CALENDAR]: calendarTheme,
 	[PASSWORD_INPUT]: passwordInputTheme
 };

@@ -40,6 +40,9 @@ import passwordInput from '../components/PasswordInput/PasswordInput.styl';
 import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.styl';
 
+import {EXPANDABLE} from '../components/Expandable/Expandable.jsx';
+import expandable from '../components/Expandable/Expandable.styl';
+
 import {TABLE} from '../components/Table/Table';
 import table from '../components/Table/Table.styl';
 
@@ -100,6 +103,8 @@ export default {
 	[VERTICAL_SCROLLBAR]: verticalScrollbar,
 	[AUTOCOMPLETE]: autocomplete,
 	[DATE_PICKER]: datePicker,
+	[CALENDAR]: calendarTheme,
+	[EXPANDABLE]: expandable,
 	[CALENDAR]: calendarTheme,
 	[PASSWORD_INPUT]: passwordInput
 };

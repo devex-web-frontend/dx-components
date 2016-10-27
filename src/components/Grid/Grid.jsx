@@ -193,7 +193,9 @@ export class GridHead extends React.Component {
 					<Pure {...this.props} check={this.state.columns} check2={props.children}>
 						{() => (
 							<Table theme={theme}>
-								<TableHead theme={theme} {...props}/>
+								<TableHead theme={theme} {...props}>
+									{React.Children.only(props.children)}
+								</TableHead>
 							</Table>
 						)}
 					</Pure>
@@ -428,6 +430,10 @@ export class GridCell extends React.Component {
 		delete props[GRID_COLUMN_INDEX_KEY];
 		delete props[GRID_COLUMN_WIDTH_KEY];
 		delete props[GRID_ROW_INDEX_KEY];
+
+		//todo support colspan/rowspans, for now it's difficult to sync width with header
+		delete props['colSpan'];
+		delete props['rowSpan'];
 
 		let style;
 		if (typeof columnWidth !== 'undefined') {
