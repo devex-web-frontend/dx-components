@@ -15,11 +15,11 @@ class CustomDay extends React.Component {
 	render() {
 		const {theme, value, dayFormat} = this.props;
 		const day = Number(value.format('D'));
-		const isHasEvent = [10, 20].indexOf(day) !== -1;
+		const hasEvent = [10, 20].indexOf(day) !== -1;
 		return (
 			<div className={theme.day}>
 				{value.format(dayFormat)}
-				{isHasEvent && <small className={css.event} /> }
+				{hasEvent && <small className={css.event} /> }
 			</div>
 		);
 	}
