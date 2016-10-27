@@ -22,6 +22,9 @@ import combobox from '../components/Combobox/Combobox.demo.styl';
 import {INPUT} from '../components/Input/Input.jsx';
 import input from '../components/Input/Input.demo.styl';
 
+import {PASSWORD_INPUT} from '../components/PasswordInput/PasswordInput';
+import passwordInput from '../components/PasswordInput/PasswordInput.demo.styl';
+
 import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.demo.styl';
 
@@ -75,6 +78,17 @@ export default {
 		...expandable,
 		Handler: {
 			container: expandable.handler
+		}
+	},
+	[CALENDAR]: calendarTheme,
+	[PASSWORD_INPUT]: {
+		container: passwordInput.container,
+		RevealButton: {
+			container: passwordInput.button,
+			icon: passwordInput.icon
+		},
+		Input: {
+			container: passwordInput.input
 		}
 	}
 };
