@@ -3,8 +3,7 @@ import {themr} from 'react-css-themr';
 import moment from 'moment';
 import Month from './Month';
 import {PURE} from 'dx-util/src/react/react';
-import ButtonIcon from '../ButtonIcon/ButtonIcon';
-import {MEMOIZE} from 'dx-util/src/function/function';
+import CalendarHeader from './CalendarHeader';
 import {CALENDAR_THEME} from './Calendar.constants';
 import noop from '../../util/func/noop';
 
@@ -18,6 +17,7 @@ export default class Calendar extends React.Component {
 		headerDateFormat: React.PropTypes.string,
 		headerDayFormat: React.PropTypes.string,
 		dayFormat: React.PropTypes.string,
+		CalendarHeader: React.PropTypes.func,
 		onChange: React.PropTypes.func,
 		min: React.PropTypes.string, // ISO
 		max: React.PropTypes.string, // ISO
@@ -28,6 +28,7 @@ export default class Calendar extends React.Component {
 	}
 
 	static defaultProps = {
+		CalendarHeader,
 		onChange: noop,
 		min: null,
 		max: null,
@@ -59,46 +60,38 @@ export default class Calendar extends React.Component {
 			previousMonthIcon,
 			nextMonthIcon,
 			locale,
-			value
+			value,
+			CalendarHeader
 		} = this.props;
 
 		const displayedDate = this.state.displayedDate.locale(locale);
-		const headerDate = displayedDate.format(headerDateFormat);
-
-		const changeMonthBtnTheme = {
-			container: theme.changeMonth__container,
-			icon: theme.changeMonth__icon
-		};
 
 		return (
 			<div className={theme.container}>
-				<div className={theme.header}>
-					<ButtonIcon name={previousMonthIcon}
-								theme={changeMonthBtnTheme}
-								onClick={this.onChangeMonth(-1)}/>
-					<span className={theme.header__text}>{headerDate}</span>
-					<ButtonIcon name={nextMonthIcon}
-								theme={changeMonthBtnTheme}
-								onClick={this.onChangeMonth(1)}/>
-				</div>
+				<CalendarHeader theme={theme}
+				                value={displayedDate.clone()}
+				                headerDateFormat={headerDateFormat}
+				                previousMonthIcon={previousMonthIcon}
+				                onChange={this.onChangeDisplayedDate}
+				                nextMonthIcon={nextMonthIcon} />
 				<Month selectedDate={moment(value).locale(locale)}
-					   onChange={onChange}
-					   startOfMonth={displayedDate.clone().startOf('month')}
-					   endOfMonth={displayedDate.clone().endOf('month')}
-					   currentDate={moment().locale(locale)}
-					   min={moment(min).locale(locale)}
-					   max={moment(max).locale(locale)}
-					   theme={theme}
-					   headerDayFormat={headerDayFormat}
-					   dayFormat={dayFormat}/>
+				       onChange={onChange}
+				       startOfMonth={displayedDate.clone().startOf('month')}
+				       endOfMonth={displayedDate.clone().endOf('month')}
+				       currentDate={moment().locale(locale)}
+				       min={moment(min).locale(locale)}
+				       max={moment(max).locale(locale)}
+				       theme={theme}
+				       headerDayFormat={headerDayFormat}
+				       dayFormat={dayFormat}/>
 			</div>
 		);
 	}
 
-	@MEMOIZE
-	onChangeMonth = step => () => {
+	onChangeDisplayedDate = displayedDate => {
 		this.setState({
-			displayedDate: this.state.displayedDate.clone().add(step, 'months')
+			displayedDate
 		});
 	}
 }
+
