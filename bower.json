@@ -10,7 +10,7 @@
   "homepage": "https://github.com/devex-web-frontend/dx-components",
   "private": true,
   "dependencies": {
-    "dx-util": "devex-web-frontend/dx-util#~0.10.25",
+    "dx-util": "devex-web-frontend/dx-util#~0.10.26",
     "scrollable": "devex-web-frontend/scrollable#^6.2.8"
   }
 }

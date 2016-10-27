@@ -1,5 +1,6 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
+import split from 'dx-util/src/string/split';
 import {PURE} from 'dx-util/src/react/pure';
 
 export const HIGHLIGHT = Symbol('Mark');
@@ -30,8 +31,7 @@ export default class Highlight extends React.Component {
 		if (this.props.search === '') {
 			result = children;
 		} else {
-			const search = this.props.search.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, 'i');
-			const splitted = this.props.children.split(new RegExp(`(${search})`, 'ig'));
+			const splitted = split(children, search, false);
 			result = splitted.reduce((acc, el, i) => {
 				if (el.trim() !== '') {
 					acc.push(i % 2 ? <mark className={theme.mark} key={i}>{el}</mark> : el);
