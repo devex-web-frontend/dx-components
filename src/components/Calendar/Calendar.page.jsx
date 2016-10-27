@@ -43,7 +43,7 @@ class CalendarPage extends React.Component {
 				<section>
 					<Calendar value={value}
 					          previousMonthIcon={previousMonthIcon}
-					          onChange={this.onChnage}
+					          onChange={this.onChange}
 					          nextMonthIcon={nextMonthIcon} />
 				</section>
 
@@ -51,7 +51,7 @@ class CalendarPage extends React.Component {
 					<Calendar value={value}
 					          theme={calendarTheme}
 					          previousMonthIcon={previousMonthIcon}
-					          onChange={this.onChnage}
+					          onChange={this.onChange}
 					          Day={CustomDay}
 					          nextMonthIcon={nextMonthIcon} />
 				</section>
@@ -59,7 +59,7 @@ class CalendarPage extends React.Component {
 		);
 	}
 
-	onChnage = value => {
+	onChange = value => {
 		this.setState({
 			value
 		});
