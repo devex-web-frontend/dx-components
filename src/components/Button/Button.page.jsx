@@ -2,12 +2,18 @@ import Demo from '../../demo/Demo.jsx';
 import Button from './Button.jsx';
 import React from 'react';
 
+const demoStyle = {
+	fontWeight: 'bold',
+	color: 'blue'
+};
+
 import {storiesOf} from '@kadira/storybook';
 storiesOf('Button', module)
 	.add('Default', () => (
 		<Demo>
 			<Button>Default</Button>
 			<Button isDisabled={true}>Disabled</Button>
+			<Button style={demoStyle}>Styled</Button>
 		</Demo>
 	))
 	.add('Primary', () => (
