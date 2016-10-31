@@ -13,6 +13,7 @@ export default class Button extends React.Component {
 		theme: React.PropTypes.shape({
 			container: React.PropTypes.string
 		}),
+		style: React.PropTypes.object,
 		type: React.PropTypes.string,
 		isDisabled: React.PropTypes.bool,
 		isPrimary: React.PropTypes.bool,
@@ -26,6 +27,7 @@ export default class Button extends React.Component {
 	render() {
 		const {
 			theme,
+			style,
 			type,
 			children,
 			onClick,
@@ -49,6 +51,7 @@ export default class Button extends React.Component {
 			        onMouseDown={onMouseDown}
 			        onMouseUp={onMouseUp}
 			        type={type}
+					style={style}
 			        disabled={isDisabled}>
 				{children}
 			</button>
