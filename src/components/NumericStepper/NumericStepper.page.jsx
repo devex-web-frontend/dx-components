@@ -40,7 +40,7 @@ storiesOf('NumericStepper', module)
 			</div>
 			<br/>
 			<div>
-				<StatefulStepper defaultValue={10}
+				<StatefulStepper defaultValue={1659}
 								 min={0}
 								 formatter={dollarFormatter}
 								 parser={dollarParser}
@@ -49,7 +49,15 @@ storiesOf('NumericStepper', module)
 			</div>
 			<br/>
 			<div>
-				<StatefulStepper defaultValue={14}
+				<StatefulStepper defaultValue={1}
+								 step={0.5}
+								 upIconName={iconAdd}
+								 downIconName={iconDecrease}/>
+			</div>
+			<br/>
+			<div>
+				<StatefulStepper defaultValue={10}
+								 step={0.0001}
 								 upIconName={iconAdd}
 								 downIconName={iconDecrease}/>
 			</div>

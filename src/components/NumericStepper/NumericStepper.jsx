@@ -69,7 +69,6 @@ export default class NumericStepper extends React.Component {
 			}
 		},
 		step: React.PropTypes.number,
-		precision: React.PropTypes.number,
 
 		HoldableComponent: React.PropTypes.func,
 		ButtonComponent: React.PropTypes.func,
@@ -95,7 +94,6 @@ export default class NumericStepper extends React.Component {
 
 	static defaultProps = {
 		step: 1,
-		precision: 0,
 		pattern: /^-?$|^-?\d*([.]\d*)?$/,
 		max: Infinity,
 		min: -Infinity,
@@ -118,11 +116,11 @@ export default class NumericStepper extends React.Component {
 
 	/**
 	 * @param {number} value
-	 * @returns {string}
+	 * @returns {string|number}
 	 */
 	formatValue(value) {
 		const {formatter} = this.props;
-		return formatter ? formatter(value) : value.toString();
+		return formatter ? formatter(value) : value;
 	}
 
 	/**
@@ -139,9 +137,22 @@ export default class NumericStepper extends React.Component {
 		}
 	}
 
+	getPrecision(step) {
+		if (Number.isInteger(step)) {
+			return 0;
+		} else {
+			return step.toString(10).split('.')[1].length;
+		}
+	}
+
 	step(n) {
 		const {step, min, max, value, onChange} = this.props;
-		const newValue = value + (step * n);
+		const num = value + n * step;
+		const precision = this.getPrecision(step);
+
+		const frac = Math.pow(10, precision);
+		const newValue = Math.round(num * frac) / frac;
+
 		if (newValue >= min && newValue <= max && newValue !== value) {
 			onChange && onChange(newValue);
 		}
@@ -158,8 +169,6 @@ export default class NumericStepper extends React.Component {
 	render() {
 		const {value} = this.props;
 		const {displayedValue} = this.state;
-
-		console.log(value, displayedValue);
 
 		const {
 			theme,
@@ -186,6 +195,7 @@ export default class NumericStepper extends React.Component {
 			return acc;
 		}, {});
 
+		// TODO: should we validate value outside the component?
 		const className = classnames(theme.container, {
 			[theme.container_isInvalid]: isNaN(value) || value < min || value > max
 		});
