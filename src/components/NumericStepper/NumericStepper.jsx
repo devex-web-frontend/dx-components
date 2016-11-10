@@ -250,13 +250,15 @@ export default class NumericStepper extends React.Component {
 	}
 
 	onInputChange = (event) => {
-		if (this.props.manualEdit) {
-			const {value} = event.target;
-			if (this.state.isFocused) {
-				this.setState({
-					displayedValue: value
-				});
-			}
+		if (!this.props.manualEdit) {
+			return;
+		}
+
+		const {value} = event.target;
+		if (this.state.isFocused) {
+			this.setState({
+				displayedValue: value
+			});
 		}
 	}
 
@@ -266,7 +268,11 @@ export default class NumericStepper extends React.Component {
 		});
 	}
 
-	onBlur = (event) => {
+	onBlur = event => {
+		if (!this.props.manualEdit) {
+			return;
+		}
+
 		const {value} = event.target;
 		const newValue = this.parseValue(value);
 
