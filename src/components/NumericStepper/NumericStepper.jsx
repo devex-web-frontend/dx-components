@@ -25,7 +25,9 @@ export default class NumericStepper extends React.Component {
 	static propTypes = {
 		pattern: React.PropTypes.instanceOf(RegExp),
 		isDisabled: React.PropTypes.bool,
+		manualEdit: React.PropTypes.bool,
 		onChange: React.PropTypes.func.isRequired,
+		onClick: React.PropTypes.func,
 		formatter: React.PropTypes.func,
 		parser: React.PropTypes.func,
 		value(props) {
@@ -91,6 +93,7 @@ export default class NumericStepper extends React.Component {
 	static defaultProps = {
 		step: 1,
 		pattern: /^-?$|^-?\d*([.]\d*)?$/,
+		manualEdit: true,
 		max: Infinity,
 		min: -Infinity,
 		isDisabled: false,
@@ -120,14 +123,20 @@ export default class NumericStepper extends React.Component {
 	}
 
 	/**
+	 * Trying to parse the entered string to a number.
+	 * Done here because `onChange` should return a valid numeric value if possible,
+	 * e.g. for proper interop with `stateful`.
 	 * @param {string} value
 	 * @returns {number}
 	 */
 	parseValue(value) {
 		const {parser} = this.props;
+
+		// If `parser` function is specified, try to parse.
 		if (parser) {
 			return parser(value);
 		} else {
+			// Cast to an integer otherwise or return as is if falied.
 			const num = Number(value);
 			return isNaN(num) ? value : num;
 		}
@@ -173,6 +182,8 @@ export default class NumericStepper extends React.Component {
 			upIconName,
 			downIconName,
 			isDisabled,
+			manualEdit,
+			onClick,
 			pattern,
 			HoldableComponent: Holdable,
 			InputComponent: Input,
@@ -191,7 +202,6 @@ export default class NumericStepper extends React.Component {
 			return acc;
 		}, {});
 
-		// TODO: should we validate value outside the component?
 		const className = classnames(theme.container, {
 			[theme.container_isInvalid]: isNaN(value) || value < min || value > max
 		});
@@ -202,12 +212,14 @@ export default class NumericStepper extends React.Component {
 					   type="text"
 					   disabled={isDisabled}
 					   onBlur={this.onBlur}
-					   onChange={this.onChange}
+					   onChange={this.onInputChange}
+					   onClick={onClick}
 					   onFocus={this.onFocus}
 					   pattern={pattern}
 					   onKeyDown={this.onKeyDown}
 					   onWheel={this.onWheel}
-					   theme={inputTheme}/>
+					   theme={inputTheme}
+					   readOnly={!manualEdit}/>
 				<div className={theme.buttons}>
 					<Holdable onHold={this.onButtonDownClick}>
 						<Button onClick={this.onButtonDownClick}
@@ -237,12 +249,14 @@ export default class NumericStepper extends React.Component {
 		}
 	}
 
-	onChange = (event) => {
-		const {value} = event.target;
-		if (this.state.isFocused) {
-			this.setState({
-				displayedValue: value
-			});
+	onInputChange = (event) => {
+		if (this.props.manualEdit) {
+			const {value} = event.target;
+			if (this.state.isFocused) {
+				this.setState({
+					displayedValue: value
+				});
+			}
 		}
 	}
 
