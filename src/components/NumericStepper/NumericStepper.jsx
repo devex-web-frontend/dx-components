@@ -209,14 +209,18 @@ export default class NumericStepper extends React.Component {
 					   onWheel={this.onWheel}
 					   theme={inputTheme}/>
 				<div className={theme.buttons}>
-					<Button onClick={this.onButtonDownClick}
-							name={downIconName}
-							theme={buttonTheme.UP}
-							isDisabled={isDisabled}/>
-					<Button onClick={this.onButtonUpClick}
-							theme={buttonTheme.DOWN}
-							name={upIconName}
-							isDisabled={isDisabled}/>
+					<Holdable onHold={this.onButtonDownClick}>
+						<Button onClick={this.onButtonDownClick}
+								name={downIconName}
+								theme={buttonTheme.UP}
+								isDisabled={isDisabled}/>
+					</Holdable>
+					<Holdable onHold={this.onButtonUpClick}>
+						<Button onClick={this.onButtonUpClick}
+								theme={buttonTheme.DOWN}
+								name={upIconName}
+								isDisabled={isDisabled}/>
+					</Holdable>
 				</div>
 			</div>
 		);
