@@ -12,7 +12,8 @@ import React from 'react';
  */
 const DEFAULT_OPTIONS = {
 	onChangeKey: 'onChange',
-	valueKey: 'value'
+	valueKey: 'value',
+	getValueFromOnChange: firstArg => firstArg // use first argument from `onChange` by default
 };
 
 /**
@@ -74,9 +75,7 @@ const stateful = options => {
 
 			handleWrappedOnChange = (...args) => {
 				this.setState({
-					value: componentConfig.getValueFromOnChange ?
-						componentConfig.getValueFromOnChange(args) :
-						args[0]
+					value: componentConfig.getValueFromOnChange(...args)
 				});
 
 				this.props.onChange && this.props.onChange(...args);
