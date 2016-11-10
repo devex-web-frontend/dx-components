@@ -31,15 +31,11 @@ export default class NumericStepper extends React.Component {
 		value(props) {
 			const {value, min, max} = props;
 			const type = typeof value;
-			if (type !== 'undefined') {
-				if (type !== 'number') {
-					throw new Error('Value should be a number');
-				}
-				if (value < min || value > max) {
-					throw new Error(
-						`Value: ${value} should be greater than min: ${min} and lower than max: ${max}`
-					);
-				}
+
+			if (type === 'number' && (value < min || value > max)) {
+				throw new Error(
+					`Value: ${value} should be greater than min: ${min} and lower than max: ${max}`
+				);
 			}
 		},
 		min(props) {
