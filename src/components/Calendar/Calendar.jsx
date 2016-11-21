@@ -19,6 +19,7 @@ export default class Calendar extends React.Component {
 		headerDateFormat: React.PropTypes.string,
 		headerDayFormat: React.PropTypes.string,
 		dayFormat: React.PropTypes.string,
+		onChangeDisplayed: React.PropTypes.func,
 		onChange: React.PropTypes.func,
 		min: React.PropTypes.string, // ISO
 		max: React.PropTypes.string, // ISO
@@ -102,6 +103,9 @@ export default class Calendar extends React.Component {
 	}
 
 	onChangeDisplayedDate = displayedDate => {
+		const {onChangeDisplayed} = this.props;
+		onChangeDisplayed && onChangeDisplayed(displayedDate);
+
 		this.setState({
 			displayedDate
 		});

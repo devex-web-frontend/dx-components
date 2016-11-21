@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import {PURE} from 'dx-util/src/react/pure';
 import Demo from '../../demo/Demo.jsx';
 import Day from './Day';
@@ -29,6 +30,8 @@ const calendarTheme = {
 	day: css.day
 };
 
+const dateFormat = 'YYYY-MM-DDTHH:mm:ssZ';
+
 @PURE
 class CalendarPage extends React.Component {
 
@@ -37,13 +40,17 @@ class CalendarPage extends React.Component {
 	}
 
 	render() {
-		const {value} = this.state;
+		const {value, displayedDate} = this.state;
 		return (
 			<Demo>
+				<section>
+					displayedDate: {displayedDate ? displayedDate.format(dateFormat) : moment(value).format(dateFormat)}
+				</section>
 				<section>
 					<Calendar value={value}
 					          previousMonthIcon={previousMonthIcon}
 					          onChange={this.onChange}
+					          onChangeDisplayed={this.onChangeDisplayed}
 					          nextMonthIcon={nextMonthIcon} />
 				</section>
 
@@ -57,6 +64,12 @@ class CalendarPage extends React.Component {
 				</section>
 			</Demo>
 		);
+	}
+
+	onChangeDisplayed = displayedDate => {
+		this.setState({
+			displayedDate
+		});
 	}
 
 	onChange = value => {
