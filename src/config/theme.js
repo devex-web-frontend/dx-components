@@ -76,7 +76,6 @@ import datePicker from '../components/DatePicker/DatePicker.styl';
 import {CALENDAR} from '../components/Calendar/Calendar';
 import calendarTheme from '../components/Calendar/Calendar.styl';
 
-
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
