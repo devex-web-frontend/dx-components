@@ -38,27 +38,30 @@ const stateful = options => {
 	return WrappedComponent => {
 		const componentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
+		const propTypes = WrappedComponent.propTypes || {};
+
 		// TODO: should we extend it from some base class?
 		class Stateful extends React.Component {
 			static displayName = `Stateful(${componentName})`;
 
 			//noinspection JSUnresolvedVariable
 			static propTypes = {
-				...WrappedComponent.propTypes,
-				onChange: React.PropTypes.func,
-				defaultValue: React.PropTypes.any
+				...propTypes,
+				value(props) {
+					if (typeof props[componentConfig.valueKey] !== 'undefined') {
+						throw new Error(
+							`${Stateful.displayName}: passed 'value' prop will be ignored, use 'defaultValue' instead`
+						);
+					}
+				},
+				[componentConfig.onChangeKey]: React.PropTypes.func,
+				defaultValue: propTypes[componentConfig.valueKey]
 			}
 
 			componentWillMount() {
-				this.validateIncomingProps(this.props);
-
 				this.setState({
 					value: this.props.defaultValue
 				});
-			}
-
-			componentWillReceiveProps(newProps) {
-				this.validateIncomingProps(newProps);
 			}
 
 			render() {
@@ -69,7 +72,7 @@ const stateful = options => {
 
 				return (
 					<WrappedComponent {...this.sanitizeIncomingProps(this.props)}
-									  {...transmittedProps}/>
+					                  {...transmittedProps}/>
 				);
 			}
 
@@ -81,21 +84,13 @@ const stateful = options => {
 				this.props.onChange && this.props.onChange(...args);
 			}
 
-			validateIncomingProps(props) {
-				if (props.value) {
-					console.warn(
-						`${Stateful.displayName}: passed 'value' prop will be ignored, use 'defaultValue' instead`
-					);
-				}
-			}
-
 			sanitizeIncomingProps(props) {
 				const newProps = {
 					...props
 				};
-				delete newProps['onChange'];
+				delete newProps[componentConfig.onChangeKey];
 				delete newProps['defaultValue'];
-				delete newProps['value'];
+				delete newProps[componentConfig.valueKey];
 				return newProps;
 			}
 		}
