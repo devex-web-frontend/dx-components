@@ -26,7 +26,7 @@ export default class NumericStepper extends React.Component {
 		pattern: React.PropTypes.instanceOf(RegExp),
 		isDisabled: React.PropTypes.bool,
 		manualEdit: React.PropTypes.bool,
-		onChange: React.PropTypes.func.isRequired,
+		onChange: React.PropTypes.func,
 		onClick: React.PropTypes.func,
 		formatter: React.PropTypes.func,
 		parser: React.PropTypes.func,
@@ -280,7 +280,9 @@ export default class NumericStepper extends React.Component {
 			isFocused: false,
 			displayedValue: this.formatValue(newValue)
 		});
-		this.props.onChange(newValue);
+
+		const {onChange} = this.props;
+		onChange && onChange(newValue);
 	}
 
 	onWheel = e => {
