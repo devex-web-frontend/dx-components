@@ -17,12 +17,18 @@ class LoadingIndicatonPage extends React.Component {
 		isLoading: true
 	}
 
+	_timeout;
+
 	componentDidMount() {
-		setTimeout(() => {
+		this._timeout = setTimeout(() => {
 			this.setState({
 				isLoading: false
 			});
 		}, 2500);
+	}
+
+	componentWillUnmount() {
+		clearTimeout(this._timeout);
 	}
 
 	render() {
