@@ -13,7 +13,7 @@ const darkDemoTheme = {
 storiesOf('Input', module)
 	.add('Default', () => (
 		<Demo theme={darkDemoTheme}>
-			<Input value="Test Value"/>
+			<Input defaultValue="Test Value"/>
 		</Demo>
 	))
 	.add('Readonly', () => {
