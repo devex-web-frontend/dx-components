@@ -69,6 +69,11 @@ class SelectboxPage extends React.Component {
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
 					</DemoSelectbox>
+					<Stateful placeholder="Loading"
+					          isDisabled={true}
+					          isLoading={true}>
+						<MenuItem value="dummy">Dummy</MenuItem>
+					</Stateful>
 					<Button onClick={this.onResetClick}>Reset</Button>
 				</div>
 			</Demo>

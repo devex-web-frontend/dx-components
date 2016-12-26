@@ -42,6 +42,7 @@ export default class SelectboxAnchor extends React.Component {
 			valueText,
 			isDisabled,
 			isPrimary,
+			isLoading,
 			IconComponent: Icon,
 			caretIconName,
 			onClick,
@@ -56,7 +57,10 @@ export default class SelectboxAnchor extends React.Component {
 		};
 
 		return (
-			<Button onClick={onClick} isDisabled={isDisabled} isPrimary={isPrimary}
+			<Button onClick={onClick}
+			        isDisabled={isDisabled}
+			        isLoading={isLoading}
+			        isPrimary={isPrimary}
 			        theme={buttonTheme}>
 				<div className={theme.content}>
 					<div className={theme.text}>

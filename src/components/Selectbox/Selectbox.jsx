@@ -32,6 +32,7 @@ export default class Selectbox extends React.Component {
 	static propTypes = {
 		children: React.PropTypes.node,
 		isDisabled: React.PropTypes.bool,
+		isLoading: React.PropTypes.bool,
 		value(props) {
 			const type = typeof props.value;
 			if (type !== 'undefined') {
@@ -83,7 +84,8 @@ export default class Selectbox extends React.Component {
 			theme,
 			value,
 			selectedItemIconName,
-			isDisabled
+			isDisabled,
+			isLoading
 		} = this.props;
 
 		const menuTheme = {
@@ -130,12 +132,13 @@ export default class Selectbox extends React.Component {
 		return (
 			<Anchor ref={el => this._anchor = el}
 			        isDisabled={isDisabled}
+			        isLoading={isLoading}
 			        theme={anchorTheme}
 			        caretIconName={caretIconName}
 			        isOpened={this.state.isOpened}
 			        value={value}
 			        valueText={valueText}
-			        onClick={this.onAnchorClick} >
+			        onClick={this.onAnchorClick}>
 				<Popover isOpened={this.state.isOpened}
 				         theme={popoverTheme}
 				         closeOnClickAway={true}
