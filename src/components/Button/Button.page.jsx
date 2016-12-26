@@ -29,4 +29,12 @@ storiesOf('Button', module)
 			<Button isPrimary={true} isFlat={true}>Primary Flat</Button>
 			<Button isPrimary={true} isFlat={true} isDisabled={true}>Primary Flat Disabled</Button>
 		</Demo>
+	))
+	.add('Loading', () => (
+		<Demo>
+			<Button isLoading={true}>Loading</Button>
+			<Button isDisabled={true} isLoading={true}>Loading Disabled</Button>
+			<Button isFlat={true} isLoading={true}>Loading Flat</Button>
+			<Button isFlat={true} isLoading={true} isDisabled={true}>Loading Flat Disabled</Button>
+		</Demo>
 	));
