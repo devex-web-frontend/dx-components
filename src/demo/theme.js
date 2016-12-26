@@ -55,6 +55,9 @@ import calendarTheme from '../components/Calendar/Calendar.demo.styl';
 import {EXPANDABLE} from '../components/Expandable/Expandable.jsx';
 import expandable from '../components/Expandable/Expandable.demo.styl';
 
+import {LOADING_INDICATOR} from '../components/LoadingIndicator/LoadingIndicator';
+import loadingIndicator from '../components/LoadingIndicator/LoadingIndicator.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -90,5 +93,6 @@ export default {
 		Input: {
 			container: passwordInput.input
 		}
-	}
+	},
+	[LOADING_INDICATOR]: loadingIndicator
 };

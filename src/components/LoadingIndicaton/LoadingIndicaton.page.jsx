@@ -3,12 +3,14 @@ import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
 import LoadingIndicaton from './LoadingIndicaton.jsx';
 import {PURE} from 'dx-util/src/react/pure';
+import Indicator from '../LoadingIndicator/LoadingIndicator';
 
 import css from './LoadingIndicaton.page.styl';
 
-const LoadingIndicator = () => (
-	<div className={css.loadingIndicator}/>
-);
+const loadingIndicatorTheme = {
+	container: css.loadingIndicator
+};
+const LoadingIndicator = () => <Indicator theme={loadingIndicatorTheme}/>;
 
 @PURE
 class LoadingIndicatonPage extends React.Component {

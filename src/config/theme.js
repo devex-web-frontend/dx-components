@@ -76,6 +76,9 @@ import datePicker from '../components/DatePicker/DatePicker.styl';
 import {CALENDAR} from '../components/Calendar/Calendar';
 import calendarTheme from '../components/Calendar/Calendar.styl';
 
+import {LOADING_INDICATOR} from '../components/LoadingIndicator/LoadingIndicator';
+import loadingIndicator from '../components/LoadingIndicator/LoadingIndicator.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -110,5 +113,6 @@ export default {
 		Input: {
 			container: passwordInput.input
 		}
-	}
+	},
+	[LOADING_INDICATOR]: loadingIndicator
 };
