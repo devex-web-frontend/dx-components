@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import {PURE} from 'dx-util/src/react/pure';
 import {themr} from 'react-css-themr';
-import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
+import LoadingIndicator, {LOADING_INDICATOR_THEME} from '../LoadingIndicator/LoadingIndicator';
 
 export const BUTTON = Symbol('Button');
 
@@ -12,7 +12,9 @@ export default class Button extends React.Component {
 	static propTypes = {
 		children: React.PropTypes.node,
 		theme: React.PropTypes.shape({
-			container: React.PropTypes.string
+			container: React.PropTypes.string,
+			loadingIndicator: React.PropTypes.string,
+			LoadingIndicator: React.PropTypes.shape(LOADING_INDICATOR_THEME)
 		}),
 		style: React.PropTypes.object,
 		type: React.PropTypes.string,
@@ -60,7 +62,7 @@ export default class Button extends React.Component {
 				{children}
 				{isLoading && (
 					<div className={theme.loadingIndicator}>
-						<LoadingIndicator/>
+						<LoadingIndicator theme={theme.LoadingIndicator}/>
 					</div>
 				)}
 			</button>
