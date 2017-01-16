@@ -6,6 +6,7 @@ import Selectbox from '../Selectbox/Selectbox.jsx';
 import MenuItem from '../Menu/MenuItem.jsx';
 import {PURE} from 'dx-util/src/react/pure';
 import {storiesOf} from '@kadira/storybook';
+import stateful from '../../util/react/stateful';
 
 import css from './Popover.page.styl';
 const buttonTheme = {
@@ -44,6 +45,8 @@ const DEFAULT_PLACEMENT = PLACEMENT.BOTTOM;
 const DEFAULT_HORIZONTAL_ALIGN = ALIGN.LEFT;
 const DEFAULT_VERTICAL_ALIGN = ALIGN.TOP;
 
+const Stateful = stateful()(Selectbox);
+
 @PURE
 class PopoverPage extends React.Component {
 
@@ -65,28 +68,29 @@ class PopoverPage extends React.Component {
 				<div className={css.container}>
 					<div>
 						<label className={css.label}>Placement</label>
-						<Selectbox defaultValue={PLACEMENT.BOTTOM} onChange={this.onPlacementSelect}>
+						<Stateful defaultValue={PLACEMENT.BOTTOM}
+						          onChange={this.onPlacementSelect}>
 							<MenuItem value={PLACEMENT.TOP}>Top</MenuItem>
 							<MenuItem value={PLACEMENT.BOTTOM}>Bottom</MenuItem>
 							<MenuItem value={PLACEMENT.LEFT}>Left</MenuItem>
 							<MenuItem value={PLACEMENT.RIGHT}>Right</MenuItem>
-						</Selectbox>
+						</Stateful>
 						<label className={css.label}>Align</label>
 						{(placement === PLACEMENT.TOP || placement === PLACEMENT.BOTTOM) && (
-							<Selectbox defaultValue={DEFAULT_HORIZONTAL_ALIGN}
-							           onChange={this.onAlignSelect}>
+							<Stateful defaultValue={DEFAULT_HORIZONTAL_ALIGN}
+							          onChange={this.onAlignSelect}>
 								<MenuItem value={ALIGN.LEFT}>Left</MenuItem>
 								<MenuItem value={ALIGN.CENTER}>Center</MenuItem>
 								<MenuItem value={ALIGN.RIGHT}>Right</MenuItem>
-							</Selectbox>
+							</Stateful>
 						)}
 						{(placement === PLACEMENT.LEFT || placement === PLACEMENT.RIGHT) && (
-							<Selectbox defaultValue={DEFAULT_VERTICAL_ALIGN}
-							           onChange={this.onAlignSelect}>
+							<Stateful defaultValue={DEFAULT_VERTICAL_ALIGN}
+							          onChange={this.onAlignSelect}>
 								<MenuItem value={ALIGN.TOP}>Top</MenuItem>
 								<MenuItem value={ALIGN.MIDDLE}>Middle</MenuItem>
 								<MenuItem value={ALIGN.BOTTOM}>Bottom</MenuItem>
-							</Selectbox>
+							</Stateful>
 						)}
 						<label className={css.label}>
 							Close on clickaway <input type="checkbox"
