@@ -3,6 +3,7 @@ const minimist = require('minimist');
 
 const argv = minimist(process.argv.slice(2));
 
+const CORE_JS = module.exports.CORE_JS = 'core-js/client/shim.min.js';
 const ROOT = module.exports.ROOT = path.join(__dirname, '../../');
 const BUILD_PATH = module.exports.BUILD_PATH = path.resolve(ROOT, 'dist');
 const SRC_PATH = module.exports.SRC_PATH = path.resolve(ROOT, 'src');
@@ -20,3 +21,14 @@ const ES6 = module.exports.ES6 = [
 ];
 
 const SVG_SPRITE_ENTRY = module.exports.SVG_SPRITE_ENTRY = 'svg-sprite.js';
+
+const STATS = module.exports.STATS = {
+	assets: true,
+	colors: true,
+	version: false,
+	hash: false,
+	timings: false,
+	chunks: false,
+	chunkModules: false,
+	children: false
+};

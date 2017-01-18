@@ -8,7 +8,6 @@ import clone from 'clone';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import SvgSpriteExtractPlugin from 'svg-sprite-extract-plugin';
 
-export const CORE_JS = 'core-js/client/shim.min.js';
 const JS_PATTERN = /\.jsx?$/;
 const FILE_PATTERN = /\.png$|\.jpg$|\.gif$|\.swf$|\.ico$|\.(ttf|eot|woff(2)?)(\?[a-z0-9]+)?$/;
 export const STYLUS_QUERY = {
@@ -43,13 +42,13 @@ const plugins = [
 	svgExtractor,
 	new HtmlWebpackPlugin({
 		filename: 'index.html',
-		template: path.resolve(ENV.SRC_PATH, 'index.html'),
+		template: path.resolve(ENV.SRC_PATH, 'storybook/index.html'),
 		chunks: ['manager'],
 		inject: 'body'
 	}),
 	new HtmlWebpackPlugin({
 		filename: 'iframe.html',
-		template: path.resolve(ENV.SRC_PATH, 'iframe.html'),
+		template: path.resolve(ENV.SRC_PATH, 'storybook/iframe.html'),
 		chunks: ['preview'],
 		inject: 'body'
 	})
@@ -90,6 +89,11 @@ const loaders = [
 	{
 		test: /\.svg$/,
 		loader: svgExtractor.extract('svgo')
+	},
+	//typescript
+	{
+		test: /\.tsx?$/,
+		loader: 'ts-loader'
 	}
 ];
 
@@ -100,6 +104,18 @@ export default function shared() {
 	const config = new Config();
 
 	config.merge({
+		entry: {
+			manager: [
+				ENV.CORE_JS,
+				require.resolve('@kadira/storybook/dist/server/addons.js'),
+				require.resolve('@kadira/storybook/dist/client/manager/index.js')
+			],
+			preview: [
+				ENV.CORE_JS,
+				require.resolve('@kadira/storybook/dist/server/addons.js'),
+				require.resolve('../storybook/client.js')
+			]
+		},
 		output: {
 			path: ENV.BUILD_PATH,
 			filename: '[name].js'
@@ -120,7 +136,9 @@ export default function shared() {
 			extensions: [
 				'',
 				'.js',
-				'.jsx'
+				'.jsx',
+				'.ts',
+				'.tsx'
 			]
 		},
 		plugins,
