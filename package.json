@@ -6,6 +6,7 @@
   "scripts": {
     "bower": "bower",
     "eslint": "eslint --config ./node_modules/dx-lint/.react.eslintrc --ext .js,.jsx .",
+    "tslint": "tslint -c ./node_modules/dx-lint/tslint.json './src/**/*.ts'",
     "start": "node ./scripts/run.js ./scripts/start.js",
     "test": "npm run eslint",
     "dx-flow": "dx-flow",
@@ -60,7 +61,7 @@
     "core-js": "^2.4.0",
     "css-loader": "^0.23.1",
     "dx-flow": "github:devex-web-frontend/dx-flow",
-    "dx-lint": "github:devex-web-frontend/dx-lint#0.2.7",
+    "dx-lint": "github:devex-web-frontend/dx-lint#0.3.1",
     "eslint": "^2.13.1",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-react": "^6.0.0",
@@ -85,12 +86,14 @@
     "svg-sprite-extract-plugin": "github:devex-web-frontend/svg-sprite-extract-plugin",
     "svgo-loader": "^1.1.0",
     "ts-loader": "~1.3.3",
+    "tslint": "^4.3.1",
     "typescript": "~2.1.5",
     "webpack": "^1.13.1",
     "webpack-configurator": "^0.3.1",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "@types/node": "^7.0.0",
     "@types/react": "^15.0.0",
     "@types/react-dom": "^0.14.20",
     "bower": "^1.7.9",

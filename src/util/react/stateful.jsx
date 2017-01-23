@@ -1,4 +1,5 @@
 import React from 'react';
+import identity from '../func/identity';
 
 /**
  * @typedef {Object} StatefulOptions
@@ -13,7 +14,7 @@ import React from 'react';
 const DEFAULT_OPTIONS = {
 	onChangeKey: 'onChange',
 	valueKey: 'value',
-	getValueFromOnChange: firstArg => firstArg // use first argument from `onChange` by default
+	getValueFromOnChange: identity // use first argument from `onChange` by default
 };
 
 /**

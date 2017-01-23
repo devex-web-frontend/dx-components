@@ -6,6 +6,7 @@ import Holdable from '../Holdable/Holdable.jsx';
 import ButtonIcon from '../ButtonIcon/ButtonIcon.jsx';
 import Button from '../Button/Button.jsx';
 import classnames from 'classnames';
+import noop from '../../util/func/noop';
 
 export const NUMERIC_STEPPER = Symbol('NumericStepper');
 
@@ -30,6 +31,8 @@ export default class NumericStepper extends React.Component {
 		onClick: React.PropTypes.func,
 		formatter: React.PropTypes.func,
 		parser: React.PropTypes.func,
+		increment: React.PropTypes.func,
+		decrement: React.PropTypes.func,
 		value(props) {
 			const {value, min, max} = props;
 			const type = typeof value;
@@ -72,9 +75,6 @@ export default class NumericStepper extends React.Component {
 		ButtonComponent: React.PropTypes.func,
 		InputComponent: React.PropTypes.func,
 
-		repeatInterval: React.PropTypes.number,
-		repeatDelay: React.PropTypes.number,
-
 		upIconName: React.PropTypes.string,
 		downIconName: React.PropTypes.string,
 
@@ -97,6 +97,8 @@ export default class NumericStepper extends React.Component {
 		max: Infinity,
 		min: -Infinity,
 		isDisabled: false,
+		increment: (value, step) => value + step,
+		decrement: (value, step) => value - step,
 		HoldableComponent: Holdable,
 		InputComponent: Input,
 		ButtonComponent: ButtonIcon
@@ -150,25 +152,18 @@ export default class NumericStepper extends React.Component {
 		}
 	}
 
-	step(n) {
-		const {step, min, max, value, onChange} = this.props;
-		const num = value + n * step;
-		const precision = this.getPrecision(step);
-
-		const frac = Math.pow(10, precision);
-		const newValue = Math.round(num * frac) / frac;
-
-		if (newValue >= min && newValue <= max && newValue !== value) {
-			onChange && onChange(newValue);
-		}
-	}
-
 	increase = () => {
-		this.step(1);
+		const {increment, step, value} = this.props;
+		const precision = this.getPrecision(step);
+		const newValue = Number(increment(value, step).toFixed(precision));
+		this._notifyChanged(newValue);
 	}
 
 	decrease = () => {
-		this.step(-1);
+		const {decrement, step, value} = this.props;
+		const precision = this.getPrecision(step);
+		const newValue = Number(decrement(value, step).toFixed(precision));
+		this._notifyChanged(newValue);
 	}
 
 	render() {
@@ -209,33 +204,42 @@ export default class NumericStepper extends React.Component {
 		return (
 			<div className={className}>
 				<Input value={displayedValue}
-					   type="text"
-					   disabled={isDisabled}
-					   onBlur={this.onBlur}
-					   onChange={this.onInputChange}
-					   onClick={onClick}
-					   onFocus={this.onFocus}
-					   pattern={pattern}
-					   onKeyDown={this.onKeyDown}
-					   onWheel={this.onWheel}
-					   theme={inputTheme}
-					   readOnly={!manualEdit}/>
+				       type="text"
+				       disabled={isDisabled}
+				       onBlur={this.onBlur}
+				       onChange={this.onInputChange}
+				       onClick={onClick}
+				       onFocus={this.onFocus}
+				       pattern={pattern}
+				       onKeyDown={this.onKeyDown}
+				       onWheel={this.onWheel}
+				       theme={inputTheme}
+				       readOnly={!manualEdit}/>
 				<div className={theme.buttons}>
 					<Holdable onHold={this.onButtonDownClick}>
 						<Button onClick={this.onButtonDownClick}
-								name={downIconName}
-								theme={buttonTheme.DOWN}
-								isDisabled={isDisabled}/>
+						        tabIndex={-1}
+						        name={downIconName}
+						        theme={buttonTheme.DOWN}
+						        isDisabled={isDisabled}/>
 					</Holdable>
 					<Holdable onHold={this.onButtonUpClick}>
 						<Button onClick={this.onButtonUpClick}
-								theme={buttonTheme.UP}
-								name={upIconName}
-								isDisabled={isDisabled}/>
+						        tabIndex={-1}
+						        theme={buttonTheme.UP}
+						        name={upIconName}
+						        isDisabled={isDisabled}/>
 					</Holdable>
 				</div>
 			</div>
 		);
+	}
+
+	_notifyChanged(newValue) {
+		const {min, max, value, onChange} = this.props;
+		if (onChange && newValue >= min && newValue <= max && newValue !== value) {
+			onChange(newValue);
+		}
 	}
 
 	onKeyDown = event => {
