@@ -25,7 +25,8 @@ export default class Button extends React.Component {
 		onMouseLeave: React.PropTypes.func,
 		onMouseDown: React.PropTypes.func,
 		onMouseUp: React.PropTypes.func,
-		onClick: React.PropTypes.func
+		onClick: React.PropTypes.func,
+		tabIndex: React.PropTypes.number
 	}
 
 	render() {
@@ -41,7 +42,8 @@ export default class Button extends React.Component {
 			isFlat,
 			isPrimary,
 			isLoading,
-			isDisabled
+			isDisabled,
+			tabIndex
 		} = this.props;
 
 		const className = classnames(theme.container, {
@@ -58,6 +60,7 @@ export default class Button extends React.Component {
 			        onMouseUp={onMouseUp}
 			        type={type}
 			        style={style}
+			        tabIndex={tabIndex}
 			        disabled={isDisabled}>
 				{children}
 				{isLoading && (
