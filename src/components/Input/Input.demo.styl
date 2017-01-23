@@ -10,9 +10,9 @@
 	background-color: #202020;
 	box-shadow: 0 1px 0 rgba(#000000, .7) inset;
 	color: #ffffff;
-
-	&:focus:not([readonly]) {
-		color: #000;
+	
+	&:focus:not([readonly]):not([disabled]),
+	&_isFocused:not([readonly]) {
 		background: #464646;
 		border-color: rgba(#fff, .2);
 		box-shadow: none;
@@ -24,7 +24,8 @@
 		border-color: transparent;
 	}
 
-	&:disabled {
+	&:disabled,
+	&[disabled] {
 		background: #3b3b3b;
 		border-color: #3b3b3b;
 		box-shadow: none;

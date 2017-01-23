@@ -31,7 +31,7 @@ import resizeDetector from '../components/ResizeDetector/ResizeDetector.styl';
 import {COMBOBOX} from '../components/Combobox/Combobox';
 import combobox from '../components/Combobox/Combobox.styl';
 
-import {INPUT} from '../components/Input/Input.jsx';
+import {INPUT} from '../components/Input/Input';
 import input from '../components/Input/Input.styl';
 
 import {PASSWORD_INPUT} from '../components/PasswordInput/PasswordInput';

@@ -19,7 +19,7 @@ import toggleButtons from '../components/ToggleButtons/ToggleButtons.demo.styl';
 import {COMBOBOX} from '../components/Combobox/Combobox';
 import combobox from '../components/Combobox/Combobox.demo.styl';
 
-import {INPUT} from '../components/Input/Input.jsx';
+import {INPUT} from '../components/Input/Input';
 import input from '../components/Input/Input.demo.styl';
 
 import {PASSWORD_INPUT} from '../components/PasswordInput/PasswordInput';

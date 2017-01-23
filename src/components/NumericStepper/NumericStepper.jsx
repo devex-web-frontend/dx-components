@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {themr} from 'react-css-themr';
 import {PURE} from 'dx-util/src/react/pure';
-import Input from '../Input/Input.jsx';
+import Input from '../Input/Input';
 import Holdable from '../Holdable/Holdable.jsx';
 import ButtonIcon from '../ButtonIcon/ButtonIcon.jsx';
 import Button from '../Button/Button.jsx';
