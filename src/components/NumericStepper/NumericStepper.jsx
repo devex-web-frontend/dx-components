@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {themr} from 'react-css-themr';
 import {PURE} from 'dx-util/src/react/pure';
 import Input from '../Input/Input';
@@ -31,8 +30,6 @@ export default class NumericStepper extends React.Component {
 		onClick: React.PropTypes.func,
 		formatter: React.PropTypes.func,
 		parser: React.PropTypes.func,
-		increment: React.PropTypes.func,
-		decrement: React.PropTypes.func,
 		value(props) {
 			const {value, min, max} = props;
 			const type = typeof value;
@@ -75,6 +72,9 @@ export default class NumericStepper extends React.Component {
 		ButtonComponent: React.PropTypes.func,
 		InputComponent: React.PropTypes.func,
 
+		repeatInterval: React.PropTypes.number,
+		repeatDelay: React.PropTypes.number,
+
 		upIconName: React.PropTypes.string,
 		downIconName: React.PropTypes.string,
 
@@ -97,23 +97,10 @@ export default class NumericStepper extends React.Component {
 		max: Infinity,
 		min: -Infinity,
 		isDisabled: false,
-		increment: (value, step) => value + step,
-		decrement: (value, step) => value - step,
 		HoldableComponent: Holdable,
 		InputComponent: Input,
 		ButtonComponent: ButtonIcon
 	};
-
-	/**
-	 * @type {Element}
-	 * @private
-	 */
-	_input;
-	/**
-	 * @type {Boolean}
-	 * @private
-	 */
-	_isFocused = false;
 
 	state = {
 		isFocused: false,
@@ -163,18 +150,25 @@ export default class NumericStepper extends React.Component {
 		}
 	}
 
-	increase = () => {
-		const {increment, step, value} = this.props;
+	step(n) {
+		const {step, min, max, value, onChange} = this.props;
+		const num = value + n * step;
 		const precision = this.getPrecision(step);
-		const newValue = Number(increment(value, step).toFixed(precision));
-		this._notifyChanged(newValue);
+
+		const frac = Math.pow(10, precision);
+		const newValue = Math.round(num * frac) / frac;
+
+		if (newValue >= min && newValue <= max && newValue !== value) {
+			onChange && onChange(newValue);
+		}
+	}
+
+	increase = () => {
+		this.step(1);
 	}
 
 	decrease = () => {
-		const {decrement, step, value} = this.props;
-		const precision = this.getPrecision(step);
-		const newValue = Number(decrement(value, step).toFixed(precision));
-		this._notifyChanged(newValue);
+		this.step(-1);
 	}
 
 	render() {
@@ -216,7 +210,6 @@ export default class NumericStepper extends React.Component {
 			<div className={className}>
 				<Input value={displayedValue}
 				       type="text"
-				       ref={el => this._input = el}
 				       disabled={isDisabled}
 				       onBlur={this.onBlur}
 				       onChange={this.onInputChange}
@@ -230,16 +223,12 @@ export default class NumericStepper extends React.Component {
 				<div className={theme.buttons}>
 					<Holdable onHold={this.onButtonDownClick}>
 						<Button onClick={this.onButtonDownClick}
-						        onMouseDown={this.onButtonMouseDown}
-						        tabIndex={-1}
 						        name={downIconName}
 						        theme={buttonTheme.DOWN}
 						        isDisabled={isDisabled}/>
 					</Holdable>
 					<Holdable onHold={this.onButtonUpClick}>
 						<Button onClick={this.onButtonUpClick}
-						        onMouseDown={this.onButtonMouseDown}
-						        tabIndex={-1}
 						        theme={buttonTheme.UP}
 						        name={upIconName}
 						        isDisabled={isDisabled}/>
@@ -249,21 +238,12 @@ export default class NumericStepper extends React.Component {
 		);
 	}
 
-	_notifyChanged(newValue) {
-		const {min, max, value, onChange} = this.props;
-		if (onChange && newValue >= min && newValue <= max && newValue !== value) {
-			onChange(newValue);
-		}
-	}
-
-	onKeyDown = e => {
-		switch (e.keyCode) {
+	onKeyDown = event => {
+		switch (event.keyCode) {
 			case KEYCODE.UP:
-				e.preventDefault();
 				this.increase();
 				break;
 			case KEYCODE.DOWN:
-				e.preventDefault();
 				this.decrease();
 				break;
 		}
@@ -275,7 +255,7 @@ export default class NumericStepper extends React.Component {
 		}
 
 		const {value} = event.target;
-		if (this._isFocused) {
+		if (this.state.isFocused) {
 			this.setState({
 				displayedValue: value
 			});
@@ -283,7 +263,9 @@ export default class NumericStepper extends React.Component {
 	}
 
 	onFocus = () => {
-		this._isFocused = true;
+		this.setState({
+			isFocused: true
+		});
 	}
 
 	onBlur = event => {
@@ -294,8 +276,8 @@ export default class NumericStepper extends React.Component {
 		const {value} = event.target;
 		const newValue = this.parseValue(value);
 
-		this._isFocused = false;
 		this.setState({
+			isFocused: false,
 			displayedValue: this.formatValue(newValue)
 		});
 
@@ -305,8 +287,9 @@ export default class NumericStepper extends React.Component {
 
 	onWheel = e => {
 		const {isDisabled} = this.props;
+		const {isFocused} = this.state;
 
-		if (!isDisabled && this._isFocused) {
+		if (!isDisabled && isFocused) {
 			if (e.deltaY < 0) {
 				this.increase();
 			} else {
@@ -316,18 +299,10 @@ export default class NumericStepper extends React.Component {
 	}
 
 	onButtonDownClick = () => {
-		ReactDOM.findDOMNode(this._input).focus();
 		this.decrease();
 	}
 
 	onButtonUpClick = () => {
-		ReactDOM.findDOMNode(this._input).focus();
 		this.increase();
-	}
-
-	onButtonMouseDown = e => {
-		if (this._isFocused) {
-			e.preventDefault();
-		}
 	}
 }

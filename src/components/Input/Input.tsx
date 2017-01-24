@@ -1,8 +1,6 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import * as classnames from 'classnames';
 import {themr} from 'react-css-themr';
-import {PURE} from 'dx-util/src/react/pure';
 export const INPUT = Symbol('Input');
 
 const INPUT_THEME_SHAPE = {
@@ -11,20 +9,28 @@ const INPUT_THEME_SHAPE = {
 
 interface IInputInjectedProps {
 	theme: {
-		container?: string
+		container?: string,
+		container_isFocused?: string
 	}
 }
 
 interface IOwnInputProps extends React.HTMLProps<HTMLInputElement> {
-	tagName?: string
+	tagName?: string,
+	isFocused?: boolean
 }
 
 interface IInputProps extends IOwnInputProps, IInputInjectedProps {
 }
 
-const Input: React.SFC<IInputProps> = ({theme, tagName, ...props}) => {
+const Input: React.SFC<IInputProps> = ({theme, isFocused, tagName, ...props}) => {
 	const Component = tagName as any;
-	return <Component className={theme.container} {...props}/>;
+	const className = classnames(
+		theme.container,
+		{
+			[theme.container_isFocused as string]: isFocused,
+		}
+	);
+	return <Component className={className} {...props}/>;
 };
 Input.propTypes = {
 	theme: React.PropTypes.shape(INPUT_THEME_SHAPE)

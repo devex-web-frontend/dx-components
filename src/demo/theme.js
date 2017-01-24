@@ -58,6 +58,9 @@ import expandable from '../components/Expandable/Expandable.demo.styl';
 import {LOADING_INDICATOR} from '../components/LoadingIndicator/LoadingIndicator';
 import loadingIndicator from '../components/LoadingIndicator/LoadingIndicator.demo.styl';
 
+import {STEPPABLE_INPUT} from '../components/SteppableInput/SteppableInput';
+import steppableInput from '../components/SteppableInput/theme/SteppableInput.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -94,5 +97,6 @@ export default {
 			container: passwordInput.input
 		}
 	},
-	[LOADING_INDICATOR]: loadingIndicator
+	[LOADING_INDICATOR]: loadingIndicator,
+	[STEPPABLE_INPUT]: steppableInput
 };

@@ -1,9 +1,9 @@
 import {Component} from 'react';
-import {IControlProps} from '../Control/Control';
+import {TControlProps} from '../Control/Control';
 import ComponentClass = React.ComponentClass;
 import ValidationMap = React.ValidationMap;
 
-export interface INumericStepperProps<TValue> extends IControlProps<TValue> {
+export interface INumericStepperProps<TValue> extends TControlProps<TValue> {
 	increment?(value: TValue, step: TValue): TValue,
 	decrement?(value: TValue, step: TValue): TValue,
 	formatter?(value: TValue): string,
