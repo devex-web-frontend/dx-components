@@ -8,11 +8,54 @@ import {TControlProps, createControlProps} from '../Control/Control';
 import * as classnames from 'classnames';
 import {themr} from 'react-css-themr';
 
-const KEY_CODE = {
-	LEFT: 37,
-	RIGHT: 39,
-	DELETE: 46,
-	BACKSPACE: 8
+enum KeyCode {
+	Left = 37,
+	Right = 39,
+	Delete = 46,
+	Backspace = 8,
+	N0 = 48,
+	N1 = 49,
+	N2 = 50,
+	N3 = 51,
+	N4 = 52,
+	N5 = 53,
+	N6 = 54,
+	N7 = 55,
+	N8 = 56,
+	N9 = 57,
+	NUM0 = 96,
+	NUM1 = 97,
+	NUM2 = 98,
+	NUM3 = 99,
+	NUM4 = 100,
+	NUM5 = 101,
+	NUM6 = 102,
+	NUM7 = 103,
+	NUM8 = 104,
+	NUM9 = 105
+}
+
+const KEY_CODE_NUM_MAP: {[code: number]: number} = {
+	[KeyCode.N0]: 0,
+	[KeyCode.N1]: 1,
+	[KeyCode.N2]: 2,
+	[KeyCode.N3]: 3,
+	[KeyCode.N4]: 4,
+	[KeyCode.N5]: 5,
+	[KeyCode.N6]: 6,
+	[KeyCode.N7]: 7,
+	[KeyCode.N8]: 8,
+	[KeyCode.N9]: 9,
+	[KeyCode.NUM0]: 0,
+	[KeyCode.NUM1]: 1,
+	[KeyCode.NUM2]: 2,
+	[KeyCode.NUM3]: 3,
+	[KeyCode.NUM4]: 4,
+	[KeyCode.NUM5]: 5,
+	[KeyCode.NUM6]: 6,
+	[KeyCode.NUM7]: 7,
+	[KeyCode.NUM8]: 8,
+	[KeyCode.NUM9]: 9
 };
 
 export type TTime = {
@@ -69,6 +112,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 
 	state: TTimeInputState = {};
 	private minutesElement: HTMLElement;
+	private secondInput: boolean = false;
 
 	componentWillMount() {
 		const {value} = this.props;
@@ -82,7 +126,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	componentWillReceiveProps(newProps: TTimeInputFullProps) {
-		if (this.props.value !== newProps.value) {
+		if (this.props.value !== newProps.value && typeof newProps.value !== 'undefined') {
 			let hours;
 			let minutes;
 			if (newProps.value) {
@@ -163,65 +207,6 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 		});
 	}
 
-	private step(amount: number): void {
-		const {onChange, value} = this.props;
-		const {hours, minutes, activeSection} = this.state;
-		switch (activeSection) {
-			case ActiveSection.Hours: {
-				if (typeof hours !== 'undefined') {
-					if (value) {
-						onChange && onChange({
-							hours: addTime(hours, amount, 24),
-							minutes: value.minutes
-						});
-					} else {
-						this.setState({
-							hours: addTime(hours, amount, 24)
-						});
-					}
-				} else {
-					if (typeof minutes !== 'undefined') {
-						onChange && onChange({
-							hours: 0,
-							minutes
-						});
-					} else {
-						this.setState({
-							hours: 0
-						});
-					}
-				}
-				break;
-			}
-			case ActiveSection.Minutes: {
-				if (typeof minutes !== 'undefined') {
-					if (value) {
-						onChange && onChange({
-							hours: value.hours,
-							minutes: addTime(minutes, amount, 60)
-						});
-					} else {
-						this.setState({
-							minutes: addTime(minutes, amount, 60)
-						});
-					}
-				} else {
-					if (typeof hours !== 'undefined') {
-						onChange && onChange({
-							hours,
-							minutes: 0
-						});
-					} else {
-						this.setState({
-							minutes: 0
-						});
-					}
-				}
-				break;
-			}
-		}
-	}
-
 	private onIncrement = () => {
 		this.step(1);
 	}
@@ -231,6 +216,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	private onFocus = (e: React.FocusEvent<HTMLElement>) => {
+		this.secondInput = false;
 		if (typeof this.state.activeSection === 'undefined') {
 			this.setState({
 				activeSection: ActiveSection.Hours
@@ -239,47 +225,149 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	private onBlur = (e: React.FocusEvent<HTMLElement>) => {
+		this.secondInput = false;
+		if (this.state.minutes >= 60) {
+			this.updateStateTime(this.state.hours, 59);
+		}
 		this.setState({
 			activeSection: undefined
 		});
 	}
 
 	private onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-		const {activeSection} = this.state;
+		const {activeSection, hours, minutes} = this.state;
 		switch (e.keyCode) {
-			case KEY_CODE.LEFT: {
+			case KeyCode.Left: {
 				if (activeSection === ActiveSection.Minutes) {
+					this.secondInput = false;
+					if (minutes >= 60) {
+						this.updateStateTime(hours, 59);
+					}
 					this.setState({
 						activeSection: ActiveSection.Hours
 					});
 				}
 				break;
 			}
-			case KEY_CODE.RIGHT: {
+			case KeyCode.Right: {
 				if (activeSection === ActiveSection.Hours) {
+					this.secondInput = false;
+					if (minutes >= 60) {
+						this.updateStateTime(hours, 59);
+					}
 					this.setState({
 						activeSection: ActiveSection.Minutes
 					});
 				}
 				break;
 			}
-			case KEY_CODE.DELETE: //fallthrough
-			case KEY_CODE.BACKSPACE: {
+			case KeyCode.Delete: //fallthrough
+			case KeyCode.Backspace: {
+				this.secondInput = false;
 				switch (activeSection) {
 					case ActiveSection.Minutes: {
-						this.setState({
-							minutes: undefined
-						});
+						this.updateStateTime(hours, undefined);
 						break;
 					}
 					case ActiveSection.Hours: {
-						this.setState({
-							hours: undefined
-						});
+						this.updateStateTime(undefined, minutes);
 						break;
 					}
 				}
+				break;
 			}
+			default: {
+				const number = KEY_CODE_NUM_MAP[e.keyCode];
+				if (typeof number !== 'undefined') {
+					this.handleNumKeyDown(number);
+				}
+			}
+		}
+	}
+
+	private handleNumKeyDown(number: number) {
+		const {hours, minutes} = this.state;
+		switch (this.state.activeSection) {
+			case ActiveSection.Hours: {
+				if (this.secondInput) {
+					let newHours;
+					if (hours < 2) {
+						newHours = Number(`${hours}${number}`);
+					} else if (hours === 2) {
+						newHours = Math.min(Number(`${hours}${number}`), 23);
+					} else {
+						newHours = number;
+					}
+					this.updateStateTime(newHours, minutes);
+					this.setState({
+						activeSection: ActiveSection.Minutes
+					});
+					this.secondInput = false;
+				} else {
+					this.updateStateTime(number, minutes);
+					if (number > 2) {
+						this.setState({
+							activeSection: ActiveSection.Minutes
+						});
+						this.secondInput = false;
+					} else {
+						this.secondInput = true;
+					}
+				}
+				break;
+			}
+			case ActiveSection.Minutes: {
+				if (this.secondInput) {
+					const newMinutes = Number(`${minutes}${number}`);
+					this.updateStateTime(hours, newMinutes);
+					this.secondInput = false;
+				} else {
+					this.updateStateTime(hours, number);
+					this.secondInput = true;
+				}
+			}
+		}
+	}
+
+	private step(amount: number): void {
+		const {hours, minutes, activeSection} = this.state;
+		switch (activeSection) {
+			case ActiveSection.Hours: {
+				this.updateStateTime(addTime(hours, amount, 24), minutes);
+				break;
+			}
+			case ActiveSection.Minutes: {
+				this.updateStateTime(hours, addTime(Math.min(minutes || Infinity, 59), amount, 60));
+				break;
+			}
+		}
+	}
+
+	private updateStateTime(hours?: number, minutes?: number): void {
+		const {onChange, value} = this.props;
+
+		const canBuildValue = typeof hours !== 'undefined' && typeof minutes !== 'undefined' && minutes < 60;
+		const newValueDiffers = canBuildValue && (
+				typeof value === 'undefined' ||
+				value.hours !== hours ||
+				value.minutes !== minutes
+			);
+
+		if (canBuildValue) {
+			if (newValueDiffers) {
+				onChange && onChange({
+					hours,
+					minutes
+				} as any);
+			}
+		} else {
+			if (typeof this.props.value !== 'undefined') {
+				onChange && onChange(undefined);
+			}
+			this.setState({
+				hours,
+				minutes
+			});
 		}
 	}
 }
@@ -288,7 +376,10 @@ type TTimeInputProps = TTimeInputOwnProps & Partial<TTimeInputInjectedProps>;
 export const TIME_INPUT = Symbol('TimeInput');
 export default themr(TIME_INPUT)(TimeInput) as React.ComponentClass<TTimeInputProps>;
 
-function addTime(a: number, b: number, max: number): number {
+function addTime(a: number | undefined, b: number, max: number): number {
+	if (typeof a === 'undefined') {
+		return b < 0 ? (max - 1) : 0;
+	}
 	let result = (a + b) % max;
 	if (result < 0) {
 		result += max;
