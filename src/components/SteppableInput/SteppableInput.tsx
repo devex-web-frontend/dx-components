@@ -1,20 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {PURE} from 'dx-util/src/react/pure';
-import * as classnames from 'classnames';
-import {themr} from 'react-css-themr';
 import Input from '../Input/Input';
-import ButtonIcon from '../ButtonIcon/ButtonIcon';
+import {themr} from 'react-css-themr';
+import ButtonIcon, {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
 import Holdable from '../Holdable/Holdable';
-import {createControlProps, TControlProps} from '../Control/Control';
+import * as classnames from 'classnames';
 
 export const STEPPABLE_INPUT_THEME = {
 	container: React.PropTypes.string,
-	container_isFocused: React.PropTypes.string,
-	container_isReadonly: React.PropTypes.string,
-	input: React.PropTypes.string,
-	button: React.PropTypes.string,
-	button__icon: React.PropTypes.string
+	ButtonIcon: React.PropTypes.shape(BUTTON_ICON_THEME)
 };
 
 const KEYCODE = {
@@ -22,232 +17,160 @@ const KEYCODE = {
 	DOWN: 40
 };
 
-type TInputInjectedProps = {
+export type TSteppableInputInjectedProps = {
 	theme: {
 		container?: string,
 		container_isFocused?: string,
-		container_isReadonly?: string,
 		input?: string,
-		button?: string
-		button__icon?: string,
-		InnerInput?: {}
+		ButtonIcon?: BUTTON_ICON_THEME
 	}
 };
 
-type TOwnSteppableInputProps<TValue, TDisplayValue> = TControlProps<TValue> & {
-	placeholder?: string,
+export type TSteppableInputOwnProps = {
 	tabIndex?: number,
-	isDisabled?: boolean
-	isReadonly?: boolean,
+	isDisabled?: boolean,
+	onIncrement: Function,
+	onDecrement: Function,
 	increaseIcon: string,
 	decreaseIcon: string,
-	step: TValue,
-	increment: (value: TValue, step: TValue) => TValue,
-	decrement: (value: TValue, step: TValue) => TValue,
-	// parse: (raw: TDisplayValue) => TValue | null,
-	// format: (value?: TValue) => TDisplayValue,
 	onFocus?: React.EventHandler<React.FocusEvent<HTMLElement>>,
 	onBlur?: React.EventHandler<React.FocusEvent<HTMLElement>>,
-	onClick?: React.EventHandler<React.MouseEvent<HTMLElement>>,
 	onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLElement>>,
-
-	children?: React.ComponentClass<React.HTMLProps<HTMLInputElement> & {
-		onValueChange: (value?: TValue) => void,
-		value?: TValue,
-		theme?: {}
-	}>
+	children?: React.ReactNode
 };
 
-type TFullSteppableInputProps<TValue, TDisplayValue> =
-	TOwnSteppableInputProps<TValue, TDisplayValue> & TInputInjectedProps;
+export type TSteppableInputFullProps = TSteppableInputInjectedProps & TSteppableInputOwnProps;
 
-type TSteppableInputState<TDisplayValue> = {
-	displayedValue?: TDisplayValue
+type TSteppableInputState = {
+	isFocused?: boolean
 };
 
 @PURE
-abstract class SteppableInput<TValue, TDisplayValue> extends React.Component<
-	TFullSteppableInputProps<TValue, TDisplayValue>, TSteppableInputState<TDisplayValue>> {
-
+class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppableInputState> {
 	static propTypes = {
-		theme: React.PropTypes.shape(STEPPABLE_INPUT_THEME),
-		increaseIcon: React.PropTypes.string,
-		decreaseIcon: React.PropTypes.string,
-		...createControlProps(React.PropTypes.any)
+		isDisabled: React.PropTypes.bool,
+		onIncrement: React.PropTypes.func.isRequired,
+		onDecrement: React.PropTypes.func.isRequired,
+		onBlur: React.PropTypes.func,
+		onFocus: React.PropTypes.func,
+		onKeyDown: React.PropTypes.func,
+		increaseIcon: React.PropTypes.string.isRequired,
+		decreaseIcon: React.PropTypes.string.isRequired,
+		children: React.PropTypes.node,
+		theme: React.PropTypes.shape(STEPPABLE_INPUT_THEME)
 	};
 
-	static defaultProps = {
-		tabIndex: 0
-	};
-
-	private input: HTMLElement;
-	private isFocused: boolean = false;
-	private isFocusingOnInput: boolean = false;
-
-	state: TSteppableInputState<TDisplayValue> = {};
-
-	componentWillMount() {
-	}
-
-	componentWillReceiveProps(props: TFullSteppableInputProps<TValue, TDisplayValue>) {
-	}
+	state: TSteppableInputState = {};
 
 	render() {
 		const {
-			theme,
-			isReadonly,
 			isDisabled,
+			theme,
+			children,
 			tabIndex,
-			increaseIcon,
 			decreaseIcon,
-			value,
-			placeholder,
-			onKeyDown,
-			step,
-			children
+			increaseIcon,
+			onIncrement,
+			onDecrement
 		} = this.props;
 
-		const inputTheme = {
-			container: classnames(
-				theme.container,
-				{
-					[theme.container_isFocused as string]: this.isFocused,
-					[theme.container_isReadonly as string]: isReadonly
-				}
-			)
-		};
-
-		const buttonTheme = {
-			container: theme.button,
-			icon: theme.button__icon
-		};
+		const {isFocused} = this.state;
 
 		return (
 			<Input tagName="div"
-			       disabled={isDisabled}
-			       readOnly={isReadonly}
-			       tabIndex={this.isFocused ? -1 : (tabIndex || 0)}
-			       onFocus={this.onContainerFocus}
-			       onBlur={this.onContainerBlur}
-			       onKeyDown={onKeyDown}
-			       isFocused={this.isFocused}
-			       theme={inputTheme}>
-				{React.Children.only(children)}
-				{/*<InnerInput tabIndex={-1}*/}
-				            {/*placeholder={placeholder}*/}
-				            {/*onValueChange={this.onInputValueChange}*/}
-				            {/*disabled={isDisabled}*/}
-				            {/*readOnly={isReadonly}*/}
-				            {/*onKeyDown={this.onInputKeyDown}*/}
-				            {/*ref={(el: any) => this.input = el}*/}
-				            {/*value={value as any}*/}
-				            {/*theme={theme.InnerInput}*/}
-				            {/*className={theme.input}/>*/}
-				<Holdable onHold={this.onDecreaseClick}>
+			       theme={theme}
+			       onFocus={this.onFocus}
+			       onBlur={this.onBlur}
+			       onKeyDown={this.onKeyDown}
+			       onWheel={this.onWheel}
+			       isFocused={isFocused}
+			       tabIndex={isFocused ? -1 : (tabIndex || 0)}
+			       disabled={isDisabled}>
+				<div className={theme.input}>
+					{React.Children.only(children)}
+				</div>
+				<Holdable onHold={onDecrement}>
 					<ButtonIcon name={decreaseIcon}
-					            theme={buttonTheme}
-					            onClick={this.onDecreaseClick}
+					            theme={theme.ButtonIcon}
+					            onClick={this.onDecrementClick}
 					            onMouseDown={this.onButtonMouseDown}
 					            isDisabled={isDisabled}
 					            tabIndex={-1}/>
 				</Holdable>
-				<Holdable onHold={this.onIncreaseClick}>
+				<Holdable onHold={onIncrement}>
 					<ButtonIcon name={increaseIcon}
-					            theme={buttonTheme}
-					            onClick={this.onIncreaseClick}
+					            theme={theme.ButtonIcon}
+					            onClick={this.onIncrementClick}
 					            onMouseDown={this.onButtonMouseDown}
 					            isDisabled={isDisabled}
 					            tabIndex={-1}/>
 				</Holdable>
-
 			</Input>
 		);
 	}
 
-	private onContainerFocus = (event: any) => {
-		if (!this.props.isDisabled && !this.isFocused) {
-			this.isFocused = true;
-			this.focusOnInput();
-			this.forceUpdate();
-			this.props.onFocus && this.props.onFocus(event);
-		}
+	private onIncrementClick = (e: React.MouseEvent<HTMLElement>) => {
+		this.props.onIncrement();
 	}
 
-	private onContainerBlur = (event: any) => {
-		if (!this.props.isDisabled && !this.isFocusingOnInput) {
-			this.isFocused = false;
-			this.forceUpdate();
-			this.props.onBlur && this.props.onBlur(event);
-		}
-	}
-
-	private onIncreaseClick = (e: React.MouseEvent<HTMLElement>) => {
-		this.increase();
-	}
-
-	private onDecreaseClick = (e: React.MouseEvent<HTMLElement>) => {
-		this.decrease();
+	private onDecrementClick = (e: React.MouseEvent<HTMLElement>) => {
+		this.props.onDecrement();
 	}
 
 	private onButtonMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-		if (this.isFocused) {
+		if (this.state.isFocused) {
 			e.preventDefault();
 		}
 	}
 
-	private onInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		switch (e.keyCode) {
-			case KEYCODE.UP: {
-				e.preventDefault();
-				this.increase();
-				break;
-			}
-			case KEYCODE.DOWN: {
-				e.preventDefault();
-				this.decrease();
-				break;
-			}
+	private onFocus = (e: React.FocusEvent<HTMLElement>) => {
+		if (!this.props.isDisabled && !this.state.isFocused) {
+			this.setState({
+				isFocused: true
+			});
+			this.props.onFocus && this.props.onFocus(e);
 		}
 	}
 
-	private onInputValueChange = (newValue: TValue) => {
-		const {onChange, value} = this.props;
-		onChange && value !== newValue && onChange(newValue);
+	private onBlur = (e: React.FocusEvent<HTMLElement>) => {
+		if (!this.props.isDisabled && this.state.isFocused) {
+			this.setState({
+				isFocused: false
+			});
+			this.props.onBlur && this.props.onBlur(e);
+		}
 	}
 
-	private increase() {
-		const {increment, step, value, onChange} = this.props;
-		if (onChange && typeof value !== 'undefined') {
-			const newValue = increment(value, step);
-			if (newValue !== value) {
-				onChange(newValue);
+	private onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+		if (!this.props.isDisabled) {
+			switch (e.keyCode) {
+				case KEYCODE.UP: {
+					this.props.onIncrement();
+					break;
+				}
+				case KEYCODE.DOWN: {
+					this.props.onDecrement();
+					break;
+				}
+			}
+			this.props.onKeyDown && this.props.onKeyDown(e);
+		}
+	}
+
+	private onWheel = (e: React.WheelEvent<HTMLElement>) => {
+		const {isDisabled, onIncrement, onDecrement} = this.props;
+		const {isFocused} = this.state;
+
+		if (!isDisabled && isFocused) {
+			if (e.deltaY < 0) {
+				onDecrement();
+			} else {
+				onIncrement();
 			}
 		}
-	}
-
-	private decrease() {
-		const {decrement, step, value, onChange} = this.props;
-		if (onChange && typeof value !== 'undefined') {
-			const newValue = decrement(value, step);
-			if (newValue !== value) {
-				onChange(newValue);
-			}
-		}
-	}
-
-	private focusOnInput() {
-		this.isFocusingOnInput = true;
-		const input = ReactDOM.findDOMNode<HTMLElement>(this.input);
-		input.focus();
-		if (input.nodeType === Node.ELEMENT_NODE && input.nodeName === 'INPUT') {
-			(input as HTMLInputElement).setSelectionRange(0, (input as HTMLInputElement).value.length);
-		}
-		this.isFocusingOnInput = false;
 	}
 }
-export type TSteppableInputProps<TValue, TDisplayValue> =
-	TOwnSteppableInputProps<TValue, TDisplayValue> & Partial<TInputInjectedProps>;
 
 export const STEPPABLE_INPUT = Symbol('SteppableInput');
-export default themr(STEPPABLE_INPUT)(SteppableInput);
-export type TSteppableInput<TValue, TDisplayValue> = React.ComponentClass<TSteppableInputProps<TValue, TDisplayValue>>;
+export type TSteppableInputProps = TSteppableInputOwnProps & Partial<TSteppableInputInjectedProps>;
+export default themr(STEPPABLE_INPUT)(SteppableInput) as React.ComponentClass<TSteppableInputProps>;

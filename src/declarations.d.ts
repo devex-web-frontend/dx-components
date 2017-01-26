@@ -4,4 +4,6 @@ declare module '*.svg' {
 }
 
 declare module '*.styl' {
+	const theme: any;
+	export = theme;
 }

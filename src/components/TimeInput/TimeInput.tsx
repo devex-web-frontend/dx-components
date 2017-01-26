@@ -1,27 +1,23 @@
 import * as React from 'react';
-import SteppableInput, {TSteppableInput, TSteppableInputProps} from '../SteppableInput/SteppableInput';
+import SteppableInput, {
+	TSteppableInputInjectedProps,
+	STEPPABLE_INPUT_THEME
+} from '../SteppableInput/SteppableInput';
 import {PURE} from 'dx-util/src/react/pure';
-import {TControlProps} from '../Control/Control';
-import {TTime, add, subtract} from './TimeInput.model';
+import {TControlProps, createControlProps} from '../Control/Control';
 import * as classnames from 'classnames';
+import {themr} from 'react-css-themr';
 
-type TInputProps = {
-	onValueChange: (value?: TTime) => void,
-	value?: TTime,
-	step: TTime,
-	theme: {
-		container?: string,
-		hours?: string,
-		hours_active?: string,
-		minutes?: string,
-		minutes_active?: string,
-		separator?: string,
-	}
+const KEY_CODE = {
+	LEFT: 37,
+	RIGHT: 39,
+	DELETE: 46,
+	BACKSPACE: 8
 };
 
-type TInputState = {
-	hours?: number,
-	minutes?: number
+export type TTime = {
+	hours: number,
+	minutes: number
 };
 
 enum ActiveSection {
@@ -29,20 +25,50 @@ enum ActiveSection {
 	Minutes
 }
 
-const TIME_INPUT_ACTIIVE_SECTION_CONTEXT_KEY = '__TIME_INPUT_ACTIIVE_SECTION_CONTEXT_KEY__';
-const CONTEXT_TYPES = {
-	[TIME_INPUT_ACTIIVE_SECTION_CONTEXT_KEY]: React.PropTypes.oneOf(Object.values(ActiveSection))
+type TTimeInputOwnProps = TControlProps<TTime> & {
+	increaseIcon: string,
+	decreaseIcon: string,
+	isDisabled?: boolean
+};
+type TTimeInputInjectedProps = TSteppableInputInjectedProps & {
+	theme: {
+		hours?: string,
+		hours_isActive?: string,
+		minutes?: string,
+		minutes_isActive?: string,
+		separator?: string,
+	}
+};
+type TTimeInputFullProps = TTimeInputOwnProps & TTimeInputInjectedProps;
+type TTimeInputState = {
+	activeSection?: ActiveSection,
+	hours?: number,
+	minutes?: number
+};
+
+const TIME_INPUT_THEME = {
+	...STEPPABLE_INPUT_THEME,
+	hours: React.PropTypes.string,
+	hours_isActive: React.PropTypes.string,
+	minutes: React.PropTypes.string,
+	minutes_isActive: React.PropTypes.string,
+	separator: React.PropTypes.string,
 };
 
 @PURE
-export class Input extends React.Component<TInputProps, TInputState> {
-	state: TInputState = {};
-
-	static defaultProps: any = {
-		theme: {}
+class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
+	static propTypes = {
+		increaseIcon: React.PropTypes.string.isRequired,
+		decreaseIcon: React.PropTypes.string.isRequired,
+		theme: React.PropTypes.shape(TIME_INPUT_THEME),
+		...createControlProps(React.PropTypes.shape({
+			hours: React.PropTypes.number.isRequired,
+			minutes: React.PropTypes.number.isRequired,
+		}))
 	};
 
-	static contextTypes = CONTEXT_TYPES;
+	state: TTimeInputState = {};
+	private minutesElement: HTMLElement;
 
 	componentWillMount() {
 		const {value} = this.props;
@@ -55,13 +81,13 @@ export class Input extends React.Component<TInputProps, TInputState> {
 		}
 	}
 
-	componentWillReceiveProps(props: TInputProps) {
-		if (this.props.value !== props.value) {
-			let minutes;
+	componentWillReceiveProps(newProps: TTimeInputFullProps) {
+		if (this.props.value !== newProps.value) {
 			let hours;
-			if (props.value) {
-				hours = props.value.hours;
-				minutes = props.value.minutes;
+			let minutes;
+			if (newProps.value) {
+				hours = newProps.value.hours;
+				minutes = newProps.value.minutes;
 			}
 			this.setState({
 				hours,
@@ -71,30 +97,49 @@ export class Input extends React.Component<TInputProps, TInputState> {
 	}
 
 	render() {
-		const {onValueChange, step, theme} = this.props;
-		const {hours, minutes} = this.state;
+		const {
+			theme,
+			increaseIcon,
+			decreaseIcon,
+			isDisabled
+		} = this.props;
+		const {hours, minutes, activeSection} = this.state;
+
 		const hoursClassName = classnames(
 			theme.hours,
 			{
-				// [theme.hours_active as string]: Boolean(step.hours)
+				[theme.hours_isActive as string]: activeSection === ActiveSection.Hours
 			}
 		);
+
 		const minutesClassName = classnames(
 			theme.minutes,
 			{
-				// [theme.minutes_active as string]: Boolean(step.minutes)
+				[theme.minutes_isActive as string]: activeSection === ActiveSection.Minutes
 			}
 		);
+
 		return (
-			<div className={theme.container} onFocus={this.onFocus}>
-				<span className={hoursClassName} onClick={this.onHoursClick}>
-					{this.format(hours)}
-				</span>
-				<span className={theme.separator}>:</span>
-				<span className={minutesClassName} onClick={this.onMinutesClick}>
-					{this.format(minutes)}
-				</span>
-			</div>
+			<SteppableInput isDisabled={isDisabled}
+			                onBlur={this.onBlur}
+			                onFocus={this.onFocus}
+			                decreaseIcon={decreaseIcon}
+			                increaseIcon={increaseIcon}
+			                onKeyDown={this.onKeyDown}
+			                onDecrement={this.onDecrement}
+			                onIncrement={this.onIncrement}>
+				<div className={theme.container}>
+					<span className={hoursClassName} onMouseDown={this.onHoursMouseDown}>
+						{this.format(hours)}
+					</span>
+					<span className={theme.separator}>:</span>
+					<span className={minutesClassName}
+					      ref={(el: any) => this.minutesElement = el}
+					      onMouseDown={this.onMinutesMouseDown}>
+						{this.format(minutes)}
+					</span>
+				</div>
+			</SteppableInput>
 		);
 	}
 
@@ -106,82 +151,147 @@ export class Input extends React.Component<TInputProps, TInputState> {
 		}
 	}
 
-	private onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-		console.log(e);
+	private onHoursMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+		this.setState({
+			activeSection: ActiveSection.Hours
+		});
 	}
 
-	private onHoursClick = (e: React.MouseEvent<HTMLElement>) => {
-		console.log(e);
-
+	private onMinutesMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+		this.setState({
+			activeSection: ActiveSection.Minutes
+		});
 	}
 
-	private onMinutesClick = (e: React.MouseEvent<HTMLElement>) => {
-		console.log(e);
+	private step(amount: number): void {
+		const {onChange, value} = this.props;
+		const {hours, minutes, activeSection} = this.state;
+		switch (activeSection) {
+			case ActiveSection.Hours: {
+				if (typeof hours !== 'undefined') {
+					if (value) {
+						onChange && onChange({
+							hours: addTime(hours, amount, 24),
+							minutes: value.minutes
+						});
+					} else {
+						this.setState({
+							hours: addTime(hours, amount, 24)
+						});
+					}
+				} else {
+					if (typeof minutes !== 'undefined') {
+						onChange && onChange({
+							hours: 0,
+							minutes
+						});
+					} else {
+						this.setState({
+							hours: 0
+						});
+					}
+				}
+				break;
+			}
+			case ActiveSection.Minutes: {
+				if (typeof minutes !== 'undefined') {
+					if (value) {
+						onChange && onChange({
+							hours: value.hours,
+							minutes: addTime(minutes, amount, 60)
+						});
+					} else {
+						this.setState({
+							minutes: addTime(minutes, amount, 60)
+						});
+					}
+				} else {
+					if (typeof hours !== 'undefined') {
+						onChange && onChange({
+							hours,
+							minutes: 0
+						});
+					} else {
+						this.setState({
+							minutes: 0
+						});
+					}
+				}
+				break;
+			}
+		}
+	}
 
+	private onIncrement = () => {
+		this.step(1);
+	}
+
+	private onDecrement = () => {
+		this.step(-1);
 	}
 
 	private onFocus = (e: React.FocusEvent<HTMLElement>) => {
-		console.log('focus', e.target);
-	}
-}
-
-const TimeSteppableInput: TSteppableInput<TTime, TTime> = SteppableInput;
-type TSteppableTimeInputProps = TSteppableInputProps<TTime, TTime>;
-type TTimeInputProps = TControlProps<TTime> & {
-	increaseIcon: TSteppableTimeInputProps['increaseIcon'],
-	decreaseIcon: TSteppableTimeInputProps['decreaseIcon'],
-	theme?: TSteppableTimeInputProps['theme']
-};
-
-type TTimeInputState = {
-	step: TTime,
-	activeSection?: ActiveSection
-};
-
-@PURE
-export default class TimeInput extends React.Component<TTimeInputProps, TTimeInputState> {
-	static propTypes = {
-		...TimeSteppableInput.propTypes
-	};
-
-	static childContextTypes = CONTEXT_TYPES;
-
-	state: TTimeInputState = {
-		step: {
-			hours: 1,
-			minutes: 0
+		if (typeof this.state.activeSection === 'undefined') {
+			this.setState({
+				activeSection: ActiveSection.Hours
+			});
 		}
-	};
-
-	getChildContext() {
-		return {
-			[TIME_INPUT_ACTIIVE_SECTION_CONTEXT_KEY]: this.state.activeSection
-		};
 	}
 
-	render() {
-		const {step} = this.state;
-		const {children, ...props} = this.props;
-		return (
-			<TimeSteppableInput InnerInput={Input}
-			                    step={step}
-			                    decrement={subtract}
-			                    increment={this.increment}
-			                    onKeyDown={this.onKeyDown}
-				>
-				<div>hi</div>
-			</TimeSteppableInput>
-		);
-	}
-
-	private increment = (value: TTime, step: TTime): TTime => {
-		return add(value, step);
+	private onBlur = (e: React.FocusEvent<HTMLElement>) => {
+		this.setState({
+			activeSection: undefined
+		});
 	}
 
 	private onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-		console.log(e);
-		this.setState({
-			activeSection: this.state.activeSection === ActiveSection.Minutes ? ActiveSection.Hours : ActiveSection.Minutes
-		} as any);
+		const {activeSection} = this.state;
+		switch (e.keyCode) {
+			case KEY_CODE.LEFT: {
+				if (activeSection === ActiveSection.Minutes) {
+					this.setState({
+						activeSection: ActiveSection.Hours
+					});
+				}
+				break;
+			}
+			case KEY_CODE.RIGHT: {
+				if (activeSection === ActiveSection.Hours) {
+					this.setState({
+						activeSection: ActiveSection.Minutes
+					});
+				}
+				break;
+			}
+			case KEY_CODE.DELETE: //fallthrough
+			case KEY_CODE.BACKSPACE: {
+				switch (activeSection) {
+					case ActiveSection.Minutes: {
+						this.setState({
+							minutes: undefined
+						});
+						break;
+					}
+					case ActiveSection.Hours: {
+						this.setState({
+							hours: undefined
+						});
+						break;
+					}
+				}
+			}
+		}
 	}
+}
+
+type TTimeInputProps = TTimeInputOwnProps & Partial<TTimeInputInjectedProps>;
+export const TIME_INPUT = Symbol('TimeInput');
+export default themr(TIME_INPUT)(TimeInput) as React.ComponentClass<TTimeInputProps>;
+
+function addTime(a: number, b: number, max: number): number {
+	let result = (a + b) % max;
+	if (result < 0) {
+		result += max;
+	}
+	return result;
 }
