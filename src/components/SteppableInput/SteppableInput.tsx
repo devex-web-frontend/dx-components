@@ -29,7 +29,8 @@ type TInputInjectedProps = {
 		container_isReadonly?: string,
 		input?: string,
 		button?: string
-		button__icon?: string
+		button__icon?: string,
+		InnerInput?: {}
 	}
 };
 
@@ -48,10 +49,12 @@ type TOwnSteppableInputProps<TValue, TDisplayValue> = TControlProps<TValue> & {
 	onFocus?: React.EventHandler<React.FocusEvent<HTMLElement>>,
 	onBlur?: React.EventHandler<React.FocusEvent<HTMLElement>>,
 	onClick?: React.EventHandler<React.MouseEvent<HTMLElement>>,
+	onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLElement>>,
 
-	Input: React.ComponentClass<React.HTMLProps<HTMLInputElement> & {
+	children?: React.ComponentClass<React.HTMLProps<HTMLInputElement> & {
 		onValueChange: (value?: TValue) => void,
-		value?: TValue
+		value?: TValue,
+		theme?: {}
 	}>
 };
 
@@ -98,7 +101,10 @@ abstract class SteppableInput<TValue, TDisplayValue> extends React.Component<
 			increaseIcon,
 			decreaseIcon,
 			value,
-			placeholder
+			placeholder,
+			onKeyDown,
+			step,
+			children
 		} = this.props;
 
 		const inputTheme = {
@@ -116,8 +122,6 @@ abstract class SteppableInput<TValue, TDisplayValue> extends React.Component<
 			icon: theme.button__icon
 		};
 
-		const InnerInput = this.props.Input;
-
 		return (
 			<Input tagName="div"
 			       disabled={isDisabled}
@@ -125,17 +129,20 @@ abstract class SteppableInput<TValue, TDisplayValue> extends React.Component<
 			       tabIndex={this.isFocused ? -1 : (tabIndex || 0)}
 			       onFocus={this.onContainerFocus}
 			       onBlur={this.onContainerBlur}
+			       onKeyDown={onKeyDown}
 			       isFocused={this.isFocused}
 			       theme={inputTheme}>
-				<InnerInput tabIndex={-1}
-				            placeholder={placeholder}
-				            onValueChange={this.onInputValueChange}
-				            disabled={isDisabled}
-				            readOnly={isReadonly}
-				            onKeyDown={this.onInputKeyDown}
-				            ref={(el: any) => this.input = el}
-				            value={value as any}
-				            className={theme.input}/>
+				{React.Children.only(children)}
+				{/*<InnerInput tabIndex={-1}*/}
+				            {/*placeholder={placeholder}*/}
+				            {/*onValueChange={this.onInputValueChange}*/}
+				            {/*disabled={isDisabled}*/}
+				            {/*readOnly={isReadonly}*/}
+				            {/*onKeyDown={this.onInputKeyDown}*/}
+				            {/*ref={(el: any) => this.input = el}*/}
+				            {/*value={value as any}*/}
+				            {/*theme={theme.InnerInput}*/}
+				            {/*className={theme.input}/>*/}
 				<Holdable onHold={this.onDecreaseClick}>
 					<ButtonIcon name={decreaseIcon}
 					            theme={buttonTheme}
@@ -175,12 +182,10 @@ abstract class SteppableInput<TValue, TDisplayValue> extends React.Component<
 	}
 
 	private onIncreaseClick = (e: React.MouseEvent<HTMLElement>) => {
-		// ReactDOM.findDOMNode<HTMLInputElement>(this.input).focus();
 		this.increase();
 	}
 
 	private onDecreaseClick = (e: React.MouseEvent<HTMLElement>) => {
-		// ReactDOM.findDOMNode<HTMLInputElement>(this.input).focus();
 		this.decrease();
 	}
 
@@ -232,9 +237,11 @@ abstract class SteppableInput<TValue, TDisplayValue> extends React.Component<
 
 	private focusOnInput() {
 		this.isFocusingOnInput = true;
-		const input = ReactDOM.findDOMNode<HTMLInputElement>(this.input);
+		const input = ReactDOM.findDOMNode<HTMLElement>(this.input);
 		input.focus();
-		input.setSelectionRange(0, input.value.length);
+		if (input.nodeType === Node.ELEMENT_NODE && input.nodeName === 'INPUT') {
+			(input as HTMLInputElement).setSelectionRange(0, (input as HTMLInputElement).value.length);
+		}
 		this.isFocusingOnInput = false;
 	}
 }

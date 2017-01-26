@@ -2,9 +2,17 @@ import * as React from 'react';
 import {storiesOf} from '@kadira/storybook';
 import TimeInput from './TimeInput';
 import Demo from '../../demo/Demo';
+import stateful from '../../util/react/stateful';
+const Stateful = stateful()(TimeInput);
 
 import * as add from '../../resources/svg/icon-add.svg';
 import * as decrease from '../../resources/svg/icon-decrease.svg';
+import * as timeInputTheme from './theme/TimeInput.styl';
+import * as timeInnerInputTheme from './theme/InnerInput.demo.styl';
+const theme = {
+	...timeInputTheme,
+	InnerInput: timeInnerInputTheme
+};
 
 const time = {
 	hours: 1,
@@ -15,15 +23,10 @@ storiesOf('TimeInput', module).add('default', () => (
 	<Demo>
 		<input type="time"/>
 		<div>
-			{/*<TimeInput downIconName={decrease} upIconName={add} value={time}/>*/}
-		</div>
-		<div tabIndex={0} style={{padding: 20}}>
-			<div>
-				<div>123</div>
-				<input type="text" tabIndex={-1} onMouseDown={e => e.preventDefault()}/>
-			</div>
+			<Stateful decreaseIcon={decrease}
+			          theme={theme}
+			          increaseIcon={add}
+			          defaultValue={time}/>
 		</div>
 	</Demo>
 ));
-
-type a = typeof TimeInput;

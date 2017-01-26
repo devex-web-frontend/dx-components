@@ -2,11 +2,18 @@ import * as React from 'react';
 import SteppableInput, {TSteppableInput} from './SteppableInput';
 import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo';
-import * as theme from './theme/SteppableInput.demo.styl';
-import {themeable} from 'react-css-themr';
+import * as steppableInputTheme from './theme/SteppableInput.demo.styl';
+import * as innerInputTheme from './theme/InnerInput.demo.styl';
+declare const foo: any;
+const theme = {
+	...steppableInputTheme,
+	InnerInput: innerInputTheme
+};
+
 import * as iconAdd from '../../resources/svg/icon-add.svg';
 import * as iconDecrease from '../../resources/svg/icon-decrease.svg';
 import stateful from '../../util/react/stateful';
+import {themr} from 'react-css-themr';
 
 const DemoSteppableInput: TSteppableInput<number, string> = SteppableInput;
 const Stateful = stateful()(DemoSteppableInput);
@@ -16,11 +23,15 @@ const decrement = (value: number, step: number): number => value - step;
 
 type TInputProps = React.HTMLProps<HTMLInputElement> & {
 	onValueChange: (value?: number) => void,
-	value?: number
+	value?: number,
+	theme: {
+		container?: string
+	}
 };
 type TInputState = {
 	value: string
 };
+@themr(Symbol())
 class Input extends React.Component<TInputProps, TInputState> {
 	state: TInputState;
 
@@ -39,9 +50,10 @@ class Input extends React.Component<TInputProps, TInputState> {
 	}
 
 	render() {
-		const {onValueChange, defaultValue, ...props} = this.props;
+		const {onValueChange, defaultValue, theme, ...props} = this.props;
 		return (
 			<input {...props} onBlur={this.onBlur}
+			                  className={theme.container}
 			                  value={this.state.value}
 			                  onChange={this.onChange}/>
 		);
@@ -52,14 +64,14 @@ class Input extends React.Component<TInputProps, TInputState> {
 		this.setState({
 			value
 		});
+		this.notifyChanged(value);
 	}
 
 	private onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-		this.notifyChanged();
+		this.notifyChanged(this.state.value);
 	}
 
-	private notifyChanged() {
-		const value = this.state.value;
+	private notifyChanged(value: string) {
 		if (value === '') {
 			//empty input
 			this.props.onValueChange(undefined);
@@ -83,7 +95,7 @@ class Input extends React.Component<TInputProps, TInputState> {
 storiesOf('SteppableInput', module).add('default', () => (
 	<Demo>
 		<Stateful theme={theme}
-		          Input={Input}
+		          InnerInput={Input}
 		          decrement={decrement}
 		          increment={increment}
 		          step={1}

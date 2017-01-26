@@ -115,7 +115,7 @@ export default class NumberInput extends React.Component<TNumberInputProps, any>
 		}
 
 		return (
-			<NumberSteppableInput Input={Input}
+			<NumberSteppableInput InnerInput={Input}
 			                      increment={this.increment}
 			                      decrement={this.decrement}
 				{...this.props}/>

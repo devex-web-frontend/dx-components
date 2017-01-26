@@ -4,8 +4,4 @@ declare module '*.svg' {
 }
 
 declare module '*.styl' {
-	const theme: {
-		[key: string]: string
-	};
-	export = name;
 }

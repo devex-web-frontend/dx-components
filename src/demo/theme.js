@@ -60,6 +60,7 @@ import loadingIndicator from '../components/LoadingIndicator/LoadingIndicator.de
 
 import {STEPPABLE_INPUT} from '../components/SteppableInput/SteppableInput';
 import steppableInput from '../components/SteppableInput/theme/SteppableInput.demo.styl';
+import steppableInnerInput from '../components/SteppableInput/theme/InnerInput.demo.styl';
 
 export default {
 	...config,
@@ -98,5 +99,8 @@ export default {
 		}
 	},
 	[LOADING_INDICATOR]: loadingIndicator,
-	[STEPPABLE_INPUT]: steppableInput
+	[STEPPABLE_INPUT]: {
+		...steppableInput,
+		InnerInput: steppableInnerInput
+	}
 };
