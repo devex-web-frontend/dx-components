@@ -8,6 +8,7 @@ declare const foo: any;
 
 import * as iconAdd from '../../resources/svg/icon-add.svg';
 import * as iconDecrease from '../../resources/svg/icon-decrease.svg';
+import * as iconClear from '../../resources/svg/icon-small-cross.svg';
 
 class DemoInput extends React.Component<any, any> {
 	private input: HTMLInputElement;
@@ -17,6 +18,8 @@ class DemoInput extends React.Component<any, any> {
 			<SteppableInput onIncrement={action('increment')}
 			                onDecrement={action('decrement')}
 			                onFocus={this.onFocus}
+			                clearIcon={iconClear}
+			                isClearable={true}
 			                decreaseIcon={iconDecrease}
 			                increaseIcon={iconAdd}>
 				<input className={pageTheme.customInput} tabIndex={-1} ref={(el: any) => this.input = el}/>

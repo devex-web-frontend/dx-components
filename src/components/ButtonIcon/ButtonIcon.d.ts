@@ -1,9 +1,8 @@
 import * as React from 'react';
 import ValidationMap = React.ValidationMap;
-interface IButtonProps extends React.HTMLProps<HTMLButtonElement> {
-	name: string,
-	isDisabled?: boolean,
-	theme?: {}
+import {IButtonProps} from '../Button/Button';
+interface IButtonIconProps extends React.HTMLProps<HTMLButtonElement>, IButtonProps {
+	name: string
 }
 export declare const BUTTON_ICON: symbol;
 export type BUTTON_ICON_THEME = {
@@ -12,5 +11,5 @@ export type BUTTON_ICON_THEME = {
 };
 export declare const BUTTON_ICON_THEME: ValidationMap<BUTTON_ICON_THEME>;
 
-declare const ButtonIcon: React.ComponentClass<IButtonProps>;
+declare const ButtonIcon: React.ComponentClass<IButtonIconProps>;
 export default ButtonIcon;

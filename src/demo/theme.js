@@ -64,6 +64,7 @@ import steppableInputButtonIcon from '../components/SteppableInput/theme/ButtonI
 
 import {TIME_INPUT} from '../components/TimeInput/TimeInput';
 import timeInput from '../components/TimeInput/theme/TimeInput.demo.styl';
+import timeInputSteppableInput from '../components/TimeInput/theme/SteppableInput.demo.styl';
 
 export default {
 	...config,
@@ -106,5 +107,8 @@ export default {
 		...steppableInput,
 		ButtonIcon: steppableInputButtonIcon
 	},
-	[TIME_INPUT]: timeInput
+	[TIME_INPUT]: {
+		...timeInput,
+		SteppableInput: timeInputSteppableInput
+	}
 };

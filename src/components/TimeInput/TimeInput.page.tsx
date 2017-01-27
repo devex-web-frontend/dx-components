@@ -7,6 +7,7 @@ const Stateful = stateful()(TimeInput);
 
 import * as add from '../../resources/svg/icon-add.svg';
 import * as decrease from '../../resources/svg/icon-decrease.svg';
+import * as clear from '../../resources/svg/icon-small-cross.svg';
 import {TTime} from './TimeInput';
 
 const time = {
@@ -22,8 +23,9 @@ storiesOf('TimeInput', module).add('default', () => (
 		<input type="time" id="time"/>
 		<div>
 			<Stateful decreaseIcon={decrease}
-			          onChange={log}
 			          increaseIcon={add}
+			          clearIcon={clear}
+			          onChange={log}
 			          defaultValue={time}/>
 		</div>
 	</Demo>
