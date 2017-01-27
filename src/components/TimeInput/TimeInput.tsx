@@ -208,6 +208,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 		this.setState({
 			activeSection: ActiveSection.Hours
 		});
+		this.correntMinutes();
 	}
 
 	private onMinutesMouseDown = (e: React.MouseEvent<HTMLElement>) => {
@@ -217,10 +218,12 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	private onIncrement = () => {
+		this.secondInput = false;
 		this.step(1);
 	}
 
 	private onDecrement = () => {
+		this.secondInput = false;
 		this.step(-1);
 	}
 
@@ -240,9 +243,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 
 	private onBlur = (e: React.FocusEvent<HTMLElement>) => {
 		this.secondInput = false;
-		if (this.state.minutes >= 60) {
-			this.updateStateTime(this.state.hours, 59);
-		}
+		this.correntMinutes();
 		this.setState({
 			activeSection: undefined
 		});
@@ -254,9 +255,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			case KeyCode.Left: {
 				if (activeSection === ActiveSection.Minutes) {
 					this.secondInput = false;
-					if (minutes >= 60) {
-						this.updateStateTime(hours, 59);
-					}
+					this.correntMinutes();
 					this.setState({
 						activeSection: ActiveSection.Hours
 					});
@@ -266,9 +265,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			case KeyCode.Right: {
 				if (activeSection === ActiveSection.Hours) {
 					this.secondInput = false;
-					if (minutes >= 60) {
-						this.updateStateTime(hours, 59);
-					}
+					this.correntMinutes();
 					this.setState({
 						activeSection: ActiveSection.Minutes
 					});
@@ -351,7 +348,10 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 				break;
 			}
 			case ActiveSection.Minutes: {
-				this.updateStateTime(hours, addTime(Math.min(minutes || Infinity, 59), amount, 60));
+				this.updateStateTime(
+					hours,
+					addTime(Math.min(typeof minutes !== 'undefined' ? minutes : Infinity, 59), amount, 60)
+				);
 				break;
 			}
 		}
@@ -382,6 +382,12 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 				hours,
 				minutes
 			});
+		}
+	}
+
+	private correntMinutes() {
+		if (this.state.minutes >= 60) {
+			this.updateStateTime(this.state.hours, 59);
 		}
 	}
 }
