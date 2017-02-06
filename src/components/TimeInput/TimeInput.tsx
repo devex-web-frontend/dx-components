@@ -286,24 +286,24 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			default: {
 				const number = KEY_CODE_NUM_MAP[e.keyCode];
 				if (isDefined(number)) {
-					this.handleNumKeyDown(number);
+					this.handleDigitKeyDown(number);
 				}
 			}
 		}
 	}
 
-	private handleNumKeyDown(number: number) {
+	private handleDigitKeyDown(digit: number) {
 		const {hours, minutes} = this.state;
 		switch (this.state.activeSection) {
 			case ActiveSection.Hours: {
 				if (this.secondInput) {
 					let newHours;
 					if (hours < 2) {
-						newHours = Number(`${hours}${number}`);
+						newHours = Number(`${hours}${digit}`);
 					} else if (hours === 2) {
-						newHours = Math.min(Number(`${hours}${number}`), 23);
+						newHours = Math.min(Number(`${hours}${digit}`), 23);
 					} else {
-						newHours = number;
+						newHours = digit;
 					}
 					this.updateStateTime(newHours, minutes);
 					this.setState({
@@ -311,8 +311,8 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 					});
 					this.secondInput = false;
 				} else {
-					this.updateStateTime(number, minutes);
-					if (number > 2) {
+					this.updateStateTime(digit, minutes);
+					if (digit > 2) {
 						this.setState({
 							activeSection: ActiveSection.Minutes
 						});
@@ -325,10 +325,10 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			}
 			case ActiveSection.Minutes: {
 				if (this.secondInput) {
-					const newMinutes = Number(`${minutes >= 10 ? ('' + minutes)[1] : minutes}${number}`);
+					const newMinutes = Number(`${minutes >= 10 ? ('' + minutes)[1] : minutes}${digit}`);
 					this.updateStateTime(hours, newMinutes);
 				} else {
-					this.updateStateTime(hours, number);
+					this.updateStateTime(hours, digit);
 					this.secondInput = true;
 				}
 			}
