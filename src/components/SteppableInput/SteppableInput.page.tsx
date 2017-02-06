@@ -9,20 +9,22 @@ declare const foo: any;
 import * as iconAdd from '../../resources/svg/icon-add.svg';
 import * as iconDecrease from '../../resources/svg/icon-decrease.svg';
 import * as iconClear from '../../resources/svg/icon-small-cross.svg';
+import {TSteppableInputProps} from './SteppableInput';
 
-class DemoInput extends React.Component<any, any> {
+class DemoInput extends React.Component<TSteppableInputProps, any> {
 	private input: HTMLInputElement;
 
 	render() {
+		const {onIncrement, onDecrement, onClear} = this.props;
+
 		return (
-			<SteppableInput onIncrement={action('increment')}
-			                onDecrement={action('decrement')}
-			                onClear={action('clear')}
+			<SteppableInput onIncrement={onIncrement}
+			                onDecrement={onDecrement}
+			                onClear={onClear}
 			                onFocus={this.onFocus}
 			                clearIcon={iconClear}
-			                isClearable={true}
-			                decreaseIcon={iconDecrease}
-			                increaseIcon={iconAdd}>
+			                decrementIcon={iconDecrease}
+			                incrementIcon={iconAdd}>
 				<input className={pageTheme.customInput} tabIndex={-1} ref={(el: any) => this.input = el}/>
 			</SteppableInput>
 		);
@@ -36,6 +38,11 @@ class DemoInput extends React.Component<any, any> {
 
 storiesOf('SteppableInput', module).add('default', () => (
 	<Demo>
-		<DemoInput/>
+		<DemoInput onIncrement={action('increment')}
+		           onDecrement={action('decremnt')}/>
+		<DemoInput onClear={action('clear')}/>
+		<DemoInput onIncrement={action('increment')}
+		           onDecrement={action('decremnt')}
+		           onClear={action('clear')}/>
 	</Demo>
 ));
