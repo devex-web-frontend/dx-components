@@ -112,7 +112,6 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	};
 
 	state: TTimeInputState = {};
-	private minutesElement: HTMLElement;
 	private secondInput: boolean = false;
 
 	componentWillMount() {
@@ -185,7 +184,6 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 					</span>
 					<span className={theme.separator}>:</span>
 					<span className={minutesClassName}
-					      ref={(el: any) => this.minutesElement = el}
 					      onMouseDown={this.onMinutesMouseDown}>
 						{this.format(minutes)}
 					</span>
@@ -327,9 +325,8 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			}
 			case ActiveSection.Minutes: {
 				if (this.secondInput) {
-					const newMinutes = Number(`${minutes}${number}`);
+					const newMinutes = Number(`${minutes >= 10 ? ('' + minutes)[1] : minutes}${number}`);
 					this.updateStateTime(hours, newMinutes);
-					this.secondInput = false;
 				} else {
 					this.updateStateTime(hours, number);
 					this.secondInput = true;
