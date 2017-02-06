@@ -77,10 +77,8 @@ type TTimeInputOwnProps = TControlProps<TTime> & {
 };
 type TTimeInputInjectedProps = TSteppableInputInjectedProps & {
 	theme: {
-		hours?: string,
-		hours_isActive?: string,
-		minutes?: string,
-		minutes_isActive?: string,
+		section?: string,
+		section_isActive?: string,
 		separator?: string,
 		SteppableInput?: {}
 	}
@@ -129,7 +127,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	componentWillReceiveProps(newProps: TTimeInputFullProps) {
-		if (this.props.value !== newProps.value && defined(newProps.value)) {
+		if (this.props.value !== newProps.value && isDefined(newProps.value)) {
 			let hours;
 			let minutes;
 			if (newProps.value) {
@@ -155,16 +153,16 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 		const {hours, minutes, activeSection} = this.state;
 
 		const hoursClassName = classnames(
-			theme.hours,
+			theme.section,
 			{
-				[theme.hours_isActive as string]: activeSection === ActiveSection.Hours
+				[theme.section_isActive as string]: activeSection === ActiveSection.Hours
 			}
 		);
 
 		const minutesClassName = classnames(
-			theme.minutes,
+			theme.section,
 			{
-				[theme.minutes_isActive as string]: activeSection === ActiveSection.Minutes
+				[theme.section_isActive as string]: activeSection === ActiveSection.Minutes
 			}
 		);
 
@@ -176,7 +174,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			                decreaseIcon={decreaseIcon}
 			                increaseIcon={increaseIcon}
 			                clearIcon={clearIcon}
-			                isClearable={defined(value) || defined(hours) || defined(minutes)}
+			                isClearable={isDefined(value) || isDefined(hours) || isDefined(minutes)}
 			                onKeyDown={this.onKeyDown}
 			                onClear={this.onClear}
 			                onDecrement={this.onDecrement}
@@ -197,7 +195,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	private format(value?: number): string {
-		if (defined(value)) {
+		if (isDefined(value)) {
 			return `${value >= 0 && value < 10 ? 0 : ''}${value}`;
 		} else {
 			return '--';
@@ -234,7 +232,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 
 	private onFocus = (e: React.FocusEvent<HTMLElement>) => {
 		this.secondInput = false;
-		if (!defined(this.state.activeSection)) {
+		if (!isDefined(this.state.activeSection)) {
 			this.setState({
 				activeSection: ActiveSection.Hours
 			});
@@ -289,7 +287,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			}
 			default: {
 				const number = KEY_CODE_NUM_MAP[e.keyCode];
-				if (defined(number)) {
+				if (isDefined(number)) {
 					this.handleNumKeyDown(number);
 				}
 			}
@@ -360,7 +358,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	private updateStateTime(hours?: number, minutes?: number): void {
 		const {onChange, value} = this.props;
 
-		const canBuildValue = defined(hours) && defined(minutes) && minutes < 60;
+		const canBuildValue = isDefined(hours) && isDefined(minutes) && minutes < 60;
 		const newValueDiffers = canBuildValue && (
 				typeof value === 'undefined' ||
 				value.hours !== hours ||
@@ -375,7 +373,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 				} as any);
 			}
 		} else {
-			if (defined(this.props.value)) {
+			if (isDefined(this.props.value)) {
 				onChange && onChange(undefined);
 			}
 			this.setState({
@@ -397,7 +395,7 @@ export const TIME_INPUT = Symbol('TimeInput');
 export default themr(TIME_INPUT)(TimeInput) as React.ComponentClass<TTimeInputProps>;
 
 function addTime(a: number | undefined, b: number, max: number): number {
-	if (!defined(a)) {
+	if (!isDefined(a)) {
 		return b < 0 ? (max - 1) : 0;
 	}
 	let result = (a + b) % max;
@@ -407,6 +405,6 @@ function addTime(a: number | undefined, b: number, max: number): number {
 	return result;
 }
 
-function defined(value: any): boolean {
+function isDefined(value: any): boolean {
 	return typeof value !== 'undefined';
 }
