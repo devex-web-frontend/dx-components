@@ -17,6 +17,7 @@ class DemoInput extends React.Component<any, any> {
 		return (
 			<SteppableInput onIncrement={action('increment')}
 			                onDecrement={action('decrement')}
+			                onClear={action('clear')}
 			                onFocus={this.onFocus}
 			                clearIcon={iconClear}
 			                isClearable={true}
