@@ -79,6 +79,13 @@ import calendarTheme from '../components/Calendar/Calendar.styl';
 import {LOADING_INDICATOR} from '../components/LoadingIndicator/LoadingIndicator';
 import loadingIndicator from '../components/LoadingIndicator/LoadingIndicator.styl';
 
+import {STEPPABLE_INPUT} from '../components/SteppableInput/SteppableInput';
+import steppableInput from '../components/SteppableInput/theme/SteppableInput.styl';
+import steppableInputButtonIcon from '../components/SteppableInput/theme/ButtonIcon.styl';
+
+import {TIME_INPUT} from '../components/TimeInput/TimeInput';
+import timeInput from '../components/TimeInput/theme/TimeInput.styl';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -114,5 +121,10 @@ export default {
 			container: passwordInput.input
 		}
 	},
-	[LOADING_INDICATOR]: loadingIndicator
+	[LOADING_INDICATOR]: loadingIndicator,
+	[STEPPABLE_INPUT]: {
+		...steppableInput,
+		ButtonIcon: steppableInputButtonIcon
+	},
+	[TIME_INPUT]: timeInput
 };
