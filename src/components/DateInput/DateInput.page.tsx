@@ -9,8 +9,8 @@ import * as decrease from '../../resources/svg/icon-decrease.svg';
 import * as clear from '../../resources/svg/icon-small-cross.svg';
 import * as calendar from '../../resources/svg/icon-calendar.svg';
 
-const onChange = action('change');
-const log = (value: Date) => onChange(value);
+const onChange = (value: Date) => action('change')(value);
+const onClear = () => action('clear')();
 
 storiesOf('DateInput', module).add('default', () => (
 	<Demo>
@@ -20,7 +20,8 @@ storiesOf('DateInput', module).add('default', () => (
 			          incrementIcon={add}
 			          clearIcon={clear}
 			          calendarIcon={calendar}
-			          onChange={log}
+			          onChange={onChange}
+			          onClear={onClear}
 			          defaultValue={new Date()}/>
 		</div>
 	</Demo>

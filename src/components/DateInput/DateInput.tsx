@@ -8,7 +8,8 @@ import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import {add} from './DateInput.utils';
 
 type TDateInputOwnProps = TSteppableInputProps & TControlProps<Date> & {
-	calendarIcon?: string
+	calendarIcon?: string,
+	onClear?: Function
 };
 type TDateInputInjectedProps = {
 	theme: {
@@ -268,6 +269,8 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	private onClear = () => {
 		this.secondInput = false;
 		this.updateStateTime();
+		const {onClear} = this.props;
+		onClear && onClear();
 	}
 
 	private onCalendarMouseDown = (e: React.MouseEvent<HTMLElement>) => {
