@@ -152,7 +152,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 					            onMouseDown={this.onCalendarMouseDown}
 					            theme={theme.ButtonIcon}/>
 				)}
-				{Calendar && this.state.isOpened && this.renderCalendar()}
+				{Calendar && this.renderCalendar()}
 			</SteppableInput>
 		);
 	}
@@ -168,7 +168,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		if (target) {
 			return (
 				<Portal container={target}>
-					{calendar}
+					{isOpened && calendar}
 				</Portal>
 			);
 		} else {
