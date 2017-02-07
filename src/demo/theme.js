@@ -66,6 +66,11 @@ import {TIME_INPUT} from '../components/TimeInput/TimeInput';
 import timeInput from '../components/TimeInput/theme/TimeInput.demo.styl';
 import timeInputSteppableInput from '../components/TimeInput/theme/SteppableInput.demo.styl';
 
+import {DATE_INPUT} from '../components/DateInput/DateInput';
+import dateInput from '../components/DateInput/theme/DateInput.demo.styl';
+import dateInputSteppableInput from '../components/DateInput/theme/SteppableInput.demo.styl';
+import dateInputButtonIcon from '../components/DateInput/theme/ButtonIcon.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -110,5 +115,10 @@ export default {
 	[TIME_INPUT]: {
 		...timeInput,
 		SteppableInput: timeInputSteppableInput
+	},
+	[DATE_INPUT]: {
+		...dateInput,
+		SteppableInput: dateInputSteppableInput,
+		ButtonIcon: dateInputButtonIcon
 	}
 };

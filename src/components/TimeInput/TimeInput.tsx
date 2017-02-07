@@ -4,60 +4,9 @@ import SteppableInput, {
 	STEPPABLE_INPUT_THEME
 } from '../SteppableInput/SteppableInput';
 import {PURE} from 'dx-util/src/react/pure';
-import {TControlProps, createControlProps} from '../Control/Control';
+import {TControlProps, createControlProps, KeyCode, KEY_CODE_NUM_MAP} from '../Control/Control';
 import * as classnames from 'classnames';
 import {themr} from 'react-css-themr';
-import ButtonIcon from '../ButtonIcon/ButtonIcon';
-
-enum KeyCode {
-	Left = 37,
-	Right = 39,
-	Delete = 46,
-	Backspace = 8,
-	N0 = 48,
-	N1 = 49,
-	N2 = 50,
-	N3 = 51,
-	N4 = 52,
-	N5 = 53,
-	N6 = 54,
-	N7 = 55,
-	N8 = 56,
-	N9 = 57,
-	NUM0 = 96,
-	NUM1 = 97,
-	NUM2 = 98,
-	NUM3 = 99,
-	NUM4 = 100,
-	NUM5 = 101,
-	NUM6 = 102,
-	NUM7 = 103,
-	NUM8 = 104,
-	NUM9 = 105
-}
-
-const KEY_CODE_NUM_MAP: {[code: number]: number} = {
-	[KeyCode.N0]: 0,
-	[KeyCode.N1]: 1,
-	[KeyCode.N2]: 2,
-	[KeyCode.N3]: 3,
-	[KeyCode.N4]: 4,
-	[KeyCode.N5]: 5,
-	[KeyCode.N6]: 6,
-	[KeyCode.N7]: 7,
-	[KeyCode.N8]: 8,
-	[KeyCode.N9]: 9,
-	[KeyCode.NUM0]: 0,
-	[KeyCode.NUM1]: 1,
-	[KeyCode.NUM2]: 2,
-	[KeyCode.NUM3]: 3,
-	[KeyCode.NUM4]: 4,
-	[KeyCode.NUM5]: 5,
-	[KeyCode.NUM6]: 6,
-	[KeyCode.NUM7]: 7,
-	[KeyCode.NUM8]: 8,
-	[KeyCode.NUM9]: 9
-};
 
 export type TTime = {
 	hours: number,
@@ -70,8 +19,8 @@ enum ActiveSection {
 }
 
 type TTimeInputOwnProps = TControlProps<TTime> & {
-	increaseIcon: string,
-	decreaseIcon: string,
+	incrementIcon: string,
+	decrementIcon: string,
 	clearIcon: string,
 	isDisabled?: boolean
 };
@@ -90,24 +39,12 @@ type TTimeInputState = {
 	minutes?: number
 };
 
-const TIME_INPUT_THEME = {
-	...STEPPABLE_INPUT_THEME,
-	hours: React.PropTypes.string,
-	hours_isActive: React.PropTypes.string,
-	minutes: React.PropTypes.string,
-	minutes_isActive: React.PropTypes.string,
-	separator: React.PropTypes.string,
-};
-
 @PURE
 class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	static propTypes = {
-		increaseIcon: React.PropTypes.string.isRequired,
-		decreaseIcon: React.PropTypes.string.isRequired,
-		theme: React.PropTypes.shape(TIME_INPUT_THEME),
 		...createControlProps(React.PropTypes.shape({
-			hours: React.PropTypes.number.isRequired,
-			minutes: React.PropTypes.number.isRequired,
+			hours: React.PropTypes.number,
+			minutes: React.PropTypes.number
 		}))
 	};
 
@@ -143,8 +80,8 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	render() {
 		const {
 			theme,
-			increaseIcon,
-			decreaseIcon,
+			decrementIcon,
+			incrementIcon,
 			isDisabled,
 			clearIcon,
 			value
@@ -165,17 +102,21 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			}
 		);
 
+		let onClear;
+		if (isDefined(value) || isDefined(hours) || isDefined(minutes)) {
+			onClear = this.onClear;
+		}
+
 		return (
 			<SteppableInput isDisabled={isDisabled}
 			                theme={theme.SteppableInput}
 			                onBlur={this.onBlur}
 			                onFocus={this.onFocus}
-			                decreaseIcon={decreaseIcon}
-			                increaseIcon={increaseIcon}
+			                decrementIcon={decrementIcon}
+			                incrementIcon={incrementIcon}
 			                clearIcon={clearIcon}
-			                isClearable={isDefined(value) || isDefined(hours) || isDefined(minutes)}
 			                onKeyDown={this.onKeyDown}
-			                onClear={this.onClear}
+			                onClear={onClear}
 			                onDecrement={this.onDecrement}
 			                onIncrement={this.onIncrement}>
 				<div className={theme.container}>
@@ -339,13 +280,13 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 		const {hours, minutes, activeSection} = this.state;
 		switch (activeSection) {
 			case ActiveSection.Hours: {
-				this.updateStateTime(addTime(hours, amount, 24), minutes);
+				this.updateStateTime(add(hours, amount, 23), minutes);
 				break;
 			}
 			case ActiveSection.Minutes: {
 				this.updateStateTime(
 					hours,
-					addTime(Math.min(typeof minutes !== 'undefined' ? minutes : Infinity, 59), amount, 60)
+					add(Math.min(typeof minutes !== 'undefined' ? minutes : Infinity, 59), amount, 59)
 				);
 				break;
 			}
@@ -391,13 +332,16 @@ type TTimeInputProps = TTimeInputOwnProps & Partial<TTimeInputInjectedProps>;
 export const TIME_INPUT = Symbol('TimeInput');
 export default themr(TIME_INPUT)(TimeInput) as React.ComponentClass<TTimeInputProps>;
 
-function addTime(a: number | undefined, b: number, max: number): number {
+/**
+ * Values can be zeros (start from 0). Max is included value.
+ */
+function add(a: number | undefined, b: number, max: number): number {
 	if (!isDefined(a)) {
-		return b < 0 ? (max - 1) : 0;
+		return b < 0 ? max : 0;
 	}
-	let result = (a + b) % max;
+	let result = (a + b) % (max + 1);
 	if (result < 0) {
-		result += max;
+		result += (max + 1);
 	}
 	return result;
 }
