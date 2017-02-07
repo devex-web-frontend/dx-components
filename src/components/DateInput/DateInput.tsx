@@ -5,12 +5,22 @@ import {TControlProps, createControlProps, KeyCode, KEY_CODE_NUM_MAP} from '../C
 import * as classnames from 'classnames';
 import {themr} from 'react-css-themr';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
+import Popover from '../Popover/Popover';
 import {add} from './DateInput.utils';
+import * as Portal from 'react-overlays/lib/Portal';
 
-type TDateInputOwnProps = TSteppableInputProps & TControlProps<Date> & {
+type TDateValueProps = TControlProps<Date>;
+
+type TDateInputOwnProps = TSteppableInputProps & TDateValueProps & {
 	calendarIcon?: string,
-	onClear?: Function
+	onClear?: Function,
+	target?: React.ReactNode
 };
+
+type TDateDefaultProps = {
+	Calendar: React.ComponentClass<TDateValueProps> | React.SFC<TDateValueProps>
+};
+
 type TDateInputInjectedProps = {
 	theme: {
 		container?: string,
@@ -22,7 +32,7 @@ type TDateInputInjectedProps = {
 	}
 };
 
-type TDateInputFullProps = TDateInputOwnProps & TDateInputInjectedProps;
+type TDateInputFullProps = TDateInputOwnProps & TDateInputInjectedProps & TDateDefaultProps;
 
 enum ActiveSection {
 	Day,
@@ -33,7 +43,8 @@ type TDateInputState = {
 	activeSection?: ActiveSection,
 	day?: number,
 	month?: number,
-	year?: number
+	year?: number,
+	isOpened?: boolean
 };
 
 @PURE
@@ -42,7 +53,9 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		...createControlProps(React.PropTypes.instanceOf(Date))
 	};
 
-	state: TDateInputState = {};
+	state: TDateInputState = {
+		isOpened: false
+	};
 	private secondInput: boolean = false;
 
 	componentWillMount() {
@@ -76,8 +89,10 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			isDisabled,
 			clearIcon,
 			calendarIcon,
+			Calendar,
 			value,
-			theme
+			theme,
+			target
 		} = this.props;
 		const {month, day, year, activeSection} = this.state;
 
@@ -130,15 +145,41 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 						{this.format(year, ActiveSection.Year)}
 					</span>
 				</div>
-				{calendarIcon && (
+				{Calendar && calendarIcon && (
 					<ButtonIcon isFlat={true}
 					            tabIndex={-1}
 					            name={calendarIcon}
 					            onMouseDown={this.onCalendarMouseDown}
 					            theme={theme.ButtonIcon}/>
 				)}
+				{Calendar && this.state.isOpened && this.renderCalendar()}
 			</SteppableInput>
 		);
+	}
+
+	private renderCalendar() {
+		const {target, Calendar, value} = this.props;
+		const {isOpened} = this.state;
+
+		const calendar = (
+			<Calendar value={value}/>
+		);
+
+		if (target) {
+			return (
+				<Portal container={target}>
+					{calendar}
+				</Portal>
+			);
+		} else {
+			return (
+				<Popover anchor={this}
+				         closeOnClickAway={true}
+				         isOpened={isOpened}>
+					{calendar}
+				</Popover>
+			);
+		}
 	}
 
 	private format(value: number | undefined, section: ActiveSection): string {
@@ -275,6 +316,9 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 
 	private onCalendarMouseDown = (e: React.MouseEvent<HTMLElement>) => {
 		if (isDefined(this.state.activeSection)) {
+			this.setState({
+				isOpened: !this.state.isOpened
+			});
 			e.preventDefault();
 		}
 	}
@@ -370,11 +414,15 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		this.secondInput = false;
 		// this.correctMinutes();
 		this.setState({
-			activeSection: undefined
+			activeSection: undefined,
+			isOpened: false
 		});
 	}
 
 	private onFocus = (e: React.FocusEvent<HTMLElement>) => {
+		this.setState({
+			isOpened: true
+		});
 		this.secondInput = false;
 		if (!isDefined(this.state.activeSection)) {
 			this.setState({
@@ -457,9 +505,15 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			}
 		}
 	}
+
+	private onPopoverRequestClose = () => {
+		this.setState({
+			isOpened: false
+		});
+	}
 }
 
-export type TDateInputProps = TDateInputOwnProps & Partial<TDateInputInjectedProps>;
+export type TDateInputProps = TDateInputOwnProps & Partial<TDateInputInjectedProps> & Partial<TDateDefaultProps>;
 export const DATE_INPUT = Symbol('DateInput');
 export default themr(DATE_INPUT)(DateInput) as React.ComponentClass<TDateInputProps>;
 
