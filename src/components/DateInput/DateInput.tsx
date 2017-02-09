@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {PURE} from 'dx-util/src/react/pure';
-import SteppableInput, {TSteppableInputProps} from '../SteppableInput/SteppableInput';
+import SteppableInput, {TSteppableInputProps, TSteppableInputInjectedProps} from '../SteppableInput/SteppableInput';
 import {TControlProps, createControlProps, KeyCode, KEY_CODE_NUM_MAP} from '../Control/Control';
 import * as classnames from 'classnames';
 import {themr} from 'react-css-themr';
@@ -8,6 +8,7 @@ import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import Popover from '../Popover/Popover';
 import {add} from './DateInput.utils';
 import * as Portal from 'react-overlays/lib/Portal';
+import {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
 
 type TDateValueProps = TControlProps<Date>;
 
@@ -18,7 +19,9 @@ type TDateInputOwnProps = TSteppableInputProps & TDateValueProps & {
 };
 
 type TDateDefaultProps = {
-	Calendar: React.ComponentClass<TDateValueProps> | React.SFC<TDateValueProps>
+	Calendar: React.ComponentClass<TDateValueProps> | React.SFC<TDateValueProps>,
+	SteppableInput: typeof SteppableInput,
+	ButtonIcon: typeof ButtonIcon
 };
 
 type TDateInputInjectedProps = {
@@ -27,8 +30,8 @@ type TDateInputInjectedProps = {
 		section?: string,
 		section_isActive?: string,
 		separator?: string,
-		SteppableInput?: {},
-		ButtonIcon?: {},
+		SteppableInput?: TSteppableInputInjectedProps['theme'],
+		ButtonIcon?: BUTTON_ICON_THEME,
 	}
 };
 
@@ -51,6 +54,11 @@ type TDateInputState = {
 class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	static propTypes = {
 		...createControlProps(React.PropTypes.instanceOf(Date))
+	};
+
+	static defaultProps = {
+		SteppableInput,
+		ButtonIcon
 	};
 
 	state: TDateInputState = {
@@ -92,7 +100,8 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			Calendar,
 			value,
 			theme,
-			target
+			ButtonIcon,
+			SteppableInput
 		} = this.props;
 		const {month, day, year, activeSection} = this.state;
 
