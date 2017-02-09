@@ -18,13 +18,13 @@ enum ActiveSection {
 	Minutes
 }
 
-type TTimeInputOwnProps = TControlProps<TTime> & {
+export type TTimeInputOwnProps = TControlProps<TTime> & {
 	incrementIcon: string,
 	decrementIcon: string,
 	clearIcon: string,
 	isDisabled?: boolean
 };
-type TTimeInputInjectedProps = TSteppableInputInjectedProps & {
+export type TTimeInputInjectedProps = TSteppableInputInjectedProps & {
 	theme: {
 		section?: string,
 		section_isActive?: string,
@@ -32,12 +32,12 @@ type TTimeInputInjectedProps = TSteppableInputInjectedProps & {
 		SteppableInput?: {}
 	}
 };
-type TTimeInputDefaultProps = {
+export type TTimeInputDefaultProps = {
 	SteppableInput: typeof SteppableInput
 };
-type TTimeInputFullProps = TTimeInputDefaultProps & TTimeInputOwnProps & TTimeInputInjectedProps;
+export type TTimeInputFullProps = TTimeInputDefaultProps & TTimeInputOwnProps & TTimeInputInjectedProps;
 
-type TTimeInputState = {
+export type TTimeInputState = {
 	activeSection?: ActiveSection,
 	hours?: number,
 	minutes?: number
@@ -337,7 +337,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 }
 
-type TTimeInputProps = TTimeInputOwnProps & Partial<TTimeInputDefaultProps> & Partial<TTimeInputInjectedProps>;
+export type TTimeInputProps = TTimeInputOwnProps & Partial<TTimeInputDefaultProps> & Partial<TTimeInputInjectedProps>;
 export const TIME_INPUT = Symbol('TimeInput');
 export default themr(TIME_INPUT)(TimeInput) as React.ComponentClass<TTimeInputProps>;
 
