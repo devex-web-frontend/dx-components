@@ -8,7 +8,7 @@ export const AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE = {
 };
 
 const AutocompleteMenuItem = props => {
-	const {search, ...menuItemProps} = props;
+	const {search, Highlight, ...menuItemProps} = props;
 
 	return (
 		<MenuItem {...menuItemProps} text={props.value}>
@@ -22,14 +22,16 @@ const AutocompleteMenuItem = props => {
 AutocompleteMenuItem.propTypes = {
 	...MenuItem.propTypes,
 	search: React.PropTypes.string,
-	theme: React.PropTypes.shape(AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE)
+	theme: React.PropTypes.shape(AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE),
+	Highlight: React.PropTypes.func
 };
 AutocompleteMenuItem.defaultProps = {
 	...MenuItem.defaultProps,
 	search: '',
 	theme: {
 		Highlight: {}
-	}
+	},
+	Highlight
 };
 
 export default AutocompleteMenuItem;
