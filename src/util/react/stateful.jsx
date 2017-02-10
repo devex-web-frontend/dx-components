@@ -40,24 +40,26 @@ const stateful = options => {
 		const componentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
 		const propTypes = WrappedComponent.propTypes || {};
+		const statefulPropsTypes = {
+			...propTypes,
+			value(props) {
+				if (typeof props[componentConfig.valueKey] !== 'undefined') {
+					throw new Error(
+						`${Stateful.displayName}: passed 'value' prop will be ignored, use 'defaultValue' instead`
+					);
+				}
+			},
+			[componentConfig.onChangeKey]: React.PropTypes.func
+		};
+		if (typeof propTypes[componentConfig.valueKey] !== 'undefined') {
+			statefulPropsTypes.defaultValue = propTypes[componentConfig.valueKey];
+		}
 
 		// TODO: should we extend it from some base class?
 		class Stateful extends React.Component {
 			static displayName = `Stateful(${componentName})`;
 
-			//noinspection JSUnresolvedVariable
-			static propTypes = {
-				...propTypes,
-				value(props) {
-					if (typeof props[componentConfig.valueKey] !== 'undefined') {
-						throw new Error(
-							`${Stateful.displayName}: passed 'value' prop will be ignored, use 'defaultValue' instead`
-						);
-					}
-				},
-				[componentConfig.onChangeKey]: React.PropTypes.func,
-				defaultValue: propTypes[componentConfig.valueKey]
-			}
+			static propTypes = statefulPropsTypes;
 
 			componentWillMount() {
 				this.setState({
