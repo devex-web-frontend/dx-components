@@ -40,7 +40,12 @@ export type TSteppableInputOwnProps = {
 	children?: React.ReactNode
 };
 
-export type TSteppableInputFullProps = TSteppableInputInjectedProps & TSteppableInputOwnProps;
+export type TSteppableInputDefaultProps = {
+	Input: typeof Input
+};
+
+export type TSteppableInputFullProps =
+	TSteppableInputInjectedProps & TSteppableInputOwnProps & TSteppableInputDefaultProps;
 
 type TSteppableInputState = {
 	isFocused?: boolean
@@ -48,6 +53,10 @@ type TSteppableInputState = {
 
 @PURE
 class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppableInputState> {
+	static defaultProps = {
+		Input
+	};
+
 	state: TSteppableInputState = {};
 
 	componentDidUpdate(prevProps: TSteppableInputFullProps) {
@@ -68,7 +77,8 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 			clearIcon,
 			onIncrement,
 			onDecrement,
-			onClear
+			onClear,
+			Input
 		} = this.props;
 
 		const {isFocused} = this.state;
@@ -187,5 +197,6 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 }
 
 export const STEPPABLE_INPUT = Symbol('SteppableInput');
-export type TSteppableInputProps = TSteppableInputOwnProps & Partial<TSteppableInputInjectedProps>;
+export type TSteppableInputProps =
+	TSteppableInputOwnProps & Partial<TSteppableInputInjectedProps> & Partial<TSteppableInputDefaultProps>;
 export default themr(STEPPABLE_INPUT)(SteppableInput) as React.ComponentClass<TSteppableInputProps>;
