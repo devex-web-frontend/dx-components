@@ -22,8 +22,7 @@
       "es2016.array.include"
     ],
     "typeRoots": [
-      "./node_modules/@types",
-      "./src/typings"
+      "./node_modules/@types"
     ]
   },
   "include": [
