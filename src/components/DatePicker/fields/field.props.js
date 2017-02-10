@@ -20,5 +20,6 @@ export const DATE_PICKER_FIELD_PROPS = {
 	theme: React.PropTypes.shape({
 		field: React.PropTypes.string,
 		field_invalid: React.PropTypes.string
-	})
+	}),
+	Input: React.PropTypes.func
 };

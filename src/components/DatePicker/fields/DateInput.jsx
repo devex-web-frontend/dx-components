@@ -12,6 +12,10 @@ export default class DateInput extends React.Component {
 		...DATE_PICKER_FIELD_PROPS
 	}
 
+	static defaultProps = {
+		Input
+	}
+
 	state = {
 		displayedDate: this.formatDateForView(this.props)
 	}
@@ -28,7 +32,8 @@ export default class DateInput extends React.Component {
 		const {
 			theme,
 			isDisabled,
-			isInvalid
+			isInvalid,
+			Input
 		} = this.props;
 
 		const inputTheme = {
