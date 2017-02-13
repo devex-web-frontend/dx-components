@@ -4,6 +4,4 @@ type TStatefulOptions = {
 	getValueFromOnChange: <T>(...args: any[]) => T
 };
 
-declare const stateful: <TProps>(options?: TStatefulOptions) =>
-	<TSource extends React.ComponentClass<TProps>>(target: TSource) => TSource;
-export default stateful;
+export default function stateful(options?: TStatefulOptions): <T>(target: T) => T;
