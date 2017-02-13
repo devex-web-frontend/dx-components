@@ -146,9 +146,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 	}
 
 	private onButtonMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-		if (this.state.isFocused) {
-			e.preventDefault();
-		}
+		e.preventDefault();
 	}
 
 	private onFocus = (e: React.FocusEvent<HTMLElement>) => {
