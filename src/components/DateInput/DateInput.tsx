@@ -108,21 +108,21 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		const dayClassName = classnames(
 			theme.section,
 			{
-				[theme.section_isActive as string]: activeSection === ActiveSection.Day
+				[theme.section_isActive as string]: !isDisabled && activeSection === ActiveSection.Day
 			}
 		);
 
 		const monthClassName = classnames(
 			theme.section,
 			{
-				[theme.section_isActive as string]: activeSection === ActiveSection.Month
+				[theme.section_isActive as string]: !isDisabled && activeSection === ActiveSection.Month
 			}
 		);
 
 		const yearClassName = classnames(
 			theme.section,
 			{
-				[theme.section_isActive as string]: activeSection === ActiveSection.Year
+				[theme.section_isActive as string]: !isDisabled && activeSection === ActiveSection.Year
 			}
 		);
 
@@ -142,20 +142,24 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			                onKeyDown={this.onKeyDown}
 			                clearIcon={clearIcon}>
 				<div className={theme.container}>
-					<span className={dayClassName} onMouseDown={this.onDayMouseDown}>
+					<span className={dayClassName}
+					      onMouseDown={this.onDayMouseDown}>
 						{this.format(day, ActiveSection.Day)}
 					</span>
 					<span className={theme.separator}>/</span>
-					<span className={monthClassName} onMouseDown={this.onMonthMouseDown}>
+					<span className={monthClassName}
+					      onMouseDown={this.onMonthMouseDown}>
 						{this.format(month, ActiveSection.Month)}
 					</span>
 					<span className={theme.separator}>/</span>
-					<span className={yearClassName} onMouseDown={this.onYearMouseDown}>
+					<span className={yearClassName}
+					      onMouseDown={this.onYearMouseDown}>
 						{this.format(year, ActiveSection.Year)}
 					</span>
 				</div>
 				{Calendar && calendarIcon && (
 					<ButtonIcon isFlat={true}
+					            isDisabled={isDisabled}
 					            tabIndex={-1}
 					            name={calendarIcon}
 					            onMouseDown={this.onCalendarMouseDown}
@@ -333,21 +337,27 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	private onDayMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-		this.setState({
-			activeSection: ActiveSection.Day
-		});
+		if (!this.props.isDisabled) {
+			this.setState({
+				activeSection: ActiveSection.Day
+			});
+		}
 	}
 
 	private onMonthMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-		this.setState({
-			activeSection: ActiveSection.Month
-		});
+		if (!this.props.isDisabled) {
+			this.setState({
+				activeSection: ActiveSection.Month
+			});
+		}
 	}
 
 	private onYearMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-		this.setState({
-			activeSection: ActiveSection.Year
-		});
+		if (!this.props.isDisabled) {
+			this.setState({
+				activeSection: ActiveSection.Year
+			});
+		}
 	}
 
 	private onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {

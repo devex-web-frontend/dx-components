@@ -100,14 +100,14 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 		const hoursClassName = classnames(
 			theme.section,
 			{
-				[theme.section_isActive as string]: activeSection === ActiveSection.Hours
+				[theme.section_isActive as string]: !isDisabled && activeSection === ActiveSection.Hours
 			}
 		);
 
 		const minutesClassName = classnames(
 			theme.section,
 			{
-				[theme.section_isActive as string]: activeSection === ActiveSection.Minutes
+				[theme.section_isActive as string]: !isDisabled && activeSection === ActiveSection.Minutes
 			}
 		);
 
@@ -129,7 +129,8 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			                onDecrement={this.onDecrement}
 			                onIncrement={this.onIncrement}>
 				<div className={theme.container}>
-					<span className={hoursClassName} onMouseDown={this.onHoursMouseDown}>
+					<span className={hoursClassName}
+					      onMouseDown={this.onHoursMouseDown}>
 						{this.format(hours)}
 					</span>
 					<span className={theme.separator}>:</span>
@@ -151,16 +152,20 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	private onHoursMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-		this.setState({
-			activeSection: ActiveSection.Hours
-		});
-		this.correctMinutes();
+		if (!this.props.isDisabled) {
+			this.setState({
+				activeSection: ActiveSection.Hours
+			});
+			this.correctMinutes();
+		}
 	}
 
 	private onMinutesMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-		this.setState({
-			activeSection: ActiveSection.Minutes
-		});
+		if (!this.props.isDisabled) {
+			this.setState({
+				activeSection: ActiveSection.Minutes
+			});
+		}
 	}
 
 	private onIncrement = () => {

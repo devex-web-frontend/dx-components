@@ -17,19 +17,20 @@
 		background-color: #4a4540;
 		box-shadow: none;
 		
-		&:hover {
+		&:not(:disabled):hover {
 			background-color: #635e58;
 			border-color: rgba(#fff, .08) rgba(#fff, .06) rgba(#fff, .04) rgba(#fff, .06);
 			box-shadow: none;
 		}
 			
-		&:active {
+		&:not(:disabled):active {
 			background-color: #423d3a;
 			border-color: rgba(#000, .1) rgba(#000, .14) rgba(#000, .18) rgba(#000, .14);
 			box-shadow: none;
 		}
 	}
 	
+	&:disabled,
 	&[disabled] {
 		background-color: silver;
 	}

@@ -23,18 +23,22 @@ class DateInputPage extends React.Component<any, any> {
 	private target: any;
 
 	render() {
+		const {isDisabled} = this.props;
+
 		return (
 			<Demo>
-				<input type="date" id="date"/>
+				<input type="date" id="date" disabled={isDisabled}/>
 				<section>
 					<h1>without Calendar</h1>
 					<Stateful decrementIcon={decrease}
+					          isDisabled={isDisabled}
 					          incrementIcon={add}
 					          clearIcon={clear}
 					          onChange={onChange}
 					          onClear={onClear}
 					          defaultValue={new Date()}/>
 					<Stateful decrementIcon={decrease}
+					          isDisabled={isDisabled}
 					          incrementIcon={add}
 					          clearIcon={clear}
 					          onChange={onChange}
@@ -45,6 +49,7 @@ class DateInputPage extends React.Component<any, any> {
 					<h1>with calendar</h1>
 					<Stateful decrementIcon={decrease}
 					          incrementIcon={add}
+					          isDisabled={isDisabled}
 					          clearIcon={clear}
 					          calendarIcon={calendar}
 					          onChange={onChange}
@@ -53,6 +58,7 @@ class DateInputPage extends React.Component<any, any> {
 					          defaultValue={new Date()}/>
 					<Stateful decrementIcon={decrease}
 					          incrementIcon={add}
+					          isDisabled={isDisabled}
 					          clearIcon={clear}
 					          calendarIcon={calendar}
 					          onChange={onChange}
@@ -70,4 +76,6 @@ class DateInputPage extends React.Component<any, any> {
 	}
 }
 
-storiesOf('DateInput', module).add('default', () => <DateInputPage/>);
+storiesOf('DateInput', module)
+	.add('default', () => <DateInputPage/>)
+	.add('disabled', () => <DateInputPage isDisabled={true}/>)

@@ -15,7 +15,7 @@ class DemoInput extends React.Component<TSteppableInputProps, any> {
 	private input: HTMLInputElement;
 
 	render() {
-		const {onIncrement, onDecrement, onClear} = this.props;
+		const {onIncrement, onDecrement, onClear, isDisabled} = this.props;
 
 		return (
 			<SteppableInput onIncrement={onIncrement}
@@ -24,8 +24,12 @@ class DemoInput extends React.Component<TSteppableInputProps, any> {
 			                onFocus={this.onFocus}
 			                clearIcon={iconClear}
 			                decrementIcon={iconDecrease}
+			                isDisabled={isDisabled}
 			                incrementIcon={iconAdd}>
-				<input className={pageTheme.customInput} tabIndex={-1} ref={(el: any) => this.input = el}/>
+				<input className={pageTheme.customInput}
+				       tabIndex={-1}
+				       disabled={isDisabled}
+				       ref={(el: any) => this.input = el}/>
 			</SteppableInput>
 		);
 	}
@@ -41,6 +45,10 @@ storiesOf('SteppableInput', module).add('default', () => (
 		<DemoInput onIncrement={action('increment')}
 		           onDecrement={action('decremnt')}/>
 		<DemoInput onClear={action('clear')}/>
+		<DemoInput onIncrement={action('increment')}
+		           isDisabled={true}
+		           onDecrement={action('decremnt')}
+		           onClear={action('clear')}/>
 		<DemoInput onIncrement={action('increment')}
 		           onDecrement={action('decremnt')}
 		           onClear={action('clear')}/>

@@ -29,4 +29,13 @@ storiesOf('TimeInput', module).add('default', () => (
 			          defaultValue={time}/>
 		</div>
 	</Demo>
+)).add('disabled', () => (
+	<Demo>
+		<Stateful decrementIcon={decrease}
+		          incrementIcon={add}
+		          clearIcon={clear}
+		          onChange={log}
+		          isDisabled={true}
+		          defaultValue={time}/>
+	</Demo>
 ));

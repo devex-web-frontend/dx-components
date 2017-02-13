@@ -94,7 +94,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 			       onKeyDown={this.onKeyDown}
 			       onWheel={this.onWheel}
 			       isFocused={isFocused}
-			       tabIndex={isFocused ? -1 : (tabIndex || 0)}
+			       tabIndex={(isFocused || isDisabled) ? -1 : (tabIndex || 0)}
 			       disabled={isDisabled}>
 				{children}
 				{onClear && clearIcon && (
