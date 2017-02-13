@@ -41,7 +41,8 @@ export type TSteppableInputOwnProps = {
 };
 
 export type TSteppableInputDefaultProps = {
-	Input: typeof Input
+	Input: typeof Input,
+	ButtonIcon: typeof ButtonIcon
 };
 
 export type TSteppableInputFullProps =
@@ -54,7 +55,8 @@ type TSteppableInputState = {
 @PURE
 class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppableInputState> {
 	static defaultProps = {
-		Input
+		Input,
+		ButtonIcon
 	};
 
 	state: TSteppableInputState = {};
@@ -78,7 +80,8 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 			onIncrement,
 			onDecrement,
 			onClear,
-			Input
+			Input,
+			ButtonIcon
 		} = this.props;
 
 		const {isFocused} = this.state;
