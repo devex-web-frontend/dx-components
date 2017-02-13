@@ -94,7 +94,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 			       onKeyDown={this.onKeyDown}
 			       onWheel={this.onWheel}
 			       isFocused={isFocused}
-			       tabIndex={(isFocused || isDisabled) ? -1 : (tabIndex || 0)}
+			       tabIndex={(isFocused || isDisabled ) ? -1 : (tabIndex || 0)}
 			       disabled={isDisabled}>
 				{children}
 				{onClear && clearIcon && (
@@ -146,7 +146,9 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 	}
 
 	private onButtonMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-		e.preventDefault();
+		if (this.state.isFocused) {
+			e.preventDefault();
+		}
 	}
 
 	private onFocus = (e: React.FocusEvent<HTMLElement>) => {
