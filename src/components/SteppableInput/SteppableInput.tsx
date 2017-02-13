@@ -21,7 +21,8 @@ export type TSteppableInputInjectedProps = {
 		container?: string,
 		container_isFocused?: string,
 		input?: string,
-		ButtonIcon?: BUTTON_ICON_THEME
+		ButtonIcon?: BUTTON_ICON_THEME,
+		ClearButtonIcon?: BUTTON_ICON_THEME
 	}
 };
 
@@ -100,7 +101,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 				{onClear && clearIcon && (
 					<ButtonIcon name={clearIcon}
 					            isFlat={true}
-					            theme={theme.ButtonIcon}
+					            theme={theme.ClearButtonIcon}
 					            onClick={this.onClearClick}
 					            onMouseDown={this.onButtonMouseDown}
 					            isDisabled={isDisabled}

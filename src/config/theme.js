@@ -124,7 +124,8 @@ export default {
 	[LOADING_INDICATOR]: loadingIndicator,
 	[STEPPABLE_INPUT]: {
 		...steppableInput,
-		ButtonIcon: steppableInputButtonIcon
+		ButtonIcon: steppableInputButtonIcon,
+		ClearButtonIcon: steppableInputButtonIcon
 	},
 	[TIME_INPUT]: timeInput
 };
