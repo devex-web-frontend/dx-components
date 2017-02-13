@@ -19,9 +19,9 @@ enum ActiveSection {
 }
 
 export type TTimeInputOwnProps = TControlProps<TTime> & {
-	incrementIcon: string,
-	decrementIcon: string,
-	clearIcon: string,
+	incrementIcon?: string,
+	decrementIcon?: string,
+	clearIcon?: string,
 	isDisabled?: boolean
 };
 export type TTimeInputInjectedProps = TSteppableInputInjectedProps & {
