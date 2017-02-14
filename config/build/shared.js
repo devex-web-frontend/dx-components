@@ -59,7 +59,8 @@ const noParse = glob.sync(path.join(ENV.LIB_PATH, '/*'), {
 }).map(file => path.resolve(file));
 
 const alias = {
-	config: path.resolve(ENV.SRC_PATH, 'config/config.interop.styl')
+	config: path.resolve(ENV.SRC_PATH, 'config/config.interop.styl'),
+	'react-css-themr': path.resolve(ENV.NODE_MODULES_PATH, 'react-css-themr/src/index.js')
 };
 
 const externals = [];

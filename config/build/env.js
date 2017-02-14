@@ -16,6 +16,7 @@ const HOST = module.exports.HOST = argv['host'] || 'localhost';
 
 const ES6 = module.exports.ES6 = [
 	path.resolve(NODE_MODULES_PATH, 'svg-sprite-extract-plugin'),
+	path.resolve(NODE_MODULES_PATH, 'react-css-themr'),
 	path.resolve(LIB_PATH, 'dx-util'),
 	path.resolve(LIB_PATH, 'scrollable')
 ];

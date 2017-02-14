@@ -58,7 +58,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 	static defaultProps = {
 		Input,
 		ButtonIcon
-	};
+	} as TSteppableInputFullProps;
 
 	state: TSteppableInputState = {};
 
