@@ -32,6 +32,7 @@ type TDateInputInjectedProps = {
 		separator?: string,
 		SteppableInput?: TSteppableInputInjectedProps['theme'],
 		ButtonIcon?: BUTTON_ICON_THEME,
+		CalendarButtonIcon?: BUTTON_ICON_THEME
 	}
 };
 
@@ -163,7 +164,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 					            tabIndex={-1}
 					            name={calendarIcon}
 					            onMouseDown={this.onCalendarMouseDown}
-					            theme={theme.ButtonIcon}/>
+					            theme={theme.CalendarButtonIcon}/>
 				)}
 				{Calendar && this.renderCalendar()}
 			</SteppableInput>

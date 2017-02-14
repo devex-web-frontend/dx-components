@@ -120,6 +120,7 @@ export default {
 	[DATE_INPUT]: {
 		...dateInput,
 		SteppableInput: dateInputSteppableInput,
-		ButtonIcon: dateInputButtonIcon
+		ButtonIcon: dateInputButtonIcon,
+		CalendarButtonIcon: dateInputButtonIcon
 	}
 };

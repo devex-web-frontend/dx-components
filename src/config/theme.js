@@ -86,6 +86,11 @@ import steppableInputButtonIcon from '../components/SteppableInput/theme/ButtonI
 import {TIME_INPUT} from '../components/TimeInput/TimeInput';
 import timeInput from '../components/TimeInput/theme/TimeInput.styl';
 
+import {DATE_INPUT} from '../components/DateInput/DateInput';
+import dateInput from '../components/DateInput/theme/DateInput.styl';
+import dateInputButtonIcon from '../components/DateInput/theme/ButtonIcon.styl';
+import {themeable} from 'react-css-themr';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -127,5 +132,12 @@ export default {
 		ButtonIcon: steppableInputButtonIcon,
 		ClearButtonIcon: steppableInputButtonIcon
 	},
-	[TIME_INPUT]: timeInput
+	[TIME_INPUT]: timeInput,
+	[DATE_INPUT]: themeable(
+		dateInput,
+		{
+			ButtonIcon: dateInputButtonIcon,
+			CalendarButtonIcon: dateInputButtonIcon
+		}
+	)
 };
