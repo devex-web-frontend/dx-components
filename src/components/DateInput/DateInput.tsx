@@ -26,7 +26,7 @@ type TDateDefaultProps = {
 
 type TDateInputInjectedProps = {
 	theme: {
-		container?: string,
+		inner?: string,
 		section?: string,
 		section_isActive?: string,
 		separator?: string,
@@ -142,7 +142,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			                onFocus={this.onFocus}
 			                onKeyDown={this.onKeyDown}
 			                clearIcon={clearIcon}>
-				<div className={theme.container}>
+				<div className={theme.inner}>
 					<span className={dayClassName}
 					      onMouseDown={this.onDayMouseDown}>
 						{this.format(day, ActiveSection.Day)}
