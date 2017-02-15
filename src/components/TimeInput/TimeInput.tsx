@@ -319,10 +319,17 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 
 		if (canBuildValue) {
 			if (newValueDiffers) {
-				onChange && onChange({
-					hours,
-					minutes
-				} as any);
+				if (onChange) {
+					onChange({
+						hours,
+						minutes
+					} as any)
+				} else {
+					this.setState({
+						hours,
+						minutes
+					});
+				}
 			}
 		} else {
 			if (isDefined(this.props.value)) {
