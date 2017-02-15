@@ -78,4 +78,4 @@ class DateInputPage extends React.Component<any, any> {
 
 storiesOf('DateInput', module)
 	.add('default', () => <DateInputPage/>)
-	.add('disabled', () => <DateInputPage isDisabled={true}/>)
+	.add('disabled', () => <DateInputPage isDisabled={true}/>);

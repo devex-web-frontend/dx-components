@@ -276,7 +276,6 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 
 		if (canBuildValue) {
 			if (newValueDiffers &&
-				onChange &&
 				typeof year !== 'undefined' &&
 				typeof month !== 'undefined' &&
 				typeof day !== 'undefined') {
@@ -288,10 +287,18 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 				//check new date
 				if (date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day) {
 					//everything is ok and value hasn't been adjusted
-					onChange(date);
+					if (onChange) {
+						onChange(date);
+					} else {
+						this.setState({
+							day,
+							month,
+							year
+						});
+					}
 				} else {
 					//too "smart" Date constructor has adjusted our value - date is actually invalid
-					onChange(undefined);
+					onChange && onChange(undefined);
 					this.setState({
 						day,
 						month,
