@@ -3,6 +3,7 @@ import {storiesOf, action} from '@kadira/storybook';
 import Demo from '../../demo/Demo';
 import stateful from '../../util/react/stateful';
 import DateInput from './DateInput';
+import Button from '../Button/Button';
 const Stateful = stateful()(DateInput);
 import * as add from '../../resources/svg/icon-add.svg';
 import * as decrease from '../../resources/svg/icon-decrease.svg';
@@ -19,8 +20,13 @@ const Calendar: React.SFC<TControlProps<Date>> = props => {
 	);
 };
 
-class DateInputPage extends React.Component<any, any> {
+type TState = {
+	value?: Date | null
+};
+
+class DateInputPage extends React.Component<any, TState> {
 	private target: any;
+	state: TState = {};
 
 	render() {
 		const {isDisabled} = this.props;
@@ -28,6 +34,16 @@ class DateInputPage extends React.Component<any, any> {
 		return (
 			<Demo>
 				<input type="date" id="date" disabled={isDisabled}/>
+				<section>
+					<h1>
+						Controlled
+					</h1>
+					<DateInput onChange={this.onControlledChange}
+					           clearIcon={clear}
+					           onClear={this.onControlledClear}
+					           value={this.state.value}/>
+					<Button onClick={this.onControlledManualClear}>Clear</Button>
+				</section>
 				<section>
 					<h1>without Calendar</h1>
 					<Stateful decrementIcon={decrease}
@@ -73,6 +89,25 @@ class DateInputPage extends React.Component<any, any> {
 				</section>
 			</Demo>
 		);
+	}
+
+	private onControlledManualClear = () => {
+		this.setState({
+			value: null
+		});
+	}
+
+	private onControlledClear = () => {
+		this.setState({
+			value: undefined
+		});
+	}
+
+	private onControlledChange = (value: Date) => {
+		console.log(value);
+		this.setState({
+			value
+		});
 	}
 }
 

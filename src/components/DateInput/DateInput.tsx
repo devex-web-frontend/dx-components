@@ -10,7 +10,7 @@ import {add} from './DateInput.utils';
 import * as Portal from 'react-overlays/lib/Portal';
 import {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
 
-type TDateValueProps = TControlProps<Date>;
+type TDateValueProps = TControlProps<Date | null>;
 
 type TDateInputOwnProps = TSteppableInputProps & TDateValueProps & {
 	calendarIcon?: string,
@@ -79,7 +79,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			let month;
 			let day;
 			let year;
-			if (typeof newProps.value !== 'undefined' && !isNaN(newProps.value.getTime())) {
+			if (typeof newProps.value !== 'undefined' && newProps.value !== null && !isNaN(newProps.value.getTime())) {
 				const result = getValuesFromDate(newProps.value);
 				month = result.month;
 				day = result.day;
@@ -128,7 +128,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		);
 
 		let onClear;
-		if (isDefined(value) || isDefined(day) || isDefined(month) || isDefined(year)) {
+		if (isDefined(value) && value !== null || isDefined(day) || isDefined(month) || isDefined(year)) {
 			onClear = this.onClear;
 		}
 
@@ -269,6 +269,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		const newValueDiffers = canBuildValue &&
 			(
 				typeof value === 'undefined' ||
+				value === null ||
 				value.getDate() !== day ||
 				value.getMonth() !== month - 1 ||
 				value.getFullYear() !== year

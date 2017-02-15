@@ -18,7 +18,7 @@ enum ActiveSection {
 	Minutes
 }
 
-export type TTimeInputOwnProps = TControlProps<TTime> & {
+export type TTimeInputOwnProps = TControlProps<TTime | null> & {
 	incrementIcon?: string,
 	decrementIcon?: string,
 	clearIcon?: string,
@@ -72,6 +72,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 
 	componentWillReceiveProps(newProps: TTimeInputFullProps) {
 		if (this.props.value !== newProps.value && isDefined(newProps.value)) {
+			//value can be null here
 			let hours;
 			let minutes;
 			if (newProps.value) {
@@ -313,6 +314,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 		const canBuildValue = isDefined(hours) && isDefined(minutes) && minutes < 60;
 		const newValueDiffers = canBuildValue && (
 				typeof value === 'undefined' ||
+				value === null ||
 				value.hours !== hours ||
 				value.minutes !== minutes
 			);
