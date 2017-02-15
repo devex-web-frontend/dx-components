@@ -29,6 +29,10 @@ export default class Button extends React.Component {
 		tabIndex: React.PropTypes.number
 	}
 
+	static defaultProps = {
+		type: 'button'
+	}
+
 	render() {
 		const {
 			theme,

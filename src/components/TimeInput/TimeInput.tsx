@@ -323,7 +323,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 					onChange({
 						hours,
 						minutes
-					} as any)
+					} as any);
 				} else {
 					this.setState({
 						hours,
