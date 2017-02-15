@@ -16,3 +16,6 @@ export interface IButtonProps {
 	onClick?: Function,
 	tabIndex?: number
 }
+
+declare const Button: React.ComponentClass<IButtonProps>;
+export default Button;
