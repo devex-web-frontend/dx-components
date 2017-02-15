@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ValidationMap = React.ValidationMap;
 import {IButtonProps} from '../Button/Button';
-interface IButtonIconProps extends React.HTMLProps<HTMLButtonElement>, IButtonProps {
+interface IButtonIconProps extends IButtonProps {
 	name: string
 }
 export declare const BUTTON_ICON: symbol;
