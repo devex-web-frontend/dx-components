@@ -12,5 +12,7 @@ export type TLinkProps = {
 	}
 };
 
+export declare const LINK: symbol;
+
 declare const Link: React.ComponentClass<TLinkProps>;
 export default Link;
