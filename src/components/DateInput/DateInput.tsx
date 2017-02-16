@@ -6,7 +6,6 @@ import * as classnames from 'classnames';
 import {themr} from 'react-css-themr';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import Popover from '../Popover/Popover';
-import {add} from './DateInput.utils';
 import * as Portal from 'react-overlays/lib/Portal';
 import {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
 
@@ -236,32 +235,6 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		}
 	}
 
-	private step(amount: number): void {
-		const {day, month, year, activeSection} = this.state;
-		switch (activeSection) {
-			case ActiveSection.Day: {
-				//day starts from 1 here - so shift it to zero
-				this.updateStateTime(add(day - 1, amount, 30) + 1, month, year);
-				break;
-			}
-			case ActiveSection.Month: {
-				//month starts from 1 here! NOT from 0
-				this.updateStateTime(day, add(month - 1, amount, 11) + 1, year);
-				break;
-			}
-			case ActiveSection.Year: {
-				const currentYear = new Date().getFullYear();
-				let newYear = isDefined(year) ? (year + amount) : currentYear;
-
-				if (newYear < 0) {
-					newYear = currentYear;
-				}
-				this.updateStateTime(day, month, newYear);
-				break;
-			}
-		}
-	}
-
 	private updateStateTime(day?: number, month?: number, year?: number): void {
 		const {onChange, value} = this.props;
 
@@ -314,12 +287,50 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 
 	private onIncrement = () => {
 		this.secondInput = false;
-		this.step(1);
+		const {day, month, year, activeSection} = this.state;
+		switch (activeSection) {
+			case ActiveSection.Day: {
+				//day starts from 1 here and cannot be zero
+				const newDay = typeof day !== 'undefined' ? (day + 1) % 32 || 1 : 1;
+				this.updateStateTime(newDay, month, year);
+				break;
+			}
+			case ActiveSection.Month: {
+				//month starts from 1 here and cannot be zero
+				const newMonth = typeof month !== 'undefined' ? (month + 1) % 13 || 1 : 1;
+				this.updateStateTime(day, newMonth, year);
+				break;
+			}
+			case ActiveSection.Year: {
+				const newYear = typeof year !== 'undefined' && year !== 9999 ? year + 1 : new Date().getFullYear();
+				this.updateStateTime(day, month, newYear);
+				break;
+			}
+		}
 	}
 
 	private onDecrement = () => {
 		this.secondInput = false;
-		this.step(-1);
+		const {day, month, year, activeSection} = this.state;
+		switch (activeSection) {
+			case ActiveSection.Day: {
+				//day starts from 1 and cannot be zero
+				const newDay = typeof day !== 'undefined' ? (day - 1) % 32 || 31 : 31;
+				this.updateStateTime(newDay, month, year);
+				break;
+			}
+			case ActiveSection.Month: {
+				//month starts from 1 and cannot be zero
+				const newMonth = typeof month !== 'undefined' ? (month - 1) % 13 || 12 : 12;
+				this.updateStateTime(day, newMonth, year);
+				break;
+			}
+			case ActiveSection.Year: {
+				const newYear = typeof year !== 'undefined' && year !== 0 ? year - 1 : new Date().getFullYear();
+				this.updateStateTime(day, month, newYear);
+				break;
+			}
+		}
 	}
 
 	private onClear = () => {
