@@ -6,7 +6,25 @@ export type TPopoverProps = {
 	children?: React.ReactNode,
 	anchor?: React.ReactNode,
 	onRequestClose?: Function,
+	placement?: string,
+	alignment?: string,
 	onMouseDown?: React.EventHandler<React.MouseEvent<Element>>
 };
 declare const Popover: React.ComponentClass<TPopoverProps>;
 export default Popover;
+
+export declare namespace ALIGNMENT {
+	export const LEFT: string;
+	export const CENTER: string;
+	export const RIGHT: string;
+	export const TOP: string;
+	export const MIDDLE: string;
+	export const BOTTOM: string;
+}
+
+export declare namespace PLACEMENT {
+	export const TOP: string;
+	export const BOTTOM: string;
+	export const LEFT: string;
+	export const RIGHT: string;
+}
