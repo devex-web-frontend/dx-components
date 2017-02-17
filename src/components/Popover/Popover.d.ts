@@ -2,6 +2,7 @@ import * as React from 'react';
 export type TPopoverProps = {
 	isOpened?: boolean,
 	theme?: {}
+	hasArrow?: boolean,
 	closeOnClickAway?: boolean,
 	children?: React.ReactNode,
 	anchor?: React.ReactNode,
