@@ -152,9 +152,9 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			                onBlur={this.onBlur}
 			                onFocus={this.onFocus}
 			                onKeyDown={this.onKeyDown}
+			                onClick={this.onClick}
 			                clearIcon={clearIcon}>
-				<div className={innerClassName}
-				     onClick={this.onInnerClick}>
+				<div className={innerClassName}>
 					<span className={dayClassName}
 					      onMouseDown={this.onDayMouseDown}>
 						{this.format(day, ActiveSection.Day)}
@@ -369,14 +369,6 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		}
 	}
 
-	private onInnerClick = () => {
-		if (!this.state.isOpened) {
-			this.setState({
-				isOpened: true
-			});
-		}
-	}
-
 	private onCalendarMouseDown = (e: React.MouseEvent<HTMLElement>) => {
 		//stop blur
 		e.preventDefault();
@@ -500,9 +492,11 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	onClick = () => {
-		this.setState({
-			isOpened: true
-		});
+		if (!this.state.isOpened) {
+			this.setState({
+				isOpened: true
+			});
+		}
 	}
 
 	private onBlur = (e: React.FocusEvent<HTMLElement>) => {

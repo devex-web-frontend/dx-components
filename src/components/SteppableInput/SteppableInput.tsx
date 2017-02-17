@@ -5,6 +5,7 @@ import Input from '../Input/Input';
 import {themr} from 'react-css-themr';
 import ButtonIcon, {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
 import Holdable from '../Holdable/Holdable';
+import ReactInstance = React.ReactInstance;
 
 export const STEPPABLE_INPUT_THEME = {
 	container: React.PropTypes.string,
@@ -38,6 +39,7 @@ export type TSteppableInputOwnProps = {
 	onFocus?: React.EventHandler<React.FocusEvent<HTMLElement>>,
 	onBlur?: React.EventHandler<React.FocusEvent<HTMLElement>>,
 	onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLElement>>,
+	onClick?: React.EventHandler<React.MouseEvent<HTMLElement>>,
 	children?: React.ReactNode
 };
 
@@ -61,6 +63,9 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 	} as TSteppableInputFullProps;
 
 	state: TSteppableInputState = {};
+	private clearButtonRef: React.ReactInstance;
+	private incrementButtonRef: React.ReactInstance;
+	private decrementButtonRef: React.ReactInstance;
 
 	componentDidUpdate(prevProps: TSteppableInputFullProps) {
 		if (prevProps.onClear && !this.props.onClear) {
@@ -90,6 +95,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 		return (
 			<Input tagName="div"
 			       theme={theme}
+			       onClick={this.onClick}
 			       onFocus={this.onFocus}
 			       onBlur={this.onBlur}
 			       onKeyDown={this.onKeyDown}
@@ -101,6 +107,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 				{onClear && clearIcon && (
 					<ButtonIcon name={clearIcon}
 					            isFlat={true}
+					            ref={(el: ReactInstance) => this.clearButtonRef = el}
 					            theme={theme.ClearButtonIcon}
 					            onClick={this.onClearClick}
 					            onMouseDown={this.onButtonMouseDown}
@@ -112,6 +119,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 						<ButtonIcon name={decrementIcon}
 						            theme={theme.ButtonIcon}
 						            onClick={this.onDecrementClick}
+						            ref={(el: ReactInstance) => this.decrementButtonRef = el}
 						            onMouseDown={this.onButtonMouseDown}
 						            isDisabled={isDisabled}
 						            tabIndex={-1}/>
@@ -123,12 +131,25 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 						            theme={theme.ButtonIcon}
 						            onClick={this.onIncrementClick}
 						            onMouseDown={this.onButtonMouseDown}
+						            ref={(el: ReactInstance) => this.incrementButtonRef = el}
 						            isDisabled={isDisabled}
 						            tabIndex={-1}/>
 					</Holdable>
 				)}
 			</Input>
 		);
+	}
+
+	private onClick = (e: React.MouseEvent<HTMLElement>) => {
+		const {onClick} = this.props;
+		if (onClick) {
+			const {target} = e;
+			if (target !== ReactDOM.findDOMNode(this.clearButtonRef) &&
+				target !== ReactDOM.findDOMNode(this.incrementButtonRef) &&
+				target !== ReactDOM.findDOMNode(this.decrementButtonRef)) {
+				onClick(e);
+			}
+		}
 	}
 
 	private onClearClick = (e: React.MouseEvent<HTMLElement>) => {
