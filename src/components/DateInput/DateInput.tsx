@@ -390,10 +390,10 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	private onCalendarButtonMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+		this.setState({
+			isOpened: !this.state.isOpened
+		});
 		if (isDefined(this.state.activeSection)) {
-			this.setState({
-				isOpened: !this.state.isOpened
-			});
 			e.preventDefault();
 		}
 	}
