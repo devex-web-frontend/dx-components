@@ -15,10 +15,11 @@ const onChange = (value: Date) => action('change')(value);
 const onClear = () => action('clear')();
 
 const Calendar: React.SFC<TCalendarProps> = props => {
+	const onChange = () => props.onChange && props.onChange(new Date());
 	return (
 		<div onMouseDown={props.onMouseDown}>
 			calendar
-			<Button onClick={props.onChange}>click me</Button>
+			<Button onClick={onChange}>click me</Button>
 		</div>
 	);
 };

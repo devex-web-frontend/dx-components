@@ -339,8 +339,24 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		}
 	}
 
-	private onCalendarValueChange = (value: Date) => {
-		// console.log('calendar changed value', value);
+	private onCalendarValueChange = (date: Date) => {
+		const {onChange, value} = this.props;
+		this.setState({
+			isOpened: false
+		});
+		if (onChange &&
+			date &&
+			date && !isNaN(date.getTime()) &&
+			(
+				!value ||
+				isNaN(value.getTime()) ||
+				value.getFullYear() !== date.getFullYear() ||
+				value.getMonth() !== date.getMonth() ||
+				value.getDate() !== date.getDate()
+			)
+		) {
+			onChange(date);
+		}
 	}
 
 	private onCalendarMouseDown = (e: React.MouseEvent<HTMLElement>) => {
