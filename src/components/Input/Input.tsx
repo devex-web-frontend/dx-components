@@ -15,7 +15,7 @@ type TInputInjectedProps = {
 	}
 };
 
-type TOwnInputProps = {
+type TOwnInputProps = React.HTMLProps<HTMLInputElement> & {
 	tagName?: string,
 	isFocused?: boolean,
 	error?: React.ReactNode
