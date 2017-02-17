@@ -115,7 +115,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 		);
 
 		let onClear;
-		if (isDefined(value) || isDefined(hours) || isDefined(minutes)) {
+		if (isDefined(value) && value !== null || isDefined(hours) || isDefined(minutes)) {
 			onClear = this.onClear;
 		}
 
