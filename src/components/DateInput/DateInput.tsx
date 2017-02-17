@@ -193,6 +193,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		} else {
 			return (
 				<Popover anchor={this}
+				         closeOnClickAway={true}
 				         onMouseDown={this.onCalendarMouseDown}
 				         isOpened={isOpened}>
 					{calendar}
