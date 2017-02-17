@@ -38,4 +38,12 @@ storiesOf('Input', module)
 				</Input>
 			</Demo>
 		);
-	});
+	})
+	.add('Invalid', () => (
+		<Demo theme={darkDemoTheme}>
+			<Input defaultValue="Error" isInvalid={true}/>
+			<Input tagName="div" tabIndex={0} isInvalid={true}>
+				div
+			</Input>
+		</Demo>
+	));

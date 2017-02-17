@@ -30,6 +30,7 @@ export type TSteppableInputInjectedProps = {
 export type TSteppableInputOwnProps = {
 	tabIndex?: number,
 	isDisabled?: boolean,
+	isInvalid?: boolean,
 	onIncrement?: Function,
 	onDecrement?: Function,
 	onClear?: Function,
@@ -77,6 +78,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 	render() {
 		const {
 			isDisabled,
+			isInvalid,
 			theme,
 			children,
 			tabIndex,
@@ -100,6 +102,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 			       onBlur={this.onBlur}
 			       onKeyDown={this.onKeyDown}
 			       onWheel={this.onWheel}
+			       isInvalid={isInvalid}
 			       isFocused={isFocused}
 			       tabIndex={(isFocused || isDisabled ) ? -1 : (tabIndex || 0)}
 			       disabled={isDisabled}>

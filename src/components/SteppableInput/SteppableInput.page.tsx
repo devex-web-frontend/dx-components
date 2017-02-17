@@ -15,12 +15,13 @@ class DemoInput extends React.Component<TSteppableInputProps, any> {
 	private input: HTMLInputElement;
 
 	render() {
-		const {onIncrement, onDecrement, onClear, isDisabled} = this.props;
+		const {onIncrement, onDecrement, isInvalid, onClear, isDisabled} = this.props;
 
 		return (
 			<SteppableInput onIncrement={onIncrement}
 			                onDecrement={onDecrement}
 			                onClear={onClear}
+			                isInvalid={isInvalid}
 			                onFocus={this.onFocus}
 			                clearIcon={iconClear}
 			                decrementIcon={iconDecrease}
@@ -51,6 +52,10 @@ storiesOf('SteppableInput', module).add('default', () => (
 		           onClear={action('clear')}/>
 		<DemoInput onIncrement={action('increment')}
 		           onDecrement={action('decremnt')}
+		           onClear={action('clear')}/>
+		<DemoInput onIncrement={action('increment')}
+		           onDecrement={action('decremnt')}
+		           isInvalid={true}
 		           onClear={action('clear')}/>
 	</Demo>
 ));

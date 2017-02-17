@@ -22,7 +22,8 @@ export type TTimeInputOwnProps = TControlProps<TTime | null> & {
 	incrementIcon?: string,
 	decrementIcon?: string,
 	clearIcon?: string,
-	isDisabled?: boolean
+	isDisabled?: boolean,
+	isInvalid?: boolean
 };
 export type TTimeInputInjectedProps = TSteppableInputInjectedProps & {
 	theme: {
@@ -95,6 +96,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			incrementIcon,
 			isDisabled,
 			clearIcon,
+			isInvalid,
 			value,
 			SteppableInput
 		} = this.props;
@@ -130,6 +132,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			<SteppableInput isDisabled={isDisabled}
 			                theme={theme.SteppableInput}
 			                onBlur={this.onBlur}
+			                isInvalid={isInvalid}
 			                onFocus={this.onFocus}
 			                decrementIcon={decrementIcon}
 			                incrementIcon={incrementIcon}
