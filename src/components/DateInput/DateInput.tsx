@@ -30,6 +30,7 @@ type TDateDefaultProps = {
 type TDateInputInjectedProps = {
 	theme: {
 		inner?: string,
+		inner_isFilled?: string,
 		section?: string,
 		section_isActive?: string,
 		separator?: string,
@@ -135,6 +136,13 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			onClear = this.onClear;
 		}
 
+		const innerClassName = classnames(
+			theme.inner,
+			{
+				[theme.inner_isFilled as string]: value && !isNaN(value.getTime())
+			}
+		);
+
 		return (
 			<SteppableInput isDisabled={isDisabled}
 			                theme={theme.SteppableInput}
@@ -145,7 +153,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			                onFocus={this.onFocus}
 			                onKeyDown={this.onKeyDown}
 			                clearIcon={clearIcon}>
-				<div className={theme.inner}
+				<div className={innerClassName}
 				     onClick={this.onInnerClick}>
 					<span className={dayClassName}
 					      onMouseDown={this.onDayMouseDown}>
