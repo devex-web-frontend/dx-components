@@ -41,8 +41,8 @@ storiesOf('Input', module)
 	})
 	.add('Invalid', () => (
 		<Demo theme={darkDemoTheme}>
-			<Input defaultValue="Error" isInvalid={true}/>
-			<Input tagName="div" tabIndex={0} isInvalid={true}>
+			<Input defaultValue="Error" error="Error"/>
+			<Input tagName="div" tabIndex={0} error="Error">
 				div
 			</Input>
 		</Demo>

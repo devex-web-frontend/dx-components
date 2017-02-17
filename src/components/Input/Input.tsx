@@ -11,26 +11,26 @@ interface IInputInjectedProps {
 	theme: {
 		container?: string,
 		container_isFocused?: string
-		container_isInvalid?: string
+		container_hasError?: string
 	}
 }
 
 interface IOwnInputProps extends React.HTMLProps<HTMLInputElement> {
 	tagName?: string,
 	isFocused?: boolean,
-	isInvalid?: boolean
+	error?: React.ReactNode
 }
 
 interface IInputProps extends IOwnInputProps, IInputInjectedProps {
 }
 
-const Input: React.SFC<IInputProps> = ({theme, isFocused, tagName, isInvalid, ...props}) => {
+const Input: React.SFC<IInputProps> = ({theme, isFocused, tagName, error, ...props}) => {
 	const Component = tagName as any;
 	const className = classnames(
 		theme.container,
 		{
 			[theme.container_isFocused as string]: isFocused,
-			[theme.container_isInvalid as string]: isInvalid
+			[theme.container_hasError as string]: Boolean(error)
 		}
 	);
 	return <Component className={className} {...props}/>;
