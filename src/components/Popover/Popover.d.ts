@@ -5,7 +5,8 @@ export type TPopoverProps = {
 	closeOnClickAway?: boolean,
 	children?: React.ReactNode,
 	anchor?: React.ReactNode,
-	onRequestClose?: Function
+	onRequestClose?: Function,
+	onMouseDown?: React.EventHandler<React.MouseEvent<Element>>
 };
 declare const Popover: React.ComponentClass<TPopoverProps>;
 export default Popover;

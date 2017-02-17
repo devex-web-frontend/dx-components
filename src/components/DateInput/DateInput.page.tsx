@@ -9,14 +9,17 @@ import * as add from '../../resources/svg/icon-add.svg';
 import * as decrease from '../../resources/svg/icon-decrease.svg';
 import * as clear from '../../resources/svg/icon-small-cross.svg';
 import * as calendar from '../../resources/svg/icon-calendar.svg';
-import {TControlProps} from '../Control/Control';
+import {TCalendarProps} from './DateInput';
 
 const onChange = (value: Date) => action('change')(value);
 const onClear = () => action('clear')();
 
-const Calendar: React.SFC<TControlProps<Date>> = props => {
+const Calendar: React.SFC<TCalendarProps> = props => {
 	return (
-		<div>calendar</div>
+		<div onMouseDown={props.onMouseDown}>
+			calendar
+			<Button onClick={props.onChange}>click me</Button>
+		</div>
 	);
 };
 

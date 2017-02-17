@@ -61,6 +61,7 @@ export default class Popover extends React.Component {
 		isOpened: React.PropTypes.bool,
 		closeOnClickAway: React.PropTypes.bool,
 		anchor: React.PropTypes.object,
+		onMouseDown: React.PropTypes.func,
 
 		//placement for popover relatively to anchor
 		placement: React.PropTypes.oneOf(Object.values(PLACEMENT)),
@@ -143,6 +144,7 @@ export default class Popover extends React.Component {
 			closeOnClickAway,
 			theme,
 			hasArrow,
+			onMouseDown,
 			isOpened,
 			onRequestClose,
 			anchor
@@ -177,6 +179,7 @@ export default class Popover extends React.Component {
 			<UpdateDetector onUpdate={this.onSizeUpdate}>
 				<div ref={el => this._popover = el}
 					 style={style}
+					 onMouseDown={onMouseDown}
 					 className={popoverClassName}>
 					<div className={theme.content}>
 						{isMeasured && hasArrow && (

@@ -17,8 +17,12 @@ type TDateInputOwnProps = TSteppableInputProps & TDateValueProps & {
 	target?: React.ReactNode
 };
 
+export type TCalendarProps = TDateValueProps & {
+	onMouseDown?: React.EventHandler<React.MouseEvent<Element>>
+};
+
 type TDateDefaultProps = {
-	Calendar: React.ComponentClass<TDateValueProps> | React.SFC<TDateValueProps>,
+	Calendar: React.ComponentClass<TCalendarProps> | React.SFC<TCalendarProps>,
 	SteppableInput: typeof SteppableInput,
 	ButtonIcon: typeof ButtonIcon
 };
@@ -162,7 +166,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 					            isDisabled={isDisabled}
 					            tabIndex={-1}
 					            name={calendarIcon}
-					            onMouseDown={this.onCalendarMouseDown}
+					            onMouseDown={this.onCalendarButtonMouseDown}
 					            theme={theme.CalendarButtonIcon}/>
 				)}
 				{Calendar && this.renderCalendar()}
@@ -175,7 +179,9 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		const {isOpened} = this.state;
 
 		const calendar = (
-			<Calendar value={value}/>
+			<Calendar value={value}
+			          onMouseDown={this.onCalendarMouseDown}
+			          onChange={this.onCalendarValueChange}/>
 		);
 
 		if (target) {
@@ -187,7 +193,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		} else {
 			return (
 				<Popover anchor={this}
-				         closeOnClickAway={true}
+				         onMouseDown={this.onCalendarMouseDown}
 				         isOpened={isOpened}>
 					{calendar}
 				</Popover>
@@ -333,6 +339,15 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		}
 	}
 
+	private onCalendarValueChange = (value: Date) => {
+		// console.log('calendar changed value', value);
+	}
+
+	private onCalendarMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+		//stop blur
+		e.preventDefault();
+	}
+
 	private onClear = () => {
 		this.secondInput = false;
 		this.updateStateTime();
@@ -340,7 +355,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		onClear && onClear();
 	}
 
-	private onCalendarMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+	private onCalendarButtonMouseDown = (e: React.MouseEvent<HTMLElement>) => {
 		if (isDefined(this.state.activeSection)) {
 			this.setState({
 				isOpened: !this.state.isOpened
@@ -536,12 +551,6 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 				break;
 			}
 		}
-	}
-
-	private onPopoverRequestClose = () => {
-		this.setState({
-			isOpened: false
-		});
 	}
 }
 
