@@ -6,6 +6,7 @@ import {themr} from 'react-css-themr';
 import ButtonIcon, {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
 import Holdable from '../Holdable/Holdable';
 import ReactInstance = React.ReactInstance;
+import {TInputProps} from '../Input/Input';
 
 export const STEPPABLE_INPUT_THEME = {
 	container: React.PropTypes.string,
@@ -27,20 +28,26 @@ export type TSteppableInputInjectedProps = {
 	}
 };
 
-export type TSteppableInputOwnProps = {
+type TPickedInputProps = Pick<TInputProps,
+		'error' |
+		'onBlur' |
+		'onFocus' |
+		'onKeyDown' |
+		'onClick'
+	>;
+export type TSteppableInputOwnProps = TPickedInputProps & {
+	isDisabled?: TInputProps['disabled'],
 	tabIndex?: number,
-	isDisabled?: boolean,
-	isInvalid?: boolean,
 	onIncrement?: Function,
 	onDecrement?: Function,
 	onClear?: Function,
 	incrementIcon?: string,
 	decrementIcon?: string,
 	clearIcon?: string,
-	onFocus?: React.EventHandler<React.FocusEvent<HTMLElement>>,
-	onBlur?: React.EventHandler<React.FocusEvent<HTMLElement>>,
-	onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLElement>>,
-	onClick?: React.EventHandler<React.MouseEvent<HTMLElement>>,
+	// onFocus?: React.EventHandler<React.FocusEvent<HTMLElement>>,
+	// onBlur?: React.EventHandler<React.FocusEvent<HTMLElement>>,
+	// onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLElement>>,
+	// onClick?: React.EventHandler<React.MouseEvent<HTMLElement>>,
 	children?: React.ReactNode
 };
 
@@ -78,7 +85,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 	render() {
 		const {
 			isDisabled,
-			isInvalid,
+			error,
 			theme,
 			children,
 			tabIndex,
@@ -102,7 +109,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 			       onBlur={this.onBlur}
 			       onKeyDown={this.onKeyDown}
 			       onWheel={this.onWheel}
-			       isInvalid={isInvalid}
+			       error={error}
 			       isFocused={isFocused}
 			       tabIndex={(isFocused || isDisabled ) ? -1 : (tabIndex || 0)}
 			       disabled={isDisabled}>
@@ -143,7 +150,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 		);
 	}
 
-	private onClick = (e: React.MouseEvent<HTMLElement>) => {
+	private onClick = (e: React.MouseEvent<HTMLInputElement>) => {
 		const {onClick, isDisabled} = this.props;
 		if (onClick && !isDisabled) {
 			const {target} = e;
@@ -176,7 +183,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 		}
 	}
 
-	private onFocus = (e: React.FocusEvent<HTMLElement>) => {
+	private onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
 		if (!this.props.isDisabled && !this.state.isFocused) {
 			this.setState({
 				isFocused: true
@@ -185,7 +192,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 		}
 	}
 
-	private onBlur = (e: React.FocusEvent<HTMLElement>) => {
+	private onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
 		if (!this.props.isDisabled && this.state.isFocused) {
 			this.setState({
 				isFocused: false
@@ -194,7 +201,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 		}
 	}
 
-	private onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+	private onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (!this.props.isDisabled) {
 			switch (e.keyCode) {
 				case KEYCODE.UP: {

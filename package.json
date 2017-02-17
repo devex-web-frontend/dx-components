@@ -9,7 +9,7 @@
     "tslint": "tslint -c ./node_modules/dx-lint/tslint.json './src/**/*.ts'",
     "jest": "jest --no-cache",
     "start": "node ./scripts/run.js ./scripts/start.js",
-    "test": "npm run eslint && npm run jest",
+    "test": "npm run eslint && npm run tslint && npm run jest",
     "dx-flow": "dx-flow",
     "postinstall": "bower prune && bower install"
   },

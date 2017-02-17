@@ -100,7 +100,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	render() {
 		const {
 			isDisabled,
-			isInvalid,
+			error,
 			clearIcon,
 			calendarIcon,
 			Calendar,
@@ -148,7 +148,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			<SteppableInput isDisabled={isDisabled}
 			                theme={theme.SteppableInput}
 			                onClear={onClear}
-			                isInvalid={isInvalid}
+			                error={error}
 			                onIncrement={this.onIncrement}
 			                onDecrement={this.onDecrement}
 			                onBlur={this.onBlur}

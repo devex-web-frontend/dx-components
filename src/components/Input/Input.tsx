@@ -7,24 +7,23 @@ const INPUT_THEME_SHAPE = {
 	container: React.PropTypes.string
 };
 
-interface IInputInjectedProps {
+type TInputInjectedProps = {
 	theme: {
 		container?: string,
 		container_isFocused?: string
 		container_hasError?: string
 	}
-}
+};
 
-interface IOwnInputProps extends React.HTMLProps<HTMLInputElement> {
+type TOwnInputProps = React.HTMLProps<HTMLInputElement> & {
 	tagName?: string,
 	isFocused?: boolean,
 	error?: React.ReactNode
-}
+};
 
-interface IInputProps extends IOwnInputProps, IInputInjectedProps {
-}
+type TFullInputProps = TOwnInputProps & TInputInjectedProps;
 
-const Input: React.SFC<IInputProps> = ({theme, isFocused, tagName, error, ...props}) => {
+const Input: React.SFC<TFullInputProps> = ({theme, isFocused, tagName, error, ...props}) => {
 	const Component = tagName as any;
 	const className = classnames(
 		theme.container,
@@ -40,6 +39,7 @@ Input.propTypes = {
 };
 Input.defaultProps = {
 	tagName: 'input'
-} as IInputProps;
+} as TFullInputProps;
 
-export default themr(INPUT)(Input) as React.ComponentClass<IOwnInputProps & Partial<IInputInjectedProps>>;
+export type TInputProps = TOwnInputProps & Partial<TInputInjectedProps>;
+export default themr(INPUT)(Input) as React.ComponentClass<TInputProps>;

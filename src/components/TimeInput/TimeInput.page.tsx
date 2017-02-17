@@ -29,7 +29,7 @@ class TimeInputPage extends React.Component<any, any> {
 					<TimeInput decrementIcon={decrease}
 					           isDisabled={this.props.isDisabled}
 					           incrementIcon={add}
-					           isInvalid={this.props.isInvalid}
+					           error={this.props.error}
 					           clearIcon={clear}
 					           onChange={this.onTimeInputChange}
 					           value={this.state.value}/>
@@ -56,4 +56,4 @@ class TimeInputPage extends React.Component<any, any> {
 storiesOf('TimeInput', module)
 	.add('default', () => <TimeInputPage/>)
 	.add('disabled', () => <TimeInputPage isDisabled={true}/>)
-	.add('invalid', () => <TimeInputPage isInvalid={true}/>);
+	.add('invalid', () => <TimeInputPage error={true}/>);

@@ -33,7 +33,7 @@ class DateInputPage extends React.Component<any, TState> {
 	state: TState = {};
 
 	render() {
-		const {isDisabled, isInvalid} = this.props;
+		const {isDisabled, error} = this.props;
 
 		return (
 			<Demo>
@@ -45,7 +45,7 @@ class DateInputPage extends React.Component<any, TState> {
 					<DateInput onChange={this.onControlledChange}
 					           clearIcon={clear}
 					           onClear={this.onControlledClear}
-					           isInvalid={isInvalid}
+					           error={error}
 					           value={this.state.value}/>
 					<Button onClick={this.onControlledManualClear}>Clear</Button>
 				</section>
@@ -55,7 +55,7 @@ class DateInputPage extends React.Component<any, TState> {
 					          isDisabled={isDisabled}
 					          incrementIcon={add}
 					          clearIcon={clear}
-					          isInvalid={isInvalid}
+					          error={error}
 					          onChange={onChange}
 					          onClear={onClear}
 					          defaultValue={new Date()}/>
@@ -64,7 +64,7 @@ class DateInputPage extends React.Component<any, TState> {
 					          incrementIcon={add}
 					          clearIcon={clear}
 					          onChange={onChange}
-					          isInvalid={isInvalid}
+					          error={error}
 					          onClear={onClear}
 					          defaultValue={new Date()}/>
 					<Stateful decrementIcon={decrease}
@@ -72,7 +72,7 @@ class DateInputPage extends React.Component<any, TState> {
 					          incrementIcon={add}
 					          clearIcon={clear}
 					          onChange={onChange}
-					          isInvalid={isInvalid}
+					          error={error}
 					          onClear={onClear}
 					          defaultValue={new Date()}/>
 				</section>
@@ -81,7 +81,7 @@ class DateInputPage extends React.Component<any, TState> {
 					<Stateful decrementIcon={decrease}
 					          incrementIcon={add}
 					          isDisabled={isDisabled}
-					          isInvalid={isInvalid}
+					          error={error}
 					          clearIcon={clear}
 					          calendarIcon={calendar}
 					          onChange={onChange}
@@ -92,7 +92,7 @@ class DateInputPage extends React.Component<any, TState> {
 					          incrementIcon={add}
 					          isDisabled={isDisabled}
 					          clearIcon={clear}
-					          isInvalid={isInvalid}
+					          error={error}
 					          calendarIcon={calendar}
 					          onChange={onChange}
 					          onClear={onClear}
@@ -131,4 +131,4 @@ class DateInputPage extends React.Component<any, TState> {
 storiesOf('DateInput', module)
 	.add('default', () => <DateInputPage/>)
 	.add('disabled', () => <DateInputPage isDisabled={true}/>)
-	.add('invalid', () => <DateInputPage isInvalid={true}/>);
+	.add('invalid', () => <DateInputPage error={true}/>);

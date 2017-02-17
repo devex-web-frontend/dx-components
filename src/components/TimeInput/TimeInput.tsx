@@ -1,12 +1,13 @@
 import * as React from 'react';
 import SteppableInput, {
 	TSteppableInputInjectedProps,
-	STEPPABLE_INPUT_THEME
+	STEPPABLE_INPUT_THEME, TSteppableInputProps
 } from '../SteppableInput/SteppableInput';
 import {PURE} from 'dx-util/src/react/pure';
 import {TControlProps, createControlProps, KeyCode, KEY_CODE_NUM_MAP} from '../Control/Control';
 import * as classnames from 'classnames';
 import {themr} from 'react-css-themr';
+import {TInputProps} from '../Input/Input';
 
 export type TTime = {
 	hours: number,
@@ -18,12 +19,10 @@ enum ActiveSection {
 	Minutes
 }
 
-export type TTimeInputOwnProps = TControlProps<TTime | null> & {
+export type TTimeInputOwnProps = TSteppableInputProps & TControlProps<TTime | null> & {
 	incrementIcon?: string,
 	decrementIcon?: string,
-	clearIcon?: string,
-	isDisabled?: boolean,
-	isInvalid?: boolean
+	clearIcon?: string
 };
 export type TTimeInputInjectedProps = TSteppableInputInjectedProps & {
 	theme: {
@@ -96,7 +95,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			incrementIcon,
 			isDisabled,
 			clearIcon,
-			isInvalid,
+			error,
 			value,
 			SteppableInput
 		} = this.props;
@@ -132,7 +131,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			<SteppableInput isDisabled={isDisabled}
 			                theme={theme.SteppableInput}
 			                onBlur={this.onBlur}
-			                isInvalid={isInvalid}
+			                error={error}
 			                onFocus={this.onFocus}
 			                decrementIcon={decrementIcon}
 			                incrementIcon={incrementIcon}
