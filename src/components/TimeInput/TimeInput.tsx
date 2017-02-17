@@ -26,6 +26,8 @@ export type TTimeInputOwnProps = TControlProps<TTime | null> & {
 };
 export type TTimeInputInjectedProps = TSteppableInputInjectedProps & {
 	theme: {
+		inner?: string,
+		inner_isFilled?: string,
 		section?: string,
 		section_isActive?: string,
 		separator?: string,
@@ -117,6 +119,13 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			onClear = this.onClear;
 		}
 
+		const innerClassName = classnames(
+			theme.inner,
+			{
+				[theme.inner_isFilled as string]: Boolean(value)
+			}
+		);
+
 		return (
 			<SteppableInput isDisabled={isDisabled}
 			                theme={theme.SteppableInput}
@@ -129,7 +138,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			                onClear={onClear}
 			                onDecrement={this.onDecrement}
 			                onIncrement={this.onIncrement}>
-				<div className={theme.container}>
+				<div className={innerClassName}>
 					<span className={hoursClassName}
 					      onMouseDown={this.onHoursMouseDown}>
 						{this.format(hours)}
