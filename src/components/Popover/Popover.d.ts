@@ -13,7 +13,7 @@ export type TPopoverProps = {
 declare const Popover: React.ComponentClass<TPopoverProps>;
 export default Popover;
 
-export declare namespace ALIGNMENT {
+export declare namespace ALIGN {
 	export const LEFT: string;
 	export const CENTER: string;
 	export const RIGHT: string;
