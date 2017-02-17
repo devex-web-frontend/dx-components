@@ -7,7 +7,7 @@ export type TPopoverProps = {
 	anchor?: React.ReactNode,
 	onRequestClose?: Function,
 	placement?: string,
-	alignment?: string,
+	align?: string,
 	onMouseDown?: React.EventHandler<React.MouseEvent<Element>>
 };
 declare const Popover: React.ComponentClass<TPopoverProps>;
