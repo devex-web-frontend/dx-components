@@ -141,8 +141,8 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 	}
 
 	private onClick = (e: React.MouseEvent<HTMLElement>) => {
-		const {onClick} = this.props;
-		if (onClick) {
+		const {onClick, isDisabled} = this.props;
+		if (onClick && !isDisabled) {
 			const {target} = e;
 			if (target !== ReactDOM.findDOMNode(this.clearButtonRef) &&
 				target !== ReactDOM.findDOMNode(this.incrementButtonRef) &&
