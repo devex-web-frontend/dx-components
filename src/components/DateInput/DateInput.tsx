@@ -145,7 +145,8 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			                onFocus={this.onFocus}
 			                onKeyDown={this.onKeyDown}
 			                clearIcon={clearIcon}>
-				<div className={theme.inner}>
+				<div className={theme.inner}
+				     onClick={this.onInnerClick}>
 					<span className={dayClassName}
 					      onMouseDown={this.onDayMouseDown}>
 						{this.format(day, ActiveSection.Day)}
@@ -360,6 +361,14 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		}
 	}
 
+	private onInnerClick = () => {
+		if (!this.state.isOpened) {
+			this.setState({
+				isOpened: true
+			});
+		}
+	}
+
 	private onCalendarMouseDown = (e: React.MouseEvent<HTMLElement>) => {
 		//stop blur
 		e.preventDefault();
@@ -408,6 +417,14 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	private onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
 		const {activeSection, day, month, year} = this.state;
 		switch (e.keyCode) {
+			case KeyCode.Escape: {
+				if (this.state.isOpened) {
+					this.setState({
+						isOpened: false
+					});
+				}
+				break;
+			}
 			case KeyCode.Left: {
 				switch (activeSection) {
 					case ActiveSection.Month: {
@@ -474,9 +491,14 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		}
 	}
 
+	onClick = () => {
+		this.setState({
+			isOpened: true
+		});
+	}
+
 	private onBlur = (e: React.FocusEvent<HTMLElement>) => {
 		this.secondInput = false;
-		// this.correctMinutes();
 		this.setState({
 			activeSection: undefined,
 			isOpened: false
@@ -484,9 +506,6 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	private onFocus = (e: React.FocusEvent<HTMLElement>) => {
-		this.setState({
-			isOpened: true
-		});
 		this.secondInput = false;
 		if (!isDefined(this.state.activeSection)) {
 			this.setState({
