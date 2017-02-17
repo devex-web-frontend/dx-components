@@ -175,7 +175,6 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 					            isDisabled={isDisabled}
 					            tabIndex={-1}
 					            name={calendarIcon}
-					            onMouseDown={this.onCalendarButtonMouseDown}
 					            theme={theme.CalendarButtonIcon}/>
 				)}
 				{Calendar && this.renderCalendar()}
