@@ -3,7 +3,9 @@ import {PropTypes, Requireable} from 'react';
 export interface TControlProps<TValue> {
 	value?: TValue,
 	defaultValue?: TValue,
-	onChange?: (value?: TValue) => void
+	onChange?: (value?: TValue) => void,
+	min?: TValue,
+	max?: TValue
 }
 
 export function createControlProps<TValue>(valueType: Requireable<TValue>) {

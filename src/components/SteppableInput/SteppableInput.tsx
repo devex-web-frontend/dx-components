@@ -36,7 +36,7 @@ type TPickedInputProps = Pick<TInputProps,
 		'onClick'
 	>;
 export type TSteppableInputOwnProps = TPickedInputProps & {
-	isDisabled?: TInputProps['disabled'],
+	isDisabled?: TInputProps['isDisabled'],
 	tabIndex?: number,
 	onIncrement?: Function,
 	onDecrement?: Function,
@@ -102,17 +102,16 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 		const {isFocused} = this.state;
 
 		return (
-			<Input tagName="div"
-			       theme={theme}
+			<Input theme={theme}
+			       type="hidden"
 			       onClick={this.onClick}
 			       onFocus={this.onFocus}
 			       onBlur={this.onBlur}
 			       onKeyDown={this.onKeyDown}
 			       onWheel={this.onWheel}
+			       isDisabled={isDisabled}
 			       error={error}
-			       isFocused={isFocused}
-			       tabIndex={(isFocused || isDisabled ) ? -1 : (tabIndex || 0)}
-			       disabled={isDisabled}>
+			       tabIndex={(isFocused || isDisabled ) ? -1 : (tabIndex || 0)}>
 				{children}
 				{onClear && clearIcon && (
 					<ButtonIcon name={clearIcon}
