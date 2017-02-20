@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import {PURE} from 'dx-util/src/react/pure';
 import Input from '../Input/Input';
 import {themr} from 'react-css-themr';
-import ButtonIcon, {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
+import ButtonIcon, {BUTTON_ICON_THEME, TButtonIconProps} from '../ButtonIcon/ButtonIcon';
 import Holdable from '../Holdable/Holdable';
 import ReactInstance = React.ReactInstance;
 import {TInputProps} from '../Input/Input';
@@ -52,8 +52,8 @@ export type TSteppableInputOwnProps = TPickedInputProps & {
 };
 
 export type TSteppableInputDefaultProps = {
-	Input: typeof Input,
-	ButtonIcon: typeof ButtonIcon
+	Input: React.ComponentClass<TInputProps> | React.SFC<TInputProps>,
+	ButtonIcon: React.ComponentClass<TButtonIconProps> | React.SFC<TButtonIconProps>
 };
 
 export type TSteppableInputFullProps =
@@ -117,7 +117,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 				{onClear && clearIcon && (
 					<ButtonIcon name={clearIcon}
 					            isFlat={true}
-					            ref={(el: ReactInstance) => this.clearButtonRef = el}
+					            ref={(el: any) => this.clearButtonRef = el}
 					            theme={theme.ClearButtonIcon}
 					            onClick={this.onClearClick}
 					            onMouseDown={this.onButtonMouseDown}
@@ -129,7 +129,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 						<ButtonIcon name={decrementIcon}
 						            theme={theme.ButtonIcon}
 						            onClick={this.onDecrementClick}
-						            ref={(el: ReactInstance) => this.decrementButtonRef = el}
+						            ref={(el: any) => this.decrementButtonRef = el}
 						            onMouseDown={this.onButtonMouseDown}
 						            isDisabled={isDisabled}
 						            tabIndex={-1}/>
@@ -141,7 +141,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 						            theme={theme.ButtonIcon}
 						            onClick={this.onIncrementClick}
 						            onMouseDown={this.onButtonMouseDown}
-						            ref={(el: ReactInstance) => this.incrementButtonRef = el}
+						            ref={(el: any) => this.incrementButtonRef = el}
 						            isDisabled={isDisabled}
 						            tabIndex={-1}/>
 					</Holdable>

@@ -8,6 +8,7 @@ import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import Popover from '../Popover/Popover';
 import * as Portal from 'react-overlays/lib/Portal';
 import {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
+import {TButtonIconProps} from '../ButtonIcon/ButtonIcon';
 
 type TDateValueProps = TControlProps<Date | null>;
 
@@ -23,8 +24,8 @@ export type TCalendarProps = TDateValueProps & {
 
 type TDateDefaultProps = {
 	Calendar: React.ComponentClass<TCalendarProps> | React.SFC<TCalendarProps>,
-	SteppableInput: typeof SteppableInput,
-	ButtonIcon: typeof ButtonIcon
+	SteppableInput: React.ComponentClass<TSteppableInputProps> | React.SFC<TSteppableInputProps>,
+	ButtonIcon: React.ComponentClass<TButtonIconProps> | React.SFC<TButtonIconProps>
 };
 
 type TDateInputInjectedProps = {

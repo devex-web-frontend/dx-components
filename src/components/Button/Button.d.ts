@@ -1,4 +1,7 @@
-export interface IButtonProps {
+declare const Button: React.ComponentClass<IButtonProps>;
+export default Button;
+
+export interface IButtonProps extends React.ClassAttributes<typeof Button> {
 	isDisabled?: boolean,
 	theme?: {
 		container?: string,
@@ -16,6 +19,3 @@ export interface IButtonProps {
 	onClick?: Function,
 	tabIndex?: number
 }
-
-declare const Button: React.ComponentClass<IButtonProps>;
-export default Button;

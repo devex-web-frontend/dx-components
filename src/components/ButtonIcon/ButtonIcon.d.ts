@@ -4,6 +4,7 @@ import {IButtonProps} from '../Button/Button';
 interface IButtonIconProps extends IButtonProps {
 	name: string
 }
+export type TButtonIconProps = IButtonIconProps;
 export declare const BUTTON_ICON: symbol;
 export type BUTTON_ICON_THEME = {
 	container?: string,

@@ -35,7 +35,7 @@ export type TTimeInputInjectedProps = TSteppableInputInjectedProps & {
 	}
 };
 export type TTimeInputDefaultProps = {
-	SteppableInput: typeof SteppableInput
+	SteppableInput: React.ComponentClass<TSteppableInputProps> | React.SFC<TSteppableInputProps>
 };
 export type TTimeInputFullProps = TTimeInputDefaultProps & TTimeInputOwnProps & TTimeInputInjectedProps;
 
