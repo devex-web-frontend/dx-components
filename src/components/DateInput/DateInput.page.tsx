@@ -4,7 +4,9 @@ import Demo from '../../demo/Demo';
 import stateful from '../../util/react/stateful';
 import DateInput from './DateInput';
 import Button from '../Button/Button';
-const Stateful = stateful()(DateInput);
+const Stateful = stateful({
+	onChangeKey: 'onValueChange'
+})(DateInput);
 import * as add from '../../resources/svg/icon-add.svg';
 import * as decrease from '../../resources/svg/icon-decrease.svg';
 import * as clear from '../../resources/svg/icon-small-cross.svg';
@@ -15,7 +17,7 @@ const onChange = (value: Date) => action('change')(value);
 const onClear = () => action('clear')();
 
 const Calendar: React.SFC<TCalendarProps> = props => {
-	const onChange = () => props.onChange && props.onChange(new Date());
+	const onChange = () => props.onValueChange && props.onValueChange(new Date());
 	return (
 		<div onMouseDown={props.onMouseDown}>
 			calendar
@@ -42,7 +44,7 @@ class DateInputPage extends React.Component<any, TState> {
 					<h1>
 						Controlled
 					</h1>
-					<DateInput onChange={this.onControlledChange}
+					<DateInput onValueChange={this.onControlledChange}
 					           clearIcon={clear}
 					           onClear={this.onControlledClear}
 					           error={error}
@@ -56,14 +58,14 @@ class DateInputPage extends React.Component<any, TState> {
 					          incrementIcon={add}
 					          clearIcon={clear}
 					          error={error}
-					          onChange={onChange}
+					          onValueChange={onChange}
 					          onClear={onClear}
 					          defaultValue={new Date()}/>
 					<Stateful decrementIcon={decrease}
 					          isDisabled={isDisabled}
 					          incrementIcon={add}
 					          clearIcon={clear}
-					          onChange={onChange}
+					          onValueChange={onChange}
 					          error={error}
 					          onClear={onClear}
 					          defaultValue={new Date()}/>
@@ -71,7 +73,7 @@ class DateInputPage extends React.Component<any, TState> {
 					          isDisabled={isDisabled}
 					          incrementIcon={add}
 					          clearIcon={clear}
-					          onChange={onChange}
+					          onValueChange={onChange}
 					          error={error}
 					          onClear={onClear}
 					          defaultValue={new Date()}/>
@@ -84,7 +86,7 @@ class DateInputPage extends React.Component<any, TState> {
 					          error={error}
 					          clearIcon={clear}
 					          calendarIcon={calendar}
-					          onChange={onChange}
+					          onValueChange={onChange}
 					          onClear={onClear}
 					          Calendar={Calendar}
 					          defaultValue={new Date()}/>
@@ -94,7 +96,7 @@ class DateInputPage extends React.Component<any, TState> {
 					          clearIcon={clear}
 					          error={error}
 					          calendarIcon={calendar}
-					          onChange={onChange}
+					          onValueChange={onChange}
 					          onClear={onClear}
 					          Calendar={Calendar}
 					          target={this.target}

@@ -10,7 +10,7 @@ import * as Portal from 'react-overlays/lib/Portal';
 import {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
 import {TButtonIconProps} from '../ButtonIcon/ButtonIcon';
 
-type TDateValueProps = TControlProps<Date | null>;
+type TDateValueProps = TControlProps<Date | null | undefined>;
 
 type TDateInputOwnProps = TSteppableInputProps & TDateValueProps & {
 	calendarIcon?: string,
@@ -193,7 +193,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		const calendar = (
 			<Calendar value={value}
 			          onMouseDown={this.onCalendarMouseDown}
-			          onChange={this.onCalendarValueChange}/>
+			          onValueChange={this.onCalendarValueChange}/>
 		);
 
 		if (target) {
@@ -255,7 +255,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	private updateStateTime(day?: number, month?: number, year?: number): void {
-		const {onChange, value} = this.props;
+		const {onValueChange, value} = this.props;
 
 		const canBuildValue = isDefined(day) && isDefined(month) && isDefined(year);
 		const newValueDiffers = canBuildValue &&
@@ -269,7 +269,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 
 		if (canBuildValue) {
 			if (newValueDiffers &&
-				onChange &&
+				onValueChange &&
 				typeof year !== 'undefined' &&
 				typeof month !== 'undefined' &&
 				typeof day !== 'undefined') {
@@ -281,10 +281,10 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 				//check new date
 				if (date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day) {
 					//everything is ok and value hasn't been adjusted
-					onChange(date);
+					onValueChange(date);
 				} else {
 					//too "smart" Date constructor has adjusted our value - date is actually invalid
-					onChange(undefined);
+					onValueChange(undefined);
 					this.setState({
 						day,
 						month,
@@ -294,7 +294,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			}
 		} else {
 			if (isDefined(this.props.value)) {
-				onChange && onChange(undefined);
+				onValueChange && onValueChange(undefined);
 			}
 			this.setState({
 				day,
@@ -353,11 +353,11 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	private onCalendarValueChange = (date: Date) => {
-		const {onChange, value} = this.props;
+		const {onValueChange, value} = this.props;
 		this.setState({
 			isOpened: false
 		});
-		if (onChange &&
+		if (onValueChange &&
 			date &&
 			date && !isNaN(date.getTime()) &&
 			(
@@ -368,7 +368,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 				value.getDate() !== date.getDate()
 			)
 		) {
-			onChange(date);
+			onValueChange(date);
 		}
 	}
 

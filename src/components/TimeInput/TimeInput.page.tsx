@@ -31,7 +31,7 @@ class TimeInputPage extends React.Component<any, any> {
 					           incrementIcon={add}
 					           error={this.props.error}
 					           clearIcon={clear}
-					           onChange={this.onTimeInputChange}
+					           onValueChange={this.onTimeInputChange}
 					           value={this.state.value}/>
 					<Button onClick={this.onClearClick}>clear</Button>
 				</div>

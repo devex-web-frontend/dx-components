@@ -6,6 +6,13 @@ import {PURE} from 'dx-util/src/react/pure';
 import {TControlProps} from '../Control/Control';
 export const INPUT = Symbol('Input');
 
+export const INPUT_THEME_SHAPE = {
+	container: React.PropTypes.string,
+	container_isFocused: React.PropTypes.string,
+	container_hasError: React.PropTypes.string,
+	input: React.PropTypes.string,
+};
+
 type TInputInjectedProps = {
 	theme: {
 		container?: string,
@@ -16,22 +23,27 @@ type TInputInjectedProps = {
 };
 
 type TOwnInputProps = TControlProps<string> & {
+	min?: any,
+	max?: any,
 	isDisabled?: boolean,
 	isReadOnly?: boolean,
 	tabIndex?: number,
 	type?: string,
+	placeholder?: string,
+	pattern?: string,
 	name?: string,
 	id?: string,
 	error?: React.ReactNode, //for possible Input Class extensions
 
+	onChange?: React.ChangeEventHandler<HTMLInputElement>,
 	onFocus?: React.FocusEventHandler<HTMLElement>,
 	onBlur?: React.FocusEventHandler<HTMLElement>,
 	onClick?: React.MouseEventHandler<HTMLElement>,
 	onMouseDown?: React.MouseEventHandler<HTMLElement>,
 	onMouseUp?: React.MouseEventHandler<HTMLElement>,
-	onKeyPress?: React.KeyboardEventHandler<HTMLElement>,
-	onKeyDown?: React.KeyboardEventHandler<HTMLElement>,
-	onKeyUp?: React.KeyboardEventHandler<HTMLElement>,
+	onKeyPress?: React.KeyboardEventHandler<HTMLElement | HTMLInputElement>,
+	onKeyDown?: React.KeyboardEventHandler<HTMLElement | HTMLInputElement>,
+	onKeyUp?: React.KeyboardEventHandler<HTMLElement | HTMLInputElement>,
 
 	onWheel?: React.WheelEventHandler<HTMLElement>
 };
@@ -64,7 +76,6 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 			children,
 			value,
 			error,
-			defaultValue,
 			onClick,
 			onMouseDown,
 			onMouseUp,
@@ -72,9 +83,11 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 			onKeyUp,
 			onKeyPress,
 			min,
+			placeholder,
 			max,
 			type,
 			name,
+			pattern,
 			id
 		} = this.props;
 
@@ -88,6 +101,13 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 			}
 		);
 
+		const isCustom = type === 'hidden';
+		const keyboardEvents = {
+			onKeyDown,
+			onKeyUp,
+			onKeyPress
+		};
+
 		return (
 			<div disabled={isDisabled}
 			     className={className}
@@ -96,26 +116,24 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 			     onClick={onClick}
 			     onMouseDown={onMouseDown}
 			     onMouseUp={onMouseUp}
-			     onKeyDown={onKeyDown}
-			     onKeyUp={onKeyUp}
-			     onKeyPress={onKeyPress}
 			     onFocus={this.onFocus}
 			     onBlur={this.onBlur}
-			     tabIndex={(type !== 'hidden' && (isFocused || isDisabled)) ? -1 : tabIndex}>
+			     tabIndex={(!isCustom && (isFocused || isDisabled)) ? -1 : tabIndex}
+				{...(isCustom && keyboardEvents)}>
 				<input className={theme.input}
 				       ref={(el: React.ReactInstance) => this.input = el}
 				       value={value}
-				       defaultValue={defaultValue}
 				       type={type}
 				       min={min}
 				       max={max}
+				       pattern={pattern}
 				       name={name}
 				       onChange={this.onChange}
+				       placeholder={placeholder}
 				       tabIndex={-1}
-				       onFocus={undefined}
-				       onBlur={undefined}
 				       readOnly={isReadOnly}
-				       disabled={isDisabled}/>
+				       disabled={isDisabled}
+					{...(!isCustom && keyboardEvents)}/>
 				{children}
 			</div>
 		);
@@ -146,7 +164,8 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 	}
 
 	onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		this.props.onChange && this.props.onChange(e.target.value);
+		this.props.onValueChange && this.props.onValueChange(e.target.value);
+		this.props.onChange && this.props.onChange(e);
 	}
 }
 

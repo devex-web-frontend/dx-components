@@ -320,7 +320,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	private updateStateTime(hours?: number, minutes?: number): void {
-		const {onChange, value} = this.props;
+		const {onValueChange, value} = this.props;
 
 		const canBuildValue = isDefined(hours) && isDefined(minutes) && minutes < 60;
 		const newValueDiffers = canBuildValue && (
@@ -332,14 +332,14 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 
 		if (canBuildValue) {
 			if (newValueDiffers) {
-				onChange && onChange({
+				onValueChange && onValueChange({
 					hours,
 					minutes
 				} as any);
 			}
 		} else {
 			if (isDefined(this.props.value)) {
-				onChange && onChange(undefined);
+				onValueChange && onValueChange(undefined);
 			}
 			this.setState({
 				hours,
