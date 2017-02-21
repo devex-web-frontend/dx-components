@@ -12,18 +12,22 @@ import {TButtonIconProps} from '../ButtonIcon/ButtonIcon';
 
 type TDateValueProps = TControlProps<Date | null | undefined>;
 
+export type TCalendarProps = TDateValueProps & {
+	onMouseDown?: React.EventHandler<React.MouseEvent<Element>>,
+	min?: Date,
+	max?: Date
+};
+
 type TDateInputOwnProps = TSteppableInputProps & TDateValueProps & {
+	min?: Date,
+	max?: Date,
 	calendarIcon?: string,
 	onClear?: Function,
 	target?: React.ReactNode
-};
-
-export type TCalendarProps = TDateValueProps & {
-	onMouseDown?: React.EventHandler<React.MouseEvent<Element>>
+	Calendar?: React.ComponentClass<TCalendarProps> | React.SFC<TCalendarProps>,
 };
 
 type TDateDefaultProps = {
-	Calendar: React.ComponentClass<TCalendarProps> | React.SFC<TCalendarProps>,
 	SteppableInput: React.ComponentClass<TSteppableInputProps> | React.SFC<TSteppableInputProps>,
 	ButtonIcon: React.ComponentClass<TButtonIconProps> | React.SFC<TButtonIconProps>
 };
@@ -177,17 +181,22 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 					            onMouseDown={this.onCalendarButtonMouseDown}
 					            theme={theme.CalendarButtonIcon}/>
 				)}
-				{Calendar && this.renderCalendar()}
+				{this.renderCalendar()}
 			</SteppableInput>
 		);
 	}
 
 	private renderCalendar() {
-		const {target, Calendar, value} = this.props;
+		const {target, Calendar, value, min, max} = this.props;
 		const {isOpened} = this.state;
+		if (!Calendar) {
+			return null;
+		}
 
 		const calendar = (
 			<Calendar value={value}
+			          min={min}
+			          max={max}
 			          onMouseDown={this.onCalendarMouseDown}
 			          onValueChange={this.onCalendarValueChange}/>
 		);
