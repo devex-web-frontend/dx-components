@@ -90,6 +90,7 @@ export function stateful() {
 
 			render() {
 				return React.createElement(Target as any, {
+					...this.props as any,
 					value: this.state.value,
 					onValueChange: this.onValueChange
 				});
