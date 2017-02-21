@@ -20,16 +20,15 @@ const KEYCODE = {
 
 export type TSteppableInputInjectedProps = {
 	theme: {
-		container?: string,
-		container_isFocused?: string,
-		input?: string,
+		inner?: string,
+		Input?: TInputProps['theme'],
 		ButtonIcon?: BUTTON_ICON_THEME,
 		ClearButtonIcon?: BUTTON_ICON_THEME
 	}
 };
 
 type TPickedInputProps = Pick<TInputProps,
-		'error' |
+	'error' |
 		'onBlur' |
 		'onFocus' |
 		'onKeyDown' |
@@ -102,7 +101,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 		const {isFocused} = this.state;
 
 		return (
-			<Input theme={theme}
+			<Input theme={theme.Input}
 			       type="hidden"
 			       onClick={this.onClick}
 			       onFocus={this.onFocus}
@@ -112,39 +111,41 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 			       isDisabled={isDisabled}
 			       error={error}
 			       tabIndex={(isFocused || isDisabled ) ? -1 : (tabIndex || 0)}>
-				{children}
-				{onClear && clearIcon && (
-					<ButtonIcon name={clearIcon}
-					            isFlat={true}
-					            ref={(el: any) => this.clearButtonRef = el}
-					            theme={theme.ClearButtonIcon}
-					            onClick={this.onClearClick}
-					            onMouseDown={this.onButtonMouseDown}
-					            isDisabled={isDisabled}
-					            tabIndex={-1}/>
-				)}
-				{onDecrement && decrementIcon && (
-					<Holdable onHold={onDecrement}>
-						<ButtonIcon name={decrementIcon}
-						            theme={theme.ButtonIcon}
-						            onClick={this.onDecrementClick}
-						            ref={(el: any) => this.decrementButtonRef = el}
+				<div className={theme.inner}>
+					{children}
+					{onClear && clearIcon && (
+						<ButtonIcon name={clearIcon}
+						            isFlat={true}
+						            ref={(el: any) => this.clearButtonRef = el}
+						            theme={theme.ClearButtonIcon}
+						            onClick={this.onClearClick}
 						            onMouseDown={this.onButtonMouseDown}
 						            isDisabled={isDisabled}
 						            tabIndex={-1}/>
-					</Holdable>
-				)}
-				{onIncrement && incrementIcon && (
-					<Holdable onHold={onIncrement}>
-						<ButtonIcon name={incrementIcon}
-						            theme={theme.ButtonIcon}
-						            onClick={this.onIncrementClick}
-						            onMouseDown={this.onButtonMouseDown}
-						            ref={(el: any) => this.incrementButtonRef = el}
-						            isDisabled={isDisabled}
-						            tabIndex={-1}/>
-					</Holdable>
-				)}
+					)}
+					{onDecrement && decrementIcon && (
+						<Holdable onHold={onDecrement}>
+							<ButtonIcon name={decrementIcon}
+							            theme={theme.ButtonIcon}
+							            onClick={this.onDecrementClick}
+							            ref={(el: any) => this.decrementButtonRef = el}
+							            onMouseDown={this.onButtonMouseDown}
+							            isDisabled={isDisabled}
+							            tabIndex={-1}/>
+						</Holdable>
+					)}
+					{onIncrement && incrementIcon && (
+						<Holdable onHold={onIncrement}>
+							<ButtonIcon name={incrementIcon}
+							            theme={theme.ButtonIcon}
+							            onClick={this.onIncrementClick}
+							            onMouseDown={this.onButtonMouseDown}
+							            ref={(el: any) => this.incrementButtonRef = el}
+							            isDisabled={isDisabled}
+							            tabIndex={-1}/>
+						</Holdable>
+					)}
+				</div>
 			</Input>
 		);
 	}

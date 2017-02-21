@@ -81,6 +81,7 @@ import loadingIndicator from '../components/LoadingIndicator/LoadingIndicator.st
 
 import {STEPPABLE_INPUT} from '../components/SteppableInput/SteppableInput';
 import steppableInput from '../components/SteppableInput/theme/SteppableInput.styl';
+import steppableInputInput from '../components/SteppableInput/theme/Input.styl';
 import steppableInputButtonIcon from '../components/SteppableInput/theme/ButtonIcon.styl';
 
 import {TIME_INPUT} from '../components/TimeInput/TimeInput';
@@ -129,6 +130,7 @@ export default {
 	[LOADING_INDICATOR]: loadingIndicator,
 	[STEPPABLE_INPUT]: {
 		...steppableInput,
+		Input: steppableInputInput,
 		ButtonIcon: steppableInputButtonIcon,
 		ClearButtonIcon: steppableInputButtonIcon
 	},
