@@ -1,10 +1,13 @@
 import {PropTypes, Requireable} from 'react';
 
-export interface TControlProps<TValue> {
+export type TControlProps<TValue> = {
 	value?: TValue,
-	defaultValue?: TValue,
 	onValueChange?: (value?: TValue) => void
-}
+};
+
+export type TStatefulControlProps<TValue> = TControlProps<TValue> & {
+	defaultValue?: TValue
+};
 
 export function createControlProps<TValue>(valueType: Requireable<TValue>) {
 	return {
