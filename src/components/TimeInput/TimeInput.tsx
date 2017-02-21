@@ -1,13 +1,12 @@
 import * as React from 'react';
 import SteppableInput, {
 	TSteppableInputInjectedProps,
-	STEPPABLE_INPUT_THEME, TSteppableInputProps
+	TSteppableInputProps
 } from '../SteppableInput/SteppableInput';
 import {PURE} from 'dx-util/src/react/pure';
-import {TControlProps, createControlProps, KeyCode, KEY_CODE_NUM_MAP} from '../Control/Control';
+import {TControlProps, KeyCode, KEY_CODE_NUM_MAP} from '../Control/Control';
 import * as classnames from 'classnames';
 import {themr} from 'react-css-themr';
-import {TInputProps} from '../Input/Input';
 
 export type TTime = {
 	hours: number,
@@ -47,13 +46,6 @@ export type TTimeInputState = {
 
 @PURE
 class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
-	static propTypes = {
-		...createControlProps(React.PropTypes.shape({
-			hours: React.PropTypes.number,
-			minutes: React.PropTypes.number
-		}))
-	};
-
 	static defaultProps = {
 		SteppableInput
 	};

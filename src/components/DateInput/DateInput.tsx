@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {PURE} from 'dx-util/src/react/pure';
 import SteppableInput, {TSteppableInputProps, TSteppableInputInjectedProps} from '../SteppableInput/SteppableInput';
-import {TControlProps, createControlProps, KeyCode, KEY_CODE_NUM_MAP} from '../Control/Control';
+import {TControlProps, KeyCode, KEY_CODE_NUM_MAP} from '../Control/Control';
 import * as classnames from 'classnames';
 import {themr} from 'react-css-themr';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
@@ -58,10 +58,6 @@ type TDateInputState = {
 
 @PURE
 class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
-	static propTypes = {
-		...createControlProps(React.PropTypes.instanceOf(Date))
-	};
-
 	static defaultProps = {
 		SteppableInput,
 		ButtonIcon
