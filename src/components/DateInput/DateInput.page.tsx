@@ -1,18 +1,16 @@
 import * as React from 'react';
 import {storiesOf, action} from '@kadira/storybook';
 import Demo from '../../demo/Demo';
-import stateful from '../../util/react/stateful';
 import DateInput from './DateInput';
 import Button from '../Button/Button';
-const Stateful = stateful({
-	onChangeKey: 'onValueChange'
-})(DateInput);
 import * as add from '../../resources/svg/icon-add.svg';
 import * as decrease from '../../resources/svg/icon-decrease.svg';
 import * as clear from '../../resources/svg/icon-small-cross.svg';
 import * as calendar from '../../resources/svg/icon-calendar.svg';
 import {TCalendarProps} from './DateInput';
+import {stateful} from '../Control/Control';
 
+const Stateful = stateful()(DateInput);
 const onChange = (value: Date) => action('change')(value);
 const onClear = () => action('clear')();
 

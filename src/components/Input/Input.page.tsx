@@ -2,11 +2,11 @@ import * as React from 'react';
 import Demo from '../../demo/Demo.jsx';
 
 import Input from './Input';
-import {storiesOf} from '@kadira/storybook';
+import {storiesOf, action} from '@kadira/storybook';
 
 import * as css from './Input.page.styl';
 import * as demoCss from './Input.demo.styl';
-import stateful from '../../util/react/stateful';
+import {stateful} from '../Control/Control';
 
 const darkDemoTheme = {
 	container: css.container
@@ -17,8 +17,8 @@ const Stateful = stateful()(Input);
 storiesOf('Input', module)
 	.add('Default', () => (
 		<Demo theme={darkDemoTheme}>
-			<Stateful defaultValue="<Input/>"/>
-			<Input type="hidden" tabIndex={0}>
+			<Stateful defaultValue="<Input/>" onValueChange={action('change') as any}/>
+			<Input type="hidden" tabIndex={0} value="123">
 				<div className={demoCss.input}>div</div>
 			</Input>
 		</Demo>

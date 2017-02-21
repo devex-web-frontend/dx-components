@@ -17,6 +17,8 @@ const DEFAULT_OPTIONS = {
 	getValueFromOnChange: identity // use first argument from `onChange` by default
 };
 
+let deprecationMessagePrinted = false;
+
 /**
  * This decorator creates an adapter to controlled stateless component.
  * It stores and updates a value got from the wrapped component and provides it back.
@@ -29,12 +31,19 @@ const DEFAULT_OPTIONS = {
  *
  * @param {StatefulOptions} [options]
  * @constructor
+ * @deprecated
  */
 const stateful = options => {
 	const componentConfig = {
 		...DEFAULT_OPTIONS,
 		...options
 	};
+
+	if (!deprecationMessagePrinted) {
+		deprecationMessagePrinted = true;
+		console.warn('DEPRECATION: src/util/react/stateful is depreated. ' +
+			'use src/components/Control/Control.tsx/stateful');
+	}
 
 	return WrappedComponent => {
 		const componentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
