@@ -73,11 +73,11 @@ type TStatefulState<TValue> = {
 	value?: TValue
 };
 
-type TComponentClass<TProps> = React.ComponentClass<TProps> | React.SFC<TProps>;
+type TRCC<TProps> = React.ComponentClass<TProps>;
+type TRSFC<TProps> = React.SFC<TProps>;
 
 export function stateful() {
-	return function decorate
-		<V, P extends TControlProps<V>>(Target: TComponentClass<P>): React.ComponentClass<P & TStatefulProps<V>> {
+	return function decorate<V, P extends TControlProps<V>>(Target: TRCC<P> | TRSFC<P>): TRCC<P & TStatefulProps<V>> {
 
 		class Stateful extends React.Component<P & TStatefulProps<V>, TStatefulState<V>> {
 			static displayName = `Stateful(${Target.displayName || Target.name || 'Component'})`;
