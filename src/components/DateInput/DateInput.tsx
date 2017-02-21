@@ -9,6 +9,8 @@ import Popover from '../Popover/Popover';
 import * as Portal from 'react-overlays/lib/Portal';
 import {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
 import {TButtonIconProps} from '../ButtonIcon/ButtonIcon';
+import * as is_before from 'date-fns/is_before';
+import * as is_after from 'date-fns/is_after';
 
 type TDateValueProps = TControlProps<Date | null | undefined>;
 
@@ -260,7 +262,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	private updateStateTime(day?: number, month?: number, year?: number): void {
-		const {onValueChange, value} = this.props;
+		const {onValueChange, value, min, max} = this.props;
 
 		const canBuildValue = isDefined(day) && isDefined(month) && isDefined(year);
 		const newValueDiffers = canBuildValue &&
@@ -284,11 +286,16 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 					day
 				);
 				//check new date
-				if (date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day) {
+				const wasAdjusted = !(
+					date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
+				);
+				const isOutOfBounds = min && is_before(date, min) || max && is_after(date, max);
+				if (!wasAdjusted && !isOutOfBounds) {
 					//everything is ok and value hasn't been adjusted
 					onValueChange(date);
 				} else {
 					//too "smart" Date constructor has adjusted our value - date is actually invalid
+					//or date is out of bounds
 					onValueChange(undefined);
 					this.setState({
 						day,

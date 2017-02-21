@@ -102,6 +102,7 @@
     "@types/react-dom": "^0.14.23",
     "bower": "^1.7.9",
     "classnames": "^2.2.5",
+    "date-fns": "^1.27.2",
     "moment": "^2.15.0",
     "react": "^15.3.0",
     "react-css-themr": "github:raveclassic/react-css-themr#feature/theme_spreads",
