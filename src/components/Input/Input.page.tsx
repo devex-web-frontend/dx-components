@@ -18,7 +18,7 @@ storiesOf('Input', module)
 	.add('Default', () => (
 		<Demo theme={darkDemoTheme}>
 			<Stateful defaultValue="<Input/>" onValueChange={action('change') as any}/>
-			<Input type="hidden" tabIndex={0} value="123">
+			<Input type="hidden" tabIndex={0} value="123" onValueChange={undefined}>
 				<div className={demoCss.input}>div</div>
 			</Input>
 		</Demo>

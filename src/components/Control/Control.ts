@@ -1,12 +1,14 @@
 import * as React from 'react';
 import {PropTypes, Requireable} from 'react';
+import ComponentClass = React.ComponentClass;
+import SFC = React.SFC;
 
 export type TControlProps<TValue> = {
 	value?: TValue,
 	onValueChange?: (value?: TValue) => void
 };
 
-export type TStatefulProps<TValue> = TControlProps<TValue> & {
+export type TStatefulProps<TValue> = {
 	defaultValue?: TValue,
 	value?: never
 };
@@ -73,11 +75,9 @@ type TStatefulState<TValue> = {
 	value?: TValue
 };
 
-type TRCC<TProps> = React.ComponentClass<TProps>;
-type TRSFC<TProps> = React.SFC<TProps>;
-
 export function stateful() {
-	return function decorate<V, P extends TControlProps<V>>(Target: TRCC<P> | TRSFC<P>): TRCC<P & TStatefulProps<V>> {
+	return function decorate
+		<V, P extends TControlProps<V>>(Target: ComponentClass<P>): ComponentClass<P & TStatefulProps<V>> {
 
 		class Stateful extends React.Component<P & TStatefulProps<V>, TStatefulState<V>> {
 			static displayName = `Stateful(${Target.displayName || Target.name || 'Component'})`;
