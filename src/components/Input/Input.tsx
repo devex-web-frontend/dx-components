@@ -88,7 +88,8 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 			type,
 			name,
 			pattern,
-			id
+			id,
+			onWheel
 		} = this.props;
 
 		const {isFocused} = this.state;
@@ -118,6 +119,7 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 			     onMouseUp={onMouseUp}
 			     onFocus={this.onFocus}
 			     onBlur={this.onBlur}
+			     onWheel={onWheel}
 			     tabIndex={(!isCustom && (isFocused || isDisabled)) ? -1 : tabIndex}
 				{...(isCustom && keyboardEvents)}>
 				<input className={theme.input}
