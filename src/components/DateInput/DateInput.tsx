@@ -438,6 +438,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 				break;
 			}
 			case KeyCode.Left: {
+				e.preventDefault(); //block h-scrolling
 				switch (activeSection) {
 					case ActiveSection.Month: {
 						this.secondInput = false;
@@ -457,6 +458,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 				break;
 			}
 			case KeyCode.Right: {
+				e.preventDefault(); //block h-scrolling
 				switch (activeSection) {
 					case ActiveSection.Day: {
 						this.secondInput = false;

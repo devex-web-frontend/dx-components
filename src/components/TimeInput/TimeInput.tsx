@@ -208,6 +208,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 		const {activeSection, hours, minutes} = this.state;
 		switch (e.keyCode) {
 			case KeyCode.Left: {
+				e.preventDefault(); //block h-scrolling
 				if (activeSection === ActiveSection.Minutes) {
 					this.secondInput = false;
 					this.correctMinutes();
@@ -218,6 +219,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 				break;
 			}
 			case KeyCode.Right: {
+				e.preventDefault(); //block h-scrolling
 				if (activeSection === ActiveSection.Hours) {
 					this.secondInput = false;
 					this.correctMinutes();
