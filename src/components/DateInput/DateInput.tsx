@@ -1,6 +1,10 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {PURE} from 'dx-util/src/react/pure';
-import SteppableInput, {TSteppableInputProps, TSteppableInputInjectedProps} from '../SteppableInput/SteppableInput';
+import SteppableInput, {
+	TSteppableInputProps, TSteppableInputInjectedProps,
+	checkParentsUpTo
+} from '../SteppableInput/SteppableInput';
 import {TControlProps, KeyCode, KEY_CODE_NUM_MAP} from '../Control/Control';
 import * as classnames from 'classnames';
 import {themr} from 'react-css-themr';
@@ -11,6 +15,7 @@ import {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
 import {TButtonIconProps} from '../ButtonIcon/ButtonIcon';
 import * as is_before from 'date-fns/is_before';
 import * as is_after from 'date-fns/is_after';
+import ReactInstance = React.ReactInstance;
 
 type TDateValueProps = TControlProps<Date | null | undefined>;
 
@@ -73,6 +78,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		isOpened: false
 	};
 	private secondInput: boolean = false;
+	private calendarButtonRef: ReactInstance;
 
 	componentWillMount() {
 		const {value} = this.props;
@@ -157,7 +163,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			                onBlur={this.onBlur}
 			                onFocus={this.onFocus}
 			                onKeyDown={this.onKeyDown}
-			                onClick={this.onClick}
+			                onClick={this.onSteppableInputClick}
 			                clearIcon={clearIcon}>
 				<div className={innerClassName}>
 					<span className={dayClassName}
@@ -177,6 +183,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 				</div>
 				{Calendar && calendarIcon && (
 					<ButtonIcon isFlat={true}
+					            ref={(el: any) => this.calendarButtonRef = el}
 					            isDisabled={isDisabled}
 					            tabIndex={-1}
 					            name={calendarIcon}
@@ -505,8 +512,25 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		}
 	}
 
-	onClick = () => {
-		if (!this.state.isOpened) {
+	onSteppableInputClick = (e: React.MouseEvent<HTMLElement>) => {
+		if (this.state.isOpened) {
+			if (
+				checkParentsUpTo(
+					e.target as Element,
+					ReactDOM.findDOMNode(this.calendarButtonRef),
+					ReactDOM.findDOMNode(this)
+				)
+			) {
+				//clicked on calendar button
+				this.setState({
+					isOpened: false
+				});
+			} else {
+				this.setState({
+					isOpened: true
+				});
+			}
+		} else {
 			this.setState({
 				isOpened: true
 			});

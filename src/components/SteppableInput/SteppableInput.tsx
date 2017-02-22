@@ -43,10 +43,6 @@ export type TSteppableInputOwnProps = TPickedInputProps & {
 	incrementIcon?: string,
 	decrementIcon?: string,
 	clearIcon?: string,
-	// onFocus?: React.EventHandler<React.FocusEvent<HTMLElement>>,
-	// onBlur?: React.EventHandler<React.FocusEvent<HTMLElement>>,
-	// onKeyDown?: React.EventHandler<React.KeyboardEvent<HTMLElement>>,
-	// onClick?: React.EventHandler<React.MouseEvent<HTMLElement>>,
 	children?: React.ReactNode
 };
 
@@ -94,6 +90,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 			onIncrement,
 			onDecrement,
 			onClear,
+			onClick,
 			Input,
 			ButtonIcon
 		} = this.props;
@@ -103,10 +100,10 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 		return (
 			<Input theme={theme.Input}
 			       type="hidden"
-			       onClick={this.onClick}
 			       onFocus={this.onFocus}
 			       onBlur={this.onBlur}
 			       onKeyDown={this.onKeyDown}
+			       onClick={onClick}
 			       onWheel={this.onWheel}
 			       isDisabled={isDisabled}
 			       error={error}
@@ -148,18 +145,6 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 				</div>
 			</Input>
 		);
-	}
-
-	private onClick = (e: React.MouseEvent<HTMLInputElement>) => {
-		const {onClick, isDisabled} = this.props;
-		if (onClick && !isDisabled) {
-			const {target} = e;
-			if (target !== ReactDOM.findDOMNode(this.clearButtonRef) &&
-				target !== ReactDOM.findDOMNode(this.incrementButtonRef) &&
-				target !== ReactDOM.findDOMNode(this.decrementButtonRef)) {
-				onClick(e);
-			}
-		}
 	}
 
 	private onClearClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -236,3 +221,15 @@ export const STEPPABLE_INPUT = Symbol('SteppableInput');
 export type TSteppableInputProps =
 	TSteppableInputOwnProps & Partial<TSteppableInputInjectedProps> & Partial<TSteppableInputDefaultProps>;
 export default themr(STEPPABLE_INPUT)(SteppableInput) as React.ComponentClass<TSteppableInputProps>;
+
+export function checkParentsUpTo(node?: Element | null, checkNode?: Element, upToNode?: Element): boolean {
+	if (!node || !checkNode || !upToNode) {
+		return false;
+	} else if (node === upToNode) {
+		return false;
+	} else if (node === checkNode) {
+		return true;
+	} else {
+		return checkParentsUpTo(node.parentElement, checkNode, upToNode);
+	}
+}
