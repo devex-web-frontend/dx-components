@@ -222,6 +222,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 		const {isFocused} = this.state;
 
 		if (!isDisabled && isFocused) {
+			e.preventDefault(); //block v-scrolling
 			if (e.deltaY < 0) {
 				onIncrement && onIncrement();
 			} else {
