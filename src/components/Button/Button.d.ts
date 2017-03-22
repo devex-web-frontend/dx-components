@@ -19,3 +19,5 @@ export interface IButtonProps extends React.ClassAttributes<typeof Button> {
 	onClick?: Function,
 	tabIndex?: number
 }
+
+export declare const BUTTON: symbol;
