@@ -19,7 +19,7 @@ import toggleButtons from '../components/ToggleButtons/ToggleButtons.demo.styl';
 import {COMBOBOX} from '../components/Combobox/Combobox';
 import combobox from '../components/Combobox/Combobox.demo.styl';
 
-import {INPUT} from '../components/Input/Input.jsx';
+import {INPUT} from '../components/Input/Input';
 import input from '../components/Input/Input.demo.styl';
 
 import {PASSWORD_INPUT} from '../components/PasswordInput/PasswordInput';
@@ -58,6 +58,20 @@ import expandable from '../components/Expandable/Expandable.demo.styl';
 import {LOADING_INDICATOR} from '../components/LoadingIndicator/LoadingIndicator';
 import loadingIndicator from '../components/LoadingIndicator/LoadingIndicator.demo.styl';
 
+import {STEPPABLE_INPUT} from '../components/SteppableInput/SteppableInput';
+import steppableInput from '../components/SteppableInput/theme/SteppableInput.demo.styl';
+import steppableInputInput from '../components/SteppableInput/theme/Input.demo.styl';
+import steppableInputButtonIcon from '../components/SteppableInput/theme/ButtonIcon.demo.styl';
+
+import {TIME_INPUT} from '../components/TimeInput/TimeInput';
+import timeInput from '../components/TimeInput/theme/TimeInput.demo.styl';
+import timeInputSteppableInput from '../components/TimeInput/theme/SteppableInput.demo.styl';
+
+import {DATE_INPUT} from '../components/DateInput/DateInput';
+import dateInput from '../components/DateInput/theme/DateInput.demo.styl';
+import dateInputSteppableInput from '../components/DateInput/theme/SteppableInput.demo.styl';
+import dateInputButtonIcon from '../components/DateInput/theme/ButtonIcon.demo.styl';
+
 export default {
 	...config,
 	//additional demo styles
@@ -94,5 +108,25 @@ export default {
 			container: passwordInput.input
 		}
 	},
-	[LOADING_INDICATOR]: loadingIndicator
+	[LOADING_INDICATOR]: loadingIndicator,
+	[STEPPABLE_INPUT]: {
+		...steppableInput,
+		Input: steppableInputInput,
+		ButtonIcon: steppableInputButtonIcon,
+		ClearButtonIcon: steppableInputButtonIcon
+	},
+	[TIME_INPUT]: {
+		...timeInput,
+		SteppableInput: {
+			Input: timeInputSteppableInput
+		}
+	},
+	[DATE_INPUT]: {
+		...dateInput,
+		SteppableInput: {
+			Input: dateInputSteppableInput
+		},
+		ButtonIcon: dateInputButtonIcon,
+		CalendarButtonIcon: dateInputButtonIcon
+	}
 };

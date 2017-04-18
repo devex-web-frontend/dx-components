@@ -7,15 +7,13 @@
 	font-size: inherit; //override default user-agent stylesheet
 	font-family: inherit; //override default user-agent stylesheet
 	outline: none;
-	
-	&:not(:disabled) {
-		cursor: pointer;
-	}
-		
+	cursor: pointer;
+			
 	//types
 	&_primary {
 		composes: container;
 	}
+		
 	&_flat {
 		composes: container;
 		background-color: transparent;
@@ -28,6 +26,10 @@
 		&.container_flat {
 			background-color: inherit;
 		}
+	}
+		
+	&[disabled] {
+		cursor: default;
 	}
 }
 	

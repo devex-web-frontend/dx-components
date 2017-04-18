@@ -1,7 +1,7 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
 import {PURE} from 'dx-util/src/react/pure';
-import Input from '../Input/Input.jsx';
+import Input from '../Input/Input';
 import Holdable from '../Holdable/Holdable.jsx';
 import ButtonIcon from '../ButtonIcon/ButtonIcon.jsx';
 import Button from '../Button/Button.jsx';
@@ -209,29 +209,29 @@ export default class NumericStepper extends React.Component {
 		return (
 			<div className={className}>
 				<Input value={displayedValue}
-					   type="text"
-					   disabled={isDisabled}
-					   onBlur={this.onBlur}
-					   onChange={this.onInputChange}
-					   onClick={onClick}
-					   onFocus={this.onFocus}
-					   pattern={pattern}
-					   onKeyDown={this.onKeyDown}
-					   onWheel={this.onWheel}
-					   theme={inputTheme}
-					   readOnly={!manualEdit}/>
+				       type="text"
+				       disabled={isDisabled}
+				       onBlur={this.onBlur}
+				       onChange={this.onInputChange}
+				       onClick={onClick}
+				       onFocus={this.onFocus}
+				       pattern={pattern}
+				       onKeyDown={this.onKeyDown}
+				       onWheel={this.onWheel}
+				       theme={inputTheme}
+				       readOnly={!manualEdit}/>
 				<div className={theme.buttons}>
 					<Holdable onHold={this.onButtonDownClick}>
 						<Button onClick={this.onButtonDownClick}
-								name={downIconName}
-								theme={buttonTheme.DOWN}
-								isDisabled={isDisabled}/>
+						        name={downIconName}
+						        theme={buttonTheme.DOWN}
+						        isDisabled={isDisabled}/>
 					</Holdable>
 					<Holdable onHold={this.onButtonUpClick}>
 						<Button onClick={this.onButtonUpClick}
-								theme={buttonTheme.UP}
-								name={upIconName}
-								isDisabled={isDisabled}/>
+						        theme={buttonTheme.UP}
+						        name={upIconName}
+						        isDisabled={isDisabled}/>
 					</Holdable>
 				</div>
 			</div>

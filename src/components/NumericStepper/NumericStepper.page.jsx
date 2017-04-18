@@ -4,8 +4,8 @@ import Demo from '../../demo/Demo.jsx';
 import NumericStepper from './NumericStepper.jsx';
 import stateful from '../../util/react/stateful';
 
-import iconAdd from './img/icon-add.svg';
-import iconDecrease from './img/icon-decrease.svg';
+import iconAdd from '../../resources/svg/icon-add.svg';
+import iconDecrease from '../../resources/svg/icon-decrease.svg';
 
 import css from './NumericStepper.page.styl';
 

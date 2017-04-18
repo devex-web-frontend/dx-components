@@ -31,7 +31,7 @@ import resizeDetector from '../components/ResizeDetector/ResizeDetector.styl';
 import {COMBOBOX} from '../components/Combobox/Combobox';
 import combobox from '../components/Combobox/Combobox.styl';
 
-import {INPUT} from '../components/Input/Input.jsx';
+import {INPUT} from '../components/Input/Input';
 import input from '../components/Input/Input.styl';
 
 import {PASSWORD_INPUT} from '../components/PasswordInput/PasswordInput';
@@ -79,6 +79,19 @@ import calendarTheme from '../components/Calendar/Calendar.styl';
 import {LOADING_INDICATOR} from '../components/LoadingIndicator/LoadingIndicator';
 import loadingIndicator from '../components/LoadingIndicator/LoadingIndicator.styl';
 
+import {STEPPABLE_INPUT} from '../components/SteppableInput/SteppableInput';
+import steppableInput from '../components/SteppableInput/theme/SteppableInput.styl';
+import steppableInputInput from '../components/SteppableInput/theme/Input.styl';
+import steppableInputButtonIcon from '../components/SteppableInput/theme/ButtonIcon.styl';
+
+import {TIME_INPUT} from '../components/TimeInput/TimeInput';
+import timeInput from '../components/TimeInput/theme/TimeInput.styl';
+
+import {DATE_INPUT} from '../components/DateInput/DateInput';
+import dateInput from '../components/DateInput/theme/DateInput.styl';
+import dateInputButtonIcon from '../components/DateInput/theme/ButtonIcon.styl';
+import {themeable} from 'react-css-themr';
+
 export default {
 	[ICON]: icon,
 	[BUTTON]: button,
@@ -114,5 +127,19 @@ export default {
 			container: passwordInput.input
 		}
 	},
-	[LOADING_INDICATOR]: loadingIndicator
+	[LOADING_INDICATOR]: loadingIndicator,
+	[STEPPABLE_INPUT]: {
+		...steppableInput,
+		Input: steppableInputInput,
+		ButtonIcon: steppableInputButtonIcon,
+		ClearButtonIcon: steppableInputButtonIcon
+	},
+	[TIME_INPUT]: timeInput,
+	[DATE_INPUT]: themeable(
+		dateInput,
+		{
+			ButtonIcon: dateInputButtonIcon,
+			CalendarButtonIcon: dateInputButtonIcon
+		}
+	)
 };

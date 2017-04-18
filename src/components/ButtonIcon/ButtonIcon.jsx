@@ -29,11 +29,9 @@ export default class ButtonIcon extends React.Component {
 
 	render() {
 		const {theme, name, Button, Icon, ...props} = this.props;
+		const {icon, ...buttonTheme} = theme;
 		const iconTheme = {
-			container: theme.icon
-		};
-		const buttonTheme = {
-			container: theme.container
+			container: icon
 		};
 
 		return (
