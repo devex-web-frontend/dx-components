@@ -3,10 +3,10 @@ import SteppableInput, {
 	TSteppableInputInjectedProps,
 	TSteppableInputProps
 } from '../SteppableInput/SteppableInput';
-import {PURE} from 'dx-util/src/react/pure';
-import {TControlProps, KeyCode, KEY_CODE_NUM_MAP} from '../Control/Control';
+import { PURE } from 'dx-util/src/react/pure';
+import { TControlProps, KeyCode, KEY_CODE_NUM_MAP } from '../Control/Control';
 import * as classnames from 'classnames';
-import {themr} from 'react-css-themr';
+import { themr } from 'react-css-themr';
 
 export type TTime = {
 	hours: number,
@@ -148,7 +148,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	private format(value?: number): string {
-		if (isDefined(value)) {
+		if (typeof value !== 'undefined') {
 			return `${value >= 0 && value < 10 ? 0 : ''}${value}`;
 		} else {
 			return '--';
@@ -257,7 +257,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 		const {hours, minutes} = this.state;
 		switch (this.state.activeSection) {
 			case ActiveSection.Hours: {
-				if (this.secondInput) {
+				if (this.secondInput && typeof hours !== 'undefined') {
 					let newHours;
 					if (hours < 2) {
 						newHours = Number(`${hours}${digit}`);
@@ -285,7 +285,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 				break;
 			}
 			case ActiveSection.Minutes: {
-				if (this.secondInput) {
+				if (this.secondInput && typeof minutes !== 'undefined') {
 					const newMinutes = Number(`${minutes >= 10 ? ('' + minutes)[1] : minutes}${digit}`);
 					this.updateStateTime(hours, newMinutes);
 				} else {
@@ -316,13 +316,13 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	private updateStateTime(hours?: number, minutes?: number): void {
 		const {onValueChange, value} = this.props;
 
-		const canBuildValue = isDefined(hours) && isDefined(minutes) && minutes < 60;
+		const canBuildValue = typeof hours !== 'undefined' && typeof minutes !== 'undefined' && minutes < 60;
 		const newValueDiffers = canBuildValue && (
-				typeof value === 'undefined' ||
-				value === null ||
-				value.hours !== hours ||
-				value.minutes !== minutes
-			);
+			typeof value === 'undefined' ||
+			value === null ||
+			value.hours !== hours ||
+			value.minutes !== minutes
+		);
 
 		if (canBuildValue) {
 			if (newValueDiffers) {
@@ -343,7 +343,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	private correctMinutes() {
-		if (this.state.minutes >= 60) {
+		if (typeof this.state.minutes !== 'undefined' && this.state.minutes >= 60) {
 			this.updateStateTime(this.state.hours, 59);
 		}
 	}
@@ -357,7 +357,7 @@ export default themr(TIME_INPUT)(TimeInput) as React.ComponentClass<TTimeInputPr
  * Values can be zeros (start from 0). Max is included value.
  */
 function add(a: number | undefined, b: number, max: number): number {
-	if (!isDefined(a)) {
+	if (typeof a === 'undefined') {
 		return b < 0 ? max : 0;
 	}
 	let result = (a + b) % (max + 1);

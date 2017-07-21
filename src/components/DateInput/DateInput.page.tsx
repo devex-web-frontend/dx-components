@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {storiesOf, action} from '@kadira/storybook';
+import { storiesOf, action } from '@kadira/storybook';
 import Demo from '../../demo/Demo';
 import DateInput from './DateInput';
 import Button from '../Button/Button';
@@ -7,8 +7,8 @@ import * as add from '../../resources/svg/icon-add.svg';
 import * as decrease from '../../resources/svg/icon-decrease.svg';
 import * as clear from '../../resources/svg/icon-small-cross.svg';
 import * as calendar from '../../resources/svg/icon-calendar.svg';
-import {TCalendarProps} from './DateInput';
-import {stateful} from '../Control/Control';
+import { TCalendarProps } from './DateInput';
+import { stateful } from '../Control/Control';
 
 const Stateful = stateful()(DateInput);
 const onChange = (value: Date) => action('change')(value);
@@ -28,8 +28,13 @@ type TState = {
 	value?: Date | null
 };
 
-class DateInputPage extends React.Component<any, TState> {
-	private target: any;
+type TProps = {
+	isDisabled?: boolean,
+	error?: boolean
+};
+
+class DateInputPage extends React.Component<TProps, TState> {
+	private target: Element | null;
 	state: TState = {};
 
 	render() {

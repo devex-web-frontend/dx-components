@@ -1,15 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import SteppableInput from './SteppableInput';
-import {storiesOf, action} from '@kadira/storybook';
+import { storiesOf, action } from '@kadira/storybook';
 import Demo from '../../demo/Demo';
 import * as pageTheme from './theme/SteppableInput.page.styl';
-declare const foo: any;
 
 import * as iconAdd from '../../resources/svg/icon-add.svg';
 import * as iconDecrease from '../../resources/svg/icon-decrease.svg';
 import * as iconClear from '../../resources/svg/icon-small-cross.svg';
-import {TSteppableInputProps} from './SteppableInput';
+import { TSteppableInputProps } from './SteppableInput';
 
 class DemoInput extends React.Component<TSteppableInputProps, any> {
 	private input: HTMLInputElement;

@@ -2,11 +2,11 @@ import * as React from 'react';
 import Demo from '../../demo/Demo.jsx';
 
 import Input from './Input';
-import {storiesOf, action} from '@kadira/storybook';
+import { storiesOf, action } from '@kadira/storybook';
 
 import * as css from './Input.page.styl';
 import * as demoCss from './Input.demo.styl';
-import {stateful} from '../Control/Control';
+import { stateful } from '../Control/Control';
 
 const darkDemoTheme = {
 	container: css.container

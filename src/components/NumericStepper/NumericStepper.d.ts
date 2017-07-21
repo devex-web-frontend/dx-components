@@ -1,6 +1,6 @@
-import {Component} from 'react';
-import {TControlProps} from '../Control/Control';
-import ComponentClass = React.ComponentClass;
+import * as React from 'react';
+import { Component } from 'react';
+import { TControlProps } from '../Control/Control';
 import ValidationMap = React.ValidationMap;
 
 export type INumericStepperProps<TValue> = TControlProps<TValue> & {
@@ -13,8 +13,11 @@ export type INumericStepperProps<TValue> = TControlProps<TValue> & {
 
 export interface INumericStepper<TValue> {
 	propTypes?: ValidationMap<INumericStepperProps<TValue>>;
+
 	new (): NumericStepper<TValue>,
 }
+
 declare class NumericStepper<TValue> extends Component<INumericStepperProps<TValue>, any> {
 }
+
 export default NumericStepper;
