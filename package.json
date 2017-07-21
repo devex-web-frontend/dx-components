@@ -98,7 +98,7 @@
     "@types/react-dom": "^15.5.1",
     "classnames": "^2.2.5",
     "date-fns": "^1.28.5",
-    "dx-util": "github:devex-web-frontend/dx-util#feature/TS",
+    "dx-util": "github:devex-web-frontend/dx-util#master",
     "moment": "^2.15.0",
     "react": "^15.6.1",
     "react-css-themr": "~2.1.2",
