@@ -5,7 +5,7 @@ import Button from '../Button/Button.jsx';
 import Selectbox from './Selectbox.jsx';
 import SelectboxAnchor from './SelectboxAnchor.jsx';
 import MenuItem from '../Menu/MenuItem.jsx';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import stateful from '../../util/react/stateful';
 
 import iconListItemTick from './img/icon-list-item-tick.svg';

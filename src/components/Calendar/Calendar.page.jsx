@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import Demo from '../../demo/Demo.jsx';
 import Day from './Day';
 import {FORMATTER} from '../DatePicker/DatePicker.page';

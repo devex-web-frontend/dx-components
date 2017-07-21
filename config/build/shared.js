@@ -13,10 +13,7 @@ const FILE_PATTERN = /\.png$|\.jpg$|\.gif$|\.swf$|\.ico$|\.(ttf|eot|woff(2)?)(\?
 export const STYLUS_QUERY = {
 	nocheck: true,
 	'include css': true,
-	'resolve url': true,
-	paths: [
-		ENV.LIB_PATH
-	]
+	'resolve url': true
 };
 const svgExtractor = new SvgSpriteExtractPlugin(ENV.SVG_SPRITE_ENTRY,
 	{
@@ -54,10 +51,6 @@ const plugins = [
 	})
 ];
 
-const noParse = glob.sync(path.join(ENV.LIB_PATH, '/*'), {
-	ignore: ENV.ES6
-}).map(file => path.resolve(file));
-
 const alias = {
 	config: path.resolve(ENV.SRC_PATH, 'config/config.interop.styl'),
 	'react-css-themr': path.resolve(ENV.NODE_MODULES_PATH, 'react-css-themr/src/index.js')
@@ -77,8 +70,7 @@ const loaders = [
 		test: JS_PATTERN,
 		loader: 'babel',
 		exclude: [
-			ENV.NODE_MODULES_PATH,
-			...noParse
+			ENV.NODE_MODULES_PATH
 		]
 	},
 	//files
@@ -125,14 +117,9 @@ export default function shared() {
 			loaders: [
 				...loaders,
 				...externals
-			],
-			noParse
+			]
 		},
 		resolve: {
-			modulesDirectories: [
-				ENV.NODE_MODULES_PATH,
-				ENV.LIB_PATH
-			],
 			alias,
 			extensions: [
 				'',

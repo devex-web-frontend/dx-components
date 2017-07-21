@@ -4,14 +4,11 @@
   "description": "Theme-unaware components",
   "main": "index.js",
   "scripts": {
-    "bower": "bower",
     "eslint": "eslint --config ./node_modules/dx-lint/.react.eslintrc --ext .js,.jsx .",
     "tslint": "tslint -c ./node_modules/dx-lint/tslint.json './src/**/*.ts' './src/**/*.tsx'",
     "jest": "jest --no-cache",
     "start": "node ./scripts/run.js ./scripts/start.js",
-    "test": "npm run eslint && npm run tslint && npm run jest",
-    "dx-flow": "dx-flow",
-    "postinstall": "bower prune && bower install"
+    "test": "npm run eslint && npm run tslint && npm run jest"
   },
   "repository": {
     "type": "git",
@@ -25,7 +22,7 @@
   "homepage": "https://github.com/devex-web-frontend/dx-components#readme",
   "devDependencies": {
     "@kadira/storybook": "2.1.1",
-    "@types/jest": "^16.0.4",
+    "@types/jest": "^20.0.4",
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.10.4",
     "babel-eslint": "^6.0.5",
@@ -62,7 +59,6 @@
     "clone": "^1.0.2",
     "core-js": "^2.4.0",
     "css-loader": "^0.23.1",
-    "dx-flow": "https://github.com/devex-web-frontend/dx-flow.git",
     "dx-lint": "https://github.com/devex-web-frontend/dx-lint.git#0.4.1",
     "eslint": "^2.13.1",
     "eslint-plugin-babel": "^3.3.0",
@@ -73,7 +69,7 @@
     "glob": "^4.5.3",
     "html-webpack-plugin": "^2.22.0",
     "imports-loader": "^0.6.5",
-    "jest-cli": "^18.1.0",
+    "jest-cli": "^20.0.4",
     "json-loader": "^0.5.4",
     "minimist": "^1.2.0",
     "postcss-loader": "^0.9.1",
@@ -97,13 +93,12 @@
   },
   "dependencies": {
     "@types/classnames": "~2.2.0",
-    "@types/date-fns": "^2.6.0",
     "@types/node": "^7.0.29",
     "@types/react": "^15.0.38",
     "@types/react-dom": "^15.5.1",
-    "bower": "^1.8.0",
     "classnames": "^2.2.5",
     "date-fns": "^1.28.5",
+    "dx-util": "github:devex-web-frontend/dx-util#feature/TS",
     "moment": "^2.15.0",
     "react": "^15.6.1",
     "react-css-themr": "~2.1.2",
@@ -115,10 +110,6 @@
   },
   "jest": {
     "timers": "fake",
-    "moduleDirectories": [
-      "node_modules",
-      "bower_components"
-    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -128,13 +119,14 @@
     "setupFiles": [
       "<rootDir>/node_modules/core-js/fn/object/values.js"
     ],
-    "testPathDirs": [
+    "roots": [
       "<rootDir>/src"
     ],
     "transform": {
       "^.+\\.(ts|tsx)$": "<rootDir>/scripts/jest-ts-preprocessor.js",
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
     },
-    "testRegex": "/__tests__/.*\\.(ts|tsx|js|jsx)$"
+    "testRegex": "/__tests__/.*\\.(ts|tsx|js|jsx)$",
+    "automock": false
   }
 }

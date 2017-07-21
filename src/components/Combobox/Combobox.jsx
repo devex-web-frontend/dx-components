@@ -4,7 +4,7 @@ import Input from '../Input/Input';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import Selectbox, {SELECTBOX_THEME} from '../Selectbox/Selectbox.jsx';
 import {ANCHOR_SHARE_PROP_TYPES} from '../Selectbox/SelectboxAnchor';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import classnames from 'classnames';
 
 export const COMBOBOX = Symbol('Combobox');

@@ -3,7 +3,7 @@ import SteppableInput, {
 	TSteppableInputInjectedProps,
 	TSteppableInputProps
 } from '../SteppableInput/SteppableInput';
-import { PURE } from 'dx-util/src/react/pure';
+import { PURE } from 'dx-util/lib/react/pure';
 import { TControlProps, KeyCode, KEY_CODE_NUM_MAP } from '../Control/Control';
 import * as classnames from 'classnames';
 import { themr } from 'react-css-themr';

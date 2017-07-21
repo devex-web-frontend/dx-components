@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { PURE } from 'dx-util/src/react/pure';
+import { PURE } from 'dx-util/lib/react/pure';
 import Input from '../Input/Input';
 import { themr } from 'react-css-themr';
 import ButtonIcon, { BUTTON_ICON_THEME, TButtonIconProps } from '../ButtonIcon/ButtonIcon';

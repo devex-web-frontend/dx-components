@@ -3,7 +3,7 @@ import {storiesOf} from '@kadira/storybook';
 import Scrollable from './Scrollable.jsx';
 import Demo from '../../demo/Demo';
 import css from './Scrollable.page.styl';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import Pure from '../Pure/Pure';
 
 const darkDemoTheme = {

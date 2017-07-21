@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 import Combobox from './Combobox.jsx';
 import css from './Combobox.page.styl';
 import MenuItem from '../Menu/MenuItem.jsx';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 
 import iconSmallDropdownArrow from '../Selectbox/img/icon-small-dropdown-arrow.svg';
 import iconListItemTick from '../Selectbox/img/icon-list-item-tick.svg';

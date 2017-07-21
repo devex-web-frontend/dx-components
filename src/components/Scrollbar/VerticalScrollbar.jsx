@@ -4,7 +4,7 @@ import {
 	EVENT_SCROLABLE,
 	SCROLLABLE_CONTEXT_EMITTER,
 } from '../Scrollable/Scrollable.const';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
 
 export const VERTICAL_SCROLLBAR = Symbol('VerticalScrollbar');

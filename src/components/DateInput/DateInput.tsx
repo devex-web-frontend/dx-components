@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { PURE } from 'dx-util/src/react/pure';
+import { PURE } from 'dx-util/lib/react/pure';
 import SteppableInput, {
 	TSteppableInputProps, TSteppableInputInjectedProps,
 	checkParentsUpTo

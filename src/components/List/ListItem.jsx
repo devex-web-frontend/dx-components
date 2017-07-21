@@ -1,7 +1,7 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
 import classnames from 'classnames';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 
 import {LIST, CONTEXT_TYPES, CONTEXT_LEVEL_KEY} from './List.jsx';
 export const LIST_ITEM_THEME_SHAPE = {

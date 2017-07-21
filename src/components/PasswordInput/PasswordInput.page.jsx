@@ -3,7 +3,7 @@ import Demo from '../../demo/Demo.jsx';
 import stateful from '../../util/react/stateful';
 import {storiesOf} from '@kadira/storybook';
 import PasswordInput from './PasswordInput';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 
 import css from './PasswordInput.page.styl';
 const darkDemoTheme = {

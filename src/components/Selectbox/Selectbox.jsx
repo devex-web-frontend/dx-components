@@ -3,7 +3,7 @@ import {themr} from 'react-css-themr';
 import SelectboxAnchor from './SelectboxAnchor.jsx';
 import Popover from '../Popover/Popover.jsx';
 import Menu from '../Menu/Menu.jsx';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import Icon from '../Icon/Icon.jsx';
 import classnames from 'classnames';
 

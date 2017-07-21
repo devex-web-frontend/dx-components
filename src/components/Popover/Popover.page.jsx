@@ -4,7 +4,7 @@ import Button from '../Button/Button.jsx';
 import Popover, {PLACEMENT, ALIGN} from './Popover.jsx';
 import Selectbox from '../Selectbox/Selectbox.jsx';
 import MenuItem from '../Menu/MenuItem.jsx';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import {storiesOf} from '@kadira/storybook';
 import stateful from '../../util/react/stateful';
 

@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import Demo from '../../demo/Demo.jsx';
 import Icon from '../Icon/Icon';
 import Expandable from './Expandable';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 
 import iconMoveLeft from '../DatePicker/resources/icon-move-left.svg';
 import iconMoveRight from '../DatePicker/resources/icon-move-right.svg';

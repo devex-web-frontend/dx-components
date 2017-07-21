@@ -1,5 +1,5 @@
 import React, {Component, PropTypes, Children} from 'react';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import classnames from 'classnames';
 import {themr, themeable} from 'react-css-themr';
 

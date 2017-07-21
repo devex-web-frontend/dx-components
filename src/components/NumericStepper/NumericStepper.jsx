@@ -1,6 +1,6 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import Input from '../Input/Input';
 import Holdable from '../Holdable/Holdable.jsx';
 import ButtonIcon from '../ButtonIcon/ButtonIcon.jsx';

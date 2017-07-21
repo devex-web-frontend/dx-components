@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import prefix from 'dx-util/src/dom/prefix';
-import {PURE} from 'dx-util/src/react/pure';
+import prefix from 'dx-util/lib/dom/prefix';
+import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
 import Pure from '../Pure/Pure';
 import {TABLE_IS_IN_HEAD_KEY, Table, TableBody, TABLE_BODY_THEME, TableHead, TableCell, TableRow} from '../Table/Table';
-import Emitter from 'dx-util/src/emitter/Emitter';
+import Emitter from 'dx-util/lib/emitter/Emitter';
 import Scrollable from '../Scrollable/Scrollable';
 import classnames from 'classnames';
 

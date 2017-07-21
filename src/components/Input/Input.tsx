@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as classnames from 'classnames';
 import { themr } from 'react-css-themr';
-import { PURE } from 'dx-util/src/react/pure';
+import { PURE } from 'dx-util/lib/react/pure';
 import { TControlProps } from '../Control/Control';
 
 export const INPUT = Symbol('Input');

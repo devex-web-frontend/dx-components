@@ -1,7 +1,7 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
-import split from 'dx-util/src/string/split';
-import {PURE} from 'dx-util/src/react/pure';
+import split from 'dx-util/lib/string/split';
+import {PURE} from 'dx-util/lib/react/pure';
 
 export const HIGHLIGHT = Symbol('Mark');
 

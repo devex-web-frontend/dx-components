@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import Input from '../../Input/Input';
-import {PURE} from 'dx-util/src/react/react';
+import {PURE} from 'dx-util/lib/react/react';
 import {DATE_PICKER_FIELD_PROPS} from './field.props';
 import classnames from 'classnames';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
 import LoadingIndicaton from './LoadingIndicaton.jsx';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import Indicator from '../LoadingIndicator/LoadingIndicator';
 
 import css from './LoadingIndicaton.page.styl';
