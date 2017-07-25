@@ -92,7 +92,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "@types/classnames": "~2.2.0",
+    "@types/classnames": "^2.2.0",
     "@types/node": "^7.0.29",
     "@types/react": "^15.0.38",
     "@types/react-dom": "^15.5.1",
