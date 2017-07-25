@@ -26,7 +26,7 @@ export type TSteppableInputInjectedProps = {
 	}
 };
 
-type TPickedInputProps = Pick<TInputProps,
+export type TPickedInputProps = Pick<TInputProps,
 	'error' |
 	'onBlur' |
 	'onFocus' |

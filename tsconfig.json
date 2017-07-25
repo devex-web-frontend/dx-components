@@ -8,7 +8,6 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "outDir": "build",
     "pretty": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,

@@ -13,7 +13,7 @@ export type TTime = {
 	minutes: number
 };
 
-enum ActiveSection {
+export enum ActiveSection {
 	Hours,
 	Minutes
 }

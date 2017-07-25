@@ -14,7 +14,7 @@ export const INPUT_THEME_SHAPE = {
 	input: React.PropTypes.string,
 };
 
-type TInputInjectedProps = {
+export type TInputInjectedProps = {
 	theme: {
 		container?: string,
 		container_isFocused?: string,
@@ -25,7 +25,7 @@ type TInputInjectedProps = {
 	}
 };
 
-type TOwnInputProps = TControlProps<string> & {
+export type TOwnInputProps = TControlProps<string> & {
 	min?: any,
 	max?: any,
 	isDisabled?: boolean,
@@ -51,7 +51,7 @@ type TOwnInputProps = TControlProps<string> & {
 	onWheel?: React.WheelEventHandler<HTMLElement>
 };
 
-type TFullInputProps = TOwnInputProps & TInputInjectedProps;
+export type TFullInputProps = TOwnInputProps & TInputInjectedProps;
 
 type TInputState = {
 	isFocused: boolean
