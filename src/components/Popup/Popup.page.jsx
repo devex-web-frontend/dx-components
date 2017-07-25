@@ -1,7 +1,7 @@
 import React from 'react';
 import Popup from './Popup';
 import {storiesOf} from '@kadira/storybook';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import Demo from '../../demo/Demo';
 import Button from '../Button/Button';
 

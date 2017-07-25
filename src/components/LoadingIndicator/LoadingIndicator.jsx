@@ -1,5 +1,5 @@
 import React from 'react';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
 
 export const LOADING_INDICATOR = Symbol('LoadingIndicator');

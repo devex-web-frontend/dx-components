@@ -4,7 +4,7 @@ import moment from 'moment';
 import Month from './Month';
 import Week from './Week';
 import Day from './Day';
-import {PURE} from 'dx-util/src/react/react';
+import {PURE} from 'dx-util/lib/react/react';
 import CalendarHeader from './CalendarHeader';
 import {CALENDAR_THEME} from './Calendar.constants';
 import noop from '../../util/func/noop';

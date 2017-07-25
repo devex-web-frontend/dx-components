@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
 import LoadingIndicator, {LOADING_INDICATOR_THEME} from '../LoadingIndicator/LoadingIndicator';
 

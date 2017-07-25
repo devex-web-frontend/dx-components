@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as classnames from 'classnames';
-import {themr} from 'react-css-themr';
-import {PURE} from 'dx-util/src/react/pure';
-import {TControlProps} from '../Control/Control';
+import { themr } from 'react-css-themr';
+import { PURE } from 'dx-util/lib/react/pure';
+import { TControlProps } from '../Control/Control';
+
 export const INPUT = Symbol('Input');
 
 export const INPUT_THEME_SHAPE = {
@@ -13,16 +14,18 @@ export const INPUT_THEME_SHAPE = {
 	input: React.PropTypes.string,
 };
 
-type TInputInjectedProps = {
+export type TInputInjectedProps = {
 	theme: {
 		container?: string,
 		container_isFocused?: string,
 		container_hasError?: string,
+		container_isDisabled?: string,
+		container_isReadOnly?: string,
 		input?: string
 	}
 };
 
-type TOwnInputProps = TControlProps<string> & {
+export type TOwnInputProps = TControlProps<string> & {
 	min?: any,
 	max?: any,
 	isDisabled?: boolean,
@@ -48,7 +51,7 @@ type TOwnInputProps = TControlProps<string> & {
 	onWheel?: React.WheelEventHandler<HTMLElement>
 };
 
-type TFullInputProps = TOwnInputProps & TInputInjectedProps;
+export type TFullInputProps = TOwnInputProps & TInputInjectedProps;
 
 type TInputState = {
 	isFocused: boolean
@@ -64,7 +67,7 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 		isFocused: false
 	};
 
-	private input: React.ReactInstance;
+	private input: React.ReactInstance | null;
 	private isFocusingOnInput: boolean;
 
 	render() {
@@ -98,6 +101,8 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 			theme.container,
 			{
 				[theme.container_isFocused as string]: !isDisabled && isFocused,
+				[theme.container_isDisabled as string]: isDisabled,
+				[theme.container_isReadOnly as string]: isReadOnly,
 				[theme.container_hasError as string]: Boolean(error)
 			}
 		);
@@ -110,9 +115,7 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 		};
 
 		return (
-			<div disabled={isDisabled}
-			     className={className}
-			     readOnly={isReadOnly}
+			<div className={className}
 			     id={id}
 			     onClick={onClick}
 			     onMouseDown={onMouseDown}
@@ -121,9 +124,9 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 			     onBlur={this.onBlur}
 			     onWheel={onWheel}
 			     tabIndex={(!isCustom && (isFocused || isDisabled)) ? -1 : tabIndex}
-				{...(isCustom && keyboardEvents)}>
+			     {...(isCustom && keyboardEvents)}>
 				<input className={theme.input}
-				       ref={(el: React.ReactInstance) => this.input = el}
+				       ref={el => this.input = el}
 				       value={value}
 				       type={type}
 				       min={min}
@@ -135,14 +138,14 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 				       tabIndex={-1}
 				       readOnly={isReadOnly}
 				       disabled={isDisabled}
-					{...(!isCustom && keyboardEvents)}/>
+				       {...(!isCustom && keyboardEvents)}/>
 				{children}
 			</div>
 		);
 	}
 
 	onFocus = (e: React.FocusEvent<HTMLElement>) => {
-		if (!this.props.isDisabled && !this.state.isFocused && !this.isFocusingOnInput) {
+		if (!this.props.isDisabled && !this.state.isFocused && !this.isFocusingOnInput && this.input) {
 			const input = ReactDOM.findDOMNode<HTMLInputElement>(this.input);
 			if (input) {
 				this.isFocusingOnInput = true;

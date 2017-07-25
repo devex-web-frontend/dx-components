@@ -1,5 +1,5 @@
 import React from 'react';
-import {shouldComponentUpdate} from 'dx-util/src/react/pure';
+import {shouldComponentUpdate} from 'dx-util/lib/react/pure';
 
 export default class Pure extends React.Component {
 	static propTypes = {

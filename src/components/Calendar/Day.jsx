@@ -1,5 +1,5 @@
 import React from 'react';
-import {PURE} from 'dx-util/src/react/react';
+import {PURE} from 'dx-util/lib/react/react';
 import moment from 'moment';
 import {CALENDAR_THEME} from './Calendar.constants';
 import Button from '../Button/Button';

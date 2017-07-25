@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import {PURE} from 'dx-util/src/react/react';
+import {PURE} from 'dx-util/lib/react/react';
 import {CALENDAR_THEME} from './Calendar.constants';
 import Week from './Week';
 import noop from '../../util/func/noop';

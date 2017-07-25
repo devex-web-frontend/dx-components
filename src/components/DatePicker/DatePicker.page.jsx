@@ -4,7 +4,7 @@ import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
 import moment from 'moment';
 import {DATE_PICKER_FIELD_PROPS} from './fields/field.props';
-import {PURE} from 'dx-util/src/react/react';
+import {PURE} from 'dx-util/lib/react/react';
 import classnames from 'classnames';
 import 'moment/locale/ru';
 

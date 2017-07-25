@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {PropTypes, Requireable} from 'react';
-import ComponentClass = React.ComponentClass;
+import { PropTypes, Requireable, ComponentClass, Component } from 'react';
+import { ObjectOmit } from 'typelevel-ts';
 import SFC = React.SFC;
 
 export type TControlProps<TValue> = {
@@ -48,7 +48,7 @@ export enum KeyCode {
 	NUM9 = 105
 }
 
-export const KEY_CODE_NUM_MAP: {[code: number]: number} = {
+export const KEY_CODE_NUM_MAP: { [code: number]: number } = {
 	[KeyCode.N0]: 0,
 	[KeyCode.N1]: 1,
 	[KeyCode.N2]: 2,
@@ -75,32 +75,46 @@ type TStatefulState<TValue> = {
 	value?: TValue
 };
 
-export function stateful() {
-	return function decorate
-		<V, P extends TControlProps<V>>(Target: ComponentClass<P> | SFC<P>): ComponentClass<P & TStatefulProps<V>> {
+type TResultProps<P, V> = ObjectOmit<P, 'value'> & {
+	onValueChange?: TControlProps<V>['onValueChange'],
+	defaultValue?: V
+};
 
-		class Stateful extends React.Component<P & TStatefulProps<V>, TStatefulState<V>> {
+type TResult<P, V> = ComponentClass<TResultProps<P, V>>;
+
+//shortcuts
+type TCP<V> = TControlProps<V>;
+type CC<P> = ComponentClass<P>;
+
+export function stateful() {
+	return function decorate<V, P extends TCP<V>>(Target: SFC<P & TCP<V>> | CC<P & TCP<V>>): TResult<P, V> {
+		class Stateful extends React.Component<TResultProps<P, V>, TStatefulState<V>> {
 			static displayName = `Stateful(${Target.displayName || Target.name || 'Component'})`;
 
 			componentWillMount() {
 				this.setState({
 					value: this.props.defaultValue
-				} as any);
+				});
 			}
 
 			render() {
-				return React.createElement(Target as any, {
-					...this.props as any,
-					value: this.state.value,
-					onValueChange: this.onValueChange
-				});
+				const props = Object.assign(
+					{},
+					this.props,
+					{
+						value: this.state.value,
+						onValueChange: this.onValueChange
+					}
+				);
+				//tslint:disable-next-line no-any - fix for react typings
+				return React.createElement(Target as any, props);
 			}
 
 			protected onValueChange = (value?: V): void => {
 				this.setState({
 					value
 				});
-				const onValueChange = this.props.onValueChange as any;
+				const onValueChange = this.props.onValueChange;
 				onValueChange && onValueChange(value);
 			}
 		}

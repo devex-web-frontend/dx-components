@@ -1,12 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {PURE} from 'dx-util/src/react/pure';
+import { PURE } from 'dx-util/lib/react/pure';
 import Input from '../Input/Input';
-import {themr} from 'react-css-themr';
-import ButtonIcon, {BUTTON_ICON_THEME, TButtonIconProps} from '../ButtonIcon/ButtonIcon';
+import { themr } from 'react-css-themr';
+import ButtonIcon, { BUTTON_ICON_THEME, TButtonIconProps } from '../ButtonIcon/ButtonIcon';
 import Holdable from '../Holdable/Holdable';
-import ReactInstance = React.ReactInstance;
-import {TInputProps} from '../Input/Input';
+import { TInputProps } from '../Input/Input';
 
 export const STEPPABLE_INPUT_THEME = {
 	container: React.PropTypes.string,
@@ -27,13 +26,12 @@ export type TSteppableInputInjectedProps = {
 	}
 };
 
-type TPickedInputProps = Pick<TInputProps,
+export type TPickedInputProps = Pick<TInputProps,
 	'error' |
-		'onBlur' |
-		'onFocus' |
-		'onKeyDown' |
-		'onClick'
-	>;
+	'onBlur' |
+	'onFocus' |
+	'onKeyDown' |
+	'onClick'>;
 export type TSteppableInputOwnProps = TPickedInputProps & {
 	isDisabled?: TInputProps['isDisabled'],
 	tabIndex?: number,
@@ -66,9 +64,9 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 	} as TSteppableInputFullProps;
 
 	state: TSteppableInputState = {};
-	private clearButtonRef: React.ReactInstance;
-	private incrementButtonRef: React.ReactInstance;
-	private decrementButtonRef: React.ReactInstance;
+	private clearButtonRef: any;
+	private incrementButtonRef: any;
+	private decrementButtonRef: any;
 
 	componentDidUpdate(prevProps: TSteppableInputFullProps) {
 		if (prevProps.onClear && !this.props.onClear) {
@@ -113,7 +111,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 					{onClear && clearIcon && (
 						<ButtonIcon name={clearIcon}
 						            isFlat={true}
-						            ref={(el: any) => this.clearButtonRef = el}
+						            ref={el => this.clearButtonRef = el}
 						            theme={theme.ClearButtonIcon}
 						            onClick={this.onClearClick}
 						            onMouseDown={this.onButtonMouseDown}

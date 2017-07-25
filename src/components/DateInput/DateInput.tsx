@@ -1,23 +1,23 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {PURE} from 'dx-util/src/react/pure';
+import { PURE } from 'dx-util/lib/react/pure';
 import SteppableInput, {
 	TSteppableInputProps, TSteppableInputInjectedProps,
 	checkParentsUpTo
 } from '../SteppableInput/SteppableInput';
-import {TControlProps, KeyCode, KEY_CODE_NUM_MAP} from '../Control/Control';
+import { TControlProps, KeyCode, KEY_CODE_NUM_MAP } from '../Control/Control';
 import * as classnames from 'classnames';
-import {themr} from 'react-css-themr';
+import { themr } from 'react-css-themr';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import Popover from '../Popover/Popover';
 import * as Portal from 'react-overlays/lib/Portal';
-import {BUTTON_ICON_THEME} from '../ButtonIcon/ButtonIcon';
-import {TButtonIconProps} from '../ButtonIcon/ButtonIcon';
+import { BUTTON_ICON_THEME } from '../ButtonIcon/ButtonIcon';
+import { TButtonIconProps } from '../ButtonIcon/ButtonIcon';
 import * as is_before from 'date-fns/is_before';
 import * as is_after from 'date-fns/is_after';
-import ReactInstance = React.ReactInstance;
+import { ReactInstance } from 'react';
 
-type TDateValueProps = TControlProps<Date | null | undefined>;
+export type TDateValueProps = TControlProps<Date | null | undefined>;
 
 export type TCalendarProps = TDateValueProps & {
 	onMouseDown?: React.EventHandler<React.MouseEvent<Element>>,
@@ -25,7 +25,7 @@ export type TCalendarProps = TDateValueProps & {
 	max?: Date
 };
 
-type TDateInputOwnProps = TSteppableInputProps & TDateValueProps & {
+export type TDateInputOwnProps = TSteppableInputProps & TDateValueProps & {
 	min?: Date,
 	max?: Date,
 	calendarIcon?: string,
@@ -34,12 +34,12 @@ type TDateInputOwnProps = TSteppableInputProps & TDateValueProps & {
 	Calendar?: React.ComponentClass<TCalendarProps> | React.SFC<TCalendarProps>,
 };
 
-type TDateDefaultProps = {
+export type TDateDefaultProps = {
 	SteppableInput: React.ComponentClass<TSteppableInputProps> | React.SFC<TSteppableInputProps>,
 	ButtonIcon: React.ComponentClass<TButtonIconProps> | React.SFC<TButtonIconProps>
 };
 
-type TDateInputInjectedProps = {
+export type TDateInputInjectedProps = {
 	theme: {
 		inner?: string,
 		inner_isFilled?: string,
@@ -52,13 +52,14 @@ type TDateInputInjectedProps = {
 	}
 };
 
-type TDateInputFullProps = TDateInputOwnProps & TDateInputInjectedProps & TDateDefaultProps;
+export type TDateInputFullProps = TDateInputOwnProps & TDateInputInjectedProps & TDateDefaultProps;
 
 enum ActiveSection {
 	Day,
 	Month,
 	Year
 }
+
 type TDateInputState = {
 	activeSection?: ActiveSection,
 	day?: number,
@@ -78,7 +79,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		isOpened: false
 	};
 	private secondInput: boolean = false;
-	private calendarButtonRef: ReactInstance;
+	private calendarButtonRef: any; //tslint:disable-line no-any - dumb react typings
 
 	componentWillMount() {
 		const {value} = this.props;
@@ -88,7 +89,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	componentWillReceiveProps(newProps: TDateInputFullProps) {
-		if (this.props.value !== newProps.value && isDefined(newProps.value)) {
+		if (this.props.value !== newProps.value && typeof newProps.value !== 'undefined') {
 			let month;
 			let day;
 			let year;
@@ -142,7 +143,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		);
 
 		let onClear;
-		if (isDefined(value) && value !== null || isDefined(day) || isDefined(month) || isDefined(year)) {
+		if (typeof value !== 'undefined' && value !== null || isDefined(day) || isDefined(month) || isDefined(year)) {
 			onClear = this.onClear;
 		}
 
@@ -183,7 +184,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 				</div>
 				{Calendar && calendarIcon && (
 					<ButtonIcon isFlat={true}
-					            ref={(el: any) => this.calendarButtonRef = el}
+					            ref={el => this.calendarButtonRef = el}
 					            isDisabled={isDisabled}
 					            tabIndex={-1}
 					            name={calendarIcon}
@@ -229,7 +230,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	private format(value: number | undefined, section: ActiveSection): string {
-		if (isDefined(value)) {
+		if (typeof value !== 'undefined') {
 			switch (section) {
 				//maybe we should use left-pad here? ;)
 				case ActiveSection.Day: //fallthrough
@@ -272,14 +273,15 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		const {onValueChange, value, min, max} = this.props;
 
 		const canBuildValue = isDefined(day) && isDefined(month) && isDefined(year);
-		const newValueDiffers = canBuildValue &&
-			(
-				typeof value === 'undefined' ||
-				value === null ||
-				value.getDate() !== day ||
-				value.getMonth() !== month - 1 ||
-				value.getFullYear() !== year
-			);
+		const newValueDiffers = (
+			typeof month !== 'undefined'
+		) && (
+			typeof value === 'undefined' ||
+			value === null ||
+			value.getDate() !== day ||
+			value.getMonth() !== month - 1 ||
+			value.getFullYear() !== year
+		);
 
 		if (canBuildValue) {
 			if (newValueDiffers &&
@@ -312,7 +314,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 				}
 			}
 		} else {
-			if (isDefined(this.props.value)) {
+			if (typeof this.props.value !== 'undefined') {
 				onValueChange && onValueChange(undefined);
 			}
 			this.setState({
@@ -515,6 +517,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	onSteppableInputClick = (e: React.MouseEvent<HTMLElement>) => {
 		if (this.state.isOpened) {
 			if (
+				this.calendarButtonRef &&
 				checkParentsUpTo(
 					e.target as Element,
 					ReactDOM.findDOMNode(this.calendarButtonRef),
@@ -560,7 +563,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			case ActiveSection.Day: {
 				if (this.secondInput) {
 					let newDay;
-					if (day < 3) {
+					if (typeof day !== 'undefined' && day < 3) {
 						newDay = Number(`${day}${digit}`);
 					} else if (day === 3) {
 						newDay = Math.min(Number(`${day}${digit}`), 31);
@@ -588,7 +591,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			case ActiveSection.Month: {
 				if (this.secondInput) {
 					let newMonth;
-					if (month < 1) {
+					if (typeof month !== 'undefined' && month < 1) {
 						newMonth = Number(`${month}${digit}`);
 					} else if (month === 1) {
 						newMonth = Math.min(Number(`${month}${digit}`), 12);
@@ -616,7 +619,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			case ActiveSection.Year: {
 				if (this.secondInput) {
 					let newYear = `${year}${digit}`;
-					if (year >= 1000) {
+					if (typeof year !== 'undefined' && year >= 1000) {
 						newYear = newYear.substr(1);
 					}
 					this.updateStateTime(day, month, Number(newYear));
@@ -642,6 +645,6 @@ function getValuesFromDate(date: Date) {
 	};
 }
 
-function isDefined(value: any): boolean {
+function isDefined(value?: {}): boolean {
 	return typeof value !== 'undefined';
 }

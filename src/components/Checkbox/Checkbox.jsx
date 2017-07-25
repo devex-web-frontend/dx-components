@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
 import classnames from 'classnames';
-import {randomId} from 'dx-util/src/string/string';
+import {randomId} from 'dx-util/lib/string/string';
 
 import Icon from '../Icon/Icon.jsx';
 

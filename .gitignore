@@ -50,6 +50,5 @@ crashlytics.properties
 crashlytics-build.properties
 
 /node_modules
-/bower_components
 /dist
 npm-debug.log*

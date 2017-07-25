@@ -1,8 +1,8 @@
 import React from 'react';
-import {PURE} from 'dx-util/src/react/react';
+import {PURE} from 'dx-util/lib/react/react';
 import moment from 'moment';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
-import {MEMOIZE} from 'dx-util/src/function/function';
+import {MEMOIZE} from 'dx-util/lib/function/function';
 import {CALENDAR_THEME} from './Calendar.constants';
 
 @PURE

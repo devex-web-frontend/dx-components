@@ -1,6 +1,6 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import classnames from 'classnames';
 
 export const TABLE = Symbol('Table');

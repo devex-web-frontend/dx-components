@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Portal from 'react-overlays/lib/Portal';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
-import prefix from 'dx-util/src/dom/prefix';
+import prefix from 'dx-util/lib/dom/prefix';
 import EventListener from 'react-event-listener';
 import classnames from 'classnames';
 import {themr} from 'react-css-themr';
 
-import {PURE} from 'dx-util/src/react/pure.js';
+import {PURE} from 'dx-util/lib/react/pure';
 import UpdateDetector from '../BoundsUpdateDetector/BoundsUpdateDetector.jsx';
-import {THROTTLE} from 'dx-util/src/function/throttle.js';
+import {THROTTLE} from 'dx-util/lib/function/throttle';
 
 /**
  * @enum {String}

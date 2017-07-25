@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../Button/Button.jsx';
 import {themr} from 'react-css-themr';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import Icon from '../Icon/Icon.jsx';
 
 export const BUTTON_ICON = Symbol('ButtonIcon');

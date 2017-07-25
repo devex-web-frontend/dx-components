@@ -1,5 +1,5 @@
 import React from 'react';
-import Emitter from 'dx-util/src/emitter/Emitter';
+import Emitter from 'dx-util/lib/emitter/Emitter';
 
 export const EVENT_SCROLABLE = {
 	RESIZE: 'EVENT_SCROLABLE:RESIZE',

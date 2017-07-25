@@ -5,7 +5,7 @@ import Button from '../Button/Button.jsx';
 import Link from '../Link/Link.jsx';
 //import css from './ToggleButtons.styl';
 
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
 
 import {storiesOf, action} from '@kadira/storybook';
