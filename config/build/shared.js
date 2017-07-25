@@ -52,8 +52,7 @@ const plugins = [
 ];
 
 const alias = {
-	config: path.resolve(ENV.SRC_PATH, 'config/config.interop.styl'),
-	'react-css-themr': path.resolve(ENV.NODE_MODULES_PATH, 'react-css-themr/src/index.js')
+	config: path.resolve(ENV.SRC_PATH, 'config/config.interop.styl')
 };
 
 const externals = [];
