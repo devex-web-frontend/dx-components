@@ -56,7 +56,7 @@ export function theme(name: string | symbol, defaultTheme: TTheme = {}) {
 			render() {
 				const props = {
 					...this.props,
-					theme: mergeTwo(mergeTwo(config.theme, this.context.theme[name]), this.props.theme)
+					theme: mergeTwo(mergeTwo(config.theme, this.context[THEME_CONTEXT_KEY][name]), this.props.theme)
 				};
 				return createElement(Target as any, props);
 			}
@@ -176,7 +176,7 @@ export class ThemeProvider extends Component<TThemeProviderProps> {
 
 	getChildContext() {
 		return {
-			theme: this.props.theme
+			[THEME_CONTEXT_KEY]: this.props.theme
 		};
 	}
 }
