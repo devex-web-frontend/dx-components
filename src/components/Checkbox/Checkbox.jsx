@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import * as PropTypes from 'prop-types';
 import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
 import classnames from 'classnames';
