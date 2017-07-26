@@ -6,7 +6,7 @@ const THEME_CONTEXT_KEY = '@@dx-util/theme-context-key'; //should be serializabl
 const THEME_CONFIG_KEY = Symbol('@@dx-util/theme-config-key');
 
 export type TTheme = {
-	[key: string]: TTheme | string
+	[key: string]: TTheme | string | undefined
 };
 
 type TWithConfig = {
