@@ -99,7 +99,7 @@
     "@types/react-dom": "^15.5.1",
     "classnames": "^2.2.5",
     "date-fns": "^1.28.5",
-    "dx-util": "github:devex-web-frontend/dx-util#0.11.0",
+    "dx-util": "~0.11.3",
     "moment": "^2.15.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
