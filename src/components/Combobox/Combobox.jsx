@@ -6,6 +6,7 @@ import Selectbox, {SELECTBOX_THEME} from '../Selectbox/Selectbox.jsx';
 import {ANCHOR_SHARE_PROP_TYPES} from '../Selectbox/SelectboxAnchor';
 import {PURE} from 'dx-util/lib/react/pure';
 import classnames from 'classnames';
+import * as PropTypes from 'prop-types';
 
 export const COMBOBOX = Symbol('Combobox');
 
@@ -63,19 +64,19 @@ export default class Combobox extends React.Component {
 				}
 			}
 		},
-		value: React.PropTypes.oneOfType([
-			React.PropTypes.string,
-			React.PropTypes.number
+		value: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.number
 		]),
-		theme: React.PropTypes.shape({
+		theme: PropTypes.shape({
 			...SELECTBOX_THEME,
-			container: React.PropTypes.string,
-			container_isDisabled: React.PropTypes.string,
-			input: React.PropTypes.string,
-			selectbox: React.PropTypes.string,
+			container: PropTypes.string,
+			container_isDisabled: PropTypes.string,
+			input: PropTypes.string,
+			selectbox: PropTypes.string,
 		}),
-		Selectbox: React.PropTypes.func,
-		Input: React.PropTypes.func,
+		Selectbox: PropTypes.func,
+		Input: PropTypes.func,
 	}
 
 	static defaultProps = {

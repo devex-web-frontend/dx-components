@@ -5,21 +5,22 @@ import {CALENDAR_THEME} from './Calendar.constants';
 import Day from './Day';
 import noop from '../../util/func/noop';
 import {isDateValid} from '../../util/func/date';
+import * as PropTypes from 'prop-types';
 
 @PURE
 export default class Week extends React.Component {
 	static propTypes = {
-		selectedDate: React.PropTypes.instanceOf(moment).isRequired,
-		from: React.PropTypes.instanceOf(moment).isRequired,
-		dayFormat: React.PropTypes.string.isRequired,
-		min: React.PropTypes.instanceOf(moment).isRequired,
-		max: React.PropTypes.instanceOf(moment).isRequired,
-		startOfMonth: React.PropTypes.instanceOf(moment).isRequired,
-		endOfMonth: React.PropTypes.instanceOf(moment).isRequired,
-		currentDate: React.PropTypes.instanceOf(moment).isRequired,
-		onChange: React.PropTypes.func,
-		theme: React.PropTypes.shape(CALENDAR_THEME),
-		Day: React.PropTypes.func,
+		selectedDate: PropTypes.instanceOf(moment).isRequired,
+		from: PropTypes.instanceOf(moment).isRequired,
+		dayFormat: PropTypes.string.isRequired,
+		min: PropTypes.instanceOf(moment).isRequired,
+		max: PropTypes.instanceOf(moment).isRequired,
+		startOfMonth: PropTypes.instanceOf(moment).isRequired,
+		endOfMonth: PropTypes.instanceOf(moment).isRequired,
+		currentDate: PropTypes.instanceOf(moment).isRequired,
+		onChange: PropTypes.func,
+		theme: PropTypes.shape(CALENDAR_THEME),
+		Day: PropTypes.func,
 	}
 
 	static defaultProps = {

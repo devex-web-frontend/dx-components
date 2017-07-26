@@ -4,17 +4,18 @@ import moment from 'moment';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import {MEMOIZE} from 'dx-util/lib/function/function';
 import {CALENDAR_THEME} from './Calendar.constants';
+import * as PropTypes from 'prop-types';
 
 @PURE
 export default class CalendarHeader extends React.Component {
 	static propTypes = {
-		value: React.PropTypes.instanceOf(moment).isRequired,
-		onChange: React.PropTypes.func,
-		locale: React.PropTypes.string,
-		headerDateFormat: React.PropTypes.string,
-		previousMonthIcon: React.PropTypes.string,
-		nextMonthIcon: React.PropTypes.string,
-		theme: React.PropTypes.shape(CALENDAR_THEME),
+		value: PropTypes.instanceOf(moment).isRequired,
+		onChange: PropTypes.func,
+		locale: PropTypes.string,
+		headerDateFormat: PropTypes.string,
+		previousMonthIcon: PropTypes.string,
+		nextMonthIcon: PropTypes.string,
+		theme: PropTypes.shape(CALENDAR_THEME),
 	}
 
 	render() {

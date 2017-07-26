@@ -1,4 +1,5 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import prefix from 'dx-util/lib/dom/prefix';
 import {PURE} from 'dx-util/lib/react/pure';
@@ -32,7 +33,7 @@ const GRID_COLUMN_WIDTH_KEY = '__GRID_COLUMN_WIDTH_KEY__';
 
 const GRID_CONTEXT_EMITTER = '__GRID_CONTEXT_EMITTER__';
 const CONTEXT_TYPES = {
-	[GRID_CONTEXT_EMITTER]: React.PropTypes.instanceOf(GridInternalEmitter).isRequired
+	[GRID_CONTEXT_EMITTER]: PropTypes.instanceOf(GridInternalEmitter).isRequired
 };
 
 @PURE
@@ -141,8 +142,8 @@ export {
 export class GridHead extends React.Component {
 	static propTypes = {
 		...TableHead.propTypes,
-		Table: React.PropTypes.func,
-		TableHead: React.PropTypes.func
+		Table: PropTypes.func,
+		TableHead: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -231,13 +232,13 @@ export class GridHead extends React.Component {
 export class GridBody extends React.Component {
 	static propTypes = {
 		...TableBody.propTypes,
-		theme: React.PropTypes.shape({
+		theme: PropTypes.shape({
 			...TABLE_BODY_THEME,
-			horizontal_scrollbar__bar: React.PropTypes.string,
-			vertical_scrollbar__bar: React.PropTypes.string,
+			horizontal_scrollbar__bar: PropTypes.string,
+			vertical_scrollbar__bar: PropTypes.string,
 		}),
-		Table: React.PropTypes.func,
-		TableBody: React.PropTypes.func
+		Table: PropTypes.func,
+		TableBody: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -302,9 +303,9 @@ export class GridBody extends React.Component {
 export class GridRow extends React.Component {
 	static propTypes = {
 		...TableRow.propTypes,
-		TableRow: React.PropTypes.func,
+		TableRow: PropTypes.func,
 		//injected by GridBody (will be also by GridHead with implementation on multiple rows in head)
-		[GRID_ROW_INDEX_KEY]: React.PropTypes.number
+		[GRID_ROW_INDEX_KEY]: PropTypes.number
 	}
 
 	static defaultProps = {
@@ -378,13 +379,13 @@ export class GridCell extends React.Component {
 	static propTypes = {
 		...TableCell.propTypes,
 		//injected by GridRow
-		[GRID_COLUMN_INDEX_KEY]: React.PropTypes.number,
+		[GRID_COLUMN_INDEX_KEY]: PropTypes.number,
 		//injected by GridRow
-		[GRID_ROW_INDEX_KEY]: React.PropTypes.number,
+		[GRID_ROW_INDEX_KEY]: PropTypes.number,
 		//injected by GridHead
-		[GRID_COLUMN_WIDTH_KEY]: React.PropTypes.number,
-		TableCell: React.PropTypes.func,
-		align: React.PropTypes.oneOf(Object.values(GRID_CELL_ALIGN))
+		[GRID_COLUMN_WIDTH_KEY]: PropTypes.number,
+		TableCell: PropTypes.func,
+		align: PropTypes.oneOf(Object.values(GRID_CELL_ALIGN))
 	}
 
 	static defaultProps = {

@@ -8,6 +8,7 @@ import {PURE} from 'dx-util/lib/react/react';
 import CalendarHeader from './CalendarHeader';
 import {CALENDAR_THEME} from './Calendar.constants';
 import noop from '../../util/func/noop';
+import * as PropTypes from 'prop-types';
 
 export const CALENDAR = Symbol('Calendar');
 
@@ -15,22 +16,22 @@ export const CALENDAR = Symbol('Calendar');
 @themr(CALENDAR)
 export default class Calendar extends React.Component {
 	static propTypes = {
-		value: React.PropTypes.string.isRequired, // ISO - "2016-09-20T15:30:39.298Z"
-		headerDateFormat: React.PropTypes.string,
-		headerDayFormat: React.PropTypes.string,
-		dayFormat: React.PropTypes.string,
-		onChangeDisplayed: React.PropTypes.func,
-		onChange: React.PropTypes.func,
-		min: React.PropTypes.string, // ISO
-		max: React.PropTypes.string, // ISO
-		previousMonthIcon: React.PropTypes.string,
-		nextMonthIcon: React.PropTypes.string,
-		locale: React.PropTypes.string,
-		theme: React.PropTypes.shape(CALENDAR_THEME),
-		CalendarHeader: React.PropTypes.func,
-		Month: React.PropTypes.func,
-		Week: React.PropTypes.func,
-		Day: React.PropTypes.func,
+		value: PropTypes.string.isRequired, // ISO - "2016-09-20T15:30:39.298Z"
+		headerDateFormat: PropTypes.string,
+		headerDayFormat: PropTypes.string,
+		dayFormat: PropTypes.string,
+		onChangeDisplayed: PropTypes.func,
+		onChange: PropTypes.func,
+		min: PropTypes.string, // ISO
+		max: PropTypes.string, // ISO
+		previousMonthIcon: PropTypes.string,
+		nextMonthIcon: PropTypes.string,
+		locale: PropTypes.string,
+		theme: PropTypes.shape(CALENDAR_THEME),
+		CalendarHeader: PropTypes.func,
+		Month: PropTypes.func,
+		Week: PropTypes.func,
+		Day: PropTypes.func,
 	}
 
 	static defaultProps = {

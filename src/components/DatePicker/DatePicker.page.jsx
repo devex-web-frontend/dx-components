@@ -7,6 +7,7 @@ import {DATE_PICKER_FIELD_PROPS} from './fields/field.props';
 import {PURE} from 'dx-util/lib/react/react';
 import classnames from 'classnames';
 import 'moment/locale/ru';
+import * as PropTypes from 'prop-types';
 
 import iconOpenCalendar from './resources/icon-open-calendar.svg';
 import nextMonthIcon from './resources/icon-move-right.svg';
@@ -40,8 +41,8 @@ const CustomLabelField = (props) => {
 
 CustomLabelField.propTypes = {
 	...DATE_PICKER_FIELD_PROPS,
-	theme: React.PropTypes.shape({
-		container: React.PropTypes.string
+	theme: PropTypes.shape({
+		container: PropTypes.string
 	})
 };
 

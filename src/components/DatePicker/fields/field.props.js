@@ -1,25 +1,26 @@
 import React from 'react';
 import moment from 'moment';
+import * as PropTypes from 'prop-types';
 
 /**
  * Custom field components should handle these properties to interact with DatePicker.
  */
 export const DATE_PICKER_FIELD_PROPS = {
-	value: React.PropTypes.instanceOf(moment).isRequired, // formatted date string
-	dateFormat: React.PropTypes.string,
-	onChange: React.PropTypes.func, // pass a new `date: Moment` back
-	min: React.PropTypes.instanceOf(moment),
-	max: React.PropTypes.instanceOf(moment), // ISO
-	openDatePicker: React.PropTypes.func.isRequired,
-	closeDatePicker: React.PropTypes.func.isRequired,
-	isDisabled: React.PropTypes.bool,
-	isInvalid: React.PropTypes.bool,
-	locale: React.PropTypes.string,
-	placeholder: React.PropTypes.string,
-	isDatePickerOpened: React.PropTypes.bool,
-	theme: React.PropTypes.shape({
-		field: React.PropTypes.string,
-		field_invalid: React.PropTypes.string
+	value: PropTypes.instanceOf(moment).isRequired, // formatted date string
+	dateFormat: PropTypes.string,
+	onChange: PropTypes.func, // pass a new `date: Moment` back
+	min: PropTypes.instanceOf(moment),
+	max: PropTypes.instanceOf(moment), // ISO
+	openDatePicker: PropTypes.func.isRequired,
+	closeDatePicker: PropTypes.func.isRequired,
+	isDisabled: PropTypes.bool,
+	isInvalid: PropTypes.bool,
+	locale: PropTypes.string,
+	placeholder: PropTypes.string,
+	isDatePickerOpened: PropTypes.bool,
+	theme: PropTypes.shape({
+		field: PropTypes.string,
+		field_invalid: PropTypes.string
 	}),
-	Input: React.PropTypes.func
+	Input: PropTypes.func
 };

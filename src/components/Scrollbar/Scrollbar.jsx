@@ -8,6 +8,7 @@ import {
 	EVENT_SCROLABLE,
 	SCROLLABLE_CONTEXT_EMITTER,
 } from '../Scrollable/Scrollable.const';
+import * as PropTypes from 'prop-types';
 
 export const SCROLLBAR = Symbol('Scrollbar');
 export const SCROLLBAR_TYPE = {
@@ -30,11 +31,11 @@ export default class Scrollbar extends React.Component {
 				throw new Error('Container should be specified');
 			}
 		},
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string,
-			containerIsVisible: React.PropTypes.string,
-			track: React.PropTypes.string,
-			bar: React.PropTypes.string
+		theme: PropTypes.shape({
+			container: PropTypes.string,
+			containerIsVisible: PropTypes.string,
+			track: PropTypes.string,
+			bar: PropTypes.string
 		})
 	};
 

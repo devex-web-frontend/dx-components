@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
 import LoadingIndicator, {LOADING_INDICATOR_THEME} from '../LoadingIndicator/LoadingIndicator';
+import * as PropTypes from 'prop-types';
 
 export const BUTTON = Symbol('Button');
 
@@ -10,23 +11,23 @@ export const BUTTON = Symbol('Button');
 @themr(BUTTON)
 export default class Button extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string,
-			loadingIndicator: React.PropTypes.string,
-			LoadingIndicator: React.PropTypes.shape(LOADING_INDICATOR_THEME)
+		children: PropTypes.node,
+		theme: PropTypes.shape({
+			container: PropTypes.string,
+			loadingIndicator: PropTypes.string,
+			LoadingIndicator: PropTypes.shape(LOADING_INDICATOR_THEME)
 		}),
-		style: React.PropTypes.object,
-		type: React.PropTypes.string,
-		isLoading: React.PropTypes.bool,
-		isDisabled: React.PropTypes.bool,
-		isPrimary: React.PropTypes.bool,
-		isFlat: React.PropTypes.bool,
-		onMouseLeave: React.PropTypes.func,
-		onMouseDown: React.PropTypes.func,
-		onMouseUp: React.PropTypes.func,
-		onClick: React.PropTypes.func,
-		tabIndex: React.PropTypes.number
+		style: PropTypes.object,
+		type: PropTypes.string,
+		isLoading: PropTypes.bool,
+		isDisabled: PropTypes.bool,
+		isPrimary: PropTypes.bool,
+		isFlat: PropTypes.bool,
+		onMouseLeave: PropTypes.func,
+		onMouseDown: PropTypes.func,
+		onMouseUp: PropTypes.func,
+		onClick: PropTypes.func,
+		tabIndex: PropTypes.number
 	}
 
 	static defaultProps = {

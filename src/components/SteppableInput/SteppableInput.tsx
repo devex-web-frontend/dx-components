@@ -6,10 +6,11 @@ import { themr } from 'react-css-themr';
 import ButtonIcon, { BUTTON_ICON_THEME, TButtonIconProps } from '../ButtonIcon/ButtonIcon';
 import Holdable from '../Holdable/Holdable';
 import { TInputProps } from '../Input/Input';
+import * as PropTypes from 'prop-types';
 
 export const STEPPABLE_INPUT_THEME = {
-	container: React.PropTypes.string,
-	ButtonIcon: React.PropTypes.shape(BUTTON_ICON_THEME)
+	container: PropTypes.string,
+	ButtonIcon: PropTypes.shape(BUTTON_ICON_THEME)
 };
 
 const KEYCODE = {

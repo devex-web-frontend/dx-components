@@ -8,6 +8,7 @@ import {
 
 import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
+import * as PropTypes from 'prop-types';
 
 export const HORIZONTAL_SCROLLBAR = Symbol('HorizontalScrollbar');
 
@@ -17,7 +18,7 @@ export default class HorizontalScrollbar extends Srollbar {
 
 	static propTypes = {
 		...Srollbar.PropTypes,
-		scrollLeft: React.PropTypes.number
+		scrollLeft: PropTypes.number
 	}
 
 	_ratio;

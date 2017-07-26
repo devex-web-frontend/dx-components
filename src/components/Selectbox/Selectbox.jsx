@@ -6,22 +6,23 @@ import Menu from '../Menu/Menu.jsx';
 import {PURE} from 'dx-util/lib/react/pure';
 import Icon from '../Icon/Icon.jsx';
 import classnames from 'classnames';
+import * as PropTypes from 'prop-types';
 
 export const SELECTBOX_THEME = {
-	container__popover: React.PropTypes.string,
-	container__menu: React.PropTypes.string,
-	container__menu_hasSelectedItem: React.PropTypes.string,
-	container__item: React.PropTypes.string,
-	container__item_isActive: React.PropTypes.string,
-	container__item__text: React.PropTypes.string,
-	container__item__activeIcon: React.PropTypes.string,
-	container__anchor: React.PropTypes.string,
-	container__anchor__content: React.PropTypes.string,
-	container__anchor__text: React.PropTypes.string,
-	container__anchor__content_hasCaret: React.PropTypes.string,
-	container__anchor__wrapperCaret: React.PropTypes.string,
-	container__anchor__caret: React.PropTypes.string,
-	container__anchor__caret_isReversed: React.PropTypes.string
+	container__popover: PropTypes.string,
+	container__menu: PropTypes.string,
+	container__menu_hasSelectedItem: PropTypes.string,
+	container__item: PropTypes.string,
+	container__item_isActive: PropTypes.string,
+	container__item__text: PropTypes.string,
+	container__item__activeIcon: PropTypes.string,
+	container__anchor: PropTypes.string,
+	container__anchor__content: PropTypes.string,
+	container__anchor__text: PropTypes.string,
+	container__anchor__content_hasCaret: PropTypes.string,
+	container__anchor__wrapperCaret: PropTypes.string,
+	container__anchor__caret: PropTypes.string,
+	container__anchor__caret_isReversed: PropTypes.string
 };
 
 export const SELECTBOX = Symbol('Selectbox');
@@ -30,9 +31,9 @@ export const SELECTBOX = Symbol('Selectbox');
 @themr(SELECTBOX)
 export default class Selectbox extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		isDisabled: React.PropTypes.bool,
-		isLoading: React.PropTypes.bool,
+		children: PropTypes.node,
+		isDisabled: PropTypes.bool,
+		isLoading: PropTypes.bool,
 		value(props) {
 			const type = typeof props.value;
 			if (type !== 'undefined') {
@@ -45,17 +46,17 @@ export default class Selectbox extends React.Component {
 				}
 			}
 		},
-		onChange: React.PropTypes.func,
-		placeholder: React.PropTypes.string,
+		onChange: PropTypes.func,
+		placeholder: PropTypes.string,
 		//C'MON LET'S DO IT VIA DI!
-		AnchorComponent: React.PropTypes.func,
-		IconComponent: React.PropTypes.func,
-		MenuComponent: React.PropTypes.func,
-		PopoverComponent: React.PropTypes.func,
+		AnchorComponent: PropTypes.func,
+		IconComponent: PropTypes.func,
+		MenuComponent: PropTypes.func,
+		PopoverComponent: PropTypes.func,
 
-		theme: React.PropTypes.shape(SELECTBOX_THEME),
-		caretIconName: React.PropTypes.string,
-		selectedItemIconName: React.PropTypes.string
+		theme: PropTypes.shape(SELECTBOX_THEME),
+		caretIconName: PropTypes.string,
+		selectedItemIconName: PropTypes.string
 	}
 
 	static defaultProps = {

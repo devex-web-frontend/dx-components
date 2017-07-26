@@ -9,6 +9,8 @@ import {storiesOf} from '@kadira/storybook';
 import stateful from '../../util/react/stateful';
 
 import css from './Popover.page.styl';
+import * as PropTypes from 'prop-types';
+
 const buttonTheme = {
 	container: css.toggleButton
 };
@@ -16,7 +18,7 @@ const buttonTheme = {
 @PURE
 class HeavyContent extends React.Component {
 	static propTypes = {
-		isLong: React.PropTypes.bool
+		isLong: PropTypes.bool
 	}
 
 	render() {

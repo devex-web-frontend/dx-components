@@ -6,6 +6,7 @@ import {
 } from '../Scrollable/Scrollable.const';
 import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
+import * as PropTypes from 'prop-types';
 
 export const VERTICAL_SCROLLBAR = Symbol('VerticalScrollbar');
 
@@ -15,7 +16,7 @@ export default class VerticalScrollbar extends Srollbar {
 
 	static propTypes = {
 		...Srollbar.PropTypes,
-		scrollTop: React.PropTypes.number
+		scrollTop: PropTypes.number
 	}
 
 	_ratio;

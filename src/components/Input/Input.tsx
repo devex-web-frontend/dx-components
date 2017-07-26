@@ -4,6 +4,7 @@ import * as classnames from 'classnames';
 import { themr } from 'react-css-themr';
 import { PURE } from 'dx-util/lib/react/pure';
 import { TControlProps } from '../Control/Control';
+import * as PropTypes from 'prop-types';
 
 export const INPUT = Symbol('Input');
 

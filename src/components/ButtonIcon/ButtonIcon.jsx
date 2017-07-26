@@ -3,12 +3,13 @@ import Button from '../Button/Button.jsx';
 import {themr} from 'react-css-themr';
 import {PURE} from 'dx-util/lib/react/pure';
 import Icon from '../Icon/Icon.jsx';
+import * as PropTypes from 'prop-types';
 
 export const BUTTON_ICON = Symbol('ButtonIcon');
 
 export const BUTTON_ICON_THEME = {
-	container: React.PropTypes.string,
-	icon: React.PropTypes.string
+	container: PropTypes.string,
+	icon: PropTypes.string
 };
 
 @PURE
@@ -16,10 +17,10 @@ export const BUTTON_ICON_THEME = {
 export default class ButtonIcon extends React.Component {
 	static propTypes = {
 		...Button.propTypes,
-		Button: React.PropTypes.func,
-		Icon: React.PropTypes.func,
-		name: React.PropTypes.string,
-		theme: React.PropTypes.shape(BUTTON_ICON_THEME)
+		Button: PropTypes.func,
+		Icon: PropTypes.func,
+		name: PropTypes.string,
+		theme: PropTypes.shape(BUTTON_ICON_THEME)
 	}
 
 	static defaultProps = {

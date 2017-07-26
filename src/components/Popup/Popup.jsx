@@ -4,31 +4,32 @@ import {themr} from 'react-css-themr';
 import classnames from 'classnames';
 import Portal from 'react-overlays/lib/Portal';
 import RootClose from 'react-overlays/lib/RootCloseWrapper';
+import * as PropTypes from 'prop-types';
 
 export const POPUP = Symbol('Popup');
 
 export const POPUP_THEME_SHAPE_OBJECT = {
-	container: React.PropTypes.string,
-	header: React.PropTypes.string,
-	body: React.PropTypes.string,
-	footer: React.PropTypes.string
+	container: PropTypes.string,
+	header: PropTypes.string,
+	body: PropTypes.string,
+	footer: PropTypes.string
 };
 
 @themr(POPUP)
 @PURE
 export default class Popup extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node.isRequired,
-		header: React.PropTypes.node,
-		footer: React.PropTypes.node,
+		children: PropTypes.node.isRequired,
+		header: PropTypes.node,
+		footer: PropTypes.node,
 
-		theme: React.PropTypes.shape(POPUP_THEME_SHAPE_OBJECT),
+		theme: PropTypes.shape(POPUP_THEME_SHAPE_OBJECT),
 
-		isModal: React.PropTypes.bool,
-		isOpened: React.PropTypes.bool,
+		isModal: PropTypes.bool,
+		isOpened: PropTypes.bool,
 
-		shouldCloseOnClickAway: React.PropTypes.bool,
-		onRequestClose: React.PropTypes.func,
+		shouldCloseOnClickAway: PropTypes.bool,
+		onRequestClose: PropTypes.func,
 
 		container: Portal.propTypes.container
 	}

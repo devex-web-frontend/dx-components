@@ -1,4 +1,5 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
 import Input, {INPUT_THEME_SHAPE} from '../Input/Input';
@@ -17,25 +18,25 @@ const ENTER_KEY = 13;
 export default class Autocomplete extends React.Component {
 	static propTypes = {
 		...Input.propTypes,
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string,
-			Input: React.PropTypes.shape(INPUT_THEME_SHAPE),
-			Popover: React.PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
-			Menu: React.PropTypes.shape(MENU_THEME_SHAPE_OBJECT),
-			MenuItem: React.PropTypes.shape(AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE)
+		theme: PropTypes.shape({
+			container: PropTypes.string,
+			Input: PropTypes.shape(INPUT_THEME_SHAPE),
+			Popover: PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
+			Menu: PropTypes.shape(MENU_THEME_SHAPE_OBJECT),
+			MenuItem: PropTypes.shape(AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE)
 		}),
-		Input: React.PropTypes.func,
-		Menu: React.PropTypes.func,
-		MenuItem: React.PropTypes.func,
-		Popover: React.PropTypes.func,
+		Input: PropTypes.func,
+		Menu: PropTypes.func,
+		MenuItem: PropTypes.func,
+		Popover: PropTypes.func,
 		defaultValue(props) {
 			if (typeof props.defaultValue !== 'undefined') {
 				throw new Error('Autocomplete is controlled component and does not support defaultValue');
 			}
 		},
-		value: React.PropTypes.any,
-		data: React.PropTypes.arrayOf(React.PropTypes.any),
-		filter: React.PropTypes.func
+		value: PropTypes.any,
+		data: PropTypes.arrayOf(PropTypes.any),
+		filter: PropTypes.func
 	};
 
 	static defaultProps = {

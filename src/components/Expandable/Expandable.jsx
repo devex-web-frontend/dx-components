@@ -1,4 +1,5 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 
 import ExpandableHandler, {EXPANDABLE_HANDLER_THEME} from './ExpandableHandler';
 import classnames from 'classnames';
@@ -8,10 +9,10 @@ import {themr} from 'react-css-themr';
 export const EXPANDABLE = Symbol('Expandable');
 
 export const EXPANDABLE_THEME = {
-	container: React.PropTypes.string,
-	container_isExpanded: React.PropTypes.string,
-	Handler: React.PropTypes.shape(EXPANDABLE_HANDLER_THEME),
-	content: React.PropTypes.string
+	container: PropTypes.string,
+	container_isExpanded: PropTypes.string,
+	Handler: PropTypes.shape(EXPANDABLE_HANDLER_THEME),
+	content: PropTypes.string
 };
 
 @themr(EXPANDABLE)
@@ -19,11 +20,11 @@ export const EXPANDABLE_THEME = {
 export default class Expandable extends React.Component {
 
 	static propTypes = {
-		children: React.PropTypes.node,
-		Handler: React.PropTypes.func,
-		isExpanded: React.PropTypes.bool,
-		theme: React.PropTypes.shape(EXPANDABLE_THEME),
-		onChange: React.PropTypes.func
+		children: PropTypes.node,
+		Handler: PropTypes.func,
+		isExpanded: PropTypes.bool,
+		theme: PropTypes.shape(EXPANDABLE_THEME),
+		onChange: PropTypes.func
 	}
 
 	static defaultProps = {

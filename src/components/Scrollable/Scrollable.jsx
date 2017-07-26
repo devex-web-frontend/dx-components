@@ -15,6 +15,7 @@ import HorizontalScrollbar from '../Scrollbar/HorizontalScrollbar.jsx';
 import VerticalScrollbar from '../Scrollbar/VerticalScrollbar.jsx';
 
 import getScrollbarSize from '../Scrollbar/Scrollbar.util.js';
+import * as PropTypes from 'prop-types';
 
 export const SCROLLABLE = Symbol('Scrollable');
 
@@ -22,26 +23,26 @@ export const SCROLLABLE = Symbol('Scrollable');
 export default class Scrollable extends React.Component {
 
 	static propTypes = {
-		children: React.PropTypes.element,
-		ResizeDetector: React.PropTypes.func,
-		HorizontalScrollbar: React.PropTypes.func,
-		VerticalScrollbar: React.PropTypes.func,
-		theme: React.PropTypes.shape({
-			scrollable: React.PropTypes.string,
-			withHorizontalScrollbar: React.PropTypes.string,
-			withVerticalScrollbar: React.PropTypes.string,
-			scrollbar: React.PropTypes.string,
-			container: React.PropTypes.string,
-			wrapper: React.PropTypes.string,
-			content: React.PropTypes.string,
-			resizeDetector: React.PropTypes.string,
-			horizontal_scrollbar__bar: React.PropTypes.string,
-			vertical_scrollbar__bar: React.PropTypes.string,
+		children: PropTypes.element,
+		ResizeDetector: PropTypes.func,
+		HorizontalScrollbar: PropTypes.func,
+		VerticalScrollbar: PropTypes.func,
+		theme: PropTypes.shape({
+			scrollable: PropTypes.string,
+			withHorizontalScrollbar: PropTypes.string,
+			withVerticalScrollbar: PropTypes.string,
+			scrollbar: PropTypes.string,
+			container: PropTypes.string,
+			wrapper: PropTypes.string,
+			content: PropTypes.string,
+			resizeDetector: PropTypes.string,
+			horizontal_scrollbar__bar: PropTypes.string,
+			vertical_scrollbar__bar: PropTypes.string,
 		}),
-		onUpdate: React.PropTypes.func,
-		onScroll: React.PropTypes.func,
-		scrollTop: React.PropTypes.number,
-		scrollLeft: React.PropTypes.number
+		onUpdate: PropTypes.func,
+		onScroll: PropTypes.func,
+		scrollTop: PropTypes.number,
+		scrollLeft: PropTypes.number
 	}
 
 	static defaultProps = {

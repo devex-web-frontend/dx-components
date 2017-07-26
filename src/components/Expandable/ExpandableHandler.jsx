@@ -1,11 +1,12 @@
 import React from 'react';
 import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
+import * as PropTypes from 'prop-types';
 
 export const EXPANDABLE_HANDLER = Symbol('ExpandableHandler');
 
 export const EXPANDABLE_HANDLER_THEME = {
-	container: React.PropTypes.string
+	container: PropTypes.string
 };
 
 @themr(EXPANDABLE_HANDLER)
@@ -13,9 +14,9 @@ export const EXPANDABLE_HANDLER_THEME = {
 export default class ExpandableHandler extends React.Component {
 
 	static propTypes = {
-		isExpanded: React.PropTypes.bool,
-		theme: React.PropTypes.shape(EXPANDABLE_HANDLER_THEME),
-		children: React.PropTypes.node
+		isExpanded: PropTypes.bool,
+		theme: PropTypes.shape(EXPANDABLE_HANDLER_THEME),
+		children: PropTypes.node
 	}
 
 	render() {

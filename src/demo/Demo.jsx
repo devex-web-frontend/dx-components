@@ -1,14 +1,15 @@
 import React from 'react';
 import {themr, ThemeProvider} from 'react-css-themr';
+import * as PropTypes from 'prop-types';
 
 import css from './Demo.styl';
 
 import theme from './theme.js';
 
 const PROP_TYPES = {
-	children: React.PropTypes.node.isRequired,
-	theme: React.PropTypes.shape({
-		container: React.PropTypes.string
+	children: PropTypes.node.isRequired,
+	theme: PropTypes.shape({
+		container: PropTypes.string
 	})
 };
 

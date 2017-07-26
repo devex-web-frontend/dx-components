@@ -2,6 +2,7 @@ import React from 'react';
 import {themr} from 'react-css-themr';
 import {PURE} from 'dx-util/lib/react/pure';
 import classnames from 'classnames';
+import * as PropTypes from 'prop-types';
 
 export const TABLE = Symbol('Table');
 export const TABLE_IS_IN_HEAD_KEY = '__TABLE_IS_IN_HEAD_KEY__';
@@ -10,9 +11,9 @@ export const TABLE_IS_IN_HEAD_KEY = '__TABLE_IS_IN_HEAD_KEY__';
 @themr(TABLE)
 export default class Table extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string
+		children: PropTypes.node,
+		theme: PropTypes.shape({
+			container: PropTypes.string
 		})
 	}
 
@@ -34,9 +35,9 @@ export {
 @themr(TABLE)
 export class TableHead extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			head: React.PropTypes.string
+		children: PropTypes.node,
+		theme: PropTypes.shape({
+			head: PropTypes.string
 		})
 	}
 
@@ -54,15 +55,15 @@ export class TableHead extends React.Component {
 }
 
 export const TABLE_BODY_THEME = {
-	body: React.PropTypes.string
+	body: PropTypes.string
 };
 
 @PURE
 @themr(TABLE)
 export class TableBody extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		theme: React.PropTypes.shape(TABLE_BODY_THEME)
+		children: PropTypes.node,
+		theme: PropTypes.shape(TABLE_BODY_THEME)
 	}
 
 	render() {
@@ -80,13 +81,13 @@ export class TableBody extends React.Component {
 @themr(TABLE)
 export class TableRow extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			row: React.PropTypes.string
+		children: PropTypes.node,
+		theme: PropTypes.shape({
+			row: PropTypes.string
 		}),
 		//not for direct usage
 		//injected by TableHead
-		[TABLE_IS_IN_HEAD_KEY]: React.PropTypes.bool
+		[TABLE_IS_IN_HEAD_KEY]: PropTypes.bool
 	}
 
 	render() {
@@ -110,17 +111,17 @@ export class TableRow extends React.Component {
 @themr(TABLE)
 export class TableCell extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			cell: React.PropTypes.string,
-			cell_isInHead: React.PropTypes.string
+		children: PropTypes.node,
+		theme: PropTypes.shape({
+			cell: PropTypes.string,
+			cell_isInHead: PropTypes.string
 		}),
-		style: React.PropTypes.object,
+		style: PropTypes.object,
 		//not for direct usage
 		//injected by TableHead
-		[TABLE_IS_IN_HEAD_KEY]: React.PropTypes.bool,
-		colSpan: React.PropTypes.number,
-		rowSpan: React.PropTypes.number
+		[TABLE_IS_IN_HEAD_KEY]: PropTypes.bool,
+		colSpan: PropTypes.number,
+		rowSpan: PropTypes.number
 	}
 
 	render() {

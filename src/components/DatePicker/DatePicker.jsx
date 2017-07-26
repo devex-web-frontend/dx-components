@@ -9,6 +9,7 @@ import stateful from '../../util/react/stateful';
 import Calendar, {CALENDAR_THEME} from '../Calendar/Calendar';
 import {isDateValid} from '../../util/func/date';
 import noop from '../../util/func/noop';
+import * as PropTypes from 'prop-types';
 
 export const DATE_PICKER = Symbol('DATE_PICKER');
 
@@ -16,32 +17,32 @@ export const DATE_PICKER = Symbol('DATE_PICKER');
 @themr(DATE_PICKER)
 class DatePicker extends React.Component {
 	static propTypes = {
-		value: React.PropTypes.string, // ISO - "2016-09-20T15:30:39.298Z" or NULL
-		onChange: React.PropTypes.func,
-		fieldDateFormat: React.PropTypes.string, // field
-		headerDateFormat: React.PropTypes.string,
-		headerDayFormat: React.PropTypes.string,
-		dayFormat: React.PropTypes.string,
-		min: React.PropTypes.string, // ISO
-		max: React.PropTypes.string, // ISO
-		openCalendarIcon: React.PropTypes.string,
-		previousMonthIcon: React.PropTypes.string.isRequired,
-		nextMonthIcon: React.PropTypes.string.isRequired,
-		withField: React.PropTypes.bool,
-		fieldComponent: React.PropTypes.func,
-		placeholder: React.PropTypes.string,
-		isDisabled: React.PropTypes.bool,
-		locale: React.PropTypes.string,
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string,
-			field: React.PropTypes.string,
-			field_invalid: React.PropTypes.string,
-			openCalendar: React.PropTypes.string,
-			openCalendar__icon: React.PropTypes.string,
-			popover__container: React.PropTypes.string,
-			popover__content: React.PropTypes.string
+		value: PropTypes.string, // ISO - "2016-09-20T15:30:39.298Z" or NULL
+		onChange: PropTypes.func,
+		fieldDateFormat: PropTypes.string, // field
+		headerDateFormat: PropTypes.string,
+		headerDayFormat: PropTypes.string,
+		dayFormat: PropTypes.string,
+		min: PropTypes.string, // ISO
+		max: PropTypes.string, // ISO
+		openCalendarIcon: PropTypes.string,
+		previousMonthIcon: PropTypes.string.isRequired,
+		nextMonthIcon: PropTypes.string.isRequired,
+		withField: PropTypes.bool,
+		fieldComponent: PropTypes.func,
+		placeholder: PropTypes.string,
+		isDisabled: PropTypes.bool,
+		locale: PropTypes.string,
+		theme: PropTypes.shape({
+			container: PropTypes.string,
+			field: PropTypes.string,
+			field_invalid: PropTypes.string,
+			openCalendar: PropTypes.string,
+			openCalendar__icon: PropTypes.string,
+			popover__container: PropTypes.string,
+			popover__content: PropTypes.string
 		}),
-		calendarTheme: React.PropTypes.shape(CALENDAR_THEME)
+		calendarTheme: PropTypes.shape(CALENDAR_THEME)
 	}
 
 	static defaultProps = {

@@ -1,15 +1,16 @@
 import React from 'react';
 import {PURE} from 'dx-util/lib/react/pure';
 import EventListener from 'react-event-listener';
+import * as PropTypes from 'prop-types';
 
 @PURE
 export default class Bar extends React.Component {
 
 	static propTypes = {
-		onBarDragStart: React.PropTypes.func,
-		onBarDrag: React.PropTypes.func,
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string
+		onBarDragStart: PropTypes.func,
+		onBarDrag: PropTypes.func,
+		theme: PropTypes.shape({
+			container: PropTypes.string
 		})
 	}
 

@@ -5,17 +5,18 @@ import {CALENDAR_THEME} from './Calendar.constants';
 import Button from '../Button/Button';
 import noop from '../../util/func/noop';
 import classnames from 'classnames';
+import * as PropTypes from 'prop-types';
 
 @PURE
 export default class Day extends React.Component {
 	static propTypes = {
-		value: React.PropTypes.instanceOf(moment).isRequired,
-		onChange: React.PropTypes.func,
-		dayFormat: React.PropTypes.string.isRequired,
-		isDisabled: React.PropTypes.bool,
-		isCurrent: React.PropTypes.bool,
-		isSelected: React.PropTypes.bool,
-		theme: React.PropTypes.shape(CALENDAR_THEME)
+		value: PropTypes.instanceOf(moment).isRequired,
+		onChange: PropTypes.func,
+		dayFormat: PropTypes.string.isRequired,
+		isDisabled: PropTypes.bool,
+		isCurrent: PropTypes.bool,
+		isSelected: PropTypes.bool,
+		theme: PropTypes.shape(CALENDAR_THEME)
 	}
 
 	static defaultProps = {

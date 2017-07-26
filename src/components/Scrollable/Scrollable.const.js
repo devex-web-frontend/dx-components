@@ -1,5 +1,6 @@
 import React from 'react';
 import Emitter from 'dx-util/lib/emitter/Emitter';
+import * as PropTypes from 'prop-types';
 
 export const EVENT_SCROLABLE = {
 	RESIZE: 'EVENT_SCROLABLE:RESIZE',
@@ -15,9 +16,9 @@ export class ScrollableInternalEmitter extends Emitter {
 
 export const SCROLLABLE_CONTEXT_EMITTER = '__SCROLLABLE__CONTEXT_EMITTER__';
 export const CONTEXT_TYPES = {
-	[SCROLLABLE_CONTEXT_EMITTER]: React.PropTypes.instanceOf(ScrollableInternalEmitter).isRequired,
-	size: React.PropTypes.shape({
-		width: React.PropTypes.number,
-		height: React.PropTypes.height
+	[SCROLLABLE_CONTEXT_EMITTER]: PropTypes.instanceOf(ScrollableInternalEmitter).isRequired,
+	size: PropTypes.shape({
+		width: PropTypes.number,
+		height: PropTypes.number
 	})
 };

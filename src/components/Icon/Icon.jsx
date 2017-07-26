@@ -1,6 +1,7 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
 import {PURE} from 'dx-util/lib/react/pure';
+import * as PropTypes from 'prop-types';
 
 export const ICON = Symbol('Icon');
 
@@ -8,9 +9,9 @@ export const ICON = Symbol('Icon');
 @themr(ICON)
 export default class Icon extends React.Component {
 	static propTypes = {
-		name: React.PropTypes.string.isRequired,
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string
+		name: PropTypes.string.isRequired,
+		theme: PropTypes.shape({
+			container: PropTypes.string
 		})
 	}
 

@@ -2,26 +2,27 @@ import React from 'react';
 import {PURE} from 'dx-util/lib/react/pure';
 import Button from '../Button/Button.jsx';
 import Icon from '../Icon/Icon.jsx';
+import * as PropTypes from 'prop-types';
 
 export const ANCHOR_THEME = {
-	container: React.PropTypes.string,
-	text: React.PropTypes.string,
-	content: React.PropTypes.string,
-	wrapperCaret: React.PropTypes.string,
-	caret: React.PropTypes.string
+	container: PropTypes.string,
+	text: PropTypes.string,
+	content: PropTypes.string,
+	wrapperCaret: PropTypes.string,
+	caret: PropTypes.string
 };
 
 export const ANCHOR_SHARE_PROP_TYPES = {
-	theme: React.PropTypes.shape(ANCHOR_THEME),
-	isOpened: React.PropTypes.bool,
-	caretIconName: React.PropTypes.string,
-	children: React.PropTypes.node,
-	IconComponent: React.PropTypes.func,
-	value: React.PropTypes.oneOfType([
-		React.PropTypes.string,
-		React.PropTypes.number
+	theme: PropTypes.shape(ANCHOR_THEME),
+	isOpened: PropTypes.bool,
+	caretIconName: PropTypes.string,
+	children: PropTypes.node,
+	IconComponent: PropTypes.func,
+	value: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
 	]),
-	valueText: React.PropTypes.string
+	valueText: PropTypes.string
 };
 
 @PURE

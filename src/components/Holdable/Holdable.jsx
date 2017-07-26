@@ -1,11 +1,12 @@
+import * as PropTypes from 'prop-types';
 import React from 'react';
 
 export default class Holdable extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.element,
-		delay: React.PropTypes.number,
-		interval: React.PropTypes.number,
-		onHold: React.PropTypes.func
+		children: PropTypes.element,
+		delay: PropTypes.number,
+		interval: PropTypes.number,
+		onHold: PropTypes.func
 	}
 
 	_timeoutId = null;
