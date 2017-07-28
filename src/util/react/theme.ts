@@ -2,6 +2,8 @@ import { Children, createElement, ComponentClass, Component, SFC } from 'react';
 import * as PropTypes from 'prop-types';
 import { ObjectOmit } from 'typelevel-ts';
 
+//tslint:disable-next-line no-var-requires no-require-imports
+const { default: THEMR_SHAPE } = require('react-css-themr/lib/utils/themr-shape.js');
 const THEME_CONTEXT_KEY = '@@dx-util/theme-context-key'; //should be serializable
 const THEME_CONFIG_KEY = Symbol('@@dx-util/theme-config-key');
 
@@ -32,8 +34,8 @@ type CC<P> = ComponentClass<P>;
 export function theme(name: string | symbol, defaultTheme: TTheme = {}) {
 	function decorate<P extends TTargetProps>(Target: SFC<P & TTargetProps> & TWithConfig): TResult<P>;
 	function decorate<P extends TTargetProps>(Target: CC<P & TTargetProps> & TWithConfig): TResult<P>;
-	function decorate<P extends TTargetProps>(Target:
-		(SFC<P & TTargetProps> | CC<P & TTargetProps>) & TWithConfig): TResult<P> {
+	function decorate<P extends TTargetProps>(Target: (SFC<P & TTargetProps>
+		| CC<P & TTargetProps>) & TWithConfig): TResult<P> {
 
 		if (Target.config && Target.config.name === name) {
 			//already wrapped - just merge in new defaultTheme
@@ -50,13 +52,21 @@ export function theme(name: string | symbol, defaultTheme: TTheme = {}) {
 			static displayName = `Themed(${Target.name})`;
 
 			static contextTypes = {
-				[THEME_CONTEXT_KEY]: PropTypes.object.isRequired
+				[THEME_CONTEXT_KEY]: PropTypes.object.isRequired,
+				//legacy react-css-themr context for backward compatibility
+				themr: THEMR_SHAPE
 			};
 
 			render() {
+				const themr = this.context.themr && this.context.themr.theme && this.context.themr.theme[name];
 				const props = {
 					...this.props,
-					theme: mergeTwo(mergeTwo(config.theme, this.context[THEME_CONTEXT_KEY][name]), this.props.theme)
+					theme: merge(
+						config.theme,
+						themr,
+						this.context[THEME_CONTEXT_KEY][name],
+						this.props.theme || {}
+					)
 				};
 				return createElement(Target as any, props);
 			}
