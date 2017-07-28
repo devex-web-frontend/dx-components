@@ -84,7 +84,7 @@ export function theme(name: string | symbol, defaultTheme: TTheme = {}) {
  * Merges passed themes by concatenating string keys and processing nested themes
  */
 export function merge(...themes: TTheme[]): TTheme {
-	return themes.reduce((acc, theme) => merge(acc, theme), {});
+	return themes.reduce((acc, theme) => mergeTwo(acc, theme), {});
 }
 
 function mergeTwo(original: TTheme = {}, mixin: TTheme = {}): TTheme {
