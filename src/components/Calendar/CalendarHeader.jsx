@@ -1,7 +1,7 @@
 import React from 'react';
 import {PURE} from 'dx-util/lib/react/react';
 import moment from 'moment';
-import ButtonIcon from '../ButtonIcon/ButtonIcon';
+import {ButtonIcon} from '../ButtonIcon/ButtonIcon';
 import {MEMOIZE} from 'dx-util/lib/function/function';
 import {CALENDAR_THEME} from './Calendar.constants';
 import * as PropTypes from 'prop-types';

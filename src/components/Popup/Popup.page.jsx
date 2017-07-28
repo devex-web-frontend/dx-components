@@ -3,7 +3,7 @@ import Popup from './Popup';
 import {storiesOf} from '@kadira/storybook';
 import {PURE} from 'dx-util/lib/react/pure';
 import Demo from '../../demo/Demo';
-import Button from '../Button/Button';
+import {Button} from '../Button/Button';
 
 import css from './Popup.page.styl';
 

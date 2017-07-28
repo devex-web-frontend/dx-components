@@ -1,6 +1,6 @@
 import React from 'react';
 import Demo from '../../demo/Demo.jsx';
-import Button from '../Button/Button.jsx';
+import {Button} from '../Button/Button';
 import Popover, {PLACEMENT, ALIGN} from './Popover.jsx';
 import Selectbox from '../Selectbox/Selectbox.jsx';
 import MenuItem from '../Menu/MenuItem.jsx';

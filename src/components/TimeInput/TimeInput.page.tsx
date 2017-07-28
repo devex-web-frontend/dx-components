@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 import TimeInput from './TimeInput';
 import Demo from '../../demo/Demo';
-import Button from '../Button/Button';
+import { Button } from '../Button/Button';
 
 import * as add from '../../resources/svg/icon-add.svg';
 import * as decrease from '../../resources/svg/icon-decrease.svg';

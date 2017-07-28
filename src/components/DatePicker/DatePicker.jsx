@@ -3,7 +3,7 @@ import moment from 'moment';
 import {themr} from 'react-css-themr';
 import DateInput from './fields/DateInput';
 import Popover, {ALIGN, PLACEMENT} from '../Popover/Popover';
-import ButtonIcon from '../ButtonIcon/ButtonIcon';
+import {ButtonIcon} from '../ButtonIcon/ButtonIcon';
 import {PURE} from 'dx-util/lib/react/react';
 import stateful from '../../util/react/stateful';
 import Calendar, {CALENDAR_THEME} from '../Calendar/Calendar';

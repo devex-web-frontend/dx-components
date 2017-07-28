@@ -1,7 +1,7 @@
 import React from 'react';
 import {PURE} from 'dx-util/lib/react/pure';
-import Button from '../Button/Button.jsx';
-import Icon from '../Icon/Icon.jsx';
+import {Button} from '../Button/Button';
+import {Icon} from '../Icon/Icon.tsx';
 import * as PropTypes from 'prop-types';
 
 export const ANCHOR_THEME = {

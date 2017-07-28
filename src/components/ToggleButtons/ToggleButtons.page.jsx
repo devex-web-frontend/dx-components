@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Demo from '../../demo/Demo.jsx';
 import ToggleButtons from './ToggleButtons.jsx';
-import Button from '../Button/Button.jsx';
+import {Button} from '../Button/Button';
 import Link from '../Link/Link.jsx';
 //import css from './ToggleButtons.styl';
 

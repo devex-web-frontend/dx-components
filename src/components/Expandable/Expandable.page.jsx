@@ -2,9 +2,9 @@ import React from 'react';
 import stateful from '../../util/react/stateful';
 import {storiesOf, action} from '@kadira/storybook';
 import ExpandableHandler from './ExpandableHandler';
-import Button from '../Button/Button';
+import {Button} from '../Button/Button';
 import Demo from '../../demo/Demo.jsx';
-import Icon from '../Icon/Icon';
+import {Icon} from '../Icon/Icon';
 import Expandable from './Expandable';
 import {PURE} from 'dx-util/lib/react/pure';
 

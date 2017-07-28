@@ -2,9 +2,9 @@ import React from 'react';
 import {themr} from 'react-css-themr';
 import {PURE} from 'dx-util/lib/react/pure';
 import Input from '../Input/Input';
-import Holdable from '../Holdable/Holdable.jsx';
-import ButtonIcon from '../ButtonIcon/ButtonIcon.jsx';
-import Button from '../Button/Button.jsx';
+import Holdable from '../Holdable/Holdable';
+import {ButtonIcon} from '../ButtonIcon/ButtonIcon';
+import {Button} from '../Button/Button';
 import classnames from 'classnames';
 
 export const NUMERIC_STEPPER = Symbol('NumericStepper');

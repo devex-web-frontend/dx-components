@@ -3,14 +3,13 @@ import * as ReactDOM from 'react-dom';
 import { PURE } from 'dx-util/lib/react/pure';
 import Input from '../Input/Input';
 import { themr } from 'react-css-themr';
-import ButtonIcon, { BUTTON_ICON_THEME, TButtonIconProps } from '../ButtonIcon/ButtonIcon';
+import { ButtonIcon, TButtonIconProps } from '../ButtonIcon/ButtonIcon';
 import Holdable from '../Holdable/Holdable';
 import { TInputProps } from '../Input/Input';
 import * as PropTypes from 'prop-types';
 
 export const STEPPABLE_INPUT_THEME = {
-	container: PropTypes.string,
-	ButtonIcon: PropTypes.shape(BUTTON_ICON_THEME)
+	container: PropTypes.string
 };
 
 const KEYCODE = {
@@ -22,8 +21,8 @@ export type TSteppableInputInjectedProps = {
 	theme: {
 		inner?: string,
 		Input?: TInputProps['theme'],
-		ButtonIcon?: BUTTON_ICON_THEME,
-		ClearButtonIcon?: BUTTON_ICON_THEME
+		ButtonIcon?: TButtonIconProps['theme'],
+		ClearButtonIcon?: TButtonIconProps['theme']
 	}
 };
 
@@ -91,7 +90,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 			ButtonIcon
 		} = this.props;
 
-		const {isFocused} = this.state;
+		const { isFocused } = this.state;
 
 		return (
 			<Input theme={theme.Input}
@@ -109,7 +108,7 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 					{onClear && clearIcon && (
 						<ButtonIcon name={clearIcon}
 						            isFlat={true}
-						            theme={theme.ClearButtonIcon}
+						            theme={theme.ClearButtonIcon as any}
 						            onClick={this.onClearClick}
 						            onMouseDown={this.onButtonMouseDown}
 						            isDisabled={isDisabled}
@@ -141,17 +140,17 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 	}
 
 	private onClearClick = (e: React.MouseEvent<HTMLElement>) => {
-		const {onClear} = this.props;
+		const { onClear } = this.props;
 		onClear && onClear();
 	}
 
 	private onIncrementClick = (e: React.MouseEvent<HTMLElement>) => {
-		const {onIncrement} = this.props;
+		const { onIncrement } = this.props;
 		onIncrement && onIncrement();
 	}
 
 	private onDecrementClick = (e: React.MouseEvent<HTMLElement>) => {
-		const {onDecrement} = this.props;
+		const { onDecrement } = this.props;
 		onDecrement && onDecrement();
 	}
 
@@ -196,8 +195,8 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 	}
 
 	private onWheel = (e: React.WheelEvent<HTMLElement>) => {
-		const {isDisabled, onIncrement, onDecrement} = this.props;
-		const {isFocused} = this.state;
+		const { isDisabled, onIncrement, onDecrement } = this.props;
+		const { isFocused } = this.state;
 
 		if (!isDisabled && isFocused) {
 			e.preventDefault(); //block v-scrolling

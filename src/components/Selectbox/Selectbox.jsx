@@ -4,7 +4,7 @@ import SelectboxAnchor from './SelectboxAnchor.jsx';
 import Popover from '../Popover/Popover.jsx';
 import Menu from '../Menu/Menu.jsx';
 import {PURE} from 'dx-util/lib/react/pure';
-import Icon from '../Icon/Icon.jsx';
+import {Icon} from '../Icon/Icon.tsx';
 import classnames from 'classnames';
 import * as PropTypes from 'prop-types';
 

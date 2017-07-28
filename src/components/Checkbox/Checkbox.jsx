@@ -5,7 +5,7 @@ import {themr} from 'react-css-themr';
 import classnames from 'classnames';
 import {randomId} from 'dx-util/lib/string/string';
 
-import Icon from '../Icon/Icon.jsx';
+import {Icon} from '../Icon/Icon.tsx';
 
 export const CHECKBOX = Symbol('Checkbox');
 
