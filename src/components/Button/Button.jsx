@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import {PURE} from 'dx-util/lib/react/pure';
 import {themr} from 'react-css-themr';
-import LoadingIndicator, {LOADING_INDICATOR_THEME} from '../LoadingIndicator/LoadingIndicator';
+import {LoadingIndicator} from '../LoadingIndicator/LoadingIndicator';
 import * as PropTypes from 'prop-types';
 
 export const BUTTON = Symbol('Button');
@@ -14,8 +14,7 @@ export default class Button extends React.Component {
 		children: PropTypes.node,
 		theme: PropTypes.shape({
 			container: PropTypes.string,
-			loadingIndicator: PropTypes.string,
-			LoadingIndicator: PropTypes.shape(LOADING_INDICATOR_THEME)
+			loadingIndicator: PropTypes.string
 		}),
 		style: PropTypes.object,
 		type: PropTypes.string,
