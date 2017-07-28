@@ -65,9 +65,6 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 	} as TSteppableInputFullProps;
 
 	state: TSteppableInputState = {};
-	private clearButtonRef: any;
-	private incrementButtonRef: any;
-	private decrementButtonRef: any;
 
 	componentDidUpdate(prevProps: TSteppableInputFullProps) {
 		if (prevProps.onClear && !this.props.onClear) {
@@ -112,7 +109,6 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 					{onClear && clearIcon && (
 						<ButtonIcon name={clearIcon}
 						            isFlat={true}
-						            ref={el => this.clearButtonRef = el}
 						            theme={theme.ClearButtonIcon}
 						            onClick={this.onClearClick}
 						            onMouseDown={this.onButtonMouseDown}
@@ -124,7 +120,6 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 							<ButtonIcon name={decrementIcon}
 							            theme={theme.ButtonIcon}
 							            onClick={this.onDecrementClick}
-							            ref={(el: any) => this.decrementButtonRef = el}
 							            onMouseDown={this.onButtonMouseDown}
 							            isDisabled={isDisabled}
 							            tabIndex={-1}/>
@@ -136,7 +131,6 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 							            theme={theme.ButtonIcon}
 							            onClick={this.onIncrementClick}
 							            onMouseDown={this.onButtonMouseDown}
-							            ref={(el: any) => this.incrementButtonRef = el}
 							            isDisabled={isDisabled}
 							            tabIndex={-1}/>
 						</Holdable>
