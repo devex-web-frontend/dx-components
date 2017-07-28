@@ -1,7 +1,7 @@
 declare const Button: React.ComponentClass<IButtonProps>;
 export default Button;
 
-export interface IButtonProps extends React.ClassAttributes<typeof Button> {
+export interface IButtonProps {
 	isDisabled?: boolean,
 	theme?: {
 		container?: string,
@@ -19,5 +19,6 @@ export interface IButtonProps extends React.ClassAttributes<typeof Button> {
 	onClick?: Function,
 	tabIndex?: number
 }
+export type TButtonProps = IButtonProps;
 
 export declare const BUTTON: symbol;
