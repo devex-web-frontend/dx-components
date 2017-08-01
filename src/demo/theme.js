@@ -1,73 +1,73 @@
 //this is a demo theme config - includes some additional presentational styles that are not included in the lib
 import config from '../config/theme';
 
-import {LIST} from '../components/List/List';
+import { LIST } from '../components/List/List';
 import list from '../components/List/List.demo.styl';
 
-import {MENU} from '../components/Menu/Menu';
+import { MENU } from '../components/Menu/Menu';
 import menu from '../components/Menu/Menu.demo.styl';
 
-import {POPOVER} from '../components/Popover/Popover';
+import { POPOVER } from '../components/Popover/Popover';
 import popover from '../components/Popover/Popover.demo.styl';
 
-import {SELECTBOX} from '../components/Selectbox/Selectbox';
+import { SELECTBOX } from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 
-import {TOGGLE_BUTTONS} from '../components/ToggleButtons/ToggleButtons';
+import { TOGGLE_BUTTONS } from '../components/ToggleButtons/ToggleButtons';
 import toggleButtons from '../components/ToggleButtons/ToggleButtons.demo.styl';
 
-import {COMBOBOX} from '../components/Combobox/Combobox';
+import { COMBOBOX } from '../components/Combobox/Combobox';
 import combobox from '../components/Combobox/Combobox.demo.styl';
 
-import {INPUT} from '../components/Input/Input';
+import { INPUT } from '../components/Input/Input';
 import input from '../components/Input/Input.demo.styl';
 
-import {PASSWORD_INPUT} from '../components/PasswordInput/PasswordInput';
+import { PASSWORD_INPUT } from '../components/PasswordInput/PasswordInput';
 import passwordInput from '../components/PasswordInput/PasswordInput.demo.styl';
 
-import {NUMERIC_STEPPER} from '../components/NumericStepper/NumericStepper.jsx';
+import { NUMERIC_STEPPER } from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.demo.styl';
 
-import {TABLE} from '../components/Table/Table';
+import { TABLE } from '../components/Table/Table';
 import table from '../components/Table/Table.demo.styl';
 
-import {HORIZONTAL_SCROLLBAR} from '../components/Scrollbar/HorizontalScrollbar.jsx';
+import { HORIZONTAL_SCROLLBAR } from '../components/Scrollbar/HorizontalScrollbar.jsx';
 import horizontalScrollbar from '../components/Scrollbar/HorizontalScrollbar.demo.styl';
 
-import {VERTICAL_SCROLLBAR} from '../components/Scrollbar/VerticalScrollbar.jsx';
+import { VERTICAL_SCROLLBAR } from '../components/Scrollbar/VerticalScrollbar.jsx';
 import verticalScrollbar from '../components/Scrollbar/VerricalScrollbar.demo.styl';
 
-import {CHECKBOX} from '../components/Checkbox/Checkbox.jsx';
+import { CHECKBOX } from '../components/Checkbox/Checkbox.tsx';
 import checkbox from '../components/Checkbox/Checkbox.demo.styl';
 
-import {POPUP} from '../components/Popup/Popup';
+import { POPUP } from '../components/Popup/Popup';
 import popup from '../components/Popup/Popup.demo.styl';
 
-import {HIGHLIGHT} from '../components/Highlight/Highlight';
+import { HIGHLIGHT } from '../components/Highlight/Highlight';
 import highlight from '../components/Highlight/Highlight.demo.styl';
 
-import {DATE_PICKER} from '../components/DatePicker/DatePicker';
+import { DATE_PICKER } from '../components/DatePicker/DatePicker';
 import datePicker from '../components/DatePicker/DatePicker.demo.styl';
 
-import {CALENDAR} from '../components/Calendar/Calendar';
+import { CALENDAR } from '../components/Calendar/Calendar';
 import calendarTheme from '../components/Calendar/Calendar.demo.styl';
 
-import {EXPANDABLE} from '../components/Expandable/Expandable.jsx';
+import { EXPANDABLE } from '../components/Expandable/Expandable.jsx';
 import expandable from '../components/Expandable/Expandable.demo.styl';
 
-import {LOADING_INDICATOR} from '../components/LoadingIndicator/LoadingIndicator';
+import { LOADING_INDICATOR } from '../components/LoadingIndicator/LoadingIndicator';
 import loadingIndicator from '../components/LoadingIndicator/LoadingIndicator.demo.styl';
 
-import {STEPPABLE_INPUT} from '../components/SteppableInput/SteppableInput';
+import { STEPPABLE_INPUT } from '../components/SteppableInput/SteppableInput';
 import steppableInput from '../components/SteppableInput/theme/SteppableInput.demo.styl';
 import steppableInputInput from '../components/SteppableInput/theme/Input.demo.styl';
 import steppableInputButtonIcon from '../components/SteppableInput/theme/ButtonIcon.demo.styl';
 
-import {TIME_INPUT} from '../components/TimeInput/TimeInput';
+import { TIME_INPUT } from '../components/TimeInput/TimeInput';
 import timeInput from '../components/TimeInput/theme/TimeInput.demo.styl';
 import timeInputSteppableInput from '../components/TimeInput/theme/SteppableInput.demo.styl';
 
-import {DATE_INPUT} from '../components/DateInput/DateInput';
+import { DATE_INPUT } from '../components/DateInput/DateInput';
 import dateInput from '../components/DateInput/theme/DateInput.demo.styl';
 import dateInputSteppableInput from '../components/DateInput/theme/SteppableInput.demo.styl';
 import dateInputButtonIcon from '../components/DateInput/theme/ButtonIcon.demo.styl';
