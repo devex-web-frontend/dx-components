@@ -1,7 +1,7 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import { storiesOf } from '@kadira/storybook';
 import Demo from '../../demo/Demo';
-import Highlight from './Highlight';
+import { Highlight } from './Highlight.tsx';
 
 storiesOf('Highlight', module).add('Default', () => (
 	<Demo>

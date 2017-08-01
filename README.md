@@ -20,3 +20,7 @@
 
 ## Checkbox
 - default export changed to named
+
+## Highlight
+- default export changed to named
+- remove `HIGHLIGHT_THEME_SHAPE`

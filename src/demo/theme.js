@@ -43,7 +43,7 @@ import checkbox from '../components/Checkbox/Checkbox.demo.styl';
 import { POPUP } from '../components/Popup/Popup';
 import popup from '../components/Popup/Popup.demo.styl';
 
-import { HIGHLIGHT } from '../components/Highlight/Highlight';
+import { HIGHLIGHT } from '../components/Highlight/Highlight.tsx';
 import highlight from '../components/Highlight/Highlight.demo.styl';
 
 import { DATE_PICKER } from '../components/DatePicker/DatePicker';
