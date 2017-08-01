@@ -25,8 +25,8 @@ class RawHoldable extends React.Component<TFullHoldableProps> {
 		onHold: PropTypes.func
 	};
 
-	private _timeoutId: NodeJS.Timer;
-	private _intervalId: NodeJS.Timer;
+	private _timeoutId: any;
+	private _intervalId: any;
 
 	static defaultProps = {
 		interval: 50,
