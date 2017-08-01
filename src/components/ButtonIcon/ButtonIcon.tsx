@@ -2,15 +2,14 @@ import * as React from 'react';
 import { Button, TButtonProps } from '../Button/Button';
 import { PURE } from 'dx-util/lib/react/pure';
 import { Icon, TIconProps } from '../Icon/Icon';
-import { Component, ComponentType } from 'react';
+import { ComponentType } from 'react';
 import { theme } from '../../util/react/theme';
 import { ObjectClean } from 'typelevel-ts';
-import { defaults } from '../../util/react/defaults';
-import { compose } from 'redux';
+import { PartialKeys } from 'dx-util/lib/object/object';
 
 export const BUTTON_ICON = Symbol('ButtonIcon');
 
-export type TButtonIconProps = ObjectClean<TButtonProps & {
+export type TFullButtonIconProps = ObjectClean<TButtonProps & {
 	Button: ComponentType<TButtonProps>,
 	Icon: ComponentType<TIconProps>,
 	name: string,
@@ -20,7 +19,12 @@ export type TButtonIconProps = ObjectClean<TButtonProps & {
 }>;
 
 @PURE
-class RawButtonIcon extends React.Component<TButtonIconProps> {
+class RawButtonIcon extends React.Component<TFullButtonIconProps> {
+	static defaultProps = {
+		Button,
+		Icon
+	};
+
 	render() {
 		const { theme, name, Button, Icon, ...props } = this.props;
 		const { icon, ...buttonTheme } = theme;
@@ -36,12 +40,5 @@ class RawButtonIcon extends React.Component<TButtonIconProps> {
 	}
 }
 
-const enhance = compose(
-	defaults({
-		Button,
-		Icon
-	}),
-	theme(BUTTON_ICON)
-);
-
-export const ButtonIcon = enhance(RawButtonIcon);
+export type TButtonIconProps = ObjectClean<PartialKeys<TFullButtonIconProps, 'Button' | 'Icon' | 'theme'>>;
+export const ButtonIcon = theme(BUTTON_ICON)(RawButtonIcon);

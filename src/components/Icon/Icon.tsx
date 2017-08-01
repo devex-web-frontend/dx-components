@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
 import { theme } from '../../util/react/theme';
+import { PartialKeys } from 'dx-util/lib/object/object';
+import { ObjectClean } from 'typelevel-ts';
 
 export const ICON = Symbol('Icon');
-export type TIconProps = {
+export type TRawIconProps = {
 	name: string,
 	theme: {
 		container?: string
@@ -11,7 +13,7 @@ export type TIconProps = {
 };
 
 @PURE
-class RawIcon extends React.Component<TIconProps> {
+class RawIcon extends React.Component<TRawIconProps> {
 	render() {
 		const { name, theme } = this.props;
 
@@ -23,4 +25,5 @@ class RawIcon extends React.Component<TIconProps> {
 	}
 }
 
+export type TIconProps = ObjectClean<PartialKeys<TRawIconProps, 'theme'>>;
 export const Icon = theme(ICON)(RawIcon);

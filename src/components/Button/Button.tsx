@@ -4,10 +4,12 @@ import { PURE } from 'dx-util/lib/react/pure';
 import { LoadingIndicator, TLoadingIndicatorProps } from '../LoadingIndicator/LoadingIndicator';
 import { theme } from '../../util/react/theme';
 import { EventHandler, MouseEvent } from 'react';
+import { PartialKeys } from 'dx-util/lib/object/object';
+import { ObjectClean } from 'typelevel-ts';
 
 export const BUTTON = Symbol('Button');
 
-export type TButtonProps = {
+type TRawButtonProps = {
 	theme: {
 		container?: string,
 		container_primary?: string,
@@ -30,7 +32,7 @@ export type TButtonProps = {
 };
 
 @PURE
-class RawButton extends React.Component<TButtonProps> {
+class RawButton extends React.Component<TRawButtonProps> {
 	static defaultProps = {
 		type: 'button'
 	};
@@ -79,4 +81,5 @@ class RawButton extends React.Component<TButtonProps> {
 	}
 }
 
+export type TButtonProps = ObjectClean<PartialKeys<TRawButtonProps, 'theme'>>;
 export const Button = theme(BUTTON)(RawButton);

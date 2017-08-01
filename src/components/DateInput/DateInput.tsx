@@ -14,6 +14,7 @@ import * as Portal from 'react-overlays/lib/Portal';
 import { TButtonIconProps } from '../ButtonIcon/ButtonIcon';
 import * as is_before from 'date-fns/is_before';
 import * as is_after from 'date-fns/is_after';
+import { ComponentClass, ComponentType } from 'react';
 
 export type TDateValueProps = TControlProps<Date | null | undefined>;
 
@@ -29,12 +30,12 @@ export type TDateInputOwnProps = TSteppableInputProps & TDateValueProps & {
 	calendarIcon?: string,
 	onClear?: Function,
 	target?: React.ReactNode
-	Calendar?: React.ComponentClass<TCalendarProps> | React.SFC<TCalendarProps>,
+	Calendar?: ComponentType<TCalendarProps>,
 };
 
 export type TDateDefaultProps = {
-	SteppableInput: React.ComponentClass<TSteppableInputProps> | React.SFC<TSteppableInputProps>,
-	ButtonIcon: React.ComponentClass<TButtonIconProps> | React.SFC<TButtonIconProps>
+	SteppableInput: ComponentType<TSteppableInputProps>,
+	ButtonIcon: ComponentClass<TButtonIconProps>
 };
 
 export type TDateInputInjectedProps = {
