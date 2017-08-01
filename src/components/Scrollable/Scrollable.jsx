@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import {themr} from 'react-css-themr';
+import { themr } from 'react-css-themr';
 
 import {
 	CONTEXT_TYPES,
@@ -9,10 +9,10 @@ import {
 	ScrollableInternalEmitter
 } from './Scrollable.const';
 
-import {SCROLLBAR_TYPE} from '../Scrollbar/Scrollbar';
-import ResizeDetector from '../ResizeDetector/ResizeDetector.jsx';
-import HorizontalScrollbar from '../Scrollbar/HorizontalScrollbar.jsx';
-import VerticalScrollbar from '../Scrollbar/VerticalScrollbar.jsx';
+import { SCROLLBAR_TYPE } from '../Scrollbar/Scrollbar';
+import { ResizeDetector } from '../ResizeDetector/ResizeDetector.tsx';
+import HorizontalScrollbar from '../Scrollbar/HorizontalScrollbar';
+import VerticalScrollbar from '../Scrollbar/VerticalScrollbar';
 
 import getScrollbarSize from '../Scrollbar/Scrollbar.util.js';
 import * as PropTypes from 'prop-types';
@@ -65,7 +65,7 @@ export default class Scrollable extends React.Component {
 	}
 
 	getChildContext() {
-		const {theme} = this.props;
+		const { theme } = this.props;
 		return {
 			size: getScrollbarSize(theme.container),
 			[SCROLLABLE_CONTEXT_EMITTER]: this._emitter
@@ -91,13 +91,13 @@ export default class Scrollable extends React.Component {
 	}
 
 	onScroll = (event) => {
-		const {scrollLeft, scrollTop} = event.target;
-		const {onScroll} = this.props;
+		const { scrollLeft, scrollTop } = event.target;
+		const { onScroll } = this.props;
 		onScroll && onScroll(scrollLeft, scrollTop);
 	}
 
 	onScrollbarUpdate = (type, isVisible) => {
-		const {onUpdate} = this.props;
+		const { onUpdate } = this.props;
 		switch (type) {
 			case SCROLLBAR_TYPE.VERTICAL: {
 				this._withVerticalScrollbar = isVisible;
@@ -122,7 +122,7 @@ export default class Scrollable extends React.Component {
 
 		const children = React.Children.only(this.props.children);
 
-		const {container} = this.state;
+		const { container } = this.state;
 
 		const className = classnames(theme.scrollable, {
 			[theme.withHorizontalScrollbar]: this._withHorizontalScrollbar,
@@ -153,21 +153,21 @@ export default class Scrollable extends React.Component {
 					</div>
 					{container && [
 						<HorizontalScrollbar ref={el => this._horizontalScrollbar = el}
-						                     key="horizontalScrollbar"
-						                     container={container}
-						                     scrollLeft={this.props.scrollLeft}
-						                     theme={{
-							                     bar: theme.horizontal_scrollbar__bar,
-							                     container: containerClassName
-						                     }}/>,
+							key="horizontalScrollbar"
+							container={container}
+							scrollLeft={this.props.scrollLeft}
+							theme={{
+								bar: theme.horizontal_scrollbar__bar,
+								container: containerClassName
+							}} />,
 						<VerticalScrollbar ref={el => this._verticalScrollbar = el}
-						                   key="verticalScrollbar"
-						                   container={container}
-						                   scrollTop={this.props.scrollTop}
-						                   theme={{
-							                   bar: theme.vertical_scrollbar__bar,
-							                   container: containerClassName
-						                   }}/>
+							key="verticalScrollbar"
+							container={container}
+							scrollTop={this.props.scrollTop}
+							theme={{
+								bar: theme.vertical_scrollbar__bar,
+								container: containerClassName
+							}} />
 					]}
 				</div>
 				<ResizeDetector {...resizeDetectorProps} />

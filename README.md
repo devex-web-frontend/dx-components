@@ -31,3 +31,6 @@
 ## Link
 - default export changed to named
 - Link now requires children
+
+## ResizeDetector
+- default export changed to named

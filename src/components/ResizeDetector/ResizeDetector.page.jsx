@@ -1,10 +1,10 @@
 import React from 'react';
-import {storiesOf, action} from '@kadira/storybook';
-import ResizeDetector from './ResizeDetector';
+import { storiesOf, action } from '@kadira/storybook';
+import { ResizeDetector } from './ResizeDetector.tsx';
 import Demo from '../../demo/Demo';
 
 storiesOf('ResizeDetector', module).add('default', () => (
 	<Demo>
-		<ResizeDetector onResize={action('resized')}/>
+		<ResizeDetector onResize={action('resized')} />
 	</Demo>
 ));

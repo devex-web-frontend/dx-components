@@ -25,7 +25,7 @@ import selectbox from '../components/Selectbox/Selectbox.styl';
 import { TOGGLE_BUTTONS } from '../components/ToggleButtons/ToggleButtons';
 import toggleButtons from '../components/ToggleButtons/ToggleButtons.styl';
 
-import { RESIZE_DETECTOR } from '../components/ResizeDetector/ResizeDetector';
+import { RESIZE_DETECTOR } from '../components/ResizeDetector/ResizeDetector.tsx';
 import resizeDetector from '../components/ResizeDetector/ResizeDetector.styl';
 
 import { COMBOBOX } from '../components/Combobox/Combobox';
