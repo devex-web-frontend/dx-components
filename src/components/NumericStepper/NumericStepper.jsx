@@ -1,10 +1,10 @@
 import React from 'react';
-import {themr} from 'react-css-themr';
-import {PURE} from 'dx-util/lib/react/pure';
+import { themr } from 'react-css-themr';
+import { PURE } from 'dx-util/lib/react/pure';
 import Input from '../Input/Input';
-import Holdable from '../Holdable/Holdable';
-import {ButtonIcon} from '../ButtonIcon/ButtonIcon';
-import {Button} from '../Button/Button';
+import { Holdable } from '../Holdable/Holdable.tsx';
+import { ButtonIcon } from '../ButtonIcon/ButtonIcon';
+import { Button } from '../Button/Button';
 import classnames from 'classnames';
 
 export const NUMERIC_STEPPER = Symbol('NumericStepper');
@@ -31,7 +31,7 @@ export default class NumericStepper extends React.Component {
 		formatter: React.PropTypes.func,
 		parser: React.PropTypes.func,
 		value(props) {
-			const {value, min, max} = props;
+			const { value, min, max } = props;
 			const type = typeof value;
 
 			if (type === 'number' && (value < min || value > max)) {
@@ -41,7 +41,7 @@ export default class NumericStepper extends React.Component {
 			}
 		},
 		min(props) {
-			const {min, max} = props;
+			const { min, max } = props;
 			const type = typeof min;
 			if (type !== 'undefined') {
 				if (type !== 'number') {
@@ -54,7 +54,7 @@ export default class NumericStepper extends React.Component {
 			}
 		},
 		max(props) {
-			const {min, max} = props;
+			const { min, max } = props;
 			const type = typeof max;
 			if (type !== 'undefined') {
 				if (type !== 'number') {
@@ -118,7 +118,7 @@ export default class NumericStepper extends React.Component {
 	 * @returns {string|number}
 	 */
 	formatValue(value) {
-		const {formatter} = this.props;
+		const { formatter } = this.props;
 		return formatter ? formatter(value) : value;
 	}
 
@@ -130,7 +130,7 @@ export default class NumericStepper extends React.Component {
 	 * @returns {number}
 	 */
 	parseValue(value) {
-		const {parser} = this.props;
+		const { parser } = this.props;
 
 		// If `parser` function is specified, try to parse.
 		if (parser) {
@@ -151,7 +151,7 @@ export default class NumericStepper extends React.Component {
 	}
 
 	step(n) {
-		const {step, min, max, value, onChange} = this.props;
+		const { step, min, max, value, onChange } = this.props;
 		const num = value + n * step;
 		const precision = this.getPrecision(step);
 
@@ -172,8 +172,8 @@ export default class NumericStepper extends React.Component {
 	}
 
 	render() {
-		const {value} = this.props;
-		const {displayedValue} = this.state;
+		const { value } = this.props;
+		const { displayedValue } = this.state;
 
 		const {
 			theme,
@@ -209,29 +209,29 @@ export default class NumericStepper extends React.Component {
 		return (
 			<div className={className}>
 				<Input value={displayedValue}
-				       type="text"
-				       disabled={isDisabled}
-				       onBlur={this.onBlur}
-				       onChange={this.onInputChange}
-				       onClick={onClick}
-				       onFocus={this.onFocus}
-				       pattern={pattern}
-				       onKeyDown={this.onKeyDown}
-				       onWheel={this.onWheel}
-				       theme={inputTheme}
-				       readOnly={!manualEdit}/>
+					type="text"
+					disabled={isDisabled}
+					onBlur={this.onBlur}
+					onChange={this.onInputChange}
+					onClick={onClick}
+					onFocus={this.onFocus}
+					pattern={pattern}
+					onKeyDown={this.onKeyDown}
+					onWheel={this.onWheel}
+					theme={inputTheme}
+					readOnly={!manualEdit} />
 				<div className={theme.buttons}>
 					<Holdable onHold={this.onButtonDownClick}>
 						<Button onClick={this.onButtonDownClick}
-						        name={downIconName}
-						        theme={buttonTheme.DOWN}
-						        isDisabled={isDisabled}/>
+							name={downIconName}
+							theme={buttonTheme.DOWN}
+							isDisabled={isDisabled} />
 					</Holdable>
 					<Holdable onHold={this.onButtonUpClick}>
 						<Button onClick={this.onButtonUpClick}
-						        theme={buttonTheme.UP}
-						        name={upIconName}
-						        isDisabled={isDisabled}/>
+							theme={buttonTheme.UP}
+							name={upIconName}
+							isDisabled={isDisabled} />
 					</Holdable>
 				</div>
 			</div>
@@ -254,7 +254,7 @@ export default class NumericStepper extends React.Component {
 			return;
 		}
 
-		const {value} = event.target;
+		const { value } = event.target;
 		if (this.state.isFocused) {
 			this.setState({
 				displayedValue: value
@@ -273,7 +273,7 @@ export default class NumericStepper extends React.Component {
 			return;
 		}
 
-		const {value} = event.target;
+		const { value } = event.target;
 		const newValue = this.parseValue(value);
 
 		this.setState({
@@ -281,13 +281,13 @@ export default class NumericStepper extends React.Component {
 			displayedValue: this.formatValue(newValue)
 		});
 
-		const {onChange} = this.props;
+		const { onChange } = this.props;
 		onChange && onChange(newValue);
 	}
 
 	onWheel = e => {
-		const {isDisabled} = this.props;
-		const {isFocused} = this.state;
+		const { isDisabled } = this.props;
+		const { isFocused } = this.state;
 
 		if (!isDisabled && isFocused) {
 			if (e.deltaY < 0) {

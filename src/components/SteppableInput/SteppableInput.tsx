@@ -4,7 +4,7 @@ import { PURE } from 'dx-util/lib/react/pure';
 import Input from '../Input/Input';
 import { themr } from 'react-css-themr';
 import { ButtonIcon, TButtonIconProps } from '../ButtonIcon/ButtonIcon';
-import Holdable from '../Holdable/Holdable';
+import { Holdable } from '../Holdable/Holdable';
 import { TInputProps } from '../Input/Input';
 import * as PropTypes from 'prop-types';
 
@@ -94,44 +94,44 @@ class SteppableInput extends React.Component<TSteppableInputFullProps, TSteppabl
 
 		return (
 			<Input theme={theme.Input}
-			       type="hidden"
-			       onFocus={this.onFocus}
-			       onBlur={this.onBlur}
-			       onKeyDown={this.onKeyDown}
-			       onClick={onClick}
-			       onWheel={this.onWheel}
-			       isDisabled={isDisabled}
-			       error={error}
-			       tabIndex={(isFocused || isDisabled ) ? -1 : (tabIndex || 0)}>
+				type="hidden"
+				onFocus={this.onFocus}
+				onBlur={this.onBlur}
+				onKeyDown={this.onKeyDown}
+				onClick={onClick}
+				onWheel={this.onWheel}
+				isDisabled={isDisabled}
+				error={error}
+				tabIndex={(isFocused || isDisabled) ? -1 : (tabIndex || 0)}>
 				<div className={theme.inner}>
 					{children}
 					{onClear && clearIcon && (
 						<ButtonIcon name={clearIcon}
-						            isFlat={true}
-						            theme={theme.ClearButtonIcon as any}
-						            onClick={this.onClearClick}
-						            onMouseDown={this.onButtonMouseDown}
-						            isDisabled={isDisabled}
-						            tabIndex={-1}/>
+							isFlat={true}
+							theme={theme.ClearButtonIcon as any}
+							onClick={this.onClearClick}
+							onMouseDown={this.onButtonMouseDown}
+							isDisabled={isDisabled}
+							tabIndex={-1} />
 					)}
 					{onDecrement && decrementIcon && (
 						<Holdable onHold={onDecrement}>
 							<ButtonIcon name={decrementIcon}
-							            theme={theme.ButtonIcon}
-							            onClick={this.onDecrementClick}
-							            onMouseDown={this.onButtonMouseDown}
-							            isDisabled={isDisabled}
-							            tabIndex={-1}/>
+								theme={theme.ButtonIcon}
+								onClick={this.onDecrementClick}
+								onMouseDown={this.onButtonMouseDown}
+								isDisabled={isDisabled}
+								tabIndex={-1} />
 						</Holdable>
 					)}
 					{onIncrement && incrementIcon && (
 						<Holdable onHold={onIncrement}>
 							<ButtonIcon name={incrementIcon}
-							            theme={theme.ButtonIcon}
-							            onClick={this.onIncrementClick}
-							            onMouseDown={this.onButtonMouseDown}
-							            isDisabled={isDisabled}
-							            tabIndex={-1}/>
+								theme={theme.ButtonIcon}
+								onClick={this.onIncrementClick}
+								onMouseDown={this.onButtonMouseDown}
+								isDisabled={isDisabled}
+								tabIndex={-1} />
 						</Holdable>
 					)}
 				</div>

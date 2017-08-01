@@ -24,3 +24,6 @@
 ## Highlight
 - default export changed to named
 - remove `HIGHLIGHT_THEME_SHAPE`
+
+## Holdable
+- default export changed to named
