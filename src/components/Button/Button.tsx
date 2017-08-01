@@ -9,7 +9,7 @@ import { ObjectClean } from 'typelevel-ts';
 
 export const BUTTON = Symbol('Button');
 
-type TRawButtonProps = {
+export type TFullButtonProps = {
 	theme: {
 		container?: string,
 		container_primary?: string,
@@ -32,7 +32,7 @@ type TRawButtonProps = {
 };
 
 @PURE
-class RawButton extends React.Component<TRawButtonProps> {
+class RawButton extends React.Component<TFullButtonProps> {
 	static defaultProps = {
 		type: 'button'
 	};
@@ -81,5 +81,5 @@ class RawButton extends React.Component<TRawButtonProps> {
 	}
 }
 
-export type TButtonProps = ObjectClean<PartialKeys<TRawButtonProps, 'theme'>>;
+export type TButtonProps = ObjectClean<PartialKeys<TFullButtonProps, 'theme'>>;
 export const Button = theme(BUTTON)(RawButton);
