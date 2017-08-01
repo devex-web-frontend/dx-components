@@ -1,10 +1,10 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import { storiesOf } from '@kadira/storybook';
 import Scrollable from './Scrollable.jsx';
 import Demo from '../../demo/Demo';
 import css from './Scrollable.page.styl';
-import {PURE} from 'dx-util/lib/react/pure';
-import Pure from '../Pure/Pure';
+import { PURE } from 'dx-util/lib/react/pure';
+import { Pure } from '../Pure/Pure';
 
 const darkDemoTheme = {
 	container: css.container
@@ -66,7 +66,7 @@ class ScrollablePage extends React.Component {
 						<section className={css.section}>
 							<h1>Origin</h1>
 							<Scrollable onScroll={this.onScroll}>
-								<div className={css.scrollable}><Heavy/></div>
+								<div className={css.scrollable}><Heavy /></div>
 							</Scrollable>
 						</section>
 					)}
@@ -77,7 +77,7 @@ class ScrollablePage extends React.Component {
 						<section className={css.section}>
 							<h1>VSync</h1>
 							<Scrollable scrollTop={this.state.scrollTop}>
-								<div className={css.scrollable}><Heavy/></div>
+								<div className={css.scrollable}><Heavy /></div>
 							</Scrollable>
 						</section>
 					)}
@@ -87,7 +87,7 @@ class ScrollablePage extends React.Component {
 						<section className={css.section}>
 							<h1>HSync</h1>
 							<Scrollable scrollLeft={this.state.scrollLeft}>
-								<div className={css.scrollable}><Heavy/></div>
+								<div className={css.scrollable}><Heavy /></div>
 							</Scrollable>
 						</section>
 					)}
@@ -96,7 +96,7 @@ class ScrollablePage extends React.Component {
 				<section className={css.section}>
 					<h1>VHSync</h1>
 					<Scrollable scrollTop={this.state.scrollTop} scrollLeft={this.state.scrollLeft}>
-						<div className={css.scrollable}><Heavy/></div>
+						<div className={css.scrollable}><Heavy /></div>
 					</Scrollable>
 				</section>
 
@@ -112,4 +112,4 @@ class ScrollablePage extends React.Component {
 	}
 }
 
-storiesOf('Scrollable', module).add('default', () => <ScrollablePage/>);
+storiesOf('Scrollable', module).add('default', () => <ScrollablePage />);

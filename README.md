@@ -14,3 +14,6 @@
 
 ## BoundsUpdateDetector
 - default export changed to named
+
+## Pure
+- default export changed to named
