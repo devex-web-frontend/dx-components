@@ -27,3 +27,7 @@
 
 ## Holdable
 - default export changed to named
+
+## Link
+- default export changed to named
+- Link now requires children

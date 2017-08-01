@@ -7,7 +7,7 @@ import button from '../components/Button/Button.styl';
 import { BUTTON_ICON } from '../components/ButtonIcon/ButtonIcon';
 import buttonIcon from '../components/ButtonIcon/ButtonIcon.styl';
 
-import { LINK } from '../components/Link/Link';
+import { LINK } from '../components/Link/Link.tsx';
 import link from '../components/Link/Link.styl';
 
 import { LIST } from '../components/List/List';
