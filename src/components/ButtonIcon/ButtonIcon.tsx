@@ -3,7 +3,7 @@ import { Button, TButtonProps } from '../Button/Button';
 import { PURE } from 'dx-util/lib/react/pure';
 import { Icon, TIconProps } from '../Icon/Icon';
 import { ComponentType } from 'react';
-import { theme } from '../../util/react/theme';
+import { theme } from '../../util/react/withTheme';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 

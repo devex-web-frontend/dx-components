@@ -43,6 +43,7 @@ export function theme(name: string | symbol, defaultTheme: TTheme = {}) {
 			return Target as any;
 		}
 
+		// noinspection UnnecessaryLocalVariableJS
 		const config = {
 			name,
 			theme: defaultTheme
@@ -61,7 +62,7 @@ export function theme(name: string | symbol, defaultTheme: TTheme = {}) {
 				const themr = this.context.themr && this.context.themr.theme && this.context.themr.theme[name];
 				const props = {
 					...this.props,
-					theme: merge(
+					theme: mergeThemes(
 						config.theme,
 						themr,
 						this.context[THEME_CONTEXT_KEY][name],
@@ -83,7 +84,7 @@ export function theme(name: string | symbol, defaultTheme: TTheme = {}) {
 /**
  * Merges passed themes by concatenating string keys and processing nested themes
  */
-export function merge(...themes: TTheme[]): TTheme {
+export function mergeThemes(...themes: TTheme[]): TTheme {
 	return themes.reduce((acc, theme) => mergeTwo(acc, theme), {});
 }
 
@@ -110,7 +111,7 @@ function mergeTwo(original: TTheme = {}, mixin: TTheme = {}): TTheme {
 				switch (typeof originalValue) {
 					case 'object': {
 						//exactly nested theme object - go recursive
-						result[key] = merge(originalValue, mixinValue as TTheme);
+						result[key] = mergeThemes(originalValue, mixinValue as TTheme);
 						break;
 					}
 

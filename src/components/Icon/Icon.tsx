@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
-import { theme } from '../../util/react/theme';
+import { theme } from '../../util/react/withTheme';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { ObjectClean } from 'typelevel-ts';
 

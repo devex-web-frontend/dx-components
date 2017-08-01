@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { ComponentType } from 'react';
-import { theme } from '../../util/react/theme';
+import { theme } from '../../util/react/withTheme';
 
 export const LOADINGINDICATON = Symbol('LoadingIndicaton');
 

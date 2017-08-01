@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as classnames from 'classnames';
 import { PURE } from 'dx-util/lib/react/pure';
 import { LoadingIndicator, TLoadingIndicatorProps } from '../LoadingIndicator/LoadingIndicator';
-import { theme } from '../../util/react/theme';
+import { theme } from '../../util/react/withTheme';
 import { EventHandler, MouseEvent } from 'react';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { ObjectClean } from 'typelevel-ts';
