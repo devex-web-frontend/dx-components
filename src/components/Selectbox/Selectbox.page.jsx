@@ -3,7 +3,7 @@ import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
 import {Button} from '../Button/Button';
 import Selectbox from './Selectbox.jsx';
-import SelectboxAnchor from './SelectboxAnchor.jsx';
+import {SelectboxAnchor} from './SelectboxAnchor.tsx';
 import MenuItem from '../Menu/MenuItem.jsx';
 import {PURE} from 'dx-util/lib/react/pure';
 import stateful from '../../util/react/stateful';
@@ -12,11 +12,6 @@ import iconListItemTick from './img/icon-list-item-tick.svg';
 import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
 
 class DemoSelectboxAnchor extends React.Component {
-
-	static propTypes = {
-		...SelectboxAnchor.propTypes
-	}
-
 	render() {
 		const newProps = {
 			...this.props,
@@ -27,10 +22,6 @@ class DemoSelectboxAnchor extends React.Component {
 }
 
 class DemoSelectbox extends React.Component {
-	static propTypes = {
-		...Selectbox.propTypes
-	}
-
 	render() {
 		const newProps = {
 			...this.props,

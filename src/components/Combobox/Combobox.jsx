@@ -3,7 +3,6 @@ import {themr} from 'react-css-themr';
 import Input from '../Input/Input';
 import {ButtonIcon} from '../ButtonIcon/ButtonIcon';
 import Selectbox, {SELECTBOX_THEME} from '../Selectbox/Selectbox.jsx';
-import {ANCHOR_SHARE_PROP_TYPES} from '../Selectbox/SelectboxAnchor';
 import {PURE} from 'dx-util/lib/react/pure';
 import classnames from 'classnames';
 import * as PropTypes from 'prop-types';
@@ -12,7 +11,7 @@ export const COMBOBOX = Symbol('Combobox');
 
 class ComboboxAnchor extends React.Component {
 	static propTypes = {
-		...ANCHOR_SHARE_PROP_TYPES
+		// ...ANCHOR_SHARE_PROP_TYPES
 	};
 
 	render() {

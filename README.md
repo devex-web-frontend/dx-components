@@ -5,3 +5,12 @@
 
 - `IButtonProps` was replaced with `TButtonProps`
 - `theme` was renamed to `withTheme`
+
+## Combobox:
+- remove `ANCHOR_THEME`, `ANCHOR_SHARE_PROP_TYPES`
+
+## Selectbox/SelectboxAnchor
+- default export changed to named
+
+## BoundsUpdateDetector
+- default export changed to named

@@ -1,6 +1,6 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
-import SelectboxAnchor from './SelectboxAnchor.jsx';
+import {SelectboxAnchor} from './SelectboxAnchor';
 import Popover from '../Popover/Popover.jsx';
 import Menu from '../Menu/Menu.jsx';
 import {PURE} from 'dx-util/lib/react/pure';
