@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { theme } from '../withTheme';
+import { withTheme } from '../withTheme';
 
-describe('react/theme', () => {
+describe('react/withTheme', () => {
 	describe('should compile', () => {
 		type TProps = {
 			foo: string,
@@ -20,7 +20,7 @@ describe('react/theme', () => {
 				}
 			}
 
-			const Themed = theme(Symbol())(Foo);
+			const Themed = withTheme(Symbol())(Foo);
 			const testTheme = {
 				container: '123'
 			};
@@ -33,7 +33,7 @@ describe('react/theme', () => {
 				<div className={props.theme.container}>hi</div>
 			);
 
-			const Themed = theme(Symbol())(Foo);
+			const Themed = withTheme(Symbol())(Foo);
 			const testTheme = {
 				container: '123'
 			};

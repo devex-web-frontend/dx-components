@@ -3,7 +3,7 @@ import { Button, TButtonProps } from '../Button/Button';
 import { PURE } from 'dx-util/lib/react/pure';
 import { Icon, TIconProps } from '../Icon/Icon';
 import { ComponentType } from 'react';
-import { theme } from '../../util/react/withTheme';
+import { withTheme } from '../../util/react/withTheme';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 
@@ -41,4 +41,4 @@ class RawButtonIcon extends React.Component<TFullButtonIconProps> {
 }
 
 export type TButtonIconProps = ObjectClean<PartialKeys<TFullButtonIconProps, 'Button' | 'Icon' | 'theme'>>;
-export const ButtonIcon = theme(BUTTON_ICON)(RawButtonIcon);
+export const ButtonIcon = withTheme(BUTTON_ICON)(RawButtonIcon);

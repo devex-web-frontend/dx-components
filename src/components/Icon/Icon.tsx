@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
-import { theme } from '../../util/react/withTheme';
+import { withTheme } from '../../util/react/withTheme';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { ObjectClean } from 'typelevel-ts';
 
@@ -26,4 +26,4 @@ class RawIcon extends React.Component<TRawIconProps> {
 }
 
 export type TIconProps = ObjectClean<PartialKeys<TRawIconProps, 'theme'>>;
-export const Icon = theme(ICON)(RawIcon);
+export const Icon = withTheme(ICON)(RawIcon);

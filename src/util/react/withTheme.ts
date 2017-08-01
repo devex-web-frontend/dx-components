@@ -4,8 +4,8 @@ import { ObjectOmit } from 'typelevel-ts';
 
 //tslint:disable-next-line no-var-requires no-require-imports
 const { default: THEMR_SHAPE } = require('react-css-themr/lib/utils/themr-shape.js');
-const THEME_CONTEXT_KEY = '@@dx-util/theme-context-key'; //should be serializable
-const THEME_CONFIG_KEY = Symbol('@@dx-util/theme-config-key');
+const THEME_CONTEXT_KEY = '@@dx-util/withTheme-context-key'; //should be serializable
+const THEME_CONFIG_KEY = Symbol('@@dx-util/withTheme-config-key');
 
 export type TTheme = {
 	[key: string]: TTheme | string | undefined
@@ -31,7 +31,7 @@ type TResult<P extends TTargetProps> = ComponentClass<TResultProps<P>>;
 //shortcuts
 type CC<P> = ComponentClass<P>;
 
-export function theme(name: string | symbol, defaultTheme: TTheme = {}) {
+export function withTheme(name: string | symbol, defaultTheme: TTheme = {}) {
 	function decorate<P extends TTargetProps>(Target: SFC<P & TTargetProps> & TWithConfig): TResult<P>;
 	function decorate<P extends TTargetProps>(Target: CC<P & TTargetProps> & TWithConfig): TResult<P>;
 	function decorate<P extends TTargetProps>(Target: (SFC<P & TTargetProps>
