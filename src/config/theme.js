@@ -22,7 +22,7 @@ import popover from '../components/Popover/Popover.styl';
 import { SELECTBOX } from '../components/Selectbox/Selectbox';
 import selectbox from '../components/Selectbox/Selectbox.styl';
 
-import { TOGGLE_BUTTONS } from '../components/ToggleButtons/ToggleButtons';
+import { TOGGLE_BUTTONS } from '../components/ToggleButtons/ToggleButtons.tsx';
 import toggleButtons from '../components/ToggleButtons/ToggleButtons.styl';
 
 import { RESIZE_DETECTOR } from '../components/ResizeDetector/ResizeDetector.tsx';
