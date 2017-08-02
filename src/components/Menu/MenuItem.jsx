@@ -1,9 +1,9 @@
 import React from 'react';
 import {themr} from 'react-css-themr';
-import ListItem, {PROP_TYPES, DEFAULT_PROPS} from '../List/ListItem.jsx';
+import {ListItem, PROP_TYPES, DEFAULT_PROPS} from '../List/List.tsx';
 import {PURE} from 'dx-util/lib/react/pure';
 import classnames from 'classnames';
-export {LIST_ITEM_THEME_SHAPE as MENU_ITEM_THEME_SHAPE} from '../List/ListItem';
+export {LIST_ITEM_THEME_SHAPE as MENU_ITEM_THEME_SHAPE} from '../List/List.tsx';
 
 import {MENU} from './Menu.jsx';
 

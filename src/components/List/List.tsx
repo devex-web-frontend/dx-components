@@ -1,0 +1,123 @@
+import * as React from 'react';
+import { themr } from 'react-css-themr';
+import * as classnames from 'classnames';
+import { withTheme } from '../../util/react/withTheme';
+import { MouseEventHandler, ReactNode } from 'react';
+import { ObjectClean } from 'typelevel-ts';
+import { PartialKeys } from 'dx-util/lib/object/object';
+import { PURE } from 'dx-util/lib/react/pure';
+
+export const LIST = Symbol('List');
+const CONTEXT_LEVEL_KEY = '__LIST_CONTEXT_LEVEL_KEY__';
+const CONTEXT_TYPES = {
+	[CONTEXT_LEVEL_KEY]() {
+	}
+};
+
+type TFullListProps = {
+	theme: {
+		container?: string
+	},
+	children: ReactNode,
+	level?: number
+};
+
+class RawList extends React.Component<TFullListProps> {
+	static contextTypes = CONTEXT_TYPES;
+
+	render() {
+		const level = this.context[CONTEXT_LEVEL_KEY] || 0;
+		const { theme, children } = this.props;
+		const className = classnames(theme.container, theme[`container_level_${level}`]);
+
+		return (
+			<ul className={className}>
+				{children}
+			</ul>
+		);
+	}
+}
+
+export type TListProps = ObjectClean<PartialKeys<TFullListProps, 'theme'>>;
+export const List = withTheme(LIST)(RawList);
+
+export type TFullListItemProps = {
+	theme: {
+		item?: string
+	},
+	children?: ReactNode,
+	level?: number,
+	onClick?: MouseEventHandler<HTMLElement>
+};
+
+@PURE
+class RawListItem extends React.Component<TFullListItemProps> {
+	static contextTypes = CONTEXT_TYPES;
+
+	render() {
+		const { theme, onClick, children } = this.props;
+		const level = this.context[CONTEXT_LEVEL_KEY] || 0;
+		const className = classnames(theme.item, theme[`item_level_${level}`]);
+
+		return (
+			<li className={className} onClick={onClick}>
+				{children}
+			</li>
+		);
+	}
+}
+
+export type TListItemProps = ObjectClean<PartialKeys<TFullListItemProps, 'theme'>>;
+export const ListItem = withTheme(LIST)(RawListItem);
+
+export type TFullListItemGroupProps = {
+	isCollapsed?: boolean,
+	children: ReactNode,
+	header?: ReactNode,
+	theme: {
+		itemGroup?: string,
+		itemGroup_isCollapsed?: string,
+		itemGroup__header?: string
+	},
+	onClick?: MouseEventHandler<HTMLElement>
+};
+
+class RawListItemGroup extends React.Component<TFullListItemGroupProps> {
+	static defaultProps = {
+		isCollapsed: false
+	};
+
+	static contextTypes = CONTEXT_TYPES;
+
+	static childContextTypes = CONTEXT_TYPES;
+
+	getChildContext() {
+		return {
+			[CONTEXT_LEVEL_KEY]: (this.context[CONTEXT_LEVEL_KEY] || 0) + 1
+		};
+	}
+
+	render() {
+		const { theme, isCollapsed, children, header, onClick } = this.props;
+		const level = this.context[CONTEXT_LEVEL_KEY] || 0;
+		const className = classnames(
+			theme.itemGroup,
+			theme[`itemGroup_level_${level}`],
+			{
+				[theme.itemGroup_isCollapsed as string]: isCollapsed
+			}
+		);
+
+		return (
+			<li className={className}>
+				<span className={theme.itemGroup__header} onClick={onClick}>
+					{header}
+				</span>
+				{children}
+			</li>
+		);
+	}
+}
+
+export type TListItemGroupProps = ObjectClean<PartialKeys<TFullListItemGroupProps, 'theme'>>;
+export const ListItemGroup = withTheme(LIST)(RawListItemGroup);
