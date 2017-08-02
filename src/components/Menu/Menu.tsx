@@ -5,7 +5,7 @@ import {
 	TListProps
 } from '../List/List';
 import { withTheme } from '../../util/react/withTheme';
-import { Component, ComponentType, ReactElement, ReactText } from 'react';
+import { Component, ComponentClass, ComponentType, ReactElement, ReactNode, ReactText } from 'react';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { PURE } from 'dx-util/lib/react/pure';
@@ -45,7 +45,7 @@ class RawMenu extends React.Component<TFullMenuProps> {
 }
 
 export type TMenuProps = ObjectClean<PartialKeys<TFullMenuProps, 'theme' | 'List'>>;
-export const Menu = withTheme(MENU)(RawMenu);
+export const Menu: ComponentClass<TMenuProps> = withTheme(MENU)(RawMenu);
 
 ///////////////////////////
 
@@ -92,7 +92,7 @@ class RawMenuItem extends Component<TFullMenuItemProps> {
 }
 
 export type TMenuItemProps = ObjectClean<PartialKeys<TFullMenuItemProps, 'theme' | 'ListItem'>>;
-export const MenuItem = withTheme(MENU)(RawMenuItem);
+export const MenuItem: ComponentClass<TMenuItemProps> = withTheme(MENU)(RawMenuItem);
 
 ///////////////////////////
 
@@ -103,7 +103,8 @@ export type TFullMenuItemGroupProps = TFullListItemGroupProps & {
 	ListItemGroup: ComponentType<TListItemGroupProps>,
 	List: ComponentType<TListProps>,
 	onSelect?: (value: ReactText, text?: ReactText) => void, //this is injected by Menu/MenuItemGroup
-	isCollapsed: boolean
+	isCollapsed: boolean,
+	header?: ReactNode
 };
 
 type TMenuItemGroupState = {
@@ -167,4 +168,6 @@ class RawMenuItemGroup extends React.Component<TFullMenuItemGroupProps, TMenuIte
 	}
 }
 
-export const MenuItemGroup = withTheme(MENU)(RawMenuItemGroup);
+export type TMenuItemGroupProps = ObjectClean<PartialKeys<TFullMenuItemGroupProps,
+	'theme' | 'List' | 'ListItemGroup' | 'isCollapsed'>>;
+export const MenuItemGroup: ComponentClass<TMenuItemGroupProps> = withTheme(MENU)(RawMenuItemGroup);
