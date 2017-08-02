@@ -34,3 +34,11 @@
 
 ## ResizeDetector
 - default export changed to named
+
+## Expandable
+- default export changed to named
+- removed `EXPANDABLE_THEME`
+
+## ExpandableHandler
+- default export changed to named
+- removed `EXPANDABLE_HANDLER_THEME`

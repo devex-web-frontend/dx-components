@@ -49,7 +49,6 @@ class ComboboxAnchor extends React.Component {
 export default class Combobox extends React.Component {
 
 	static propTypes = {
-		...Selectbox.propTypes,
 		defaultValue(props) {
 			const {defaultValue} = props;
 			const type = typeof defaultValue;

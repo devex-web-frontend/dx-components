@@ -40,7 +40,7 @@ import passwordInput from '../components/PasswordInput/PasswordInput.styl';
 import { NUMERIC_STEPPER } from '../components/NumericStepper/NumericStepper.jsx';
 import numericStepper from '../components/NumericStepper/NumericStepper.styl';
 
-import { EXPANDABLE } from '../components/Expandable/Expandable.jsx';
+import { EXPANDABLE } from '../components/Expandable/Expandable.tsx';
 import expandable from '../components/Expandable/Expandable.styl';
 
 import { TABLE } from '../components/Table/Table';

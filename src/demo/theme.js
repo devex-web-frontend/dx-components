@@ -52,7 +52,7 @@ import datePicker from '../components/DatePicker/DatePicker.demo.styl';
 import { CALENDAR } from '../components/Calendar/Calendar';
 import calendarTheme from '../components/Calendar/Calendar.demo.styl';
 
-import { EXPANDABLE } from '../components/Expandable/Expandable.jsx';
+import { EXPANDABLE } from '../components/Expandable/Expandable.tsx';
 import expandable from '../components/Expandable/Expandable.demo.styl';
 
 import { LOADING_INDICATOR } from '../components/LoadingIndicator/LoadingIndicator';

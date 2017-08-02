@@ -4,7 +4,7 @@ import Scrollable from './Scrollable.jsx';
 import Demo from '../../demo/Demo';
 import css from './Scrollable.page.styl';
 import { PURE } from 'dx-util/lib/react/pure';
-import { Pure } from '../Pure/Pure';
+import { Pure } from '../Pure/Pure.tsx';
 
 const darkDemoTheme = {
 	container: css.container
