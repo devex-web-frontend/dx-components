@@ -13,7 +13,7 @@ import link from '../components/Link/Link.styl';
 import { LIST } from '../components/List/List.tsx';
 import list from '../components/List/List.styl';
 
-import { MENU } from '../components/Menu/Menu';
+import { MENU } from '../components/Menu/Menu.tsx';
 import menu from '../components/Menu/Menu.styl';
 
 import { POPOVER } from '../components/Popover/Popover';

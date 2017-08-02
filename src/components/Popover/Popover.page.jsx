@@ -1,11 +1,11 @@
 import React from 'react';
 import Demo from '../../demo/Demo.jsx';
-import {Button} from '../Button/Button';
-import Popover, {PLACEMENT, ALIGN} from './Popover.jsx';
+import { Button } from '../Button/Button';
+import Popover, { PLACEMENT, ALIGN } from './Popover.jsx';
 import Selectbox from '../Selectbox/Selectbox.jsx';
-import MenuItem from '../Menu/MenuItem.jsx';
-import {PURE} from 'dx-util/lib/react/pure';
-import {storiesOf} from '@kadira/storybook';
+import { MenuItem } from '../Menu/Menu.tsx';
+import { PURE } from 'dx-util/lib/react/pure';
+import { storiesOf } from '@kadira/storybook';
 import stateful from '../../util/react/stateful';
 
 import css from './Popover.page.styl';
@@ -63,7 +63,7 @@ class PopoverPage extends React.Component {
 	_anchor;
 
 	render() {
-		const {placement, align, isOpened, closeOnClickAway} = this.state;
+		const { placement, align, isOpened, closeOnClickAway } = this.state;
 
 		return (
 			<Demo>

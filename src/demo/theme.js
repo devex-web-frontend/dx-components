@@ -4,7 +4,7 @@ import config from '../config/theme';
 import { LIST } from '../components/List/List.tsx';
 import list from '../components/List/List.demo.styl';
 
-import { MENU } from '../components/Menu/Menu';
+import { MENU } from '../components/Menu/Menu.tsx';
 import menu from '../components/Menu/Menu.demo.styl';
 
 import { POPOVER } from '../components/Popover/Popover';

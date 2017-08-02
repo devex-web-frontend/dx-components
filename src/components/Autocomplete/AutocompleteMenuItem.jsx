@@ -1,10 +1,10 @@
 import React from 'react';
-import MenuItem, { MENU_ITEM_THEME_SHAPE } from '../Menu/MenuItem';
+import { MenuItem } from '../Menu/Menu.tsx';
 import { Highlight } from '../Highlight/Highlight.tsx';
 import * as PropTypes from 'prop-types';
 
 export const AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE = {
-	...MENU_ITEM_THEME_SHAPE
+	// ...MENU_ITEM_THEME_SHAPE
 };
 
 const AutocompleteMenuItem = props => {

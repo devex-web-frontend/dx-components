@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
-import { List, ListItem, ListItemGroup } from './Listsd.tsx';
+import { List, ListItem, ListItemGroup } from './List.tsx';
 
 import css from './List.page.styl';
 

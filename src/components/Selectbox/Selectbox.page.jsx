@@ -1,11 +1,11 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import { storiesOf } from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
-import {Button} from '../Button/Button';
+import { Button } from '../Button/Button';
 import Selectbox from './Selectbox.jsx';
-import {SelectboxAnchor} from './SelectboxAnchor.tsx';
-import MenuItem from '../Menu/MenuItem.jsx';
-import {PURE} from 'dx-util/lib/react/pure';
+import { SelectboxAnchor } from './SelectboxAnchor.tsx';
+import { MenuItem } from '../Menu/Menu.tsx';
+import { PURE } from 'dx-util/lib/react/pure';
 import stateful from '../../util/react/stateful';
 
 import iconListItemTick from './img/icon-list-item-tick.svg';

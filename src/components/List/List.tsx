@@ -13,7 +13,7 @@ const CONTEXT_TYPES = {
 	}
 };
 
-type TFullListProps = {
+export type TFullListProps = {
 	theme: {
 		container?: string
 	},

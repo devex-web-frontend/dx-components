@@ -2,6 +2,7 @@ import * as React from 'react';
 import { shouldComponentUpdate } from 'dx-util/lib/react/pure';
 
 export type TPureProps = {
+	[key: string]: any,
 	children: Function
 };
 

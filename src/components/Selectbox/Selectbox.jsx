@@ -1,10 +1,10 @@
 import React from 'react';
-import {themr} from 'react-css-themr';
-import {SelectboxAnchor} from './SelectboxAnchor';
+import { themr } from 'react-css-themr';
+import { SelectboxAnchor } from './SelectboxAnchor';
 import Popover from '../Popover/Popover.jsx';
-import Menu from '../Menu/Menu.jsx';
-import {PURE} from 'dx-util/lib/react/pure';
-import {Icon} from '../Icon/Icon.tsx';
+import { Menu } from '../Menu/Menu.tsx';
+import { PURE } from 'dx-util/lib/react/pure';
+import { Icon } from '../Icon/Icon.tsx';
 import classnames from 'classnames';
 import * as PropTypes from 'prop-types';
 
@@ -155,8 +155,8 @@ export default class Selectbox extends React.Component {
 	}
 
 	wrapItem(child) {
-		const {theme, selectedItemIconName} = this.props;
-		const {value} = child.props;
+		const { theme, selectedItemIconName } = this.props;
+		const { value } = child.props;
 		const isActive = typeof value !== 'undefined' && value === this.props.value;
 
 		const iconTheme = {

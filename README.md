@@ -42,3 +42,13 @@
 ## ExpandableHandler
 - default export changed to named
 - removed `EXPANDABLE_HANDLER_THEME`
+
+## Menu
+- ListComponent prop was replaced with List
+
+## MenuItem
+- ListItemComponent prop was replaced with ListItem
+
+## MenuItemGroup
+- ListItemGroupComponent props was replaced with ListItemGroup 
+- ListComponent prop was with List

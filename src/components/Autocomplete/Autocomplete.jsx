@@ -1,12 +1,12 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import {PURE} from 'dx-util/lib/react/pure';
-import {themr} from 'react-css-themr';
-import Input, {INPUT_THEME_SHAPE} from '../Input/Input';
-import Menu, {MENU_THEME_SHAPE_OBJECT} from '../Menu/Menu';
-import Popover, {POPOVER_THEME_SHAPE_OBJECT} from '../Popover/Popover';
+import { PURE } from 'dx-util/lib/react/pure';
+import { themr } from 'react-css-themr';
+import Input, { INPUT_THEME_SHAPE } from '../Input/Input';
+import { Menu, MENU_THEME_SHAPE_OBJECT } from '../Menu/Menu.tsx';
+import Popover, { POPOVER_THEME_SHAPE_OBJECT } from '../Popover/Popover';
 import Pure from '../Pure/Pure';
-import AutocompleteMenuItem, {AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE} from './AutocompleteMenuItem';
+import AutocompleteMenuItem, { AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE } from './AutocompleteMenuItem';
 
 export const AUTOCOMPLETE = Symbol('Autocomplete');
 
@@ -135,7 +135,7 @@ export default class Autocomplete extends React.Component {
 	}
 
 	onInputChange = e => {
-		const {target: {value}} = e;
+		const { target: { value } } = e;
 		if (value && value.length !== 0) {
 			this.setState({
 				isOpened: true

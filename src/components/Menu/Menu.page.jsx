@@ -1,9 +1,7 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import { storiesOf } from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
-import Menu from './Menu.jsx';
-import MenuItem from './MenuItem.jsx';
-import MenuItemGroup from './MenuItemGroup.jsx';
+import { Menu, MenuItem, MenuItemGroup } from './Menu.tsx';
 
 import css from './Menu.page.styl';
 
