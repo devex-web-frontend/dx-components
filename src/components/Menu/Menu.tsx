@@ -21,7 +21,7 @@ type TMenuChildProps = {
 export type TFullMenuProps = TFullListProps & {
 	List: ComponentType<TListProps>,
 	onItemSelect?: () => void,
-	children?: ReactElement<TMenuChildProps>[]
+	children: ReactElement<TMenuChildProps>[]
 };
 
 class RawMenu extends React.Component<TFullMenuProps> {
@@ -171,3 +171,30 @@ class RawMenuItemGroup extends React.Component<TFullMenuItemGroupProps, TMenuIte
 export type TMenuItemGroupProps = ObjectClean<PartialKeys<TFullMenuItemGroupProps,
 	'theme' | 'List' | 'ListItemGroup' | 'isCollapsed'>>;
 export const MenuItemGroup: ComponentClass<TMenuItemGroupProps> = withTheme(MENU)(RawMenuItemGroup);
+
+const proof = (
+	<Menu>
+		<MenuItem value="1.1">1.1</MenuItem>
+		<MenuItem value="1.2">1.2</MenuItem>
+		<MenuItemGroup header="2">
+			<Menu>
+				<MenuItem value="2.1">2.1</MenuItem>
+				<MenuItem value="2.2">2.2</MenuItem>
+				<MenuItemGroup header="3">
+					<Menu>
+						<MenuItem value="3.1">3.1</MenuItem>
+						<MenuItem value="3.2">3.2</MenuItem>
+						<MenuItemGroup header="3.3">
+							<Menu>
+								<MenuItem value="3.3.1">3.3.1</MenuItem>
+								<MenuItem value="3.3.2">3.3.2</MenuItem>
+								<MenuItem value="3.3.3">3.3.3</MenuItem>
+							</Menu>
+						</MenuItemGroup>
+						<MenuItem value="3.4">3.4</MenuItem>
+					</Menu>
+				</MenuItemGroup>
+			</Menu>
+		</MenuItemGroup>
+	</Menu>
+)
