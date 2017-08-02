@@ -1,9 +1,15 @@
+declare namespace ReactOverlays {
+	namespace Portal {
+		type TPortalProps = {
+			container?: React.ReactNode | (() => React.ReactNode)
+		};
+	}
+}
+
 declare module 'react-overlays/lib/Portal' {
-	import ReactNode = React.ReactNode;
 	import ComponentClass = React.ComponentClass;
-	type TPortalProps = {
-		container?: ReactNode
-	};
+	import TPortalProps = ReactOverlays.Portal.TPortalProps;
+
 	const Portal: ComponentClass<TPortalProps>;
 	export = Portal;
 }

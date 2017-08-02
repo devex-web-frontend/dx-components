@@ -1,4 +1,6 @@
 import * as React from 'react';
+import TPortalProps = ReactOverlays.Portal.TPortalProps;
+
 export type TPopoverProps = {
 	isOpened?: boolean,
 	theme?: {}
@@ -9,7 +11,8 @@ export type TPopoverProps = {
 	onRequestClose?: Function,
 	placement?: string,
 	align?: string,
-	onMouseDown?: React.EventHandler<React.MouseEvent<Element>>
+	onMouseDown?: React.EventHandler<React.MouseEvent<Element>>,
+	container?: TPortalProps['container']
 };
 declare const Popover: React.ComponentClass<TPopoverProps>;
 export default Popover;
