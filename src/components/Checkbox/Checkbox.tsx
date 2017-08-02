@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Component, EventHandler, ChangeEvent } from 'react';
+import { Component, EventHandler, ChangeEvent, ComponentClass } from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
 import { themr } from 'react-css-themr';
 import * as classnames from 'classnames';
@@ -70,4 +70,4 @@ class RawCheckbox extends Component<TFullCheckboxProps> {
 }
 
 export type TCheckboxProps = ObjectClean<PartialKeys<TFullCheckboxProps, 'theme'>>;
-export const Checkbox = withTheme(CHECKBOX)(RawCheckbox);
+export const Checkbox: ComponentClass<TCheckboxProps> = withTheme(CHECKBOX)(RawCheckbox);

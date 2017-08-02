@@ -5,7 +5,7 @@ import { PURE } from 'dx-util/lib/react/pure';
 import { withTheme } from '../../util/react/withTheme';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { ObjectClean } from 'typelevel-ts/lib';
-import { ReactNode } from 'react';
+import { ComponentClass, ReactNode } from 'react';
 
 export const HIGHLIGHT = Symbol('Mark');
 
@@ -50,4 +50,4 @@ class RawHighlight extends React.Component<TFullHighlightProps> {
 }
 
 export type THighlightProps = ObjectClean<PartialKeys<TFullHighlightProps, 'theme' | 'search' | 'children'>>;
-export const Highlight = withTheme(HIGHLIGHT)(RawHighlight);
+export const Highlight: ComponentClass<THighlightProps> = withTheme(HIGHLIGHT)(RawHighlight);

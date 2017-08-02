@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
 import { themr } from 'react-css-themr';
 import * as classnames from 'classnames';
-import { MouseEvent, EventHandler } from 'react';
+import { MouseEvent, EventHandler, ComponentClass } from 'react';
 import { withTheme } from '../../util/react/withTheme';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { ObjectClean } from 'typelevel-ts/lib';
@@ -37,10 +37,10 @@ class RawLink extends React.Component<TFullLinkProps> {
 
 		return (
 			<a href={href}
-				rel={rel}
-				target={target}
-				onClick={this.onClick}
-				className={className}>
+			   rel={rel}
+			   target={target}
+			   onClick={this.onClick}
+			   className={className}>
 				{children}
 			</a>
 		);
@@ -55,4 +55,4 @@ class RawLink extends React.Component<TFullLinkProps> {
 }
 
 export type TLinkProps = ObjectClean<PartialKeys<TFullLinkProps, 'theme'>>;
-export const Link = withTheme(LINK)(RawLink);
+export const Link: ComponentClass<TLinkProps> = withTheme(LINK)(RawLink);

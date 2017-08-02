@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
 import { themr } from 'react-css-themr';
 import { withTheme } from '../../util/react/withTheme';
-import { EventHandler, ReactEventHandler, ReactInstance, SyntheticEvent } from 'react';
+import { ComponentClass, EventHandler, ReactEventHandler, ReactInstance, SyntheticEvent } from 'react';
 import { ObjectClean } from 'typelevel-ts/lib';
 import { PartialKeys } from 'dx-util/lib/object/object';
 
@@ -53,4 +53,4 @@ class RawResizeDetector extends React.Component<TFullResizeDetectorProps> {
 }
 
 export type TResizeDetectorProps = ObjectClean<PartialKeys<TFullResizeDetectorProps, 'theme'>>;
-export const ResizeDetector = withTheme(RESIZE_DETECTOR)(RawResizeDetector);
+export const ResizeDetector: ComponentClass<TResizeDetectorProps> = withTheme(RESIZE_DETECTOR)(RawResizeDetector);

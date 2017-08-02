@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import { withTheme } from '../../util/react/withTheme';
-import { MouseEventHandler, ReactNode } from 'react';
+import { ComponentClass, MouseEventHandler, ReactNode } from 'react';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { PURE } from 'dx-util/lib/react/pure';
@@ -38,7 +38,7 @@ class RawList extends React.Component<TFullListProps> {
 }
 
 export type TListProps = ObjectClean<PartialKeys<TFullListProps, 'theme'>>;
-export const List = withTheme(LIST)(RawList);
+export const List: ComponentClass<TListProps> = withTheme(LIST)(RawList);
 
 export type TFullListItemProps = {
 	theme: {
@@ -67,7 +67,7 @@ class RawListItem extends React.Component<TFullListItemProps> {
 }
 
 export type TListItemProps = ObjectClean<PartialKeys<TFullListItemProps, 'theme'>>;
-export const ListItem = withTheme(LIST)(RawListItem);
+export const ListItem: ComponentClass<TListItemProps> = withTheme(LIST)(RawListItem);
 
 export type TFullListItemGroupProps = {
 	isCollapsed?: boolean,
@@ -119,4 +119,4 @@ class RawListItemGroup extends React.Component<TFullListItemGroupProps> {
 }
 
 export type TListItemGroupProps = ObjectClean<PartialKeys<TFullListItemGroupProps, 'theme'>>;
-export const ListItemGroup = withTheme(LIST)(RawListItemGroup);
+export const ListItemGroup: ComponentClass<TListItemGroupProps> = withTheme(LIST)(RawListItemGroup);

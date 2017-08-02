@@ -3,7 +3,7 @@ import * as classnames from 'classnames';
 import { PURE } from 'dx-util/lib/react/pure';
 import { LoadingIndicator, TLoadingIndicatorProps } from '../LoadingIndicator/LoadingIndicator';
 import { withTheme } from '../../util/react/withTheme';
-import { EventHandler, MouseEvent } from 'react';
+import { ComponentClass, EventHandler, MouseEvent } from 'react';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { ObjectClean } from 'typelevel-ts';
 
@@ -82,4 +82,4 @@ class RawButton extends React.Component<TFullButtonProps> {
 }
 
 export type TButtonProps = ObjectClean<PartialKeys<TFullButtonProps, 'theme'>>;
-export const Button = withTheme(BUTTON)(RawButton);
+export const Button: ComponentClass<TButtonProps> = withTheme(BUTTON)(RawButton);

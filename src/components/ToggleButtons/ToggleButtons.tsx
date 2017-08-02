@@ -1,9 +1,14 @@
 import * as React from 'react';
-import { Component, PropTypes, Children, ReactElement, ReactChild, EventHandler, MouseEventHandler } from 'react';
+import {
+	Component, PropTypes, Children, ReactElement, ReactChild, EventHandler, MouseEventHandler,
+	ComponentClass
+} from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
 import * as classnames from 'classnames';
 import { themr, themeable } from 'react-css-themr';
 import { mergeThemes, withTheme } from '../../util/react/withTheme';
+import { ObjectClean } from 'typelevel-ts';
+import { PartialKeys } from 'dx-util/lib/object/object';
 
 export const TOGGLE_BUTTONS = Symbol('ToggleButtons');
 
@@ -120,4 +125,5 @@ class RawToggleButtons extends Component<TFullToggleButtonsProps, TToggleButtons
 	}
 }
 
-export const ToggleButtons = withTheme(TOGGLE_BUTTONS)(RawToggleButtons);
+export type TToggleButtonsProps = ObjectClean<PartialKeys<TFullToggleButtonsProps, 'theme'>>;
+export const ToggleButtons: ComponentClass<TToggleButtonsProps> = withTheme(TOGGLE_BUTTONS)(RawToggleButtons);

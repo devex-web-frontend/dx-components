@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
 import { withTheme } from '../../util/react/withTheme';
-import { ReactNode } from 'react';
+import { ComponentClass, ReactNode } from 'react';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 
@@ -28,4 +28,5 @@ class RawExpandableHandler extends React.Component<TFullExpandableHandlerProps> 
 }
 
 export type TExpandableHandlerProps = ObjectClean<PartialKeys<TFullExpandableHandlerProps, 'theme'>>;
-export const ExpandableHandler = withTheme(EXPANDABLE_HANDLER)(RawExpandableHandler);
+export const ExpandableHandler: ComponentClass<TExpandableHandlerProps> =
+	withTheme(EXPANDABLE_HANDLER)(RawExpandableHandler);
