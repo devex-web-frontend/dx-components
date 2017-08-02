@@ -1,7 +1,7 @@
 //this is a demo theme config - includes some additional presentational styles that are not included in the lib
 import config from '../config/theme';
 
-import { LIST } from '../components/List/Listsd.tsx';
+import { LIST } from '../components/List/List.tsx';
 import list from '../components/List/List.demo.styl';
 
 import { MENU } from '../components/Menu/Menu';
