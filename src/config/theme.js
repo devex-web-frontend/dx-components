@@ -10,7 +10,7 @@ import buttonIcon from '../components/ButtonIcon/ButtonIcon.styl';
 import { LINK } from '../components/Link/Link.tsx';
 import link from '../components/Link/Link.styl';
 
-import { LIST } from '../components/List/List.tsx';
+import { LIST } from '../components/List/Listsd.tsx';
 import list from '../components/List/List.styl';
 
 import { MENU } from '../components/Menu/Menu';
