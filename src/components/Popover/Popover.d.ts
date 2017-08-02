@@ -29,3 +29,5 @@ export declare namespace PLACEMENT {
 	export const LEFT: string;
 	export const RIGHT: string;
 }
+
+export declare const POPOVER: symbol;
