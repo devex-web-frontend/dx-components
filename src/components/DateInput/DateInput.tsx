@@ -9,7 +9,7 @@ import { TControlProps, KeyCode, KEY_CODE_NUM_MAP } from '../Control/Control';
 import * as classnames from 'classnames';
 import { themr } from 'react-css-themr';
 import { ButtonIcon } from '../ButtonIcon/ButtonIcon';
-import Popover from '../Popover/Popover';
+import { Popover } from '../Popover/Popover';
 import * as Portal from 'react-overlays/lib/Portal';
 import { TButtonIconProps } from '../ButtonIcon/ButtonIcon';
 import * as is_before from 'date-fns/is_before';
@@ -195,7 +195,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		);
 	}
 
-	private renderCalendar() {
+	private renderCalendar(): JSX.Element | null {
 		const { target, Calendar, value, min, max } = this.props;
 		const { isOpened } = this.state;
 		if (!Calendar) {

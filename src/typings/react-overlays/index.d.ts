@@ -13,3 +13,14 @@ declare module 'react-overlays/lib/Portal' {
 	const Portal: ComponentClass<TPortalProps>;
 	export = Portal;
 }
+
+declare module 'react-overlays/lib/RootCloseWrapper' {
+	type TRootCloseWrapperProps = {
+		onRootClose?: Function,
+		children: React.ReactElement<any>,
+		disabled?: boolean,
+		event?: 'click' | 'mousedown'
+	};
+	const ReactCloseWrapper: React.ComponentClass<TRootCloseWrapperProps>;
+	export  = ReactCloseWrapper;
+}

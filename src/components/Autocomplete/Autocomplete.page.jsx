@@ -1,10 +1,11 @@
 import React from 'react';
 import Demo from '../../demo/Demo';
 import Autocomplete from './Autocomplete';
-import {PURE} from 'dx-util/lib/react/pure';
-import {storiesOf, action} from '@kadira/storybook';
+import { PURE } from 'dx-util/lib/react/pure';
+import { storiesOf, action } from '@kadira/storybook';
 
 import css from './Autocomplete.page.styl';
+
 const theme = {
 	Input: {
 		container: css.autocomplete__input

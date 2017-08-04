@@ -2,10 +2,18 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import prefix from 'dx-util/lib/dom/prefix';
-import {PURE} from 'dx-util/lib/react/pure';
-import {themr} from 'react-css-themr';
-import Pure from '../Pure/Pure';
-import {TABLE_IS_IN_HEAD_KEY, Table, TableBody, TABLE_BODY_THEME, TableHead, TableCell, TableRow} from '../Table/Table';
+import { PURE } from 'dx-util/lib/react/pure';
+import { themr } from 'react-css-themr';
+import { Pure } from '../Pure/Pure';
+import {
+	TABLE_IS_IN_HEAD_KEY,
+	Table,
+	TableBody,
+	TABLE_BODY_THEME,
+	TableHead,
+	TableCell,
+	TableRow
+} from '../Table/Table';
 import Emitter from 'dx-util/lib/emitter/Emitter';
 import Scrollable from '../Scrollable/Scrollable';
 import classnames from 'classnames';
@@ -86,7 +94,7 @@ export default class Grid extends React.Component {
 	}
 
 	render() {
-		const {theme, children} = this.props;
+		const { theme, children } = this.props;
 		return (
 			<div className={theme.container}>
 				{children}
@@ -168,8 +176,8 @@ export class GridHead extends React.Component {
 	}
 
 	render() {
-		const {Table, theme, TableHead, ...props} = this.props;
-		const {scrollLeft, withVerticalScrollbar} = this.state;
+		const { Table, theme, TableHead, ...props } = this.props;
+		const { scrollLeft, withVerticalScrollbar } = this.state;
 		let style;
 		if (typeof scrollLeft !== 'undefined') {
 			style = prefix({
@@ -253,7 +261,7 @@ export class GridBody extends React.Component {
 	_withHorizontalScrollbar;
 
 	render() {
-		const {Table, TableBody, theme, ...props} = this.props;
+		const { Table, TableBody, theme, ...props } = this.props;
 
 		const scrollableTheme = {
 			horizontal_scrollbar__bar: theme.horizontal_scrollbar__bar,
@@ -329,7 +337,7 @@ export class GridRow extends React.Component {
 	}
 
 	render() {
-		const {TableRow, ...props} = this.props;
+		const { TableRow, ...props } = this.props;
 		const rowIndex = this.props[GRID_ROW_INDEX_KEY];
 		return (
 			<TableRow {...props}>
@@ -426,7 +434,7 @@ export class GridCell extends React.Component {
 	}
 
 	render() {
-		let {TableCell, align, ...props} = this.props;
+		let { TableCell, align, ...props } = this.props;
 		const columnWidth = props[GRID_COLUMN_WIDTH_KEY];
 		delete props[GRID_COLUMN_INDEX_KEY];
 		delete props[GRID_COLUMN_WIDTH_KEY];

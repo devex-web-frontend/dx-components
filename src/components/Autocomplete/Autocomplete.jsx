@@ -4,8 +4,8 @@ import { PURE } from 'dx-util/lib/react/pure';
 import { themr } from 'react-css-themr';
 import Input, { INPUT_THEME_SHAPE } from '../Input/Input';
 import { Menu, MENU_THEME_SHAPE_OBJECT } from '../Menu/Menu.tsx';
-import Popover, { POPOVER_THEME_SHAPE_OBJECT } from '../Popover/Popover';
-import Pure from '../Pure/Pure';
+import { Popover, POPOVER_THEME_SHAPE_OBJECT } from '../Popover/Popover.tsx';
+import { Pure } from '../Pure/Pure';
 import AutocompleteMenuItem, { AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE } from './AutocompleteMenuItem';
 
 export const AUTOCOMPLETE = Symbol('Autocomplete');
@@ -85,7 +85,6 @@ export default class Autocomplete extends React.Component {
 					<Pure data={data} value={value} Menu={Menu} filter={filter}>
 						{() => {
 							const filtered = data.filter(filter(value));
-
 							return (
 								filtered.length > 0 && (
 									<Menu onItemSelect={this.onMenuItemSelect}
