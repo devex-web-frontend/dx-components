@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { themr } from 'react-css-themr';
 import DateInput from './fields/DateInput';
-import { Popover, ALIGN, PLACEMENT } from '../Popover/Popover.tsx';
+import { Popover } from '../Popover/Popover.tsx';
 import { ButtonIcon } from '../ButtonIcon/ButtonIcon';
 import { PURE } from 'dx-util/lib/react/react';
 import stateful from '../../util/react/stateful';

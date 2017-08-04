@@ -52,3 +52,7 @@
 ## MenuItemGroup
 - ListItemGroupComponent props was replaced with ListItemGroup 
 - ListComponent prop was with List
+
+## Popover
+- PLACEMENT was replaced with PopoverPlacement enum
+- ALIGN was replaced with PopoverAlign enum
