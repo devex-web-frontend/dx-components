@@ -4,7 +4,7 @@ import { PURE } from 'dx-util/lib/react/pure';
 import { themr } from 'react-css-themr';
 import Input, { INPUT_THEME_SHAPE } from '../Input/Input';
 import { Menu, MENU_THEME_SHAPE_OBJECT } from '../Menu/Menu.tsx';
-import { Popover, POPOVER_THEME_SHAPE_OBJECT } from '../Popover/Popover.tsx';
+import { Popover } from '../Popover/Popover.tsx';
 import { Pure } from '../Pure/Pure';
 import AutocompleteMenuItem, { AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE } from './AutocompleteMenuItem';
 
@@ -21,7 +21,7 @@ export default class Autocomplete extends React.Component {
 		theme: PropTypes.shape({
 			container: PropTypes.string,
 			Input: PropTypes.shape(INPUT_THEME_SHAPE),
-			Popover: PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
+			// Popover: PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
 			Menu: PropTypes.shape(MENU_THEME_SHAPE_OBJECT),
 			MenuItem: PropTypes.shape(AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE)
 		}),

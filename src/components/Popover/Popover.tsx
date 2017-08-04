@@ -43,24 +43,6 @@ export const ALIGN = {
 	BOTTOM: 'ALIGN.BOTTOM',
 };
 
-const PLACEMENT_MODIFIER_MAP = {
-	[PLACEMENT.TOP]: 'placementTop',
-	[PLACEMENT.BOTTOM]: 'placementBottom',
-	[PLACEMENT.LEFT]: 'placementLeft',
-	[PLACEMENT.RIGHT]: 'placementRight'
-};
-
-export const POPOVER_THEME_SHAPE_OBJECT = {
-	container: React.PropTypes.string,
-	container_hasArrow: React.PropTypes.string,
-	container_placementTop: React.PropTypes.string,
-	container_placementBottom: React.PropTypes.string,
-	container_placementLeft: React.PropTypes.string,
-	container_placementRight: React.PropTypes.string,
-	content: React.PropTypes.string,
-	arrow: React.PropTypes.string
-};
-
 export const POPOVER = Symbol('Popover');
 
 export type TFullPopoverProps = {
@@ -86,58 +68,22 @@ export type TFullPopoverProps = {
 	}
 };
 
-@PURE
-class RawPopover extends React.Component<TFullPopoverProps> {
-	// static propTypes = {
-	// 	children: React.PropTypes.node,
-	// 	isOpened: React.PropTypes.bool,
-	// 	closeOnClickAway: React.PropTypes.bool,
-	// 	anchor: React.PropTypes.object,
-	// 	onMouseDown: React.PropTypes.func,
-	//
-	// 	//placement for popover relatively to anchor
-	// 	placement: React.PropTypes.oneOf(Object.values(PLACEMENT)),
-	//
-	// 	//align for popover relatively to anchor and current placement
-	// 	align(props: TFullPopoverProps) {
-	// 		switch (props.placement) {
-	// 			case PLACEMENT.TOP: //fallthrough
-	// 			case PLACEMENT.BOTTOM:
-	// 				//horizontal align for vertical placement
-	// 				if (![ALIGN.LEFT, ALIGN.CENTER, ALIGN.RIGHT].includes(props.align)) {
-	// 					throw new Error(
-	// 						`For placement ${props.placement} supported aligns are:
-	// 						ALIGN.LEFT ALIGN.CENTER, ALIGN.RIGHT`
-	// 					);
-	// 				}
-	// 				break;
-	// 			case PLACEMENT.LEFT: //fallthrough
-	// 			case PLACEMENT.RIGHT:
-	// 				//vertical align for horizontal placement
-	// 				if (![ALIGN.TOP, ALIGN.MIDDLE, ALIGN.BOTTOM].includes(props.align)) {
-	// 					throw new Error(
-	// 						`For placement ${props.placement} supported aligns are:
-	// 						ALIGN.TOP, ALIGN.MIDDLE, ALIGN.BOTTOM`
-	// 					);
-	// 				}
-	// 		}
-	// 	},
-	//
-	// 	// container: TPortalProps['container'],
-	//
-	// 	onRequestClose: React.PropTypes.func,
-	//
-	// 	hasArrow: React.PropTypes.bool,
-	//
-	// 	theme: React.PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT)
-	// };
+type TPopoverState = {
+	finalPlacement?: string,
+	finalAlign?: string,
+	top?: number,
+	left?: number,
+	arrowOffset?: number
+};
 
+@PURE
+class RawPopover extends React.Component<TFullPopoverProps, TPopoverState> {
 	static defaultProps = {
 		align: ALIGN.LEFT,
 		placement: PLACEMENT.BOTTOM
 	};
 
-	state: any = {};
+	state: TPopoverState = {};
 
 	private _needsUpdate = false;
 	private _anchor: Element;
@@ -193,7 +139,7 @@ class RawPopover extends React.Component<TFullPopoverProps> {
 
 		let style;
 		let popoverClassName = classnames(theme.container);
-		if (isMeasured) {
+		if (isMeasured && finalPlacement) {
 			style = prefix({
 				transform: `translate(${left || 0}px, ${top || 0}px)`
 			});
@@ -203,7 +149,7 @@ class RawPopover extends React.Component<TFullPopoverProps> {
 					[theme.container_hasArrow as string]: hasArrow
 				},
 				[
-					PLACEMENT_MODIFIER_MAP[finalPlacement]
+					getPlacementModifier(finalPlacement)
 				].map(mod => theme[`container_${mod}`])
 			);
 		}
@@ -215,7 +161,7 @@ class RawPopover extends React.Component<TFullPopoverProps> {
 				     onMouseDown={onMouseDown}
 				     className={popoverClassName}>
 					<div className={theme.content}>
-						{isMeasured && hasArrow && (
+						{isMeasured && finalPlacement && finalAlign && hasArrow && (
 							<div className={theme.arrow}
 							     style={getArrowStyle(finalPlacement, finalAlign, arrowOffset)}/>
 						)}
@@ -335,9 +281,9 @@ export const Popover: ComponentClass<TPopoverProps> = withTheme(POPOVER)(RawPopo
  * @param {number} offset
  * @returns {{}}
  */
-function getArrowStyle(placement: keyof typeof PLACEMENT,
-                       align: keyof typeof ALIGN,
-                       offset: number): {} | undefined {
+function getArrowStyle(placement: string,
+                       align: string,
+                       offset?: number): {} | undefined {
 	switch (placement) {
 		case PLACEMENT.TOP: //fallthrough
 		case PLACEMENT.BOTTOM: {
@@ -617,4 +563,22 @@ function movePopoverHorizontally(placement: string,
 	}
 
 	return undefined;
+}
+
+function getPlacementModifier(placement: string): string {
+	switch (placement) {
+		case PLACEMENT.BOTTOM: {
+			return 'placementBottom';
+		}
+		case PLACEMENT.TOP: {
+			return 'placementTop';
+		}
+		case PLACEMENT.LEFT: {
+			return 'placementLeft';
+		}
+		case PLACEMENT.RIGHT: {
+			return 'placementRight';
+		}
+	}
+	return '';
 }
