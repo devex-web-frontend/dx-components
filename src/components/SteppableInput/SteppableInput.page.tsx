@@ -9,9 +9,10 @@ import * as iconAdd from '../../resources/svg/icon-add.svg';
 import * as iconDecrease from '../../resources/svg/icon-decrease.svg';
 import * as iconClear from '../../resources/svg/icon-small-cross.svg';
 import { TSteppableInputProps } from './SteppableInput';
+import { ReactInstance } from 'react';
 
 class DemoInput extends React.Component<TSteppableInputProps, any> {
-	private input: HTMLInputElement;
+	private input: ReactInstance | null;
 
 	render() {
 		const {onIncrement, onDecrement, error, onClear, isDisabled} = this.props;
@@ -29,14 +30,16 @@ class DemoInput extends React.Component<TSteppableInputProps, any> {
 				<input className={pageTheme.customInput}
 				       tabIndex={-1}
 				       disabled={isDisabled}
-				       ref={(el: any) => this.input = el}/>
+				       ref={el => this.input = el}/>
 			</SteppableInput>
 		);
 	}
 
-	onFocus = (e: any) => {
-		const input = ReactDOM.findDOMNode<HTMLElement>(this.input);
-		input.focus();
+	onFocus = () => {
+		if (this.input) {
+			const input: HTMLInputElement = ReactDOM.findDOMNode(this.input);
+			input.focus();
+		}
 	}
 }
 

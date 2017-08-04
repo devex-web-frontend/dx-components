@@ -4,14 +4,9 @@ import * as PropTypes from 'prop-types';
 import { ObjectOmit } from 'typelevel-ts';
 import SFC = React.SFC;
 
-export type TControlProps<TValue> = {
-	value?: TValue,
-	onValueChange?: (value?: TValue) => void
-};
-
-export type TStatefulProps<TValue> = {
-	defaultValue?: TValue,
-	value?: never
+export type TControlProps<V> = {
+	value: V,
+	onValueChange: (value?: V) => void
 };
 
 export function createControlProps<TValue>(valueType: Requireable<TValue>) {
@@ -76,12 +71,12 @@ type TStatefulState<TValue> = {
 	value?: TValue
 };
 
-type TResultProps<P, V> = ObjectOmit<P, 'value'> & {
+export type TStatefulProps<P extends TControlProps<V>, V> = ObjectOmit<P, 'value' | 'onValueChange'> & {
 	onValueChange?: TControlProps<V>['onValueChange'],
 	defaultValue?: V
 };
 
-type TResult<P, V> = ComponentClass<TResultProps<P, V>>;
+type TResult<P extends TControlProps<V>, V> = ComponentClass<TStatefulProps<P, V>>;
 
 //shortcuts
 type TCP<V> = TControlProps<V>;
@@ -89,7 +84,7 @@ type CC<P> = ComponentClass<P>;
 
 export function stateful() {
 	return function decorate<V, P extends TCP<V>>(Target: SFC<P & TCP<V>> | CC<P & TCP<V>>): TResult<P, V> {
-		class Stateful extends React.Component<TResultProps<P, V>, TStatefulState<V>> {
+		class Stateful extends React.Component<TStatefulProps<P, V>, TStatefulState<V>> {
 			static displayName = `Stateful(${Target.displayName || Target.name || 'Component'})`;
 
 			componentWillMount() {

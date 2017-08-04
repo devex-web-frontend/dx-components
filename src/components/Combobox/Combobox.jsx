@@ -1,6 +1,6 @@
 import React from 'react';
 import { themr } from 'react-css-themr';
-import Input from '../Input/Input';
+import { Input } from '../Input/Input';
 import { ButtonIcon } from '../ButtonIcon/ButtonIcon';
 import { Selectbox } from '../Selectbox/Selectbox.tsx';
 import { PURE } from 'dx-util/lib/react/pure';

@@ -6,10 +6,10 @@ import { Selectbox } from './Selectbox.tsx';
 import { SelectboxAnchor } from './SelectboxAnchor.tsx';
 import { MenuItem } from '../Menu/Menu.tsx';
 import { PURE } from 'dx-util/lib/react/pure';
-import stateful from '../../util/react/stateful';
 
 import iconListItemTick from './img/icon-list-item-tick.svg';
 import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
+import { stateful } from '../Control/Control';
 
 class DemoSelectboxAnchor extends React.Component {
 	render() {
@@ -45,7 +45,7 @@ class SelectboxPage extends React.Component {
 				<div>
 					<Stateful placeholder="Choose your hero"
 					          selectedItemIconName={iconListItemTick}
-					          onChange={this.onHeroChange}
+					          onValueChange={this.onHeroChange}
 					          caretIconName={iconSmallDropdownArrow}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
@@ -54,7 +54,7 @@ class SelectboxPage extends React.Component {
 					<DemoSelectbox placeholder="Controlled by left"
 					               value={this.state.hero}
 					               selectedItemIconName={iconListItemTick}
-					               onChange={this.onHeroChange}
+					               onValueChange={this.onHeroChange}
 					               caretIconName={iconSmallDropdownArrow}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>

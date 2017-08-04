@@ -6,13 +6,14 @@ import { PURE } from 'dx-util/lib/react/pure';
 import { Icon, TIconProps } from '../Icon/Icon';
 import * as classnames from 'classnames';
 import { withTheme } from '../../util/react/withTheme';
-import { Component, ComponentClass, ComponentType, ReactElement } from 'react';
+import { Component, ComponentClass, ComponentType, ReactElement, ReactText } from 'react';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
+import { TControlProps } from '../Control/Control';
 
 export const SELECTBOX = Symbol('Selectbox');
 
-export type TFullSelectboxProps = {
+export type TFullSelectboxProps = TControlProps<ReactText> & {
 	theme: {
 		container__popover?: string,
 		container__menu?: string,
@@ -32,8 +33,6 @@ export type TFullSelectboxProps = {
 	children: ReactElement<TMenuItemProps>[],
 	isDisabled?: boolean,
 	isLoading?: boolean,
-	value: string | number,
-	onChange?: (value: string | number, text: string) => void,
 	placeholder?: string,
 
 	Anchor: ComponentClass<TSelectboxAnchorProps>,
@@ -196,7 +195,7 @@ class RawSelectbox extends React.Component<TFullSelectboxProps> {
 		this.setState({
 			isOpened: false
 		});
-		this.props.onChange && this.props.onChange(value, text);
+		this.props.onValueChange && this.props.onValueChange(value);
 	}
 
 	onPopoverRequestClose = () => {

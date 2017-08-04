@@ -65,3 +65,5 @@
 - IconComponent prop was replaced with Icon
 - MenuComponent prop was replaced with Menu
 - PopoverComponent prop was replaced with Popover
+- onChange event was replaced with onValueChange
+- onValueChange does not pass `text` but only `value` as first arg
