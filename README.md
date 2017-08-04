@@ -56,3 +56,12 @@
 ## Popover
 - PLACEMENT was replaced with PopoverPlacement enum
 - ALIGN was replaced with PopoverAlign enum
+
+## SelectboxAnchor
+- IconComponent prop was replaced with Icon
+
+## Selectbox
+- AnchorComponent prop was replaced with Anchor
+- IconComponent prop was replaced with Icon
+- MenuComponent prop was replaced with Menu
+- PopoverComponent prop was replaced with Popover

@@ -2,7 +2,7 @@ import React from 'react';
 import Demo from '../../demo/Demo.jsx';
 import { Button } from '../Button/Button';
 import { Popover, PopoverPlacement, PopoverAlign } from './Popover.tsx';
-import Selectbox from '../Selectbox/Selectbox.jsx';
+import { Selectbox } from '../Selectbox/Selectbox.tsx';
 import { MenuItem } from '../Menu/Menu.tsx';
 import { PURE } from 'dx-util/lib/react/pure';
 import { storiesOf } from '@kadira/storybook';

@@ -2,8 +2,9 @@ import * as React from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
 import { Button, TButtonProps, TFullButtonProps } from '../Button/Button';
 import { Icon, TIconProps } from '../Icon/Icon';
-import { ComponentType } from 'react';
-import { ObjectOmit } from 'typelevel-ts';
+import { ComponentClass, ComponentType } from 'react';
+import { ObjectClean, ObjectOmit } from 'typelevel-ts';
+import { PartialKeys } from 'dx-util/lib/object/object';
 
 export type TFullSelectboxAnchorProps = ObjectOmit<TButtonProps, 'theme'> & {
 	theme: TFullButtonProps['theme'] & {
@@ -14,15 +15,15 @@ export type TFullSelectboxAnchorProps = ObjectOmit<TButtonProps, 'theme'> & {
 	},
 	isOpened?: boolean,
 	caretIconName?: string,
-	IconComponent: ComponentType<TIconProps>,
+	Icon: ComponentType<TIconProps>,
 	value?: string | number,
 	valueText?: string
 };
 
 @PURE
-export class SelectboxAnchor extends React.Component<TFullSelectboxAnchorProps> {
+class RawSelectboxAnchor extends React.Component<TFullSelectboxAnchorProps> {
 	static defaultProps = {
-		IconComponent: Icon
+		Icon
 	};
 
 	render() {
@@ -33,7 +34,7 @@ export class SelectboxAnchor extends React.Component<TFullSelectboxAnchorProps> 
 			isDisabled,
 			isPrimary,
 			isLoading,
-			IconComponent: Icon,
+			Icon,
 			caretIconName,
 			onClick,
 		} = this.props;
@@ -65,3 +66,6 @@ export class SelectboxAnchor extends React.Component<TFullSelectboxAnchorProps> 
 		);
 	}
 }
+
+export type TSelectboxAnchorProps = ObjectClean<PartialKeys<TFullSelectboxAnchorProps, 'theme' | 'Icon'>>;
+export const SelectboxAnchor: ComponentClass<TSelectboxAnchorProps> = RawSelectboxAnchor;

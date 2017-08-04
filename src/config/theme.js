@@ -16,10 +16,10 @@ import list from '../components/List/List.styl';
 import { MENU } from '../components/Menu/Menu.tsx';
 import menu from '../components/Menu/Menu.styl';
 
-import { POPOVER } from '../components/Popover/Popover';
+import { POPOVER } from '../components/Popover/Popover.tsx';
 import popover from '../components/Popover/Popover.styl';
 
-import { SELECTBOX } from '../components/Selectbox/Selectbox';
+import { SELECTBOX } from '../components/Selectbox/Selectbox.tsx';
 import selectbox from '../components/Selectbox/Selectbox.styl';
 
 import { TOGGLE_BUTTONS } from '../components/ToggleButtons/ToggleButtons.tsx';

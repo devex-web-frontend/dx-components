@@ -1,9 +1,9 @@
 import React from 'react';
-import {themr} from 'react-css-themr';
+import { themr } from 'react-css-themr';
 import Input from '../Input/Input';
-import {ButtonIcon} from '../ButtonIcon/ButtonIcon';
-import Selectbox, {SELECTBOX_THEME} from '../Selectbox/Selectbox.jsx';
-import {PURE} from 'dx-util/lib/react/pure';
+import { ButtonIcon } from '../ButtonIcon/ButtonIcon';
+import { Selectbox } from '../Selectbox/Selectbox.tsx';
+import { PURE } from 'dx-util/lib/react/pure';
 import classnames from 'classnames';
 import * as PropTypes from 'prop-types';
 
@@ -35,7 +35,7 @@ class ComboboxAnchor extends React.Component {
 						<ButtonIcon isDisabled={isDisabled}
 						            theme={buttonIconTheme}
 						            name={caretIconName}
-						            onClick={onClick} />
+						            onClick={onClick}/>
 					)}
 				</div>
 				{children}
@@ -50,7 +50,7 @@ export default class Combobox extends React.Component {
 
 	static propTypes = {
 		defaultValue(props) {
-			const {defaultValue} = props;
+			const { defaultValue } = props;
 			const type = typeof defaultValue;
 			if (type !== 'undefined') {
 				if (type !== 'string' && type !== 'number') {
@@ -67,7 +67,7 @@ export default class Combobox extends React.Component {
 			PropTypes.number
 		]),
 		theme: PropTypes.shape({
-			...SELECTBOX_THEME,
+			// ...SELECTBOX_THEME,
 			container: PropTypes.string,
 			container_isDisabled: PropTypes.string,
 			input: PropTypes.string,
@@ -90,7 +90,7 @@ export default class Combobox extends React.Component {
 
 	constructor(...args) {
 		super(...args);
-		const {defaultValue, children, value} = this.props;
+		const { defaultValue, children, value } = this.props;
 
 		let stateValue;
 
@@ -118,7 +118,7 @@ export default class Combobox extends React.Component {
 	}
 
 	componentWillReceiveProps(newProps) {
-		const {defaultValue} = newProps;
+		const { defaultValue } = newProps;
 		const children = React.Children.toArray(newProps.children);
 
 		const newPropsContainNewValue = typeof newProps.value !== 'undefined';
@@ -172,7 +172,7 @@ export default class Combobox extends React.Component {
 			Anchor
 		} = this.props;
 
-		const {value, selectboxValue} = this.state;
+		const { value, selectboxValue } = this.state;
 
 		const {
 			container: themeContainer,
@@ -216,7 +216,7 @@ export default class Combobox extends React.Component {
 	}
 
 	onChangeSelectbox = (value, text) => {
-		const {onChange} = this.props;
+		const { onChange } = this.props;
 
 		this.setState({
 			selectboxValue: value,
@@ -226,8 +226,8 @@ export default class Combobox extends React.Component {
 	}
 
 	onChange = (event) => {
-		const {onChange} = this.props;
-		const {value} = event.target;
+		const { onChange } = this.props;
+		const { value } = event.target;
 		this.setState({
 			value,
 			selectboxValue: (void 0) //eslint-disable-line no-void,
@@ -236,8 +236,8 @@ export default class Combobox extends React.Component {
 	}
 
 	onBlur = (event) => {
-		const {value} = event.target;
-		const {onChange} = this.props;
+		const { value } = event.target;
+		const { onChange } = this.props;
 
 		if (this.state.value !== value) {
 			this.setState({

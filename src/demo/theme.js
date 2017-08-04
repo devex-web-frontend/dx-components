@@ -7,10 +7,10 @@ import list from '../components/List/List.demo.styl';
 import { MENU } from '../components/Menu/Menu.tsx';
 import menu from '../components/Menu/Menu.demo.styl';
 
-import { POPOVER } from '../components/Popover/Popover';
+import { POPOVER } from '../components/Popover/Popover.tsx';
 import popover from '../components/Popover/Popover.demo.styl';
 
-import { SELECTBOX } from '../components/Selectbox/Selectbox';
+import { SELECTBOX } from '../components/Selectbox/Selectbox.tsx';
 import selectbox from '../components/Selectbox/Selectbox.demo.styl';
 
 import { TOGGLE_BUTTONS } from '../components/ToggleButtons/ToggleButtons.tsx';

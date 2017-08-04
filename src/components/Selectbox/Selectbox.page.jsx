@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
 import { Button } from '../Button/Button';
-import Selectbox from './Selectbox.jsx';
+import { Selectbox } from './Selectbox.tsx';
 import { SelectboxAnchor } from './SelectboxAnchor.tsx';
 import { MenuItem } from '../Menu/Menu.tsx';
 import { PURE } from 'dx-util/lib/react/pure';

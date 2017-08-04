@@ -43,7 +43,7 @@ export type TFullPopoverProps = {
 	children: ReactNode,
 	isOpened?: boolean,
 	closeOnClickAway?: boolean,
-	anchor: ReactInstance,
+	anchor?: ReactInstance | null,
 	onMouseDown?: MouseEventHandler<Element>,
 	placement: PopoverPlacement,
 	align: PopoverAlign,
@@ -80,7 +80,7 @@ class RawPopover extends React.Component<TFullPopoverProps, TPopoverState> {
 	state: TPopoverState = {};
 
 	private _needsUpdate = false;
-	private _anchor: Element;
+	private _anchor?: Element;
 	private _popover: Element;
 	private _popoverSize: TSize;
 
@@ -193,6 +193,10 @@ class RawPopover extends React.Component<TFullPopoverProps, TPopoverState> {
 	}
 
 	updatePosition() {
+		if (!this._anchor) {
+			return;
+		}
+
 		const anchorRect = this._anchor.getBoundingClientRect();
 		const { placement, align, hasArrow } = this.props;
 
