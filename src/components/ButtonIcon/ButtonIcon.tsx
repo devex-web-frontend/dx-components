@@ -26,7 +26,7 @@ class RawButtonIcon extends React.Component<TFullButtonIconProps> {
 	};
 
 	render() {
-		const { theme, name, Button, Icon, ...props } = this.props;
+		const { theme, name, Button, Icon, children, ...props } = this.props;
 		const { icon, ...buttonTheme } = theme;
 		const iconTheme = {
 			container: icon
@@ -35,6 +35,7 @@ class RawButtonIcon extends React.Component<TFullButtonIconProps> {
 		return (
 			<Button {...props} theme={buttonTheme}>
 				<Icon name={name} theme={iconTheme}/>
+				{children}
 			</Button>
 		);
 	}
