@@ -5,7 +5,7 @@ import { ObjectOmit } from 'typelevel-ts';
 import SFC = React.SFC;
 
 export type TControlProps<V> = {
-	value: V,
+	value?: V,
 	onValueChange: (value?: V) => void
 };
 
