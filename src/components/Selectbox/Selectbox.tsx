@@ -16,6 +16,7 @@ export const SELECTBOX = Symbol('Selectbox');
 export type TFullSelectboxProps = TControlProps<ReactText> & {
 	theme: {
 		container__popover?: string,
+		container__popover__content?: string,
 		container__menu?: string,
 		container__menu_hasSelectedItem?: string,
 		container__item?: string,
@@ -123,6 +124,7 @@ class RawSelectbox extends React.Component<TFullSelectboxProps> {
 
 		const popoverTheme: TFullPopoverProps['theme'] = {
 			container: classnames(theme.container__popover),
+			content: theme.container__popover__content
 		};
 
 		let valueText = placeholder;
