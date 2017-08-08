@@ -30,7 +30,7 @@ export type TFullSelectboxProps = TControlProps<ReactText> & {
 		container__anchor__caret?: string,
 		container__anchor__caret_isReversed?: string
 	},
-	children: ReactElement<TMenuItemProps>[],
+	children: ReactElement<TMenuItemProps>[] | ReactElement<TMenuItemProps>,
 	isDisabled?: boolean,
 	isLoading?: boolean,
 	placeholder?: string,
