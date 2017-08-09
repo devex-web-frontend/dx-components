@@ -1,2 +1,2 @@
-declare const Demo: any;
+export declare const Demo: any;
 export default Demo;

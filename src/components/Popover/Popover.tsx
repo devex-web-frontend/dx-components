@@ -15,6 +15,7 @@ import { withTheme } from '../../util/react/withTheme';
 import { ComponentClass, MouseEventHandler, ReactInstance, ReactNode } from 'react';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
+import { ReactRef } from '../../util/react/typings';
 
 type TSize = {
 	width: number,
@@ -43,7 +44,7 @@ export type TFullPopoverProps = {
 	children: ReactNode,
 	isOpened?: boolean,
 	closeOnClickAway?: boolean,
-	anchor?: ReactInstance | null,
+	anchor?: ReactRef,
 	onMouseDown?: MouseEventHandler<Element>,
 	placement: PopoverPlacement,
 	align: PopoverAlign,
