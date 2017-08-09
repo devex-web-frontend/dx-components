@@ -6,7 +6,7 @@ import { PURE } from 'dx-util/lib/react/pure';
 import { Icon, TIconProps } from '../Icon/Icon';
 import * as classnames from 'classnames';
 import { withTheme } from '../../util/react/withTheme';
-import { Component, ComponentClass, ComponentType, ReactElement, ReactText } from 'react';
+import { Component, ComponentClass, ComponentType, ReactElement, ReactNode, ReactText } from 'react';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { TControlProps } from '../Control/Control';
@@ -127,14 +127,14 @@ class RawSelectbox extends React.Component<TFullSelectboxProps> {
 			content: theme.container__popover__content
 		};
 
-		let valueText = placeholder;
+		let valueText: ReactNode = placeholder;
 		if (typeof value !== 'undefined') {
 			const valueChild = React.Children.toArray(children).find(
 				(child: ReactElement<TMenuItemProps>) => child.props.value === value
 			) as ReactElement<TMenuItemProps>;
 			//existance is checked in prop types
 			if (valueChild) {
-				valueText = valueChild.props.text || valueChild.props.children as string;
+				valueText = valueChild.props.text || valueChild.props.children;
 			}
 		}
 
@@ -193,7 +193,7 @@ class RawSelectbox extends React.Component<TFullSelectboxProps> {
 		});
 	}
 
-	onItemSelect = (value: string | number, text: string) => {
+	onItemSelect = (value: ReactText) => {
 		this.setState({
 			isOpened: false
 		});

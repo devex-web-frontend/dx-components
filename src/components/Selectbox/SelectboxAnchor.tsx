@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
 import { Button, TButtonProps, TFullButtonProps } from '../Button/Button';
 import { Icon, TIconProps } from '../Icon/Icon';
-import { ComponentClass, ComponentType } from 'react';
+import { ComponentClass, ComponentType, ReactNode } from 'react';
 import { ObjectClean, ObjectOmit } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 
@@ -17,7 +17,7 @@ export type TFullSelectboxAnchorProps = ObjectOmit<TButtonProps, 'theme'> & {
 	caretIconName?: string,
 	Icon: ComponentType<TIconProps>,
 	value?: string | number,
-	valueText?: string
+	valueText?: ReactNode
 };
 
 @PURE

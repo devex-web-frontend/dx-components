@@ -15,12 +15,12 @@ import { Pure } from '../Pure/Pure';
 export const MENU = Symbol('Menu');
 
 type TMenuChildProps = {
-	onSelect?: (value: ReactText, text?: ReactText) => void
+	onSelect?: (value: ReactText) => void
 };
 
 export type TFullMenuProps = TFullListProps & {
 	List: ComponentType<TListProps>,
-	onItemSelect?: (value: ReactText, text?: ReactText) => void,
+	onItemSelect?: (value: ReactText) => void,
 	children: ReactElement<TMenuChildProps>[]
 };
 
@@ -87,7 +87,7 @@ class RawMenuItem extends Component<TFullMenuItemProps> {
 	}
 
 	onClick = () => {
-		this.props.onSelect && this.props.onSelect(this.props.value, this.props.text || this.props.children);
+		this.props.onSelect && this.props.onSelect(this.props.value);
 	}
 }
 
