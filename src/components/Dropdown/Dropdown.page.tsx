@@ -7,11 +7,16 @@ import { Component, MouseEventHandler, ReactNode, SFC } from 'react';
 import { Button } from '../Button/Button';
 import { WithInnerRef } from '../../util/react/typings';
 import { PURE } from 'dx-util/lib/react/pure';
+import { stateful } from '../Control/Control';
+import { Input } from '../Input/Input';
 
 type TAnchorProps = WithInnerRef<{
 	onClick: MouseEventHandler<Element>,
 	children: ReactNode
 }>;
+
+const StatefulDropdown = stateful('isOpened', 'onToggle')(Dropdown);
+const StatefulInput = stateful()(Input);
 
 @PURE
 class AnchorClass extends Component<TAnchorProps> {
@@ -43,15 +48,42 @@ const AnchorSFC: SFC<TAnchorProps> = props => {
 storiesOf('Dropdown', module)
 	.add('with class Anchor', () => (
 		<Demo>
-			<Dropdown Anchor={AnchorClass}>
+			<StatefulDropdown Anchor={AnchorClass}>
 				<div>hi!</div>
-			</Dropdown>
+			</StatefulDropdown>
 		</Demo>
 	))
 	.add('with SFC Anchor', () => (
 		<Demo>
-			<Dropdown Anchor={AnchorSFC}>
+			<StatefulDropdown Anchor={AnchorSFC} onToggle={console.log.bind(console)}>
 				hi
-			</Dropdown>
+			</StatefulDropdown>
+		</Demo>
+	))
+	.add('with force close', () => (
+		<Demo>
+			<DropdownPage/>
 		</Demo>
 	));
+
+class DropdownPage extends Component<any, any> {
+	private forceClose: Function;
+
+	render() {
+		return (
+			<div>
+				<StatefulDropdown Anchor={AnchorClass}>
+					<Button>Force close</Button>
+				</StatefulDropdown>
+			</div>
+		);
+	}
+
+	onForceCloseClick = () => {
+		this.forceClose();
+	}
+
+	getForceClose = (close: Function) => {
+		this.forceClose = close;
+	};
+}

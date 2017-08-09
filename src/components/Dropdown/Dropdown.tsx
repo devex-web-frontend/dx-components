@@ -8,6 +8,7 @@ import { ReactRef, WithInnerRef } from '../../util/react/typings';
 import { withTheme } from '../../util/react/withTheme';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
+import { TControlProps } from '../Control/Control';
 
 export const DROPDOWN = Symbol('Dropdown');
 
@@ -16,7 +17,7 @@ type TAnchorProps = WithInnerRef<{
 	children: ReactNode
 }>;
 
-export type TFullDropdownProps = {
+export type TFullDropdownProps = TControlProps<boolean, 'isOpened', 'onToggle'> & {
 	Anchor: ComponentType<TAnchorProps>
 	Popover: ComponentType<TPopoverProps>,
 	theme: {
@@ -24,25 +25,16 @@ export type TFullDropdownProps = {
 	}
 };
 
-type TDropdownState = {
-	isOpened: boolean
-};
-
 @PURE
-class RawDropdown extends Component<TFullDropdownProps, TDropdownState> {
+class RawDropdown extends Component<TFullDropdownProps> {
 	static defaultProps = {
 		Popover
-	};
-
-	state = {
-		isOpened: false
 	};
 
 	private anchorRef: ReactRef;
 
 	render() {
-		const { Anchor, Popover, children, theme } = this.props;
-		const { isOpened } = this.state;
+		const { Anchor, Popover, children, theme, isOpened } = this.props;
 
 		return (
 			<Anchor onClick={this.onAnchorClick}
@@ -63,15 +55,11 @@ class RawDropdown extends Component<TFullDropdownProps, TDropdownState> {
 	}
 
 	private onAnchorClick = () => {
-		this.setState({
-			isOpened: !this.state.isOpened
-		});
+		this.props.onToggle(!this.props.isOpened);
 	}
 
 	private onPopoverRequestClose = () => {
-		this.setState({
-			isOpened: false
-		});
+		this.props.onToggle(false);
 	}
 }
 
