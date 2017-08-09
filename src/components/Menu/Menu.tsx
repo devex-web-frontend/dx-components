@@ -57,9 +57,9 @@ type TFullMenuItemProps = TFullListItemProps & {
 	ListItem: ComponentType<TListItemProps>,
 	value: ReactText,
 	isActive?: boolean,
-	onSelect?: (value: ReactText, text?: ReactText) => void, //this is injected by Menu/MenuItemGroup
+	onSelect?: (value: ReactText) => void, //this is injected by Menu/MenuItemGroup
 	text?: string,
-	children?: ReactText
+	children?: ReactNode
 };
 
 @PURE
@@ -102,7 +102,7 @@ export type TFullMenuItemGroupProps = TFullListItemGroupProps & {
 	},
 	ListItemGroup: ComponentType<TListItemGroupProps>,
 	List: ComponentType<TListProps>,
-	onSelect?: (value: ReactText, text?: ReactText) => void, //this is injected by Menu/MenuItemGroup
+	onSelect?: (value: ReactText) => void, //this is injected by Menu/MenuItemGroup
 	isCollapsed: boolean,
 	header?: ReactNode
 };
