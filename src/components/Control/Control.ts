@@ -76,7 +76,7 @@ type TStatefulState<V> = {
 };
 
 //first part of props with constraint that props should contain a field with name N (value name) and type V (value type)
-type TDynamicValue<V, N extends string> = {[value in N]: V | undefined};
+type TDynamicValue<V, N extends string> = {[value in N]?: V | undefined};
 //seconds part of props with constraint that props should contain a field with name H (change handler name) and type H (change handler type)
 type TDynamicValueHandler<V, H extends string> = {[handler in H]: (value?: V) => void};
 //union of props
