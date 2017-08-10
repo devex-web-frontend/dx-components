@@ -8,7 +8,6 @@ import { Button } from '../Button/Button';
 import { WithInnerRef } from '../../util/react/typings';
 import { PURE } from 'dx-util/lib/react/pure';
 import { stateful } from '../Control/Control';
-import { Input } from '../Input/Input';
 
 type TAnchorProps = WithInnerRef<{
 	onClick: MouseEventHandler<Element>,
@@ -16,7 +15,6 @@ type TAnchorProps = WithInnerRef<{
 }>;
 
 const StatefulDropdown = stateful('isOpened', 'onToggle')(Dropdown);
-const StatefulInput = stateful()(Input);
 
 @PURE
 class AnchorClass extends Component<TAnchorProps> {
