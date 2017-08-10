@@ -11,6 +11,7 @@ import { PartialKeys } from 'dx-util/lib/object/object';
 import { PURE } from 'dx-util/lib/react/pure';
 import * as classNames from 'classnames';
 import { Pure } from '../Pure/Pure';
+import { ReactChildren } from '../../util/react/typings';
 
 export const MENU = Symbol('Menu');
 
@@ -21,7 +22,7 @@ type TMenuChildProps = {
 export type TFullMenuProps = TFullListProps & {
 	List: ComponentType<TListProps>,
 	onItemSelect?: (value: ReactText) => void,
-	children: ReactElement<TMenuChildProps>[]
+	children: ReactChildren<ReactElement<TMenuChildProps>>
 };
 
 class RawMenu extends React.Component<TFullMenuProps> {
