@@ -235,15 +235,15 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 				case ActiveSection.Day: //fallthrough
 				case ActiveSection.Month: {
 					//day and month are 2 digits
-					return `${value >= 0 && value < 10 ? 0 : ''}${value}`;
+					return `${typeof value !== 'undefined' && value >= 0 && value < 10 ? 0 : ''}${value}`;
 				}
 				case ActiveSection.Year: //fallthrough
 				default: {
-					if (value < 10) {
+					if (typeof value !== 'undefined' && value < 10) {
 						return `000${value}`;
-					} else if (value < 100) {
+					} else if (typeof value !== 'undefined' && value < 100) {
 						return `00${value}`;
-					} else if (value < 1000) {
+					} else if (typeof value !== 'undefined' && value < 1000) {
 						return `0${value}`;
 					} else {
 						return `${value}`;
@@ -272,7 +272,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		const {onValueChange, value, min, max} = this.props;
 
 		const canBuildValue = isDefined(day) && isDefined(month) && isDefined(year);
-		const newValueDiffers = canBuildValue &&
+		const newValueDiffers = canBuildValue && typeof month !== 'undefined' &&
 			(
 				typeof value === 'undefined' ||
 				value === null ||
@@ -560,7 +560,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			case ActiveSection.Day: {
 				if (this.secondInput) {
 					let newDay;
-					if (day < 3) {
+					if (typeof day !== 'undefined' && day < 3) {
 						newDay = Number(`${day}${digit}`);
 					} else if (day === 3) {
 						newDay = Math.min(Number(`${day}${digit}`), 31);
@@ -588,7 +588,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			case ActiveSection.Month: {
 				if (this.secondInput) {
 					let newMonth;
-					if (month < 1) {
+					if (typeof month !== 'undefined' && month < 1) {
 						newMonth = Number(`${month}${digit}`);
 					} else if (month === 1) {
 						newMonth = Math.min(Number(`${month}${digit}`), 12);
@@ -616,7 +616,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			case ActiveSection.Year: {
 				if (this.secondInput) {
 					let newYear = `${year}${digit}`;
-					if (year >= 1000) {
+					if (typeof year !== 'undefined' && year >= 1000) {
 						newYear = newYear.substr(1);
 					}
 					this.updateStateTime(day, month, Number(newYear));

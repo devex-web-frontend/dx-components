@@ -53,3 +53,4 @@ crashlytics-build.properties
 /bower_components
 /dist
 npm-debug.log*
+bash.exe.stackdump

@@ -148,7 +148,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	private format(value?: number): string {
-		if (isDefined(value)) {
+		if (typeof value !== 'undefined') {
 			return `${value >= 0 && value < 10 ? 0 : ''}${value}`;
 		} else {
 			return '--';
@@ -259,7 +259,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 			case ActiveSection.Hours: {
 				if (this.secondInput) {
 					let newHours;
-					if (hours < 2) {
+					if (typeof hours !== 'undefined' && hours < 2) {
 						newHours = Number(`${hours}${digit}`);
 					} else if (hours === 2) {
 						newHours = Math.min(Number(`${hours}${digit}`), 23);
@@ -285,7 +285,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 				break;
 			}
 			case ActiveSection.Minutes: {
-				if (this.secondInput) {
+				if (this.secondInput && typeof minutes !== 'undefined') {
 					const newMinutes = Number(`${minutes >= 10 ? ('' + minutes)[1] : minutes}${digit}`);
 					this.updateStateTime(hours, newMinutes);
 				} else {
@@ -316,7 +316,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	private updateStateTime(hours?: number, minutes?: number): void {
 		const {onValueChange, value} = this.props;
 
-		const canBuildValue = isDefined(hours) && isDefined(minutes) && minutes < 60;
+		const canBuildValue = isDefined(hours) && isDefined(minutes) && typeof minutes !== 'undefined' && minutes < 60;
 		const newValueDiffers = canBuildValue && (
 				typeof value === 'undefined' ||
 				value === null ||
@@ -343,7 +343,7 @@ class TimeInput extends React.Component<TTimeInputFullProps, TTimeInputState> {
 	}
 
 	private correctMinutes() {
-		if (this.state.minutes >= 60) {
+		if (typeof this.state.minutes !== 'undefined' && this.state.minutes >= 60) {
 			this.updateStateTime(this.state.hours, 59);
 		}
 	}
@@ -357,7 +357,7 @@ export default themr(TIME_INPUT)(TimeInput) as React.ComponentClass<TTimeInputPr
  * Values can be zeros (start from 0). Max is included value.
  */
 function add(a: number | undefined, b: number, max: number): number {
-	if (!isDefined(a)) {
+	if (typeof a === 'undefined') {
 		return b < 0 ? max : 0;
 	}
 	let result = (a + b) % (max + 1);
