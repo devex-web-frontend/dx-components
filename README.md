@@ -67,3 +67,7 @@
 - PopoverComponent prop was replaced with Popover
 - onChange event was replaced with onValueChange
 - onValueChange does not pass `text` but only `value` as first arg
+
+## Popup
+- POPUP_THEME_SHAPE_OBJECT was removed
+- children is required and is not checked in render

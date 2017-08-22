@@ -40,7 +40,7 @@ import verticalScrollbar from '../components/Scrollbar/VerricalScrollbar.demo.st
 import { CHECKBOX } from '../components/Checkbox/Checkbox.tsx';
 import checkbox from '../components/Checkbox/Checkbox.demo.styl';
 
-import { POPUP } from '../components/Popup/Popup';
+import { POPUP } from '../components/Popup/Popup.tsx';
 import popup from '../components/Popup/Popup.demo.styl';
 
 import { HIGHLIGHT } from '../components/Highlight/Highlight.tsx';

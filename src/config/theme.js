@@ -64,7 +64,7 @@ import loadingiIndicaton from '../components/LoadingIndicaton/LoadingIndicaton.s
 import { CHECKBOX } from '../components/Checkbox/Checkbox.tsx';
 import checkbox from '../components/Checkbox/Checkbox.styl';
 
-import { POPUP } from '../components/Popup/Popup';
+import { POPUP } from '../components/Popup/Popup.tsx';
 import popup from '../components/Popup/Popup.styl';
 
 import { AUTOCOMPLETE } from '../components/Autocomplete/Autocomplete';

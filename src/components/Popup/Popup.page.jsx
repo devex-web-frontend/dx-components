@@ -1,9 +1,9 @@
 import React from 'react';
-import Popup from './Popup';
-import {storiesOf} from '@kadira/storybook';
-import {PURE} from 'dx-util/lib/react/pure';
+import { Popup } from './Popup.tsx';
+import { storiesOf } from '@kadira/storybook';
+import { PURE } from 'dx-util/lib/react/pure';
 import Demo from '../../demo/Demo';
-import {Button} from '../Button/Button';
+import { Button } from '../Button/Button';
 
 import css from './Popup.page.styl';
 
@@ -40,7 +40,7 @@ class PopupPage extends React.Component {
 	}
 
 	render() {
-		const {isOpened, isModal, shouldCloseOnClickAway} = this.state;
+		const { isOpened, isModal, shouldCloseOnClickAway } = this.state;
 
 		return (
 			<Demo theme={theme}>
@@ -51,8 +51,8 @@ class PopupPage extends React.Component {
 				</label>
 				<label className={css.label}>
 					Close on clickaway <input type="checkbox"
-					             value={shouldCloseOnClickAway}
-					             onChange={this.onCloseOnClickAwayChange}/>
+					                          value={shouldCloseOnClickAway}
+					                          onChange={this.onCloseOnClickAwayChange}/>
 				</label>
 				<Button isPrimary={true}
 				        onClick={this.onToggleClick}>
