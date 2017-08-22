@@ -14,7 +14,8 @@ export type TFullHoldableProps = {
 	children: ReactElement<THoldableChildProps>,
 	onHold: Function,
 	delay: number,
-	interval: number
+	interval: number,
+	isDisabled?: boolean
 };
 
 class RawHoldable extends React.Component<TFullHoldableProps> {
@@ -32,6 +33,16 @@ class RawHoldable extends React.Component<TFullHoldableProps> {
 		interval: 50,
 		delay: 300
 	};
+
+	componentWillUnmount() {
+		this.clearTimers();
+	}
+
+	componentDidUpdate(prevProps: TFullHoldableProps) {
+		if (!prevProps.isDisabled && this.props.isDisabled) {
+			this.clearTimers();
+		}
+	}
 
 	clearTimers() {
 		clearTimeout(this._timeoutId);
