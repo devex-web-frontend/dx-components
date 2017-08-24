@@ -1,4 +1,4 @@
-import { Children, createElement, ComponentClass, Component, SFC } from 'react';
+import { Children, createElement, ComponentClass, Component, SFC, Ref } from 'react';
 import * as PropTypes from 'prop-types';
 import { ObjectOmit } from 'typelevel-ts';
 
@@ -26,7 +26,11 @@ type TResultProps<P extends TTargetProps> = ObjectOmit<P, 'theme'> & {
 	theme?: P['theme']
 };
 
-type TResult<P extends TTargetProps> = ComponentClass<TResultProps<P>>;
+type TWithRef<P extends TTargetProps, C> = TResultProps<P> & {
+	withRef?: Ref<C>
+};
+
+type TResult<P extends TTargetProps> = ComponentClass<TWithRef<P, ComponentClass<TResultProps<P>>>>;
 
 //shortcuts
 type CC<P> = ComponentClass<P>;
@@ -49,7 +53,7 @@ export function withTheme(name: string | symbol, defaultTheme: TTheme = {}) {
 			theme: defaultTheme
 		};
 
-		class Themed extends Component<TResultProps<P>, never> {
+		class Themed extends Component<TWithRef<P, ComponentClass<TResultProps<P>>>, never> {
 			static displayName = `Themed(${Target.name})`;
 
 			static contextTypes = {
@@ -60,8 +64,10 @@ export function withTheme(name: string | symbol, defaultTheme: TTheme = {}) {
 
 			render() {
 				const themr = this.context.themr && this.context.themr.theme && this.context.themr.theme[name];
+				const { withRef, ...rest } = this.props;
 				const props = {
-					...this.props,
+					...rest,
+					ref: withRef,
 					theme: mergeThemes(
 						config.theme,
 						themr,
