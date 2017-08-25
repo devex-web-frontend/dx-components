@@ -10,6 +10,9 @@ import { Component, ComponentClass, ComponentType, ReactElement, ReactNode, Reac
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { TControlProps } from '../Control/Control';
+import { NativeResizeDetector } from '../ResizeDetector/ResizeDetector';
+import { findDOMNode } from 'react-dom';
+import { raf } from 'dx-util/lib/function/raf';
 
 export const SELECTBOX = Symbol('Selectbox');
 
@@ -42,11 +45,17 @@ export type TFullSelectboxProps = TControlProps<ReactText> & {
 	Popover: ComponentType<TPopoverProps>,
 
 	caretIconName?: string,
-	selectedItemIconName?: string
+	selectedItemIconName?: string,
+	shouldSyncWidth?: boolean
+};
+
+type TSelectboxState = {
+	isOpened: boolean,
+	width?: number
 };
 
 @PURE
-class RawSelectbox extends React.Component<TFullSelectboxProps> {
+class RawSelectbox extends React.Component<TFullSelectboxProps, TSelectboxState> {
 	static propTypes: any = {
 		value(props: TFullSelectboxProps) {
 			const type = typeof props.value;
@@ -71,11 +80,49 @@ class RawSelectbox extends React.Component<TFullSelectboxProps> {
 		Popover
 	};
 
-	state = {
+	state: TSelectboxState = {
 		isOpened: false
 	};
 
-	_anchor: Component<TSelectboxAnchorProps> | null;
+	private _anchor: Component<TSelectboxAnchorProps> | null;
+	private get anchor() {
+		return this._anchor;
+	}
+
+	private set anchor(value) {
+		if (this._anchor !== value) {
+			//uninstall previous
+			if (this.anchor && this.props.shouldSyncWidth) {
+				const element = findDOMNode(this.anchor);
+				NativeResizeDetector.uninstall(element);
+			}
+
+			//install new
+			this._anchor = value;
+			if (this.anchor && this.props.shouldSyncWidth) {
+				const element = findDOMNode(this.anchor);
+				NativeResizeDetector.listenTo(element, this.handleAnchorResize);
+			}
+		}
+	}
+
+	componentDidMount() {
+		// if (this.anchor && this.props.shouldSyncWidth) {
+		// 	const element = findDOMNode(this.anchor);
+		// 	NativeResizeDetector.listenTo(element, this.handleAnchorResize);
+		// }
+	}
+
+	componentDidUpdate(newProps: TFullSelectboxProps) {
+		//todo: rebind
+	}
+
+	componentWillUnmount() {
+		if (this.anchor) {
+			const element = findDOMNode(this.anchor);
+			NativeResizeDetector.uninstall(element);
+		}
+	}
 
 	render() {
 		const {
@@ -138,8 +185,15 @@ class RawSelectbox extends React.Component<TFullSelectboxProps> {
 			}
 		}
 
+		let popoverStyle;
+		if (typeof this.state.width !== 'undefined' && this.props.shouldSyncWidth) {
+			popoverStyle = {
+				width: this.state.width
+			};
+		}
+
 		return (
-			<Anchor ref={el => this._anchor = el}
+			<Anchor ref={el => this.anchor = el}
 			        isDisabled={isDisabled}
 			        isLoading={isLoading}
 			        theme={anchorTheme}
@@ -149,10 +203,11 @@ class RawSelectbox extends React.Component<TFullSelectboxProps> {
 			        valueText={valueText}
 			        onClick={this.onAnchorClick}>
 				<Popover isOpened={this.state.isOpened}
+				         style={popoverStyle}
 				         theme={popoverTheme}
 				         closeOnClickAway={true}
 				         onRequestClose={this.onPopoverRequestClose}
-				         anchor={this._anchor}>
+				         anchor={this.anchor}>
 					<Menu onItemSelect={this.onItemSelect}
 					      theme={menuTheme}>
 						{React.Children.map(children, this.wrapItem)}
@@ -205,6 +260,15 @@ class RawSelectbox extends React.Component<TFullSelectboxProps> {
 			isOpened: false
 		});
 	}
+
+	handleAnchorResize = raf((element: Element) => {
+		const { width } = element.getBoundingClientRect();
+		if (this.state.width !== width) {
+			this.setState({
+				width
+			});
+		}
+	});
 }
 
 export type TSelectboxProps = ObjectClean<PartialKeys<TFullSelectboxProps,

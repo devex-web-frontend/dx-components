@@ -6,8 +6,9 @@ import { ObjectClean } from 'typelevel-ts/lib';
 import { PartialKeys } from 'dx-util/lib/object/object';
 
 import * as detectorFactory from 'element-resize-detector';
+import { raf } from 'dx-util/lib/function/raf';
 
-const detector = detectorFactory({
+export const NativeResizeDetector = detectorFactory({
 	strategy: 'scroll'
 });
 
@@ -26,13 +27,13 @@ class RawResizeDetector extends React.Component<TFullResizeDetectorProps> {
 
 	componentDidMount() {
 		if (this.element) {
-			detector.listenTo(this.element, this.onResize);
+			NativeResizeDetector.listenTo(this.element, this.onResize);
 		}
 	}
 
 	componentWillUnmount() {
 		if (this.element) {
-			detector.uninstall(this.element);
+			NativeResizeDetector.uninstall(this.element);
 		}
 	}
 
@@ -43,9 +44,9 @@ class RawResizeDetector extends React.Component<TFullResizeDetectorProps> {
 		);
 	}
 
-	onResize = (element: Element) => {
+	onResize = raf((element: Element) => {
 		this.props.onResize(element);
-	}
+	});
 }
 
 export type TResizeDetectorProps = ObjectClean<PartialKeys<TFullResizeDetectorProps, 'theme'>>;

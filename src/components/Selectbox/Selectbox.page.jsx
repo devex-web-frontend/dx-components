@@ -11,6 +11,11 @@ import iconListItemTick from './img/icon-list-item-tick.svg';
 import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
 import { stateful } from '../Control/Control';
 
+import * as selectoxPageCss from './Selectbox.page.styl';
+const wideSelectboxTheme = {
+	container__anchor: selectoxPageCss.container__anchor
+};
+
 class DemoSelectboxAnchor extends React.Component {
 	render() {
 		const newProps = {
@@ -67,6 +72,18 @@ class SelectboxPage extends React.Component {
 					</Stateful>
 					<Button onClick={this.onResetClick}>Reset</Button>
 				</div>
+				<section>
+					Sync width
+					<Stateful placeholder="Choose your hero"
+					          shouldSyncWidth={true}
+					          theme={wideSelectboxTheme}
+					          selectedItemIconName={iconListItemTick}
+					          caretIconName={iconSmallDropdownArrow}>
+						<MenuItem value="superman">Superman</MenuItem>
+						<MenuItem value="batman">Batman</MenuItem>
+						<MenuItem value="flash">Flash</MenuItem>
+					</Stateful>
+				</section>
 			</Demo>
 		);
 	}
