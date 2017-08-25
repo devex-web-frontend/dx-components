@@ -71,3 +71,7 @@
 ## Popup
 - POPUP_THEME_SHAPE_OBJECT was removed
 - children is required and is not checked in render
+
+## ResizeDetector
+- switch to element-resize-detector and scroll strategy instead of iframes
+- onResize handler is now passed Element instead of Event

@@ -1,10 +1,15 @@
 import * as React from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
-import { themr } from 'react-css-themr';
 import { withTheme } from '../../util/react/withTheme';
-import { ComponentClass, EventHandler, ReactEventHandler, ReactInstance, SyntheticEvent } from 'react';
+import { ComponentClass } from 'react';
 import { ObjectClean } from 'typelevel-ts/lib';
 import { PartialKeys } from 'dx-util/lib/object/object';
+
+import * as detectorFactory from 'element-resize-detector';
+
+const detector = detectorFactory({
+	strategy: 'scroll'
+});
 
 export const RESIZE_DETECTOR = Symbol('ResizeDetector');
 
@@ -12,43 +17,34 @@ export type TFullResizeDetectorProps = {
 	theme: {
 		container?: string
 	},
-	onResize: ReactEventHandler<HTMLIFrameElement>
+	onResize: (element: Element) => any
 };
 
 @PURE
 class RawResizeDetector extends React.Component<TFullResizeDetectorProps> {
-	static propTypes = {
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string
-		}),
-		onResize: React.PropTypes.func
-	};
-
-	_resizeDetector: HTMLIFrameElement | null;
+	private element: HTMLDivElement | null;
 
 	componentDidMount() {
-		if (this._resizeDetector) {
-			this._resizeDetector.contentWindow.addEventListener('resize', this.onResize);
+		if (this.element) {
+			detector.listenTo(this.element, this.onResize);
 		}
 	}
 
 	componentWillUnmount() {
-		if (this._resizeDetector) {
-			this._resizeDetector.contentWindow.removeEventListener('resize', this.onResize);
-			this._resizeDetector = null;
+		if (this.element) {
+			detector.uninstall(this.element);
 		}
 	}
 
 	render() {
 		const { theme } = this.props;
 		return (
-			<iframe src="about:blank" ref={el => this._resizeDetector = el} className={theme.container} />
+			<div className={theme.container} ref={el => this.element = el}></div>
 		);
 	}
 
-	onResize: EventListener = event => {
-		const { onResize } = this.props;
-		onResize && onResize(event as any);
+	onResize = (element: Element) => {
+		this.props.onResize(element);
 	}
 }
 

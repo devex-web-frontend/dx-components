@@ -175,7 +175,7 @@ export default class Scrollable extends React.Component {
 		);
 	}
 
-	onResize = (event) => {
+	onResize = () => {
 		this._emitter.emit(EVENT_SCROLABLE.RESIZE);
 	}
 }
