@@ -10,7 +10,7 @@ import {
 } from './Scrollable.const';
 
 import {SCROLLBAR_TYPE} from '../Scrollbar/Scrollbar';
-import ResizeDetector from '../ResizeDetector/ResizeDetector.jsx';
+import {ResizeDetector} from '../ResizeDetector/ResizeDetector';
 import HorizontalScrollbar from '../Scrollbar/HorizontalScrollbar.jsx';
 import VerticalScrollbar from '../Scrollbar/VerticalScrollbar.jsx';
 
