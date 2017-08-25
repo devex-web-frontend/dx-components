@@ -60,7 +60,8 @@ export type TFullPopoverProps = {
 		container_placementRight?: string,
 		content?: string,
 		arrow?: string
-	}
+	},
+	style?: object
 };
 
 type TPopoverState = {
@@ -148,6 +149,10 @@ class RawPopover extends React.Component<TFullPopoverProps, TPopoverState> {
 				].map(mod => theme[`container_${mod}`])
 			);
 		}
+		style = {
+			...style,
+			...this.props.style
+		};
 
 		let child = (
 			<BoundsUpdateDetector onUpdate={this.onSizeUpdate}>
