@@ -58,6 +58,9 @@ import expandable from '../components/Expandable/Expandable.demo.styl';
 import { LOADING_INDICATOR } from '../components/LoadingIndicator/LoadingIndicator';
 import loadingIndicator from '../components/LoadingIndicator/LoadingIndicator.demo.styl';
 
+import { LOADING_INDICATION } from '../components/LoadingIndication/LoadingIndication.tsx';
+import loadingIndication from '../components/LoadingIndication/LoadingIndication.demo.styl';
+
 import { STEPPABLE_INPUT } from '../components/SteppableInput/SteppableInput';
 import steppableInput from '../components/SteppableInput/theme/SteppableInput.demo.styl';
 import steppableInputInput from '../components/SteppableInput/theme/Input.demo.styl';
@@ -109,6 +112,7 @@ export default {
 		}
 	},
 	[LOADING_INDICATOR]: loadingIndicator,
+	[LOADING_INDICATION]: loadingIndication,
 	[STEPPABLE_INPUT]: {
 		...steppableInput,
 		Input: steppableInputInput,

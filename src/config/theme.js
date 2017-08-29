@@ -58,8 +58,8 @@ import horizontalScrollbar from '../components/Scrollbar/HorizontalScrollbar.sty
 import { VERTICAL_SCROLLBAR } from '../components/Scrollbar/VerticalScrollbar.jsx';
 import verticalScrollbar from '../components/Scrollbar/VerticalScrollbar.styl';
 
-import { LOADINGINDICATON } from '../components/LoadingIndicaton/LoadingIndicaton';
-import loadingiIndicaton from '../components/LoadingIndicaton/LoadingIndicaton.styl';
+import { LOADING_INDICATION } from '../components/LoadingIndication/LoadingIndication.tsx';
+import loadingIndication from '../components/LoadingIndication/LoadingIndication.styl';
 
 import { CHECKBOX } from '../components/Checkbox/Checkbox.tsx';
 import checkbox from '../components/Checkbox/Checkbox.styl';
@@ -111,7 +111,7 @@ export default {
 	[COMBOBOX]: combobox,
 	[TABLE]: table,
 	[GRID]: grid,
-	[LOADINGINDICATON]: loadingiIndicaton,
+	[LOADING_INDICATION]: loadingIndication,
 	[POPUP]: popup,
 	[GRID]: grid,
 	[SCROLLABLE]: scrollable,

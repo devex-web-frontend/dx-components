@@ -75,3 +75,6 @@
 ## ResizeDetector
 - switch to element-resize-detector and scroll strategy instead of iframes
 - onResize handler is now passed Element instead of Event
+
+## LoadingIndication
+- complete rewrite, refer to demo page
