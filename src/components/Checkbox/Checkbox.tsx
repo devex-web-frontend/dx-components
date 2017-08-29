@@ -1,23 +1,20 @@
 import * as React from 'react';
-import { Component, EventHandler, ChangeEvent, ComponentClass } from 'react';
+import { Component, EventHandler, ChangeEvent, ComponentClass, ChangeEventHandler } from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
-import { themr } from 'react-css-themr';
 import * as classnames from 'classnames';
-import { randomId } from 'dx-util/lib/string/string';
 
 import { Icon } from '../Icon/Icon';
 import { withTheme } from '../../util/react/withTheme';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
+import { TControlProps } from '../Control/Control';
 
 export const CHECKBOX = Symbol('Checkbox');
 
-export type TFullCheckboxProps = {
+export type TFullCheckboxProps = TControlProps<boolean> & {
 	id?: string,
 	checkboxIconName: string,
 	isDisabled?: boolean,
-	isChecked?: boolean,
-	onChange?: EventHandler<ChangeEvent<HTMLInputElement>>
 	theme: {
 		container?: string,
 		container_isDisabled?: string,
@@ -37,13 +34,12 @@ class RawCheckbox extends Component<TFullCheckboxProps> {
 			id,
 			checkboxIconName,
 			isDisabled,
-			isChecked,
-			onChange,
+			value,
 			theme
 		} = this.props;
 
 		const iconClassName = classnames(theme.icon, {
-			[theme.icon_isChecked as string]: isChecked,
+			[theme.icon_isChecked as string]: value,
 			[theme.icon_isDisabled as string]: isDisabled
 		});
 		const viewClassName = classnames(theme.view, {
@@ -52,21 +48,24 @@ class RawCheckbox extends Component<TFullCheckboxProps> {
 
 		return (
 			<span className={theme.container}>
-				<input
-					type="checkbox"
-					id={id}
-					checked={isChecked}
-					disabled={isDisabled}
-					onChange={onChange}
-					className={theme.input} />
+				<input type="checkbox"
+				       id={id}
+				       checked={value || false}
+				       disabled={isDisabled}
+				       onChange={this.handleChange}
+				       className={theme.input}/>
 				<span className={viewClassName}>
 					<span className={iconClassName}>
-						<Icon name={checkboxIconName} />
+						<Icon name={checkboxIconName}/>
 					</span>
 				</span>
 			</span>
 		);
 	}
+
+	handleChange: ChangeEventHandler<HTMLInputElement> = element => {
+		this.props.onValueChange(element.target.checked);
+	};
 }
 
 export type TCheckboxProps = ObjectClean<PartialKeys<TFullCheckboxProps, 'theme'>>;

@@ -20,6 +20,7 @@
 
 ## Checkbox
 - default export changed to named
+- use `TControlProps<boolean>` instead of `isChecked/onChange`
 
 ## Highlight
 - default export changed to named

@@ -39,11 +39,11 @@ class CheckboxPage extends Component {
 				<div className={css.container}>
 					<label htmlFor="check1" className={labelClassName}>
 						<Checkbox theme={darkDemoTheme}
-							checkboxIconName={checkboxIcon}
-							isChecked={this.state.isChecked}
-							onChange={this.onChangeHandler}
-							isDisabled={this.props.isDisabled}
-							id="check1" />
+						          checkboxIconName={checkboxIcon}
+						          value={this.state.isChecked}
+						          onValueChange={this.onChangeHandler}
+						          isDisabled={this.props.isDisabled}
+						          id="check1"/>
 						I'am controlled checkbox
 					</label>
 				</div>
@@ -51,13 +51,13 @@ class CheckboxPage extends Component {
 		);
 	}
 
-	onChangeHandler = (e) => {
+	onChangeHandler = (value) => {
 		this.setState({
-			isChecked: !this.state.isChecked
+			isChecked: value
 		});
 	}
 }
 
-storiesOf('Checkbox', module).add('default', () => <CheckboxPage />)
-	.add('disabled', () => <CheckboxPage isDisabled={true} />);
+storiesOf('Checkbox', module).add('default', () => <CheckboxPage/>)
+	.add('disabled', () => <CheckboxPage isDisabled={true}/>);
 
