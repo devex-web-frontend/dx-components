@@ -1,8 +1,8 @@
 declare module 'element-resize-detector' {
-	export type TDetectoryFactoryOptions = {
+	type TDetectoryFactoryOptions = {
 		strategy?: 'scroll'
 	};
-	export type THandler = (element: Element) => any;
+	type THandler = (element: Element) => any;
 	//tslint:disable max-line-length
 	type TDetector = {
 		/**
