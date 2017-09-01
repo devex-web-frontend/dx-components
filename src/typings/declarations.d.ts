@@ -7,3 +7,5 @@ declare module '*.styl' {
 	const theme: any;
 	export = theme;
 }
+
+declare const __IS_NODE__: boolean;
