@@ -3,13 +3,13 @@ import { PURE } from 'dx-util/src/react/pure';
 import { themr } from 'react-css-themr';
 import { ComponentClass } from 'react';
 let detectorFactory;
-import { TDetectoryFactoryOptions } from 'element-resize-detector';
+import { TDetectoryFactoryOptions, THandler } from 'element-resize-detector';
 if (typeof __IS_NODE__ === 'undefined') {
 	detectorFactory = require('element-resize-detector');
 } else {
 	detectorFactory = (options: TDetectoryFactoryOptions) => ({
-		listenTo: () => {},
-		uninstall: () => {}
+		listenTo: (element: Element, handler: THandler) => {},
+		uninstall: (element: Element) => {}
 	});
 }
 import { raf } from '../../util/func/raf';
