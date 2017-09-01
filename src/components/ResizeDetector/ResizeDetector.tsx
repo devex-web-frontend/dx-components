@@ -4,12 +4,12 @@ import { themr } from 'react-css-themr';
 import { ComponentClass } from 'react';
 let detectorFactory;
 if (typeof document === 'undefined') {
-	detectorFactory = require('element-resize-detector');
-} else {
 	detectorFactory = (options: any) => ({
 		listenTo: (...args: any[]) => {},
 		uninstall: (...args: any[]) => {}
 	});
+} else {
+	detectorFactory = require('element-resize-detector');
 }
 import { raf } from '../../util/func/raf';
 
