@@ -2,8 +2,15 @@ import * as React from 'react';
 import { PURE } from 'dx-util/src/react/pure';
 import { themr } from 'react-css-themr';
 import { ComponentClass } from 'react';
-
-import * as detectorFactory from 'element-resize-detector';
+let detectorFactory;
+if (typeof document === 'undefined') {
+	detectorFactory = (options: any) => ({
+		listenTo: (...args: any[]) => {},
+		uninstall: (...args: any[]) => {}
+	});
+} else {
+	detectorFactory = require('element-resize-detector');
+}
 import { raf } from '../../util/func/raf';
 
 const NativeResizeDetector = detectorFactory({
