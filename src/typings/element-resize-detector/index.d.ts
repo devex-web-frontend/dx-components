@@ -25,5 +25,6 @@ declare module 'element-resize-detector' {
 	};
 	//tslint:enable max-line-length
 
-	export const detectorFactory: (options: TDetectoryFactoryOptions) => TDetector;
+	const detectorFactory: (options: TDetectoryFactoryOptions) => TDetector;
+	export = detectorFactory;
 }
