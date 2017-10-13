@@ -85,17 +85,18 @@ export class TableRow extends React.Component {
 		theme: PropTypes.shape({
 			row: PropTypes.string
 		}),
+		onClick: PropTypes.func,
 		//not for direct usage
 		//injected by TableHead
 		[TABLE_IS_IN_HEAD_KEY]: PropTypes.bool
 	}
 
 	render() {
-		const {children, theme} = this.props;
+		const {children, theme, onClick} = this.props;
 		const isInHead = this.props[TABLE_IS_IN_HEAD_KEY];
 
 		return (
-			<tr className={theme.row}>
+			<tr className={theme.row} onClick={onClick}>
 				{!isInHead && children}
 				{isInHead && React.Children.map(children, child => (
 					React.cloneElement(child, {
