@@ -1,6 +1,6 @@
 import React from 'react';
-import {themr} from 'react-css-themr';
-import {PURE} from 'dx-util/lib/react/pure';
+import { themr } from 'react-css-themr';
+import { PURE } from 'dx-util/lib/react/pure';
 import classnames from 'classnames';
 import * as PropTypes from 'prop-types';
 
@@ -18,7 +18,7 @@ export default class Table extends React.Component {
 	}
 
 	render() {
-		const {theme, children} = this.props;
+		const { theme, children } = this.props;
 
 		return (
 			<table className={theme.container}>
@@ -42,7 +42,7 @@ export class TableHead extends React.Component {
 	}
 
 	render() {
-		const {children, theme} = this.props;
+		const { children, theme } = this.props;
 
 		return (
 			<thead className={theme.head}>
@@ -67,7 +67,7 @@ export class TableBody extends React.Component {
 	}
 
 	render() {
-		const {children, theme} = this.props;
+		const { children, theme } = this.props;
 
 		return (
 			<tbody className={theme.body}>
@@ -82,6 +82,7 @@ export class TableBody extends React.Component {
 export class TableRow extends React.Component {
 	static propTypes = {
 		children: PropTypes.node,
+		onClick: PropTypes.func,
 		theme: PropTypes.shape({
 			row: PropTypes.string
 		}),
@@ -91,11 +92,11 @@ export class TableRow extends React.Component {
 	}
 
 	render() {
-		const {children, theme} = this.props;
+		const { children, theme, onClick } = this.props;
 		const isInHead = this.props[TABLE_IS_IN_HEAD_KEY];
 
 		return (
-			<tr className={theme.row}>
+			<tr className={theme.row} onClick={onClick}>
 				{!isInHead && children}
 				{isInHead && React.Children.map(children, child => (
 					React.cloneElement(child, {
@@ -125,7 +126,7 @@ export class TableCell extends React.Component {
 	}
 
 	render() {
-		const {children, theme, style, colSpan, rowSpan} = this.props;
+		const { children, theme, style, colSpan, rowSpan } = this.props;
 		const isInHead = this.props[TABLE_IS_IN_HEAD_KEY];
 
 		const className = classnames(
@@ -140,9 +141,9 @@ export class TableCell extends React.Component {
 
 		return (
 			<Tag className={className}
-				 style={style}
-				 colSpan={colSpan}
-				 rowSpan={rowSpan}>
+			     style={style}
+			     colSpan={colSpan}
+			     rowSpan={rowSpan}>
 				{children}
 			</Tag>
 		);
