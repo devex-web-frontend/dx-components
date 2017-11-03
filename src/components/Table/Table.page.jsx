@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import {storiesOf, action} from '@kadira/storybook';
 import Table, {
 	TableCell as Cell,
 	TableHead as THead,
@@ -16,6 +16,8 @@ const firstTheme = {
 const secondStyle = {
 	width: 200
 };
+
+const notifyClicked = action('Click');
 
 storiesOf('Table', module).add('default', () => (
 	<Demo>
@@ -37,7 +39,7 @@ storiesOf('Table', module).add('default', () => (
 					</Cell>
 					<Cell colSpan={2}>________5_________</Cell>
 				</Tr>
-				<Tr>
+				<Tr onClick={notifyClicked}>
 					<Cell>_8_</Cell>
 					<Cell>_9_</Cell>
 				</Tr>
