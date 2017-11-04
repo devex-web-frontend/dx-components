@@ -72,6 +72,8 @@
 ## Popup
 - POPUP_THEME_SHAPE_OBJECT was removed
 - children is required and is not checked in render
+- removed default cursor:pointer on backdrop for closeOnClickAway
+- closeOnClickAway now has higher priority than isModal (closes modal windows)
 
 ## ResizeDetector
 - switch to element-resize-detector and scroll strategy instead of iframes

@@ -4,7 +4,7 @@ import * as classnames from 'classnames';
 import * as Portal from 'react-overlays/lib/Portal';
 import * as RootClose from 'react-overlays/lib/RootCloseWrapper';
 import * as PropTypes from 'prop-types';
-import { Component, ReactNode } from 'react';
+import { Component, MouseEventHandler, ReactNode } from 'react';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { withTheme } from '../../util/react/withTheme';
@@ -43,6 +43,8 @@ export const POPUP_THEME_SHAPE_OBJECT = {
 
 @PURE
 class RawPopup extends Component<TRawPopupProps> {
+	private backdrop: Element | null;
+
 	render() {
 		const {
 			theme,
@@ -69,7 +71,9 @@ class RawPopup extends Component<TRawPopupProps> {
 		);
 
 		let child = (
-			<div className={backdropClassName}>
+			<div className={backdropClassName}
+			     ref={el => this.backdrop = el}
+			     onClick={this.handleBackdropClick}>
 				<div className={theme.container}>
 					{header && <div className={theme.header}>{header}</div>}
 					{<div className={theme.body}>{children}</div>}
@@ -93,6 +97,16 @@ class RawPopup extends Component<TRawPopupProps> {
 		);
 
 		return child;
+	}
+
+	private handleBackdropClick: MouseEventHandler<HTMLElement> = e => {
+		//don't process click inside popup container (bubbled events)
+		if (e.target === this.backdrop) {
+			const { onRequestClose, shouldCloseOnClickAway } = this.props;
+			if (shouldCloseOnClickAway && onRequestClose) {
+				onRequestClose();
+			}
+		}
 	}
 }
 
