@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import { ReactElement, EventHandler, MouseEvent, ComponentClass } from 'react';
+import { ReactElement, EventHandler, MouseEvent, TouchEvent, ComponentClass } from 'react';
 import { ObjectClean } from 'typelevel-ts/lib';
 import { PartialKeys } from 'dx-util/lib/object/object';
 
@@ -51,25 +51,37 @@ class RawHoldable extends React.Component<TFullHoldableProps> {
 
 	render() {
 		const { children } = this.props;
-		const { onMouseDown, onMouseUp, onMouseLeave } = children.props;
+		const { onMouseDown, onMouseUp, onMouseLeave, onTouchStart, onTouchEnd, onTouchCancel } = children.props;
 
 		return React.cloneElement(React.Children.only(children), {
-			onMouseUp: (e: MouseEvent<Element>) => {
-				this.onMouseUp();
-				onMouseUp && onMouseUp(e);
-			},
 			onMouseDown: (e: MouseEvent<Element>) => {
-				this.onMouseDown(e);
+				this.onStartHold();
 				onMouseDown && onMouseDown(e);
 			},
+			onMouseUp: (e: MouseEvent<Element>) => {
+				this.onEndHold();
+				onMouseUp && onMouseUp(e);
+			},
 			onMouseLeave: (e: MouseEvent<Element>) => {
-				this.onMouseLeave();
+				this.onEndHold();
 				onMouseLeave && onMouseLeave(e);
-			}
+			},
+			onTouchStart: (e: TouchEvent<Element>) => {
+				this.onStartHold();
+				onTouchStart && onTouchStart(e);
+			},
+			onTouchEnd: (e: TouchEvent<Element>) => {
+				this.onEndHold();
+				onTouchEnd && onTouchEnd(e);
+			},
+			onTouchCancel: (e: TouchEvent<Element>) => {
+				this.onEndHold();
+				onTouchCancel && onTouchCancel(e);
+			},
 		});
 	}
 
-	onMouseDown = (e: MouseEvent<Element>) => {
+	onStartHold = () => {
 		const { interval, delay, onHold } = this.props;
 
 		this.clearTimers();
@@ -80,11 +92,7 @@ class RawHoldable extends React.Component<TFullHoldableProps> {
 		}, delay);
 	}
 
-	onMouseUp = () => {
-		this.clearTimers();
-	}
-
-	onMouseLeave = () => {
+	onEndHold = () => {
 		this.clearTimers();
 	}
 }
