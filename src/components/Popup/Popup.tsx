@@ -82,7 +82,9 @@ class RawPopup extends Component<TRawPopupProps> {
 			</div>
 		);
 
-		if (shouldCloseOnClickAway) {
+		//if popup is modal then it should be closed only on click on backdrop
+		//if popup isn't modal then backdrop has pointer-events: none and click should be detected by RootClose
+		if (shouldCloseOnClickAway && !isModal) {
 			child = (
 				<RootClose onRootClose={onRequestClose}>
 					{child}
@@ -100,12 +102,17 @@ class RawPopup extends Component<TRawPopupProps> {
 	}
 
 	private handleBackdropClick: MouseEventHandler<HTMLElement> = e => {
-		//don't process click inside popup container (bubbled events)
-		if (e.target === this.backdrop) {
-			const { onRequestClose, shouldCloseOnClickAway } = this.props;
-			if (shouldCloseOnClickAway && onRequestClose) {
-				onRequestClose();
+		const { shouldCloseOnClickAway, onRequestClose } = this.props;
+		if (shouldCloseOnClickAway && onRequestClose) {
+			const { isModal } = this.props;
+			if (isModal) {
+				//popup is modal - backdrop handles clicks
+				//don't process click inside popup container (bubbled events)
+				if (e.target === this.backdrop) {
+					onRequestClose();
+				}
 			}
+			//if popup isn't modal then it's closed by RootClose
 		}
 	}
 }

@@ -4,6 +4,9 @@ import { storiesOf } from '@kadira/storybook';
 import { PURE } from 'dx-util/lib/react/pure';
 import Demo from '../../demo/Demo';
 import { Button } from '../Button/Button';
+import { Selectbox } from '../Selectbox/Selectbox.tsx';
+import { stateful } from '../Control/Control';
+import { MenuItem } from '../Menu/Menu';
 
 import css from './Popup.page.styl';
 
@@ -22,6 +25,8 @@ const header = (
 const footer = (
 	<div>FOOTER</div>
 );
+
+const Stateful = stateful()(Selectbox);
 
 @PURE
 class PopupPage extends React.Component {
@@ -65,6 +70,12 @@ class PopupPage extends React.Component {
 					       onRequestClose={this.onPopupRequestClose}
 					       isOpened={isOpened}>
 						<div>popup content</div>
+						<Stateful placeholder="Choose your hero"
+						          onValueChange={this.onHeroChange}>
+							<MenuItem value="superman">Superman</MenuItem>
+							<MenuItem value="batman">Batman</MenuItem>
+							<MenuItem value="flash">Flash</MenuItem>
+						</Stateful>
 					</Popup>
 				</Button>
 			</Demo>
