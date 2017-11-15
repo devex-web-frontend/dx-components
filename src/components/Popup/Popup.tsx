@@ -2,12 +2,12 @@ import * as React from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
 import * as classnames from 'classnames';
 import * as Portal from 'react-overlays/lib/Portal';
-import * as RootClose from 'react-overlays/lib/RootCloseWrapper';
 import * as PropTypes from 'prop-types';
 import { Component, MouseEventHandler, ReactNode } from 'react';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { withTheme } from '../../util/react/withTheme';
+import { RootClose } from '../RootClose/RootClose';
 
 export const POPUP = Symbol('Popup');
 
@@ -72,8 +72,8 @@ class RawPopup extends Component<TRawPopupProps> {
 
 		let child = (
 			<div className={backdropClassName}
-			     ref={el => this.backdrop = el}
-			     onClick={this.handleBackdropClick}>
+				ref={el => this.backdrop = el}
+				onClick={this.handleBackdropClick}>
 				<div className={theme.container}>
 					{header && <div className={theme.header}>{header}</div>}
 					{<div className={theme.body}>{children}</div>}
