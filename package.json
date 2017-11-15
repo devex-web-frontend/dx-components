@@ -106,7 +106,6 @@
     "react": "^15.6.1",
     "react-css-themr": "~2.1.2",
     "react-dom": "^15.6.1",
-    "react-event-listener": "^0.2.1",
     "react-overlays": "^0.6.6",
     "tslib": "^1.7.1",
     "typelevel-ts": "^0.1.3"

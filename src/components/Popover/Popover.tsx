@@ -3,7 +3,6 @@ import * as ReactDOM from 'react-dom';
 import * as Portal from 'react-overlays/lib/Portal';
 import * as RootClose from 'react-overlays/lib/RootCloseWrapper';
 import prefix from 'dx-util/lib/dom/prefix';
-import EventListener from 'react-event-listener';
 import * as classnames from 'classnames';
 
 import { PURE } from 'dx-util/lib/react/pure';
@@ -12,10 +11,11 @@ import { THROTTLE } from 'dx-util/lib/function/throttle';
 
 import TPortalProps = ReactOverlays.Portal.TPortalProps;
 import { withTheme } from '../../util/react/withTheme';
-import { ComponentClass, MouseEventHandler, ReactInstance, ReactNode } from 'react';
+import { ComponentClass, MouseEventHandler, ReactNode } from 'react';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { ReactRef } from '../../util/react/typings';
+import { EventListener } from '../EventListener/EventListener';
 
 type TSize = {
 	width: number,
@@ -179,8 +179,7 @@ class RawPopover extends React.Component<TFullPopoverProps, TPopoverState> {
 		}
 
 		return (
-			<EventListener capture={false}
-			               onResize={this.onResize}
+			<EventListener onResize={this.onResize}
 			               onScroll={this.onScroll}
 			               target="window">
 				<Portal container={container}>
