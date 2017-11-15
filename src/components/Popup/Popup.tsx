@@ -71,26 +71,30 @@ class RawPopup extends Component<TRawPopupProps> {
 		);
 
 		let child = (
-			<div className={backdropClassName}
-				ref={el => this.backdrop = el}
-				onClick={this.handleBackdropClick}>
-				<div className={theme.container}>
-					{header && <div className={theme.header}>{header}</div>}
-					{<div className={theme.body}>{children}</div>}
-					{footer && <div className={theme.footer}>{footer}</div>}
+			<RootClose onRootClose={onRequestClose}
+			           ignoreKeyUp={!shouldCloseOnClickAway}
+			           ignoreClick={!shouldCloseOnClickAway || isModal}>
+				<div className={backdropClassName}
+				     ref={el => this.backdrop = el}
+				     onClick={this.handleBackdropClick}>
+					<div className={theme.container}>
+						{header && <div className={theme.header}>{header}</div>}
+						{<div className={theme.body}>{children}</div>}
+						{footer && <div className={theme.footer}>{footer}</div>}
+					</div>
 				</div>
-			</div>
+			</RootClose>
 		);
 
-		//if popup is modal then it should be closed only on click on backdrop
-		//if popup isn't modal then backdrop has pointer-events: none and click should be detected by RootClose
-		if (shouldCloseOnClickAway && !isModal) {
-			child = (
-				<RootClose onRootClose={onRequestClose}>
-					{child}
-				</RootClose>
-			);
-		}
+		// //if popup is modal then it should be closed only on click on backdrop
+		// //if popup isn't modal then backdrop has pointer-events: none and click should be detected by RootClose
+		// if (shouldCloseOnClickAway) {
+		// 	child = (
+		// 		<RootClose ignoreClick={isModal}>
+		// 			{child}
+		// 		</RootClose>
+		// 	);
+		// }
 
 		child = (
 			<Portal container={container}>

@@ -9,7 +9,9 @@ import { KeyCode } from '../Control/Control';
 
 export type TRootCloseProps = {
 	children: ReactElement<any>,
-	onRootClose?: () => any
+	onRootClose?: () => any,
+	ignoreClick?: boolean,
+	ignoreKeyUp?: boolean
 };
 
 @PURE
@@ -35,13 +37,13 @@ export class RootClose extends Component<TRootCloseProps> {
 	}
 
 	private handleClick: MouseEventHandler<HTMLElement> = e => {
-		if (!this.preventMouseRootClose && this.props.onRootClose) {
+		if (!this.props.ignoreClick && !this.preventMouseRootClose && this.props.onRootClose) {
 			this.props.onRootClose();
 		}
 	}
 
 	private handleKeyUp: KeyboardEventHandler<HTMLElement> = e => {
-		if (e.keyCode === KeyCode.Escape && this.props.onRootClose) {
+		if (!this.props.ignoreKeyUp && e.keyCode === KeyCode.Escape && this.props.onRootClose) {
 			this.props.onRootClose();
 		}
 	}
