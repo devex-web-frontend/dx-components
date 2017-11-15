@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as Portal from 'react-overlays/lib/Portal';
-import * as RootClose from 'react-overlays/lib/RootCloseWrapper';
 import prefix from 'dx-util/lib/dom/prefix';
 import * as classnames from 'classnames';
 
@@ -16,6 +15,7 @@ import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
 import { ReactRef } from '../../util/react/typings';
 import { EventListener } from '../EventListener/EventListener';
+import { RootClose } from '../RootClose/RootClose';
 
 type TSize = {
 	width: number,
@@ -49,7 +49,7 @@ export type TFullPopoverProps = {
 	placement: PopoverPlacement,
 	align: PopoverAlign,
 	container?: TPortalProps['container'],
-	onRequestClose?: Function,
+	onRequestClose?: () => any,
 	hasArrow?: boolean,
 	theme: {
 		container?: string,

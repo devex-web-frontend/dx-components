@@ -6,7 +6,7 @@ type Handlers = {
 	[onEvent: string]: Function
 };
 
-type TEventListenerProps = {
+export type TEventListenerProps = {
 	[onEvent: string]: Function | boolean | string | object | undefined,
 	capture?: boolean,
 	target: EventTarget | string,
@@ -45,9 +45,7 @@ export class EventListener extends Component<TEventListenerProps> {
 			const capture = key.endsWith(CAPTURE_MARKER);
 			const handler = handlers[key];
 			const eventName = getEventName(key, capture);
-			target.addEventListener(eventName, handler as any, {
-				capture
-			});
+			target.addEventListener(eventName, handler as any, capture);
 		});
 	}
 
@@ -58,9 +56,7 @@ export class EventListener extends Component<TEventListenerProps> {
 			const capture = key.endsWith(CAPTURE_MARKER);
 			const handler = handlers[key];
 			const eventName = getEventName(key, capture);
-			target.removeEventListener(eventName, handler as any, {
-				capture
-			});
+			target.removeEventListener(eventName, handler as any, capture);
 		});
 	}
 

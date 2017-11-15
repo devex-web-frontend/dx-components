@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Requireable, ComponentClass, Component } from 'react';
+import { Requireable, ComponentClass } from 'react';
 import * as PropTypes from 'prop-types';
 import { ObjectOmit } from 'typelevel-ts';
 import SFC = React.SFC;
