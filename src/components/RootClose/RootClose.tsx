@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { KeyboardEventHandler, MouseEvent, MouseEventHandler, PureComponent, ReactElement } from 'react';
+import { Component, KeyboardEventHandler, MouseEvent, MouseEventHandler, ReactElement } from 'react';
 import { EventListener } from '../EventListener/EventListener';
 import { findDOMNode } from 'react-dom';
 import { KeyCode } from '../Control/Control';
+import { PURE } from 'dx-util/lib/react/pure';
 
 //inspired by https://github.com/react-bootstrap/react-overlays/blob/master/src/RootCloseWrapper.js
 
@@ -13,7 +14,8 @@ export type TRootCloseProps = {
 	ignoreKeyUp?: boolean
 };
 
-export class RootClose extends PureComponent<TRootCloseProps> {
+@PURE
+export class RootClose extends Component<TRootCloseProps> {
 	private preventMouseRootClose = false;
 
 	render() {

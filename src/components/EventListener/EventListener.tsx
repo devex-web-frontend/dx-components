@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { PureComponent, ReactElement } from 'react';
+import { Component, ReactElement } from 'react';
+import { PURE } from 'dx-util/lib/react/pure';
 
 type Handlers = {
 	[onEvent: string]: Function
@@ -15,7 +16,8 @@ export type TEventListenerProps = {
 const ON_MARKER = 'on';
 const CAPTURE_MARKER = 'Capture';
 
-export class EventListener extends PureComponent<TEventListenerProps> {
+@PURE
+export class EventListener extends Component<TEventListenerProps> {
 	componentDidMount() {
 		this.addListeners();
 	}
