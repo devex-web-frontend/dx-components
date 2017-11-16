@@ -28,7 +28,7 @@ export class RootClose extends PureComponent<TRootCloseProps> {
 	}
 
 	private handleClickCapture: MouseEventHandler<HTMLElement> = e => {
-		this.preventMouseRootClose = false &&
+		this.preventMouseRootClose =
 			isModifiedEvent(e) ||
 			!isLeftClickEvent(e) ||
 			findDOMNode(this).contains(e.target as Node);
