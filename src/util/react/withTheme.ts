@@ -64,7 +64,7 @@ export function withTheme(name: string | symbol, defaultTheme: TTheme = {}) {
 
 			render() {
 				const themr = this.context.themr && this.context.themr.theme && this.context.themr.theme[name];
-				const { withRef, ...rest } = this.props;
+				const { withRef, theme, ...rest } = this.props;
 				const props = {
 					...rest,
 					ref: withRef,
@@ -72,7 +72,7 @@ export function withTheme(name: string | symbol, defaultTheme: TTheme = {}) {
 						config.theme,
 						themr,
 						this.context[THEME_CONTEXT_KEY][name],
-						this.props.theme || {}
+						(theme || {}) as TTheme
 					)
 				};
 				return createElement(Target as any, props);
