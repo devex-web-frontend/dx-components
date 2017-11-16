@@ -19,7 +19,7 @@ type TWithConfig = {
 };
 
 type TTargetProps = {
-	theme: TTheme
+	theme?: TTheme
 };
 
 type TResultProps<P extends TTargetProps> = ObjectOmit<P, 'theme'> & {
