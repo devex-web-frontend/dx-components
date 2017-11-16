@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { PURE } from 'dx-util/lib/react/pure';
-import { Component, KeyboardEventHandler, MouseEvent, MouseEventHandler, ReactElement } from 'react';
+import { KeyboardEventHandler, MouseEvent, MouseEventHandler, PureComponent, ReactElement } from 'react';
 import { EventListener } from '../EventListener/EventListener';
 import { findDOMNode } from 'react-dom';
 import { KeyCode } from '../Control/Control';
@@ -14,8 +13,7 @@ export type TRootCloseProps = {
 	ignoreKeyUp?: boolean
 };
 
-@PURE
-export class RootClose extends Component<TRootCloseProps> {
+export class RootClose extends PureComponent<TRootCloseProps> {
 	private preventMouseRootClose = false;
 
 	render() {
