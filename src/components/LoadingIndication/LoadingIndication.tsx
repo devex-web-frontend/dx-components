@@ -10,7 +10,7 @@ import * as cn from 'classnames';
 
 export const LOADING_INDICATION = Symbol('LoadingIndicaton');
 
-type TRawLoadingIndicatonProps = {
+export type TRawLoadingIndicatonProps = {
 	isVisible?: boolean,
 	LoadingIndicator: ComponentType<TLoadingIndicatorProps>,
 	theme: {

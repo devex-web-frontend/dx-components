@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-type TSize = {
+export type TSize = {
 	width: number,
 	height: number
 };

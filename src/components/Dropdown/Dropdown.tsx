@@ -12,7 +12,7 @@ import { TControlProps } from '../Control/Control';
 
 export const DROPDOWN = Symbol('Dropdown');
 
-type TAnchorProps = WithInnerRef<{
+export type TAnchorProps = WithInnerRef<{
 	onClick: MouseEventHandler<Element>,
 	children: ReactNode
 }>;

@@ -11,6 +11,7 @@
     "pretty": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
+    "declaration": true,
     "target": "es5",
     "lib": [
       "dom",

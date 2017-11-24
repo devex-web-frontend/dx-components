@@ -15,7 +15,7 @@ import { ReactChildren } from '../../util/react/typings';
 
 export const MENU = Symbol('Menu');
 
-type TMenuChildProps = {
+export type TMenuChildProps = {
 	onSelect?: (value: ReactText) => void
 };
 
@@ -50,7 +50,7 @@ export const Menu: ComponentClass<TMenuProps> = withTheme(MENU)(RawMenu);
 
 ///////////////////////////
 
-type TFullMenuItemProps = TFullListItemProps & {
+export type TFullMenuItemProps = TFullListItemProps & {
 	theme: {
 		item_active?: string,
 		item__content?: string,

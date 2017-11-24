@@ -7,7 +7,7 @@ import { ComponentClass, ComponentType } from 'react';
 
 export const LOADING_INDICATOR = Symbol('LoadingIndicator');
 
-type TFullLoadingIndicatorProps = {
+export type TFullLoadingIndicatorProps = {
 	theme: {
 		container?: string
 	}

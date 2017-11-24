@@ -12,7 +12,7 @@ import { PartialKeys } from 'dx-util/lib/object/object';
 
 export const TOGGLE_BUTTONS = Symbol('ToggleButtons');
 
-type TToggleButtonsChildProps = {
+export type TToggleButtonsChildProps = {
 	isActive?: boolean | undefined,
 	isDisabled?: boolean,
 	theme?: {
