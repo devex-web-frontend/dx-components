@@ -109,7 +109,7 @@
     "babel-plugin-transform-es2015-unicode-regex": "^6.11.0",
     "babel-plugin-transform-function-bind": "^6.8.0",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
-    "babel-preset-react": "^6.11.1",
+    "babel-preset-react": "^6.11.1"
   },
   "jest": {
     "timers": "fake",
