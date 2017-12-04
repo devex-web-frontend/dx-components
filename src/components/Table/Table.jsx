@@ -46,7 +46,7 @@ export class TableHead extends React.Component {
 
 		return (
 			<thead className={theme.head}>
-				{React.Children.map(children, child => React.cloneElement(child, {
+				{React.Children.map(children, child => child && React.cloneElement(child, {
 					[TABLE_IS_IN_HEAD_KEY]: true
 				}))}
 			</thead>
@@ -83,6 +83,8 @@ export class TableRow extends React.Component {
 	static propTypes = {
 		children: PropTypes.node,
 		onClick: PropTypes.func,
+		onMouseOver: PropTypes.func,
+		onMouseOut: PropTypes.func,
 		theme: PropTypes.shape({
 			row: PropTypes.string
 		}),
@@ -97,11 +99,11 @@ export class TableRow extends React.Component {
 
 		return (
 			<tr className={theme.row}
-				onClick={onClick}
-				onMouseOver={onMouseOver}
-				onMouseOut={onMouseOut}>
+			    onClick={onClick}
+			    onMouseOver={onMouseOver}
+			    onMouseOut={onMouseOut}>
 				{!isInHead && children}
-				{isInHead && React.Children.map(children, child => (
+				{isInHead && React.Children.map(children, child => child && (
 					React.cloneElement(child, {
 						[TABLE_IS_IN_HEAD_KEY]: isInHead
 					})
