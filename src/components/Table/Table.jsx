@@ -92,11 +92,14 @@ export class TableRow extends React.Component {
 	}
 
 	render() {
-		const { children, theme, onClick } = this.props;
+		const { children, theme, onClick, onMouseOver, onMouseOut } = this.props;
 		const isInHead = this.props[TABLE_IS_IN_HEAD_KEY];
 
 		return (
-			<tr className={theme.row} onClick={onClick}>
+			<tr className={theme.row}
+				onClick={onClick}
+				onMouseOver={onMouseOver}
+				onMouseOut={onMouseOut}>
 				{!isInHead && children}
 				{isInHead && React.Children.map(children, child => (
 					React.cloneElement(child, {
