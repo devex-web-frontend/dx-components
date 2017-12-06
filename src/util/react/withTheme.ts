@@ -54,7 +54,7 @@ export function withTheme(name: string | symbol, defaultTheme: TTheme = {}) {
 		};
 
 		class Themed extends Component<TWithRef<P, ComponentClass<TResultProps<P>>>, never> {
-			static displayName = `Themed(${Target.name})`;
+			static displayName = `Themed(${Target.displayName || Target.name})`;
 
 			static contextTypes = {
 				[THEME_CONTEXT_KEY]: PropTypes.object.isRequired,
