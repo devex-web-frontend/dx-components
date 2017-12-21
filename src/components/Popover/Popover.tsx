@@ -271,7 +271,7 @@ class RawPopover extends React.Component<TFullPopoverProps, TPopoverState> {
 
 	@THROTTLE(100)
 	handleScroll() {
-		this.updatePosition();
+		this.props.onRequestClose && this.props.onRequestClose();
 	}
 }
 
