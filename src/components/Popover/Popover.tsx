@@ -8,7 +8,6 @@ import { PURE } from 'dx-util/lib/react/pure';
 import { BoundsUpdateDetector } from '../BoundsUpdateDetector/BoundsUpdateDetector';
 import { THROTTLE } from 'dx-util/lib/function/throttle';
 
-import TPortalProps = ReactOverlays.Portal.TPortalProps;
 import { withTheme } from '../../util/react/withTheme';
 import { ComponentClass, MouseEventHandler, ReactNode } from 'react';
 import { ObjectClean } from 'typelevel-ts';
@@ -48,7 +47,7 @@ export type TFullPopoverProps = {
 	onMouseDown?: MouseEventHandler<Element>,
 	placement: PopoverPlacement,
 	align: PopoverAlign,
-	container?: TPortalProps['container'],
+	container?: Element | null,
 	onRequestClose?: () => any,
 	hasArrow?: boolean,
 	theme: {
@@ -171,17 +170,15 @@ class RawPopover extends React.Component<TFullPopoverProps, TPopoverState> {
 			</BoundsUpdateDetector>
 		);
 		if (closeOnClickAway) {
-			child = (
-				<RootClose onRootClose={onRequestClose}>
-					{child}
-				</RootClose>
-			);
+			child = <RootClose onRootClose={onRequestClose}>{child}</RootClose>;
+		}
+
+		if (container) {
+			child = <EventListener target={container} onScroll={this.onScroll}>{child}</EventListener>;
 		}
 
 		return (
-			<EventListener onResize={this.onResize}
-			               onScroll={this.onScroll}
-			               target="window">
+			<EventListener onResize={this.onResize} target="window">
 				<Portal container={container}>
 					{child}
 				</Portal>
