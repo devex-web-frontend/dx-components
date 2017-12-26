@@ -1,0 +1,6 @@
+{
+	"extends": "./node_modules/dx-lint/.react.eslintrc",
+	"rules": {
+		"object-curly-spacing": [2, "always"]
+	}
+}

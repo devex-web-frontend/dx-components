@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@kadira/storybook';
-import ButtonIcon from './ButtonIcon.jsx';
+import {ButtonIcon} from './ButtonIcon.tsx';
 import Demo from '../../demo/Demo.jsx';
 import iconAdd from '../Icon/img/icon-add.svg';
 import css from './ButtonIcon.page.styl';

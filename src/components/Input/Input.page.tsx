@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Demo from '../../demo/Demo.jsx';
 
-import Input from './Input';
+import { Input } from './Input';
 import { storiesOf, action } from '@kadira/storybook';
 
 import * as css from './Input.page.styl';
@@ -18,7 +18,7 @@ storiesOf('Input', module)
 	.add('Default', () => (
 		<Demo theme={darkDemoTheme}>
 			<Stateful defaultValue="<Input/>" onValueChange={action('change') as any}/>
-			<Input type="hidden" tabIndex={0} value="123" onValueChange={undefined}>
+			<Input type="hidden" tabIndex={0} value="123" onValueChange={undefined as any}>
 				<div className={demoCss.input}>div</div>
 			</Input>
 		</Demo>

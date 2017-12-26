@@ -1,11 +1,11 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import { storiesOf } from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
-import Button from '../Button/Button';
+import { Button } from '../Button/Button';
 import Combobox from './Combobox.jsx';
 import css from './Combobox.page.styl';
-import MenuItem from '../Menu/MenuItem.jsx';
-import {PURE} from 'dx-util/lib/react/pure';
+import { MenuItem } from '../Menu/Menu.tsx';
+import { PURE } from 'dx-util/lib/react/pure';
 
 import iconSmallDropdownArrow from '../Selectbox/img/icon-small-dropdown-arrow.svg';
 import iconListItemTick from '../Selectbox/img/icon-list-item-tick.svg';
@@ -53,10 +53,10 @@ class ComboboxPage extends React.Component {
 					</section>
 					<section className={css.section}>
 						<Combobox defaultValue={'dasd'}
-						           value={this.state.value}
-						           onChange={this.onChange}
-						           selectedItemIconName={iconListItemTick}
-						           caretIconName={iconSmallDropdownArrow}>
+						          value={this.state.value}
+						          onChange={this.onChange}
+						          selectedItemIconName={iconListItemTick}
+						          caretIconName={iconSmallDropdownArrow}>
 							<MenuItem value={1}>1.00</MenuItem>
 							<MenuItem value={2}>2.00</MenuItem>
 							<MenuItem value={5}>5.00</MenuItem>

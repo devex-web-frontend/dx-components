@@ -1,5 +1,5 @@
 import Demo from '../../demo/Demo.jsx';
-import Button from './Button.jsx';
+import {Button} from './Button';
 import React from 'react';
 
 const demoStyle = {

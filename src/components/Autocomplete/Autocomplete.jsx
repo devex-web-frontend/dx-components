@@ -1,12 +1,12 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import {PURE} from 'dx-util/lib/react/pure';
-import {themr} from 'react-css-themr';
-import Input, {INPUT_THEME_SHAPE} from '../Input/Input';
-import Menu, {MENU_THEME_SHAPE_OBJECT} from '../Menu/Menu';
-import Popover, {POPOVER_THEME_SHAPE_OBJECT} from '../Popover/Popover';
-import Pure from '../Pure/Pure';
-import AutocompleteMenuItem, {AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE} from './AutocompleteMenuItem';
+import { PURE } from 'dx-util/lib/react/pure';
+import { themr } from 'react-css-themr';
+import { Input } from '../Input/Input';
+import { Menu } from '../Menu/Menu.tsx';
+import { Popover } from '../Popover/Popover.tsx';
+import { Pure } from '../Pure/Pure';
+import AutocompleteMenuItem, { AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE } from './AutocompleteMenuItem';
 
 export const AUTOCOMPLETE = Symbol('Autocomplete');
 
@@ -20,9 +20,9 @@ export default class Autocomplete extends React.Component {
 		...Input.propTypes,
 		theme: PropTypes.shape({
 			container: PropTypes.string,
-			Input: PropTypes.shape(INPUT_THEME_SHAPE),
-			Popover: PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
-			Menu: PropTypes.shape(MENU_THEME_SHAPE_OBJECT),
+			// Input: PropTypes.shape(INPUT_THEME_SHAPE),
+			// Popover: PropTypes.shape(POPOVER_THEME_SHAPE_OBJECT),
+			// Menu: PropTypes.shape(MENU_THEME_SHAPE_OBJECT),
 			MenuItem: PropTypes.shape(AUTOCOMPLETE_MENU_ITEM_THEME_SHAPE)
 		}),
 		Input: PropTypes.func,
@@ -85,7 +85,6 @@ export default class Autocomplete extends React.Component {
 					<Pure data={data} value={value} Menu={Menu} filter={filter}>
 						{() => {
 							const filtered = data.filter(filter(value));
-
 							return (
 								filtered.length > 0 && (
 									<Menu onItemSelect={this.onMenuItemSelect}
@@ -135,7 +134,7 @@ export default class Autocomplete extends React.Component {
 	}
 
 	onInputChange = e => {
-		const {target: {value}} = e;
+		const { target: { value } } = e;
 		if (value && value.length !== 0) {
 			this.setState({
 				isOpened: true

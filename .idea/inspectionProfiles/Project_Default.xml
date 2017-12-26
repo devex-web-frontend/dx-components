@@ -9,7 +9,7 @@
     <inspection_tool class="JSUnusedLocalSymbols" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myIgnoreUnusedFunctionParameters" value="true" />
     </inspection_tool>
-    <inspection_tool class="RequiredAttributes" enabled="true" level="ERROR" enabled_by_default="true">
+    <inspection_tool class="RequiredAttributes" enabled="false" level="ERROR" enabled_by_default="false">
       <option name="myAdditionalRequiredHtmlAttributes" value="xlink:href" />
     </inspection_tool>
     <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO" enabled_by_default="false">
@@ -18,6 +18,10 @@
       <option name="processComments" value="true" />
     </inspection_tool>
     <inspection_tool class="TsLint" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="UnnecessaryLocalVariableJS" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="m_ignoreImmediatelyReturnedVariables" value="false" />
+      <option name="m_ignoreAnnotatedVariables" value="false" />
+    </inspection_tool>
     <inspection_tool class="UnterminatedStatementJS" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="ignoreSemicolonAtEndOfBlock" value="true" />
     </inspection_tool>

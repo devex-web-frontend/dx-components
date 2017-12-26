@@ -1,12 +1,12 @@
 import React from 'react';
 import stateful from '../../util/react/stateful';
-import {storiesOf, action} from '@kadira/storybook';
-import ExpandableHandler from './ExpandableHandler';
-import Button from '../Button/Button';
+import { storiesOf, action } from '@kadira/storybook';
+import { ExpandableHandler } from './ExpandableHandler.tsx';
+import { Button } from '../Button/Button';
 import Demo from '../../demo/Demo.jsx';
-import Icon from '../Icon/Icon';
-import Expandable from './Expandable';
-import {PURE} from 'dx-util/lib/react/pure';
+import { Icon } from '../Icon/Icon';
+import { Expandable } from './Expandable.tsx';
+import { PURE } from 'dx-util/lib/react/pure';
 
 import iconMoveLeft from '../DatePicker/resources/icon-move-left.svg';
 import iconMoveRight from '../DatePicker/resources/icon-move-right.svg';
@@ -24,8 +24,6 @@ const statefulProps = {
 const Stateful = stateful(statefulProps)(Expandable);
 
 class CustomHandler extends React.Component {
-	static propTypes = ExpandableHandler.propTypes;
-
 	render() {
 		const {theme, isExpanded} = this.props;
 		const text = isExpanded ? 'Close me!' : 'Open me!';

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import Input from '../../Input/Input';
-import {PURE} from 'dx-util/lib/react/react';
-import {DATE_PICKER_FIELD_PROPS} from './field.props';
+import { Input } from '../../Input/Input';
+import { PURE } from 'dx-util/lib/react/react';
+import { DATE_PICKER_FIELD_PROPS } from './field.props';
 import classnames from 'classnames';
 
 @PURE
@@ -44,13 +44,13 @@ export default class DateInput extends React.Component {
 
 		return (
 			<Input ref={e => this._input = ReactDOM.findDOMNode(e)}
-				   value={this.state.displayedDate}
-				   theme={inputTheme}
-				   onClick={this.onClick}
-				   onChange={this.onChange}
-				   onBlur={this.onBlur}
-				   onKeyDown={this.onKeyDown}
-				   disabled={isDisabled}/>
+			       value={this.state.displayedDate}
+			       theme={inputTheme}
+			       onClick={this.onClick}
+			       onChange={this.onChange}
+			       onBlur={this.onBlur}
+			       onKeyDown={this.onKeyDown}
+			       disabled={isDisabled}/>
 		);
 	}
 
@@ -59,7 +59,7 @@ export default class DateInput extends React.Component {
 	}
 
 	setNewValue(inputString) {
-		const {dateFormat, locale, value} = this.props;
+		const { dateFormat, locale, value } = this.props;
 		if (inputString !== value.format(dateFormat)) { // if changed
 			const inputDate = moment(inputString, dateFormat, locale);
 			this.props.onChange(inputDate);
@@ -67,7 +67,7 @@ export default class DateInput extends React.Component {
 	}
 
 	onClick = e => {
-		const {isDatePickerOpened} = this.props;
+		const { isDatePickerOpened } = this.props;
 		if (!isDatePickerOpened) {
 			this.props.openDatePicker();
 		}

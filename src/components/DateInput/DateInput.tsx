@@ -8,14 +8,13 @@ import SteppableInput, {
 import { TControlProps, KeyCode, KEY_CODE_NUM_MAP } from '../Control/Control';
 import * as classnames from 'classnames';
 import { themr } from 'react-css-themr';
-import ButtonIcon from '../ButtonIcon/ButtonIcon';
-import Popover from '../Popover/Popover';
+import { ButtonIcon } from '../ButtonIcon/ButtonIcon';
+import { Popover } from '../Popover/Popover';
 import * as Portal from 'react-overlays/lib/Portal';
-import { BUTTON_ICON_THEME } from '../ButtonIcon/ButtonIcon';
 import { TButtonIconProps } from '../ButtonIcon/ButtonIcon';
 import * as is_before from 'date-fns/is_before';
 import * as is_after from 'date-fns/is_after';
-import { ReactInstance } from 'react';
+import { ComponentClass, ComponentType } from 'react';
 
 export type TDateValueProps = TControlProps<Date | null | undefined>;
 
@@ -31,12 +30,12 @@ export type TDateInputOwnProps = TSteppableInputProps & TDateValueProps & {
 	calendarIcon?: string,
 	onClear?: Function,
 	target?: React.ReactNode
-	Calendar?: React.ComponentClass<TCalendarProps> | React.SFC<TCalendarProps>,
+	Calendar?: ComponentType<TCalendarProps>,
 };
 
 export type TDateDefaultProps = {
-	SteppableInput: React.ComponentClass<TSteppableInputProps> | React.SFC<TSteppableInputProps>,
-	ButtonIcon: React.ComponentClass<TButtonIconProps> | React.SFC<TButtonIconProps>
+	SteppableInput: ComponentType<TSteppableInputProps>,
+	ButtonIcon: ComponentClass<TButtonIconProps>
 };
 
 export type TDateInputInjectedProps = {
@@ -47,8 +46,8 @@ export type TDateInputInjectedProps = {
 		section_isActive?: string,
 		separator?: string,
 		SteppableInput?: TSteppableInputInjectedProps['theme'],
-		ButtonIcon?: BUTTON_ICON_THEME,
-		CalendarButtonIcon?: BUTTON_ICON_THEME
+		ButtonIcon?: TButtonIconProps['theme'],
+		CalendarButtonIcon?: TButtonIconProps['theme']
 	}
 };
 
@@ -82,7 +81,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	private calendarButtonRef: any; //tslint:disable-line no-any - dumb react typings
 
 	componentWillMount() {
-		const {value} = this.props;
+		const { value } = this.props;
 		if (value) {
 			this.setState(getValuesFromDate(value));
 		}
@@ -119,7 +118,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 			ButtonIcon,
 			SteppableInput
 		} = this.props;
-		const {month, day, year, activeSection} = this.state;
+		const { month, day, year, activeSection } = this.state;
 
 		const dayClassName = classnames(
 			theme.section,
@@ -196,9 +195,9 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 		);
 	}
 
-	private renderCalendar() {
-		const {target, Calendar, value, min, max} = this.props;
-		const {isOpened} = this.state;
+	private renderCalendar(): JSX.Element | null {
+		const { target, Calendar, value, min, max } = this.props;
+		const { isOpened } = this.state;
 		if (!Calendar) {
 			return null;
 		}
@@ -270,7 +269,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	private updateStateTime(day?: number, month?: number, year?: number): void {
-		const {onValueChange, value, min, max} = this.props;
+		const { onValueChange, value, min, max } = this.props;
 
 		const canBuildValue = isDefined(day) && isDefined(month) && isDefined(year);
 		const newValueDiffers = (
@@ -327,7 +326,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 
 	private onIncrement = () => {
 		this.secondInput = false;
-		const {day, month, year, activeSection} = this.state;
+		const { day, month, year, activeSection } = this.state;
 		switch (activeSection) {
 			case ActiveSection.Day: {
 				//day starts from 1 here and cannot be zero
@@ -351,7 +350,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 
 	private onDecrement = () => {
 		this.secondInput = false;
-		const {day, month, year, activeSection} = this.state;
+		const { day, month, year, activeSection } = this.state;
 		switch (activeSection) {
 			case ActiveSection.Day: {
 				//day starts from 1 and cannot be zero
@@ -374,7 +373,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	private onCalendarValueChange = (date: Date) => {
-		const {onValueChange, value} = this.props;
+		const { onValueChange, value } = this.props;
 		this.setState({
 			isOpened: false
 		});
@@ -401,7 +400,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	private onClear = () => {
 		this.secondInput = false;
 		this.updateStateTime();
-		const {onClear} = this.props;
+		const { onClear } = this.props;
 		onClear && onClear();
 	}
 
@@ -436,7 +435,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	private onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-		const {activeSection, day, month, year} = this.state;
+		const { activeSection, day, month, year } = this.state;
 		switch (e.keyCode) {
 			case KeyCode.Escape: {
 				if (this.state.isOpened) {
@@ -558,7 +557,7 @@ class DateInput extends React.Component<TDateInputFullProps, TDateInputState> {
 	}
 
 	private handleDigitKeyDown(digit: number) {
-		const {day, month, year} = this.state;
+		const { day, month, year } = this.state;
 		switch (this.state.activeSection) {
 			case ActiveSection.Day: {
 				if (this.secondInput) {

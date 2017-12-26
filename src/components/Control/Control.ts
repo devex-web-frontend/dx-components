@@ -1,18 +1,8 @@
 import * as React from 'react';
-import { Requireable, ComponentClass, Component } from 'react';
+import { Requireable, ComponentClass } from 'react';
 import * as PropTypes from 'prop-types';
 import { ObjectOmit } from 'typelevel-ts';
 import SFC = React.SFC;
-
-export type TControlProps<TValue> = {
-	value?: TValue,
-	onValueChange?: (value?: TValue) => void
-};
-
-export type TStatefulProps<TValue> = {
-	defaultValue?: TValue,
-	value?: never
-};
 
 export function createControlProps<TValue>(valueType: Requireable<TValue>) {
 	return {
@@ -72,29 +62,47 @@ export const KEY_CODE_NUM_MAP: { [code: number]: number } = {
 	[KeyCode.NUM9]: 9
 };
 
-type TStatefulState<TValue> = {
-	value?: TValue
+//tslint:disable max-line-length
+
+//here are some abbreviations to be short
+//V - TValue (value type)
+//N - value prop name (string, default: 'value')
+//D - default value prop name (string, default: 'defaultValue')
+//H - change handler prop name (string, default: 'onValueChange')
+
+//state of HOC - no need to mess with value naming - let it just be a 'value'
+type TStatefulState<V> = {
+	value?: V
 };
 
-type TResultProps<P, V> = ObjectOmit<P, 'value'> & {
-	onValueChange?: TControlProps<V>['onValueChange'],
-	defaultValue?: V
-};
+//first part of props with constraint that props should contain a field with name N (value name) and type V (value type)
+type TDynamicValue<V, N extends string> = {[value in N]?: V | undefined};
+//seconds part of props with constraint that props should contain a field with name H (change handler name) and type H (change handler type)
+type TDynamicValueHandler<V, H extends string> = {[handler in H]: (value?: V) => void};
+//union of props
+export type TControlProps<V, N extends string = 'value', H extends string = 'onValueChange'> = TDynamicValue<V, N> & TDynamicValueHandler<V, H>;
 
-type TResult<P, V> = ComponentClass<TResultProps<P, V>>;
+//resulting HOC props
+export type TStatefulProps<P extends TControlProps<V, N, H>, V, N extends string = 'value', D extends string = 'defaultValue', H extends string = 'onValueChange'> =
+	ObjectOmit<P, 'value' | N | H> //remove both value name and handler name from props
+	& Partial<TDynamicValueHandler<V, H>> //add optional change handler to props
+	& Partial<TDynamicValue<V, D>>; //add default value name to props - pass D (defaultValue name) here instead of N (value name)
 
-//shortcuts
-type TCP<V> = TControlProps<V>;
+//this will the type of resulting HOC
+type TResult<P extends TControlProps<V, N, H>, V, N extends string = 'value', D extends string = 'defaultValue', H extends string = 'onValueChange'> = CC<TStatefulProps<P, V, N, D, H>>;
+
+//some shortcuts to be even shorter
+type TCP<V, VN extends string, HN extends string> = TControlProps<V, VN, HN>;
 type CC<P> = ComponentClass<P>;
 
-export function stateful() {
-	return function decorate<V, P extends TCP<V>>(Target: SFC<P & TCP<V>> | CC<P & TCP<V>>): TResult<P, V> {
-		class Stateful extends React.Component<TResultProps<P, V>, TStatefulState<V>> {
+export function stateful<N extends string = 'value', D extends string = 'defaultValue', H extends string = 'onValueChange'>(valueName: N = 'value' as any, handlerName: H = 'onValueChange' as any, defaultValueName: D = 'defaultValue' as any) {
+	return function decorate<V, P extends TCP<V, N, H>>(Target: SFC<P & TCP<V, N, H>> | CC<P & TCP<V, N, H>>): TResult<P, V, N, D, H> {
+		class Stateful extends React.Component<TStatefulProps<P, V, N, D, H>, TStatefulState<V>> {
 			static displayName = `Stateful(${Target.displayName || Target.name || 'Component'})`;
 
 			componentWillMount() {
 				this.setState({
-					value: this.props.defaultValue
+					value: this.props[defaultValueName as string]
 				});
 			}
 
@@ -103,8 +111,8 @@ export function stateful() {
 					{},
 					this.props,
 					{
-						value: this.state.value,
-						onValueChange: this.onValueChange
+						[valueName as string]: this.state.value,
+						[handlerName as string]: this.onValueChange
 					}
 				);
 				//tslint:disable-next-line no-any - fix for react typings
@@ -115,7 +123,7 @@ export function stateful() {
 				this.setState({
 					value
 				});
-				const onValueChange = this.props.onValueChange;
+				const onValueChange = this.props[handlerName as string];
 				onValueChange && onValueChange(value);
 			}
 		}
@@ -123,3 +131,5 @@ export function stateful() {
 		return Stateful;
 	};
 }
+
+//tslint:enable max-line-length

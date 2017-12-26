@@ -1,22 +1,22 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import { storiesOf } from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
-import Button from '../Button/Button.jsx';
-import Selectbox from './Selectbox.jsx';
-import SelectboxAnchor from './SelectboxAnchor.jsx';
-import MenuItem from '../Menu/MenuItem.jsx';
-import {PURE} from 'dx-util/lib/react/pure';
-import stateful from '../../util/react/stateful';
+import { Button } from '../Button/Button';
+import { Selectbox } from './Selectbox.tsx';
+import { SelectboxAnchor } from './SelectboxAnchor.tsx';
+import { MenuItem } from '../Menu/Menu.tsx';
+import { PURE } from 'dx-util/lib/react/pure';
 
 import iconListItemTick from './img/icon-list-item-tick.svg';
 import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
+import { stateful } from '../Control/Control';
+
+import * as selectoxPageCss from './Selectbox.page.styl';
+const wideSelectboxTheme = {
+	container__anchor: selectoxPageCss.container__anchor
+};
 
 class DemoSelectboxAnchor extends React.Component {
-
-	static propTypes = {
-		...SelectboxAnchor.propTypes
-	}
-
 	render() {
 		const newProps = {
 			...this.props,
@@ -27,10 +27,6 @@ class DemoSelectboxAnchor extends React.Component {
 }
 
 class DemoSelectbox extends React.Component {
-	static propTypes = {
-		...Selectbox.propTypes
-	}
-
 	render() {
 		const newProps = {
 			...this.props,
@@ -54,7 +50,7 @@ class SelectboxPage extends React.Component {
 				<div>
 					<Stateful placeholder="Choose your hero"
 					          selectedItemIconName={iconListItemTick}
-					          onChange={this.onHeroChange}
+					          onValueChange={this.onHeroChange}
 					          caretIconName={iconSmallDropdownArrow}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
@@ -63,7 +59,7 @@ class SelectboxPage extends React.Component {
 					<DemoSelectbox placeholder="Controlled by left"
 					               value={this.state.hero}
 					               selectedItemIconName={iconListItemTick}
-					               onChange={this.onHeroChange}
+					               onValueChange={this.onHeroChange}
 					               caretIconName={iconSmallDropdownArrow}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
@@ -76,6 +72,18 @@ class SelectboxPage extends React.Component {
 					</Stateful>
 					<Button onClick={this.onResetClick}>Reset</Button>
 				</div>
+				<section>
+					Sync width
+					<Stateful placeholder="Choose your hero"
+					          shouldSyncWidth={true}
+					          theme={wideSelectboxTheme}
+					          selectedItemIconName={iconListItemTick}
+					          caretIconName={iconSmallDropdownArrow}>
+						<MenuItem value="superman">Superman</MenuItem>
+						<MenuItem value="batman">Batman</MenuItem>
+						<MenuItem value="flash">Flash</MenuItem>
+					</Stateful>
+				</section>
 			</Demo>
 		);
 	}

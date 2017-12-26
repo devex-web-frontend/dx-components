@@ -1,6 +1,6 @@
 import React from 'react';
-import {PURE} from 'dx-util/lib/react/pure';
-import EventListener from 'react-event-listener';
+import { PURE } from 'dx-util/lib/react/pure';
+import { EventListener } from '../EventListener/EventListener.tsx';
 import * as PropTypes from 'prop-types';
 
 @PURE
@@ -19,7 +19,7 @@ export default class Bar extends React.Component {
 	}
 
 	render() {
-		const {isDragging} = this.state;
+		const { isDragging } = this.state;
 
 		let eventListenerProps = {
 			target: 'window',
@@ -61,7 +61,7 @@ export default class Bar extends React.Component {
 	}
 
 	onDocumentMouseMove = (event) => {
-		const {onBarDrag} = this.props;
+		const { onBarDrag } = this.props;
 		onBarDrag && onBarDrag(event);
 	}
 
@@ -74,7 +74,7 @@ export default class Bar extends React.Component {
 	}
 
 	_stopDrag = (event) => {
-		const {onBarDrag} = this.props;
+		const { onBarDrag } = this.props;
 
 		this.setState({
 			isDragging: false
@@ -84,7 +84,7 @@ export default class Bar extends React.Component {
 	}
 
 	onBarMouseDown = (event) => {
-		const {onBarDragStart} = this.props;
+		const { onBarDragStart } = this.props;
 
 		onBarDragStart && onBarDragStart(event);
 

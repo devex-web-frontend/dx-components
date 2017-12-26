@@ -1,13 +1,13 @@
 import React from 'react';
 import moment from 'moment';
-import {themr} from 'react-css-themr';
+import { themr } from 'react-css-themr';
 import DateInput from './fields/DateInput';
-import Popover, {ALIGN, PLACEMENT} from '../Popover/Popover';
-import ButtonIcon from '../ButtonIcon/ButtonIcon';
-import {PURE} from 'dx-util/lib/react/react';
+import { Popover } from '../Popover/Popover.tsx';
+import { ButtonIcon } from '../ButtonIcon/ButtonIcon';
+import { PURE } from 'dx-util/lib/react/react';
 import stateful from '../../util/react/stateful';
-import Calendar, {CALENDAR_THEME} from '../Calendar/Calendar';
-import {isDateValid} from '../../util/func/date';
+import Calendar, { CALENDAR_THEME } from '../Calendar/Calendar';
+import { isDateValid } from '../../util/func/date';
 import noop from '../../util/func/noop';
 import * as PropTypes from 'prop-types';
 
@@ -103,41 +103,41 @@ class DatePicker extends React.Component {
 			<div className={theme.container} ref={el => this._anchor = el}>
 				{withField && (
 					<Field value={moment(value).locale(locale)}
-						   dateFormat={fieldDateFormat}
-						   min={moment(min).locale(locale)}
-						   max={moment(max).locale(locale)}
-						   onChange={this.onFieldDateChange}
-						   openDatePicker={this.openDatePicker}
-						   closeDatePicker={this.closeDatePicker}
-						   theme={theme}
-						   isDisabled={isDisabled}
-						   isInvalid={isInvalid}
-						   locale={locale}
-						   placeholder={placeholder}
-						   isDatePickerOpened={this.state.isOpened}/>
+					       dateFormat={fieldDateFormat}
+					       min={moment(min).locale(locale)}
+					       max={moment(max).locale(locale)}
+					       onChange={this.onFieldDateChange}
+					       openDatePicker={this.openDatePicker}
+					       closeDatePicker={this.closeDatePicker}
+					       theme={theme}
+					       isDisabled={isDisabled}
+					       isInvalid={isInvalid}
+					       locale={locale}
+					       placeholder={placeholder}
+					       isDatePickerOpened={this.state.isOpened}/>
 				)}
 				{openCalendarIcon && (
 					<ButtonIcon onClick={this.onIconClick}
-								name={openCalendarIcon}
-								theme={openCalendarBtnTheme}
-								isDisabled={isDisabled}/>
+					            name={openCalendarIcon}
+					            theme={openCalendarBtnTheme}
+					            isDisabled={isDisabled}/>
 				)}
 				<Popover theme={popoverTheme}
-						 isOpened={this.state.isOpened}
-						 anchor={this._anchor}
-						 closeOnClickAway={true}
-						 onRequestClose={this.onPopoverRequestClose}>
+				         isOpened={this.state.isOpened}
+				         anchor={this._anchor}
+				         closeOnClickAway={true}
+				         onRequestClose={this.onPopoverRequestClose}>
 					<Calendar theme={calendarTheme}
-							  value={isInvalid ? moment().format() : value}
-							  onChange={this.onCalendarDateChange}
-							  min={min}
-							  max={max}
-							  headerDateFormat={headerDateFormat}
-							  dayFormat={dayFormat}
-							  headerDayFormat={headerDayFormat}
-							  previousMonthIcon={previousMonthIcon}
-							  nextMonthIcon={nextMonthIcon}
-							  locale={locale}/>
+					          value={isInvalid ? moment().format() : value}
+					          onChange={this.onCalendarDateChange}
+					          min={min}
+					          max={max}
+					          headerDateFormat={headerDateFormat}
+					          dayFormat={dayFormat}
+					          headerDayFormat={headerDayFormat}
+					          previousMonthIcon={previousMonthIcon}
+					          nextMonthIcon={nextMonthIcon}
+					          locale={locale}/>
 				</Popover>
 			</div>
 		);
@@ -159,7 +159,7 @@ class DatePicker extends React.Component {
 	 * @param {moment.Moment} newDate
 	 */
 	onFieldDateChange = newDate => {
-		const {min, max} = this.props;
+		const { min, max } = this.props;
 
 		if (isDateValid(newDate, min, max)) {
 			this.setState({

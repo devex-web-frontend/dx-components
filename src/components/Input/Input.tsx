@@ -1,32 +1,19 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as classnames from 'classnames';
-import { themr } from 'react-css-themr';
 import { PURE } from 'dx-util/lib/react/pure';
 import { TControlProps } from '../Control/Control';
-import * as PropTypes from 'prop-types';
+import {
+	ChangeEventHandler, ComponentClass, FocusEventHandler, KeyboardEventHandler, MouseEventHandler,
+	WheelEventHandler
+} from 'react';
+import { ObjectClean } from 'typelevel-ts';
+import { PartialKeys } from 'dx-util/lib/object/object';
+import { withTheme } from '../../util/react/withTheme';
 
 export const INPUT = Symbol('Input');
 
-export const INPUT_THEME_SHAPE = {
-	container: React.PropTypes.string,
-	container_isFocused: React.PropTypes.string,
-	container_hasError: React.PropTypes.string,
-	input: React.PropTypes.string,
-};
-
-export type TInputInjectedProps = {
-	theme: {
-		container?: string,
-		container_isFocused?: string,
-		container_hasError?: string,
-		container_isDisabled?: string,
-		container_isReadOnly?: string,
-		input?: string
-	}
-};
-
-export type TOwnInputProps = TControlProps<string> & {
+export type TFullInputProps = TControlProps<string> & {
 	min?: any,
 	max?: any,
 	isDisabled?: boolean,
@@ -39,27 +26,34 @@ export type TOwnInputProps = TControlProps<string> & {
 	id?: string,
 	error?: React.ReactNode, //for possible Input Class extensions
 
-	onChange?: React.ChangeEventHandler<HTMLInputElement>,
-	onFocus?: React.FocusEventHandler<HTMLElement>,
-	onBlur?: React.FocusEventHandler<HTMLElement>,
-	onClick?: React.MouseEventHandler<HTMLElement>,
-	onMouseDown?: React.MouseEventHandler<HTMLElement>,
-	onMouseUp?: React.MouseEventHandler<HTMLElement>,
-	onKeyPress?: React.KeyboardEventHandler<HTMLElement | HTMLInputElement>,
-	onKeyDown?: React.KeyboardEventHandler<HTMLElement | HTMLInputElement>,
-	onKeyUp?: React.KeyboardEventHandler<HTMLElement | HTMLInputElement>,
+	onChange?: ChangeEventHandler<HTMLInputElement>,
+	onFocus?: FocusEventHandler<HTMLElement>,
+	onBlur?: FocusEventHandler<HTMLElement>,
+	onClick?: MouseEventHandler<HTMLElement>,
+	onMouseDown?: MouseEventHandler<HTMLElement>,
+	onMouseUp?: MouseEventHandler<HTMLElement>,
+	onKeyPress?: KeyboardEventHandler<HTMLElement | HTMLInputElement>,
+	onKeyDown?: KeyboardEventHandler<HTMLElement | HTMLInputElement>,
+	onKeyUp?: KeyboardEventHandler<HTMLElement | HTMLInputElement>,
 
-	onWheel?: React.WheelEventHandler<HTMLElement>
+	onWheel?: WheelEventHandler<HTMLElement>,
+
+	theme: {
+		container?: string,
+		container_isFocused?: string,
+		container_hasError?: string,
+		container_isDisabled?: string,
+		container_isReadOnly?: string,
+		input?: string
+	}
 };
-
-export type TFullInputProps = TOwnInputProps & TInputInjectedProps;
 
 type TInputState = {
 	isFocused: boolean
 };
 
 @PURE
-class Input extends React.Component<TFullInputProps, TInputState> {
+class RawInput extends React.Component<TFullInputProps, TInputState> {
 	static defaultProps = {
 		tabIndex: 0
 	};
@@ -96,7 +90,7 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 			onWheel
 		} = this.props;
 
-		const {isFocused} = this.state;
+		const { isFocused } = this.state;
 
 		const className = classnames(
 			theme.container,
@@ -175,5 +169,5 @@ class Input extends React.Component<TFullInputProps, TInputState> {
 	}
 }
 
-export type TInputProps = TOwnInputProps & Partial<TInputInjectedProps>;
-export default themr(INPUT)(Input) as React.ComponentClass<TInputProps>;
+export type TInputProps = ObjectClean<PartialKeys<TFullInputProps, 'theme'>>;
+export const Input: ComponentClass<TInputProps> = withTheme(INPUT)(RawInput);
