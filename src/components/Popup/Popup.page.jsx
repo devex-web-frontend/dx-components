@@ -1,9 +1,12 @@
 import React from 'react';
-import Popup from './Popup';
-import {storiesOf} from '@kadira/storybook';
-import {PURE} from 'dx-util/src/react/pure';
+import { Popup } from './Popup.tsx';
+import { storiesOf } from '@kadira/storybook';
+import { PURE } from 'dx-util/lib/react/pure';
 import Demo from '../../demo/Demo';
-import Button from '../Button/Button';
+import { Button } from '../Button/Button';
+import { Selectbox } from '../Selectbox/Selectbox.tsx';
+import { stateful } from '../Control/Control';
+import { MenuItem } from '../Menu/Menu';
 
 import css from './Popup.page.styl';
 
@@ -23,6 +26,8 @@ const footer = (
 	<div>FOOTER</div>
 );
 
+const Stateful = stateful()(Selectbox);
+
 @PURE
 class PopupPage extends React.Component {
 	state = {
@@ -40,7 +45,7 @@ class PopupPage extends React.Component {
 	}
 
 	render() {
-		const {isOpened, isModal, shouldCloseOnClickAway} = this.state;
+		const { isOpened, isModal, shouldCloseOnClickAway } = this.state;
 
 		return (
 			<Demo theme={theme}>
@@ -51,9 +56,16 @@ class PopupPage extends React.Component {
 				</label>
 				<label className={css.label}>
 					Close on clickaway <input type="checkbox"
-					             value={shouldCloseOnClickAway}
-					             onChange={this.onCloseOnClickAwayChange}/>
+					                          value={shouldCloseOnClickAway}
+					                          onChange={this.onCloseOnClickAwayChange}/>
 				</label>
+				{!isModal && shouldCloseOnClickAway && (
+					<label className={css.label}>
+						When isModal === false && shouldCloseOnClickAway === true
+						popup will close on click inside inner selectbox, because there is no backdrop
+						and selectbox is rendered to body
+					</label>
+				)}
 				<Button isPrimary={true}
 				        onClick={this.onToggleClick}>
 					{isOpened ? 'Close' : 'Open'}
@@ -65,6 +77,12 @@ class PopupPage extends React.Component {
 					       onRequestClose={this.onPopupRequestClose}
 					       isOpened={isOpened}>
 						<div>popup content</div>
+						<Stateful placeholder="Choose your hero"
+						          onValueChange={this.onHeroChange}>
+							<MenuItem value="superman">Superman</MenuItem>
+							<MenuItem value="batman">Batman</MenuItem>
+							<MenuItem value="flash">Flash</MenuItem>
+						</Stateful>
 					</Popup>
 				</Button>
 			</Demo>

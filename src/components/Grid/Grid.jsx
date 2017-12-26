@@ -1,11 +1,20 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import prefix from 'dx-util/src/dom/prefix';
-import {PURE} from 'dx-util/src/react/pure';
-import {themr} from 'react-css-themr';
-import Pure from '../Pure/Pure';
-import {TABLE_IS_IN_HEAD_KEY, Table, TableBody, TableHead, TableCell, TableRow} from '../Table/Table';
-import Emitter from 'dx-util/src/emitter/Emitter';
+import prefix from 'dx-util/lib/dom/prefix';
+import { PURE } from 'dx-util/lib/react/pure';
+import { themr } from 'react-css-themr';
+import { Pure } from '../Pure/Pure';
+import {
+	TABLE_IS_IN_HEAD_KEY,
+	Table,
+	TableBody,
+	TABLE_BODY_THEME,
+	TableHead,
+	TableCell,
+	TableRow
+} from '../Table/Table';
+import Emitter from 'dx-util/lib/emitter/Emitter';
 import Scrollable from '../Scrollable/Scrollable';
 import classnames from 'classnames';
 
@@ -32,7 +41,7 @@ const GRID_COLUMN_WIDTH_KEY = '__GRID_COLUMN_WIDTH_KEY__';
 
 const GRID_CONTEXT_EMITTER = '__GRID_CONTEXT_EMITTER__';
 const CONTEXT_TYPES = {
-	[GRID_CONTEXT_EMITTER]: React.PropTypes.instanceOf(GridInternalEmitter).isRequired
+	[GRID_CONTEXT_EMITTER]: PropTypes.instanceOf(GridInternalEmitter).isRequired
 };
 
 @PURE
@@ -85,7 +94,7 @@ export default class Grid extends React.Component {
 	}
 
 	render() {
-		const {theme, children} = this.props;
+		const { theme, children } = this.props;
 		return (
 			<div className={theme.container}>
 				{children}
@@ -141,8 +150,8 @@ export {
 export class GridHead extends React.Component {
 	static propTypes = {
 		...TableHead.propTypes,
-		Table: React.PropTypes.func,
-		TableHead: React.PropTypes.func
+		Table: PropTypes.func,
+		TableHead: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -167,8 +176,8 @@ export class GridHead extends React.Component {
 	}
 
 	render() {
-		const {Table, theme, TableHead, ...props} = this.props;
-		const {scrollLeft, withVerticalScrollbar} = this.state;
+		const { Table, theme, TableHead, ...props } = this.props;
+		const { scrollLeft, withVerticalScrollbar } = this.state;
 		let style;
 		if (typeof scrollLeft !== 'undefined') {
 			style = prefix({
@@ -193,7 +202,9 @@ export class GridHead extends React.Component {
 					<Pure {...this.props} check={this.state.columns} check2={props.children}>
 						{() => (
 							<Table theme={theme}>
-								<TableHead theme={theme} {...props}/>
+								<TableHead theme={theme} {...props}>
+									{React.Children.only(props.children)}
+								</TableHead>
 							</Table>
 						)}
 					</Pure>
@@ -229,8 +240,13 @@ export class GridHead extends React.Component {
 export class GridBody extends React.Component {
 	static propTypes = {
 		...TableBody.propTypes,
-		Table: React.PropTypes.func,
-		TableBody: React.PropTypes.func
+		theme: PropTypes.shape({
+			...TABLE_BODY_THEME,
+			horizontal_scrollbar__bar: PropTypes.string,
+			vertical_scrollbar__bar: PropTypes.string,
+		}),
+		Table: PropTypes.func,
+		TableBody: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -245,10 +261,15 @@ export class GridBody extends React.Component {
 	_withHorizontalScrollbar;
 
 	render() {
-		const {Table, TableBody, theme, ...props} = this.props;
+		const { Table, TableBody, theme, ...props } = this.props;
+
+		const scrollableTheme = {
+			horizontal_scrollbar__bar: theme.horizontal_scrollbar__bar,
+			vertical_scrollbar__bar: theme.vertical_scrollbar__bar
+		};
 
 		return (
-			<Scrollable onScroll={this.onScroll} onUpdate={this.onUpdate}>
+			<Scrollable onScroll={this.onScroll} onUpdate={this.onUpdate} theme={scrollableTheme}>
 				<div className={theme.gridBody}>
 					<Table theme={theme}>
 						<TableBody theme={theme} {...props}>
@@ -290,9 +311,9 @@ export class GridBody extends React.Component {
 export class GridRow extends React.Component {
 	static propTypes = {
 		...TableRow.propTypes,
-		TableRow: React.PropTypes.func,
+		TableRow: PropTypes.func,
 		//injected by GridBody (will be also by GridHead with implementation on multiple rows in head)
-		[GRID_ROW_INDEX_KEY]: React.PropTypes.number
+		[GRID_ROW_INDEX_KEY]: PropTypes.number
 	}
 
 	static defaultProps = {
@@ -316,7 +337,7 @@ export class GridRow extends React.Component {
 	}
 
 	render() {
-		const {TableRow, ...props} = this.props;
+		const { TableRow, ...props } = this.props;
 		const rowIndex = this.props[GRID_ROW_INDEX_KEY];
 		return (
 			<TableRow {...props}>
@@ -366,13 +387,13 @@ export class GridCell extends React.Component {
 	static propTypes = {
 		...TableCell.propTypes,
 		//injected by GridRow
-		[GRID_COLUMN_INDEX_KEY]: React.PropTypes.number,
+		[GRID_COLUMN_INDEX_KEY]: PropTypes.number,
 		//injected by GridRow
-		[GRID_ROW_INDEX_KEY]: React.PropTypes.number,
+		[GRID_ROW_INDEX_KEY]: PropTypes.number,
 		//injected by GridHead
-		[GRID_COLUMN_WIDTH_KEY]: React.PropTypes.number,
-		TableCell: React.PropTypes.func,
-		align: React.PropTypes.oneOf(Object.values(GRID_CELL_ALIGN))
+		[GRID_COLUMN_WIDTH_KEY]: PropTypes.number,
+		TableCell: PropTypes.func,
+		align: PropTypes.oneOf(Object.values(GRID_CELL_ALIGN))
 	}
 
 	static defaultProps = {
@@ -413,11 +434,15 @@ export class GridCell extends React.Component {
 	}
 
 	render() {
-		let {TableCell, align, ...props} = this.props;
+		let { TableCell, align, ...props } = this.props;
 		const columnWidth = props[GRID_COLUMN_WIDTH_KEY];
 		delete props[GRID_COLUMN_INDEX_KEY];
 		delete props[GRID_COLUMN_WIDTH_KEY];
 		delete props[GRID_ROW_INDEX_KEY];
+
+		//todo support colspan/rowspans, for now it's difficult to sync width with header
+		delete props['colSpan'];
+		delete props['rowSpan'];
 
 		let style;
 		if (typeof columnWidth !== 'undefined') {

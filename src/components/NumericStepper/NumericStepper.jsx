@@ -1,10 +1,10 @@
 import React from 'react';
-import {themr} from 'react-css-themr';
-import {PURE} from 'dx-util/src/react/pure';
-import Input from '../Input/Input.jsx';
-import Holdable from '../Holdable/Holdable.jsx';
-import ButtonIcon from '../ButtonIcon/ButtonIcon.jsx';
-import Button from '../Button/Button.jsx';
+import { themr } from 'react-css-themr';
+import { PURE } from 'dx-util/lib/react/pure';
+import Input from '../Input/Input';
+import { Holdable } from '../Holdable/Holdable.tsx';
+import { ButtonIcon } from '../ButtonIcon/ButtonIcon';
+import { Button } from '../Button/Button';
 import classnames from 'classnames';
 
 export const NUMERIC_STEPPER = Symbol('NumericStepper');
@@ -22,50 +22,26 @@ const KEYCODE = {
 @PURE
 @themr(NUMERIC_STEPPER)
 export default class NumericStepper extends React.Component {
-
 	static propTypes = {
 		pattern: React.PropTypes.instanceOf(RegExp),
 		isDisabled: React.PropTypes.bool,
+		manualEdit: React.PropTypes.bool,
 		onChange: React.PropTypes.func,
+		onClick: React.PropTypes.func,
 		formatter: React.PropTypes.func,
-		defaultValue(props) {
-			const {defaultValue, value, min, max} = props;
-			const type = typeof defaultValue;
-			if (type !== 'undefined') {
-				if (type !== 'number') {
-					throw new Error('DefaultValue should be a number');
-				} else {
-					if (defaultValue < min || defaultValue > max) {
-						throw new Error(`DefaultValue: ${defaultValue} should be greater than min: ${min} 
-						and lower than max: ${max}`);
-					}
-				}
-			} else {
-				if (typeof value === 'undefined') {
-					throw new Error('Either defaultValue or value should be specified');
-				}
-			}
-		},
+		parser: React.PropTypes.func,
 		value(props) {
-			const {defaultValue, value, min, max} = props;
+			const { value, min, max } = props;
 			const type = typeof value;
-			if (type !== 'undefined') {
-				if (type !== 'number') {
-					throw new Error('Value should be a number');
-				} else {
-					if (value < min || value > max) {
-						throw new Error(`Value: ${value} should be greater than min: ${min} 
-						and lower than max: ${max}`);
-					}
-				}
-			} else {
-				if (typeof defaultValue === 'undefined') {
-					throw new Error('Either defaultValue or value should be specified');
-				}
+
+			if (type === 'number' && (value < min || value > max)) {
+				throw new Error(
+					`Value: ${value} should be greater than min: ${min} and lower than max: ${max}`
+				);
 			}
 		},
 		min(props) {
-			const {min, max} = props;
+			const { min, max } = props;
 			const type = typeof min;
 			if (type !== 'undefined') {
 				if (type !== 'number') {
@@ -78,7 +54,7 @@ export default class NumericStepper extends React.Component {
 			}
 		},
 		max(props) {
-			const {min, max} = props;
+			const { min, max } = props;
 			const type = typeof max;
 			if (type !== 'undefined') {
 				if (type !== 'number') {
@@ -91,6 +67,7 @@ export default class NumericStepper extends React.Component {
 			}
 		},
 		step: React.PropTypes.number,
+
 		HoldableComponent: React.PropTypes.func,
 		ButtonComponent: React.PropTypes.func,
 		InputComponent: React.PropTypes.func,
@@ -113,59 +90,10 @@ export default class NumericStepper extends React.Component {
 		})
 	};
 
-	constructor(...args) {
-		super(...args);
-		const {defaultValue, value, formatter} = this.props;
-
-		this.state = {
-			isFocused: false
-		};
-
-		let newValue;
-
-		if (typeof value !== 'undefined') {
-			newValue = value;
-		} else if (typeof defaultValue !== 'undefined') {
-			newValue = defaultValue;
-		}
-
-		this.state = {
-			...this.state,
-			value: newValue,
-			formattedValue: this._getFormattedValue(newValue)
-		};
-	}
-
-	componentWillReceiveProps(newProps) {
-		const {defaultValue} = newProps;
-		const newPropsContainNewValue = typeof newProps.value !== 'undefined';
-		if (newPropsContainNewValue) {
-			this.setState({
-				value: newProps.value
-			});
-		} else {
-			const previousValueIsReset = typeof this.props.value !== 'undefined' && !newPropsContainNewValue;
-			if (previousValueIsReset) {
-				this.setState({
-					value: (void 0), //eslint-disable-line no-void
-				});
-			}
-			const hasCurrentValue = typeof this.state.value !== 'undefined';
-			const newPropsContainNewDefaultValue = typeof newProps.defaultValue !== 'undefined';
-			const shouldSetNewDefaultValue =
-				(previousValueIsReset || !hasCurrentValue) && newPropsContainNewDefaultValue;
-
-			if (shouldSetNewDefaultValue) {
-				this.setState({
-					value: defaultValue,
-				});
-			}
-		}
-	}
-
 	static defaultProps = {
 		step: 1,
 		pattern: /^-?$|^-?\d*([.]\d*)?$/,
+		manualEdit: true,
 		max: Infinity,
 		min: -Infinity,
 		isDisabled: false,
@@ -174,30 +102,64 @@ export default class NumericStepper extends React.Component {
 		ButtonComponent: ButtonIcon
 	};
 
-	_getFormattedValue(value) {
-		const {formatter} = this.props;
-		return formatter ? formatter(Number(value)) : value;
+	state = {
+		isFocused: false,
+		displayedValue: this.formatValue(this.props.value)
+	};
+
+	componentWillReceiveProps(newProps) {
+		this.setState({
+			displayedValue: this.formatValue(newProps.value)
+		});
 	}
 
-	setValue(newValue) {
-		const {value} = this.state;
-		const {onChange} = this.props;
+	/**
+	 * @param {number} value
+	 * @returns {string|number}
+	 */
+	formatValue(value) {
+		const { formatter } = this.props;
+		return formatter ? formatter(value) : value;
+	}
 
-		if (newValue !== value) {
-			this.setState({
-				value: newValue,
-				formattedValue: this._getFormattedValue(newValue)
-			});
-			onChange && onChange(newValue);
+	/**
+	 * Trying to parse the entered string to a number.
+	 * Done here because `onChange` should return a valid numeric value if possible,
+	 * e.g. for proper interop with `stateful`.
+	 * @param {string} value
+	 * @returns {number}
+	 */
+	parseValue(value) {
+		const { parser } = this.props;
+
+		// If `parser` function is specified, try to parse.
+		if (parser) {
+			return parser(value);
+		} else {
+			// Cast to an integer otherwise or return as is if falied.
+			const num = Number(value);
+			return isNaN(num) ? value : num;
+		}
+	}
+
+	getPrecision(step) {
+		if (Number.isInteger(step)) {
+			return 0;
+		} else {
+			return step.toString(10).split('.')[1].length;
 		}
 	}
 
 	step(n) {
-		const {value} = this.state;
-		const {step, min, max} = this.props;
-		const newValue = (value || 0) + (step * n);
-		if (newValue >= min || newValue <= max) {
-			this.setValue(newValue);
+		const { step, min, max, value, onChange } = this.props;
+		const num = value + n * step;
+		const precision = this.getPrecision(step);
+
+		const frac = Math.pow(10, precision);
+		const newValue = Math.round(num * frac) / frac;
+
+		if (newValue >= min && newValue <= max && newValue !== value) {
+			onChange && onChange(newValue);
 		}
 	}
 
@@ -210,7 +172,8 @@ export default class NumericStepper extends React.Component {
 	}
 
 	render() {
-		const {value, isFocused, formattedValue} = this.state;
+		const { value } = this.props;
+		const { displayedValue } = this.state;
 
 		const {
 			theme,
@@ -219,59 +182,56 @@ export default class NumericStepper extends React.Component {
 			upIconName,
 			downIconName,
 			isDisabled,
+			manualEdit,
+			onClick,
 			pattern,
 			HoldableComponent: Holdable,
 			InputComponent: Input,
 			ButtonComponent: Button,
 		} = this.props;
 
-		const {onWheel, onChange, onBlur, onFocus, onKeyDown} = this;
-
-		const inputProps = {
-			value: formattedValue || value,
-			type: 'text',
-			disabled: isDisabled,
-			onBlur,
-			onChange,
-			onFocus,
-			pattern,
-			onKeyDown,
-			theme: {
-				container: theme.input
-			}
+		const inputTheme = {
+			container: theme.input
 		};
 
-		if (!isDisabled && isFocused) {
-			inputProps.onWheel = onWheel;
-		}
 		const buttonTheme = Object.keys(BUTTON_TYPE).reduce((acc, current) => {
-			return {
-				...acc,
-				[current]: {
-					container: classnames(theme.button, theme[`button_${BUTTON_TYPE[current]}`]),
-					icon: classnames(theme.button__icon)
-				}
+			acc[current] = {
+				container: classnames(theme.button, theme[`button_${BUTTON_TYPE[current]}`]),
+				icon: classnames(theme.button__icon)
 			};
+			return acc;
 		}, {});
 
 		const className = classnames(theme.container, {
-			[theme.container_isInvalid]: (typeof formattedValue !== 'undefined' && isNaN(formattedValue)) ||
-			value < min || value > max
+			[theme.container_isInvalid]: isNaN(value) || value < min || value > max
 		});
 
 		return (
 			<div className={className}>
-				<Input key="input" {...inputProps} />
+				<Input value={displayedValue}
+					type="text"
+					disabled={isDisabled}
+					onBlur={this.onBlur}
+					onChange={this.onInputChange}
+					onClick={onClick}
+					onFocus={this.onFocus}
+					pattern={pattern}
+					onKeyDown={this.onKeyDown}
+					onWheel={this.onWheel}
+					theme={inputTheme}
+					readOnly={!manualEdit} />
 				<div className={theme.buttons}>
-					<Holdable onHold={this.onButtonDownClick} isDisabled={isDisabled || value <= min}>
+					<Holdable onHold={this.onButtonDownClick}>
 						<Button onClick={this.onButtonDownClick}
-						        name={downIconName}
-						        theme={buttonTheme.UP}/>
+							name={downIconName}
+							theme={buttonTheme.DOWN}
+							isDisabled={isDisabled} />
 					</Holdable>
-					<Holdable onHold={this.onButtonUpClick} isDisabled={isDisabled || value >= max}>
+					<Holdable onHold={this.onButtonUpClick}>
 						<Button onClick={this.onButtonUpClick}
-						        theme={buttonTheme.DOWN}
-						        name={upIconName}/>
+							theme={buttonTheme.UP}
+							name={upIconName}
+							isDisabled={isDisabled} />
 					</Holdable>
 				</div>
 			</div>
@@ -289,12 +249,17 @@ export default class NumericStepper extends React.Component {
 		}
 	}
 
-	onChange = (event) => {
-		const {value: newValue} = event.target;
-		this.setState({
-			formattedValue: (void 0), //eslint-disable-line no-void,
-			value: newValue
-		});
+	onInputChange = (event) => {
+		if (!this.props.manualEdit) {
+			return;
+		}
+
+		const { value } = event.target;
+		if (this.state.isFocused) {
+			this.setState({
+				displayedValue: value
+			});
+		}
 	}
 
 	onFocus = () => {
@@ -303,20 +268,33 @@ export default class NumericStepper extends React.Component {
 		});
 	}
 
-	onBlur = (event) => {
-		const {value} = event.target;
+	onBlur = event => {
+		if (!this.props.manualEdit) {
+			return;
+		}
+
+		const { value } = event.target;
+		const newValue = this.parseValue(value);
+
 		this.setState({
 			isFocused: false,
-			value,
-			formattedValue: this._getFormattedValue(value)
+			displayedValue: this.formatValue(newValue)
 		});
+
+		const { onChange } = this.props;
+		onChange && onChange(newValue);
 	}
 
 	onWheel = e => {
-		if (e.deltaY < 0) {
-			this.increase();
-		} else {
-			this.decrease();
+		const { isDisabled } = this.props;
+		const { isFocused } = this.state;
+
+		if (!isDisabled && isFocused) {
+			if (e.deltaY < 0) {
+				this.increase();
+			} else {
+				this.decrease();
+			}
 		}
 	}
 

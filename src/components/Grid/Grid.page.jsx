@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@kadira/storybook';
 import Demo from '../../demo/Demo';
-import {PURE} from 'dx-util/src/react/pure';
+import {PURE} from 'dx-util/lib/react/pure';
 
 import {
 	Grid,
@@ -24,6 +24,8 @@ const gridTheme = {
 	gridCell__content_left: css.gridCell__content_left,
 	gridCell__content_center: css.gridCell__content_center,
 	gridCell__content_right: css.gridCell__content_right,
+	horizontal_scrollbar__bar: css.horizontal_scrollbar__bar,
+	vertical_scrollbar__bar: css.vertical_scrollbar__bar
 };
 
 @PURE

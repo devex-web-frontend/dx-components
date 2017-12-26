@@ -1,13 +1,44 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import { storiesOf } from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
-import Button from '../Button/Button.jsx';
-import Selectbox from './Selectbox.jsx';
-import MenuItem from '../Menu/MenuItem.jsx';
-import {PURE} from 'dx-util/src/react/pure';
+import { Button } from '../Button/Button';
+import { Selectbox } from './Selectbox.tsx';
+import { SelectboxAnchor } from './SelectboxAnchor.tsx';
+import { MenuItem } from '../Menu/Menu.tsx';
+import { PURE } from 'dx-util/lib/react/pure';
 
 import iconListItemTick from './img/icon-list-item-tick.svg';
 import iconSmallDropdownArrow from './img/icon-small-dropdown-arrow.svg';
+import { stateful } from '../Control/Control';
+
+import * as selectoxPageCss from './Selectbox.page.styl';
+const wideSelectboxTheme = {
+	container__anchor: selectoxPageCss.container__anchor
+};
+
+class DemoSelectboxAnchor extends React.Component {
+	render() {
+		const newProps = {
+			...this.props,
+			isPrimary: true
+		};
+		return <SelectboxAnchor {...newProps}/>;
+	}
+}
+
+class DemoSelectbox extends React.Component {
+	render() {
+		const newProps = {
+			...this.props,
+			AnchorComponent: DemoSelectboxAnchor,
+			caretIconName: iconSmallDropdownArrow,
+		};
+
+		return <Selectbox {...newProps} />;
+	}
+}
+
+const Stateful = stateful()(DemoSelectbox);
 
 @PURE
 class SelectboxPage extends React.Component {
@@ -17,51 +48,42 @@ class SelectboxPage extends React.Component {
 		return (
 			<Demo>
 				<div>
-					<Selectbox placeholder="Choose your hero"
-					           isPrimary={true}
-					           selectedItemIconName={iconListItemTick}
-					           onChange={this.onHeroChange}
-					           caretIconName={iconSmallDropdownArrow}>
+					<Stateful placeholder="Choose your hero"
+					          selectedItemIconName={iconListItemTick}
+					          onValueChange={this.onHeroChange}
+					          caretIconName={iconSmallDropdownArrow}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
-					</Selectbox>
-					<Selectbox placeholder="Controlled by left"
-					           isPrimary={true}
-					           value={this.state.hero}
-					           onChange={this.onHeroChange}
-					           selectedItemIconName={iconListItemTick}
-					           caretIconName={iconSmallDropdownArrow}>
+					</Stateful>
+					<DemoSelectbox placeholder="Controlled by left"
+					               value={this.state.hero}
+					               selectedItemIconName={iconListItemTick}
+					               onValueChange={this.onHeroChange}
+					               caretIconName={iconSmallDropdownArrow}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
-					</Selectbox>
-					<Selectbox defaultValue="batman"
-					           isPrimary={true}
-					           value={this.state.hero}
-					           onChange={this.onHeroChange}
-					           selectedItemIconName={iconListItemTick}
-					           caretIconName={iconSmallDropdownArrow}>
-						<MenuItem value="superman">Superman</MenuItem>
-						<MenuItem value="batman">Batman</MenuItem>
-						<MenuItem value="flash">Flash</MenuItem>
-					</Selectbox>
+					</DemoSelectbox>
+					<Stateful placeholder="Loading"
+					          isDisabled={true}
+					          isLoading={true}>
+						<MenuItem value="dummy">Dummy</MenuItem>
+					</Stateful>
 					<Button onClick={this.onResetClick}>Reset</Button>
 				</div>
-
-				<div>
-					<Selectbox defaultValue="superman">
+				<section>
+					Sync width
+					<Stateful placeholder="Choose your hero"
+					          shouldSyncWidth={true}
+					          theme={wideSelectboxTheme}
+					          selectedItemIconName={iconListItemTick}
+					          caretIconName={iconSmallDropdownArrow}>
 						<MenuItem value="superman">Superman</MenuItem>
 						<MenuItem value="batman">Batman</MenuItem>
 						<MenuItem value="flash">Flash</MenuItem>
-					</Selectbox>
-					<Selectbox defaultValue="superman"
-					           isDisabled={true}>
-						<MenuItem value="superman">Superman</MenuItem>
-						<MenuItem value="batman">Batman</MenuItem>
-						<MenuItem value="flash">Flash</MenuItem>
-					</Selectbox>
-				</div>
+					</Stateful>
+				</section>
 			</Demo>
 		);
 	}

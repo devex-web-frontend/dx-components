@@ -1,11 +1,10 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import { storiesOf } from '@kadira/storybook';
 import Demo from '../../demo/Demo.jsx';
-import List from './List.jsx';
-import Item from './ListItem.jsx';
-import ItemGroup from './ListItemGroup.jsx';
+import { List, ListItem, ListItemGroup } from './List.tsx';
 
 import css from './List.page.styl';
+
 const theme = {
 	container: css.list
 };
@@ -14,29 +13,29 @@ storiesOf('List', module).add('default', () => {
 	return (
 		<Demo>
 			<List theme={theme}>
-				<Item>1.1</Item>
-				<Item>1.2</Item>
-				<ItemGroup header={2}>
+				<ListItem>1.1</ListItem>
+				<ListItem>1.2</ListItem>
+				<ListItemGroup header={2}>
 					<List>
-						<Item>2.1</Item>
-						<Item>2.2</Item>
-						<ItemGroup header={3}>
+						<ListItem>2.1</ListItem>
+						<ListItem>2.2</ListItem>
+						<ListItemGroup header={3}>
 							<List>
-								<Item>3.1</Item>
-								<Item>3.2</Item>
-								<ItemGroup header={4}>
+								<ListItem>3.1</ListItem>
+								<ListItem>3.2</ListItem>
+								<ListItemGroup header={4}>
 									<List>
-										<Item>4.1</Item>
-										<Item>4.2</Item>
-										<Item>4.3</Item>
+										<ListItem>4.1</ListItem>
+										<ListItem>4.2</ListItem>
+										<ListItem>4.3</ListItem>
 									</List>
-								</ItemGroup>
-								<Item>3.3</Item>
+								</ListItemGroup>
+								<ListItem>3.3</ListItem>
 							</List>
-						</ItemGroup>
+						</ListItemGroup>
 					</List>
-				</ItemGroup>
-				<Item>1.3</Item>
+				</ListItemGroup>
+				<ListItem>1.3</ListItem>
 			</List>
 		</Demo>
 	);

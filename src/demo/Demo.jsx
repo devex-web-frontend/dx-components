@@ -1,14 +1,16 @@
 import React from 'react';
-import {themr, ThemeProvider} from 'react-css-themr';
+import { themr, ThemeProvider as ThemrProvider } from 'react-css-themr';
+import * as PropTypes from 'prop-types';
+import { ThemeProvider } from '../util/react/withTheme';
 
 import css from './Demo.styl';
 
 import theme from './theme.js';
 
 const PROP_TYPES = {
-	children: React.PropTypes.node.isRequired,
-	theme: React.PropTypes.shape({
-		container: React.PropTypes.string
+	children: PropTypes.node.isRequired,
+	theme: PropTypes.shape({
+		container: PropTypes.string
 	})
 };
 
@@ -17,7 +19,7 @@ class DemoComponent extends React.Component {
 	static propTypes = PROP_TYPES;
 
 	render() {
-		const {children, theme} = this.props;
+		const { children, theme } = this.props;
 
 		return (
 			<section className={theme.container}>
@@ -28,13 +30,18 @@ class DemoComponent extends React.Component {
 }
 
 const Demo = props => (
-	<ThemeProvider theme={theme}>
-		<DemoComponent theme={props.theme}>
-			{props.children}
-		</DemoComponent>
-	</ThemeProvider>
+	<ThemrProvider theme={theme}>
+		<ThemeProvider theme={theme}>
+			<DemoComponent theme={props.theme}>
+				{props.children}
+			</DemoComponent>
+		</ThemeProvider>
+	</ThemrProvider>
 );
 
 Demo.propTypes = PROP_TYPES;
 
 export default Demo;
+export {
+	Demo
+};

@@ -1,7 +1,8 @@
 import React from 'react';
-import {themr} from 'react-css-themr';
-import {PURE} from 'dx-util/src/react/pure';
+import { themr } from 'react-css-themr';
+import { PURE } from 'dx-util/lib/react/pure';
 import classnames from 'classnames';
+import * as PropTypes from 'prop-types';
 
 export const TABLE = Symbol('Table');
 export const TABLE_IS_IN_HEAD_KEY = '__TABLE_IS_IN_HEAD_KEY__';
@@ -10,14 +11,14 @@ export const TABLE_IS_IN_HEAD_KEY = '__TABLE_IS_IN_HEAD_KEY__';
 @themr(TABLE)
 export default class Table extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			container: React.PropTypes.string
+		children: PropTypes.node,
+		theme: PropTypes.shape({
+			container: PropTypes.string
 		})
 	}
 
 	render() {
-		const {theme, children} = this.props;
+		const { theme, children } = this.props;
 
 		return (
 			<table className={theme.container}>
@@ -34,39 +35,39 @@ export {
 @themr(TABLE)
 export class TableHead extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			head: React.PropTypes.string
+		children: PropTypes.node,
+		theme: PropTypes.shape({
+			head: PropTypes.string
 		})
 	}
 
 	render() {
-		const {children, theme} = this.props;
-
-		//todo support multiple rows in head
+		const { children, theme } = this.props;
 
 		return (
 			<thead className={theme.head}>
-				{React.cloneElement(React.Children.only(children), {
+				{React.Children.map(children, child => child && React.cloneElement(child, {
 					[TABLE_IS_IN_HEAD_KEY]: true
-				})}
+				}))}
 			</thead>
 		);
 	}
 }
 
+export const TABLE_BODY_THEME = {
+	body: PropTypes.string
+};
+
 @PURE
 @themr(TABLE)
 export class TableBody extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			body: React.PropTypes.string
-		})
+		children: PropTypes.node,
+		theme: PropTypes.shape(TABLE_BODY_THEME)
 	}
 
 	render() {
-		const {children, theme} = this.props;
+		const { children, theme } = this.props;
 
 		return (
 			<tbody className={theme.body}>
@@ -80,23 +81,30 @@ export class TableBody extends React.Component {
 @themr(TABLE)
 export class TableRow extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			row: React.PropTypes.string
+		children: PropTypes.node,
+		onClick: PropTypes.func,
+		onMouseOver: PropTypes.func,
+		onMouseOut: PropTypes.func,
+		theme: PropTypes.shape({
+			row: PropTypes.string
 		}),
+		onClick: PropTypes.func,
 		//not for direct usage
 		//injected by TableHead
-		[TABLE_IS_IN_HEAD_KEY]: React.PropTypes.bool
+		[TABLE_IS_IN_HEAD_KEY]: PropTypes.bool
 	}
 
 	render() {
-		const {children, theme} = this.props;
+		const { children, theme, onClick, onMouseOver, onMouseOut } = this.props;
 		const isInHead = this.props[TABLE_IS_IN_HEAD_KEY];
 
 		return (
-			<tr className={theme.row}>
+			<tr className={theme.row}
+			    onClick={onClick}
+			    onMouseOver={onMouseOver}
+			    onMouseOut={onMouseOut}>
 				{!isInHead && children}
-				{isInHead && React.Children.map(children, child => (
+				{isInHead && React.Children.map(children, child => child && (
 					React.cloneElement(child, {
 						[TABLE_IS_IN_HEAD_KEY]: isInHead
 					})
@@ -110,20 +118,21 @@ export class TableRow extends React.Component {
 @themr(TABLE)
 export class TableCell extends React.Component {
 	static propTypes = {
-		children: React.PropTypes.node,
-		theme: React.PropTypes.shape({
-			cell: React.PropTypes.string,
-			cell_isInHead: React.PropTypes.string
+		children: PropTypes.node,
+		theme: PropTypes.shape({
+			cell: PropTypes.string,
+			cell_isInHead: PropTypes.string
 		}),
-		style: React.PropTypes.object,
+		style: PropTypes.object,
 		//not for direct usage
 		//injected by TableHead
-		[TABLE_IS_IN_HEAD_KEY]: React.PropTypes.bool
+		[TABLE_IS_IN_HEAD_KEY]: PropTypes.bool,
+		colSpan: PropTypes.number,
+		rowSpan: PropTypes.number
 	}
 
 	render() {
-		//todo support colspan/rowspans, for now it's difficult to sync width with header
-		const {children, theme, style} = this.props;
+		const { children, theme, style, colSpan, rowSpan } = this.props;
 		const isInHead = this.props[TABLE_IS_IN_HEAD_KEY];
 
 		const className = classnames(
@@ -137,7 +146,10 @@ export class TableCell extends React.Component {
 		const Tag = isInHead ? 'th' : 'td';
 
 		return (
-			<Tag className={className} style={style}>
+			<Tag className={className}
+			     style={style}
+			     colSpan={colSpan}
+			     rowSpan={rowSpan}>
 				{children}
 			</Tag>
 		);
