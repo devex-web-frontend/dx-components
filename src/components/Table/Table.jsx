@@ -88,6 +88,7 @@ export class TableRow extends React.Component {
 		theme: PropTypes.shape({
 			row: PropTypes.string
 		}),
+		onClick: PropTypes.func,
 		//not for direct usage
 		//injected by TableHead
 		[TABLE_IS_IN_HEAD_KEY]: PropTypes.bool
