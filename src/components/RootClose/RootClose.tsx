@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { Component, KeyboardEventHandler, MouseEvent, MouseEventHandler, ReactElement } from 'react';
+import {
+	Component,
+	KeyboardEventHandler,
+	MouseEvent,
+	MouseEventHandler,
+	ReactElement,
+	TouchEventHandler
+} from 'react';
 import { EventListener } from '../EventListener/EventListener';
 import { findDOMNode } from 'react-dom';
 import { KeyCode } from '../Control/Control';
@@ -20,10 +27,13 @@ export class RootClose extends Component<TRootCloseProps> {
 
 	render() {
 		return (
-			<EventListener target={document}
-			               onClick={this.handleClick}
-			               onClickCapture={this.handleClickCapture}
-			               onKeyUp={this.handleKeyUp}>
+			<EventListener
+				target={document}
+				onClick={this.handleClick}
+				onClickCapture={this.handleClickCapture}
+				onTouchStart={this.handleTouchStart}
+				onTouchStartCapture={this.handleTouchStartCapture}
+				onKeyUp={this.handleKeyUp}>
 				{this.props.children}
 			</EventListener>
 		);
@@ -37,6 +47,16 @@ export class RootClose extends Component<TRootCloseProps> {
 	}
 
 	private handleClick: MouseEventHandler<HTMLElement> = e => {
+		if (!this.props.ignoreClick && !this.preventMouseRootClose && this.props.onRootClose) {
+			this.props.onRootClose();
+		}
+	}
+
+	private handleTouchStartCapture: TouchEventHandler<HTMLElement> = e => {
+		this.preventMouseRootClose = findDOMNode(this).contains(e.target as Node);
+	}
+
+	private handleTouchStart: TouchEventHandler<HTMLElement> = e => {
 		if (!this.props.ignoreClick && !this.preventMouseRootClose && this.props.onRootClose) {
 			this.props.onRootClose();
 		}
