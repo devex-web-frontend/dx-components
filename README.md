@@ -51,12 +51,13 @@
 - ListItemComponent prop was replaced with ListItem
 
 ## MenuItemGroup
-- ListItemGroupComponent props was replaced with ListItemGroup 
+- ListItemGroupComponent props was replaced with ListItemGroup
 - ListComponent prop was with List
 
 ## Popover
 - PLACEMENT was replaced with PopoverPlacement enum
 - ALIGN was replaced with PopoverAlign enum
+- type of `container` is now `Element | null | undefined` istead of `TPortalProps['container'] | undefined`
 
 ## SelectboxAnchor
 - IconComponent prop was replaced with Icon
