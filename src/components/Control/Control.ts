@@ -102,7 +102,7 @@ export function stateful<N extends string = 'value', D extends string = 'default
 
 			componentWillMount() {
 				this.setState({
-					value: this.props[defaultValueName as string]
+					value: (this.props as any)[defaultValueName as string]
 				});
 			}
 
@@ -123,7 +123,7 @@ export function stateful<N extends string = 'value', D extends string = 'default
 				this.setState({
 					value
 				});
-				const onValueChange = this.props[handlerName as string];
+				const onValueChange = (this.props as any)[handlerName as string];
 				onValueChange && onValueChange(value);
 			}
 		}

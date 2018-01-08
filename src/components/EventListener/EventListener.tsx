@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Component, ReactElement } from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
 import { shallowEqual } from 'dx-util/lib/object/fb';
@@ -10,7 +9,7 @@ type Handlers = {
 export type TEventListenerProps = {
 	[onEvent: string]: Function | boolean | string | object | undefined,
 	capture?: boolean,
-	target: EventTarget | string,
+	target: EventTarget | keyof Window,
 	children: ReactElement<any>
 };
 
@@ -78,8 +77,8 @@ export class EventListener extends Component<TEventListenerProps> {
 		const { target, children, ...props } = this.props;
 		const propKeys = Object.keys(props);
 		const eventKeys = propKeys.filter(key => key.startsWith('on'));
-		const handlers = eventKeys.reduce((acc, key) => {
-			acc[key] = props[key];
+		const handlers = eventKeys.reduce<Handlers>((acc, key) => {
+			acc[key] = props[key] as Function;
 			return acc;
 		}, {});
 		return handlers;

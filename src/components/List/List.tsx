@@ -15,7 +15,8 @@ const CONTEXT_TYPES = {
 
 export type TFullListProps = {
 	theme: {
-		container?: string
+		container?: string,
+		[container_level_: string]: string | undefined
 	},
 	children: ReactNode,
 	level?: number
@@ -42,7 +43,8 @@ export const List: ComponentClass<TListProps> = withTheme(LIST)(RawList);
 
 export type TFullListItemProps = {
 	theme: {
-		item?: string
+		item?: string,
+		[item_level_: string]: string | undefined
 	},
 	children?: ReactNode,
 	level?: number,
@@ -76,7 +78,8 @@ export type TFullListItemGroupProps = {
 	theme: {
 		itemGroup?: string,
 		itemGroup_isCollapsed?: string,
-		itemGroup__header?: string
+		itemGroup__header?: string,
+		[itemGroup_level_: string]: string | undefined
 	},
 	onClick?: MouseEventHandler<HTMLElement>
 };

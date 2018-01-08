@@ -79,7 +79,7 @@ export function withTheme(name: string | symbol, defaultTheme: TTheme = {}) {
 			}
 		}
 
-		Themed[THEME_CONFIG_KEY] = config;
+		(Themed as any)[THEME_CONFIG_KEY] = config;
 
 		return Themed;
 	}
@@ -97,7 +97,7 @@ export function mergeThemes(...themes: TTheme[]): TTheme {
 function mergeTwo(original: TTheme = {}, mixin: TTheme = {}): TTheme {
 	//make a copy to avoid mutations of nested objects
 	//also strip all functions injected by isomorphic-style-loader
-	const result = Object.keys(original).reduce((acc, key) => {
+	const result = Object.keys(original).reduce<TTheme>((acc, key) => {
 		const value = original[key];
 		if (typeof value !== 'function') {
 			acc[key] = value;
@@ -117,7 +117,7 @@ function mergeTwo(original: TTheme = {}, mixin: TTheme = {}): TTheme {
 				switch (typeof originalValue) {
 					case 'object': {
 						//exactly nested theme object - go recursive
-						result[key] = mergeThemes(originalValue, mixinValue as TTheme);
+						result[key] = mergeThemes(originalValue as {}, mixinValue as TTheme);
 						break;
 					}
 

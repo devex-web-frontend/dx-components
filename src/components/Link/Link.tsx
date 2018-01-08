@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
-import { themr } from 'react-css-themr';
 import * as classnames from 'classnames';
 import { MouseEvent, EventHandler, ComponentClass } from 'react';
 import { withTheme } from '../../util/react/withTheme';

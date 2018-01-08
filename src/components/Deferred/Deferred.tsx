@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { ComponentClass, PureComponent, ReactElement } from 'react';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
@@ -33,7 +32,6 @@ class RawDeferred extends PureComponent<TRawDeferredProps, TDeferredState> {
 	}
 
 	componentWillUpdate() {
-		console.log('update');
 		clearTimeout(this.timeout);
 		this.delay();
 	}

@@ -10,7 +10,7 @@
     "noImplicitThis": true,
     "pretty": true,
     "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
     "target": "es5",
     "lib": [
       "dom",
@@ -19,9 +19,6 @@
       "es2015.symbol",
       "es2017.object",
       "es2016.array.include"
-    ],
-    "typeRoots": [
-      "./node_modules/@types"
     ]
   },
   "include": [

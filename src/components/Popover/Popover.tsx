@@ -143,9 +143,7 @@ class RawPopover extends React.Component<TFullPopoverProps, TPopoverState> {
 				{
 					[theme.container_hasArrow as string]: hasArrow
 				},
-				[
-					getPlacementModifier(finalPlacement)
-				].map(mod => theme[`container_${mod}`])
+				getPlacementClassName(finalPlacement)
 			);
 		}
 		style = {
@@ -539,19 +537,19 @@ function movePopoverHorizontally(placement: PopoverPlacement,
 	return undefined;
 }
 
-function getPlacementModifier(placement: PopoverPlacement): string {
+function getPlacementClassName(placement: PopoverPlacement): keyof TFullPopoverProps['theme'] {
 	switch (placement) {
 		case PopoverPlacement.Bottom: {
-			return 'placementBottom';
+			return 'container_placementBottom';
 		}
 		case PopoverPlacement.Top: {
-			return 'placementTop';
+			return 'container_placementTop';
 		}
 		case PopoverPlacement.Left: {
-			return 'placementLeft';
+			return 'container_placementLeft';
 		}
 		case PopoverPlacement.Right: {
-			return 'placementRight';
+			return 'container_placementRight';
 		}
 	}
 }
