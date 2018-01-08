@@ -24,8 +24,8 @@ describe('react/withTheme', () => {
 			const testTheme = {
 				container: '123'
 			};
-			const themed = <Themed foo="123" />;
-			const themedWithTheme = <Themed foo="123" theme={testTheme} />;
+			<Themed foo="123" />;
+			<Themed foo="123" theme={testTheme} />;
 		});
 
 		it('when used as HOF with React.SFC', () => {
@@ -37,8 +37,8 @@ describe('react/withTheme', () => {
 			const testTheme = {
 				container: '123'
 			};
-			const themed = <Themed foo="123" />;
-			const themedWithTheme = <Themed foo="123" theme={testTheme} />;
+			<Themed foo="123" />;
+			<Themed foo="123" theme={testTheme} />;
 		});
 	});
 });

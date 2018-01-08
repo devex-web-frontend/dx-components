@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { themr } from 'react-css-themr';
 import split from 'dx-util/lib/string/split';
 import { PURE } from 'dx-util/lib/react/pure';
 import { withTheme } from '../../util/react/withTheme';

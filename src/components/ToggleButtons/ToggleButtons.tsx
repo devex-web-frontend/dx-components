@@ -1,11 +1,9 @@
 import * as React from 'react';
 import {
-	Component, PropTypes, Children, ReactElement, ReactChild, EventHandler, MouseEventHandler,
-	ComponentClass
+	Component, PropTypes, ReactElement, ComponentClass
 } from 'react';
 import { PURE } from 'dx-util/lib/react/pure';
 import * as classnames from 'classnames';
-import { themr, themeable } from 'react-css-themr';
 import { mergeThemes, withTheme } from '../../util/react/withTheme';
 import { ObjectClean } from 'typelevel-ts';
 import { PartialKeys } from 'dx-util/lib/object/object';
