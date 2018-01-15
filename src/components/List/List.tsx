@@ -8,7 +8,7 @@ import { PURE } from 'dx-util/lib/react/pure';
 
 export const LIST = Symbol('List');
 const CONTEXT_LEVEL_KEY = '__LIST_CONTEXT_LEVEL_KEY__';
-const CONTEXT_TYPES = {
+const CONTEXT_TYPES: any = {
 	[CONTEXT_LEVEL_KEY]() {
 	}
 };
