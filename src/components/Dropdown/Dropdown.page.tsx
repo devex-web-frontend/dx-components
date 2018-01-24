@@ -11,7 +11,8 @@ import { stateful } from '../Control/Control';
 
 type TAnchorProps = WithInnerRef<{
 	onClick: MouseEventHandler<Element>,
-	children: ReactNode
+	children: ReactNode,
+	isOpened?: boolean,
 }>;
 
 const StatefulDropdown = stateful('isOpened', 'onToggle')(Dropdown);
@@ -19,14 +20,14 @@ const StatefulDropdown = stateful('isOpened', 'onToggle')(Dropdown);
 @PURE
 class AnchorClass extends Component<TAnchorProps> {
 	render() {
-		const { innerRef, children, onClick } = this.props;
+		const { innerRef, children, onClick, isOpened } = this.props;
 
 		console.log('rendering anchor class');
 
 		return (
 			<Button ref={innerRef}
 			        onClick={onClick}>
-				Class Anchor
+				Class Anchor{isOpened && ' is Opened'}
 				{children}
 			</Button>
 		);

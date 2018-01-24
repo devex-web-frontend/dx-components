@@ -14,7 +14,8 @@ export const DROPDOWN = Symbol('Dropdown');
 
 type TAnchorProps = WithInnerRef<{
 	onClick: MouseEventHandler<Element>,
-	children: ReactNode
+	children: ReactNode,
+	isOpened?: boolean,
 }>;
 
 export type TFullDropdownProps = TControlProps<boolean, 'isOpened', 'onToggle'> & {
@@ -39,6 +40,7 @@ class RawDropdown extends Component<TFullDropdownProps> {
 
 		return (
 			<Anchor onClick={this.onAnchorClick}
+					isOpened={isOpened}
 			        innerRef={this.innerRef}>
 				<Popover isOpened={isOpened}
 				         hasArrow={hasArrow}
