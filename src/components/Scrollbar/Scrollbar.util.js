@@ -37,7 +37,7 @@ let scrollbarSize;
  * @returns {*}
  */
 function getScrollbarSize(scrollbarContainerClassName) {
-	if (!scrollbarSize) {
+	if (!scrollbarSize && typeof document !== 'undefined') {
 		fixScrollStyles(scrollbarContainerClassName);
 
 		const dummy = document.createElement('div');
